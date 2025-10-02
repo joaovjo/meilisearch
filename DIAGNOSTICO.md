@@ -6,11 +6,13 @@
 
 ## Resumo Executivo
 
-A indexação do Meilisearch estava falhando devido a **dois problemas críticos**:
+O plugin Meilisearch apresentou **três problemas críticos** que foram identificados e resolvidos:
+
 1. **Configuração incorreta da URL** (faltava porta :7700)
 2. **Erro de primaryKey** (múltiplos campos terminando em 'id')
+3. **Chamada incorreta do multiSearch()** (arrays ao invés de objetos SearchQuery)
 
-Ambos os problemas foram identificados e corrigidos. O sistema está agora totalmente funcional com **24 documentos indexados** em 3 sites da rede.
+Os dois primeiros problemas impediam a indexação. O terceiro problema causava erros fatais nas buscas do frontend. Todos foram corrigidos e o sistema está agora totalmente funcional com **24 documentos indexados** em 3 sites da rede e **busca funcionando** em todos os sites.
 
 ---
 
@@ -75,6 +77,69 @@ $client->index($index_name)->addDocuments($documents, 'id');
 - `index_site_posts()` - Linhas 177 e 192 (batch e remaining)
 
 **Resultado**: ✅ Documentos indexados com sucesso
+
+---
+
+### Problema 3: Chamada Incorreta do multiSearch()
+
+**Sintoma nos logs**:
+```
+[02-Oct-2025 18:21:13 UTC] PHP Fatal error: Uncaught Error: Call to a member function toArray() on array
+in /var/www/html/wp-content/plugins/meilisearch/vendor/meilisearch/meilisearch-php/src/Endpoints/Delegates/HandlesMultiSearch.php:23
+Stack trace:
+#0 /var/www/html/wp-content/plugins/meilisearch/includes/class-searcher.php(60): Meilisearch\Client->multiSearch(Array)
+#1 /var/www/html/wp-content/plugins/meilisearch/public/class-search-override.php(66): Meilisearch_Searcher->search_network('exemplo', Array)
+```
+
+**Diagnóstico**:
+- O método `multiSearch()` do SDK Meilisearch espera um **array de objetos `SearchQuery`**
+- O código estava passando um **array de arrays simples**
+- Na linha 23 de `HandlesMultiSearch.php`, o SDK tenta chamar `$query->toArray()`, mas recebe um array ao invés de um objeto
+- Isso causava erro fatal toda vez que um usuário fazia uma busca no frontend
+
+**Código Original** (`class-searcher.php`):
+```php
+// Prepare multi-search queries.
+foreach ( $indexes as $index ) {
+    $queries[] = [
+        'indexUid' => $index,
+        'q'        => $query,
+        'limit'    => $args['limit'],
+        'offset'   => $args['offset'],
+    ];
+}
+
+try {
+    $results = $this->client->get_client()->multiSearch( [ 'queries' => $queries ] );
+    return $this->format_results( $results );
+```
+
+**Código Corrigido**:
+```php
+use Meilisearch\Contracts\SearchQuery;
+
+// Prepare multi-search queries.
+foreach ( $indexes as $index ) {
+    $search_query = ( new SearchQuery() )
+        ->setIndexUid( $index )
+        ->setQuery( $query )
+        ->setLimit( $args['limit'] )
+        ->setOffset( $args['offset'] );
+    
+    $queries[] = $search_query;
+}
+
+try {
+    $results = $this->client->get_client()->multiSearch( $queries );
+    return $this->format_results( $results );
+```
+
+**Mudanças Aplicadas**:
+1. Importado `use Meilisearch\Contracts\SearchQuery;` no topo do arquivo
+2. Modificado loop para criar objetos `SearchQuery` ao invés de arrays
+3. Removido wrapper `[ 'queries' => $queries ]` e passando apenas `$queries`
+
+**Resultado**: ✅ Busca no frontend funcionando sem erros
 
 ---
 
@@ -149,7 +214,28 @@ wp meilisearch status --network
 
 **Resultado**: ✅ Busca funcionando corretamente (1ms de resposta)
 
-### 3. Tasks do Meilisearch
+### 3. Busca no Frontend
+
+**URLs Testadas**:
+- http://10.28.13.21:31103/concursojornalisticoepublicitario/?s=exemplo
+- http://10.28.13.21:31103/labcom/?s=inteligente
+
+**Resultado para "inteligente"**:
+```html
+<h2>Resultados da pesquisa para "inteligente"</h2>
+<article id="post_101">
+  <h4><a href="http://10.28.13.21:31103/labcom/dica-inteligente/">Dica Inteligente</a></h4>
+</article>
+<article id="post_10">
+  <h4><a href="http://10.28.13.21:31103/labcom/politica-municipal-de-comunicacao-inteligente/">
+    Política Municipal de Comunicação Inteligente
+  </a></h4>
+</article>
+```
+
+**Resultado**: ✅ Busca no frontend retornando resultados do Meilisearch (2 posts encontrados)
+
+### 4. Tasks do Meilisearch
 Últimas 3 tasks (todas bem-sucedidas):
 
 ```json
@@ -214,7 +300,7 @@ Cada documento contém os seguintes campos:
 
 ## 🔧 Arquivos Modificados
 
-### `/var/www/html/wp-content/plugins/meilisearch/includes/class-indexer.php`
+### 1. `/var/www/html/wp-content/plugins/meilisearch/includes/class-indexer.php`
 
 **Linha 65** - Método `index_post()`:
 ```php
@@ -232,6 +318,51 @@ Cada documento contém os seguintes campos:
 ```php
 - $this->client->get_client()->index($index_name)->addDocuments($documents);
 + $this->client->get_client()->index($index_name)->addDocuments($documents, 'id');
+```
+
+### 2. `/var/www/html/wp-content/plugins/meilisearch/includes/class-searcher.php`
+
+**Topo do arquivo** - Adicionar import:
+```php
+<?php
+/**
+ * Meilisearch Searcher
+ *
+ * @package Meilisearch
+ */
+
++ use Meilisearch\Contracts\SearchQuery;
+
+/**
+ * Class Meilisearch_Searcher
+```
+
+**Linhas 52-58** - Método `search_network()`:
+```php
+// Prepare multi-search queries.
+foreach ( $indexes as $index ) {
+-   $queries[] = [
+-       'indexUid' => $index,
+-       'q'        => $query,
+-       'limit'    => $args['limit'],
+-       'offset'   => $args['offset'],
+-   ];
++   $search_query = ( new SearchQuery() )
++       ->setIndexUid( $index )
++       ->setQuery( $query )
++       ->setLimit( $args['limit'] )
++       ->setOffset( $args['offset'] );
++   
++   $queries[] = $search_query;
+}
+```
+
+**Linha 60** - Método `search_network()`:
+```php
+try {
+-   $results = $this->client->get_client()->multiSearch( [ 'queries' => $queries ] );
++   $results = $this->client->get_client()->multiSearch( $queries );
+    return $this->format_results( $results );
 ```
 
 ---
@@ -271,10 +402,12 @@ Cada documento contém os seguintes campos:
 
 ### Lições Aprendidas
 
-1. **Sempre especificar primaryKey** quando há campos ambíguos
-2. **Verificar URL completa** incluindo porta em ambientes Docker
-3. **Usar MCP tools** para diagnóstico rápido de Meilisearch
-4. **Testar indexação** com `wp meilisearch status` antes de produção
+1. **Sempre especificar primaryKey** quando há campos ambíguos terminando em 'id'
+2. **Verificar URL completa** incluindo porta em ambientes Docker/containers
+3. **Usar objetos SDK corretos** - o método `multiSearch()` espera objetos `SearchQuery`, não arrays
+4. **Consultar documentação do SDK** - verificar tipos esperados pelos métodos
+5. **Usar MCP tools** para diagnóstico rápido de Meilisearch
+6. **Testar busca no frontend** após implementar para validar integração completa
 
 ---
 

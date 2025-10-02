@@ -5,6 +5,8 @@
  * @package Meilisearch
  */
 
+use Meilisearch\Contracts\SearchQuery;
+
 /**
  * Class Meilisearch_Searcher
  *
@@ -48,16 +50,17 @@ class Meilisearch_Searcher {
 
 		// Prepare multi-search queries.
 		foreach ( $indexes as $index ) {
-			$queries[] = [
-				'indexUid' => $index,
-				'q'        => $query,
-				'limit'    => $args['limit'],
-				'offset'   => $args['offset'],
-			];
+			$search_query = ( new SearchQuery() )
+				->setIndexUid( $index )
+				->setQuery( $query )
+				->setLimit( $args['limit'] )
+				->setOffset( $args['offset'] );
+
+			$queries[] = $search_query;
 		}
 
 		try {
-			$results = $this->client->get_client()->multiSearch( [ 'queries' => $queries ] );
+			$results = $this->client->get_client()->multiSearch( $queries );
 			return $this->format_results( $results );
 		} catch ( Exception $e ) {
 			error_log( 'Meilisearch search error: ' . $e->getMessage() );
