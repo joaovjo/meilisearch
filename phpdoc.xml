@@ -5,7 +5,7 @@
     xmlns="https://www.phpdoc.org"
     xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/phpDocumentor/phpDocumentor/master/data/xsd/phpdoc.xsd"
 >
-    <title>Meilisearch Network Search</title>
+    <title>Meilisearch Plugin</title>
     
     <paths>
         <output>docs/api</output>
@@ -33,6 +33,6 @@
     
     <setting name="graphs.enabled" value="false"/>
     <setting name="linker.external.0" value="phpdoc.org"/>
-    
-    <template name="clean"/>
+    <setting name="template.color" value="indigo"/>
+
 </phpdocumentor>
