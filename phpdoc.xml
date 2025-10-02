@@ -31,7 +31,7 @@
         </api>
     </version>
     
-    <setting name="graphs.enabled" value="true"/>
+    <setting name="graphs.enabled" value="false"/>
     <setting name="linker.external.0" value="phpdoc.org"/>
     
     <template name="clean"/>
