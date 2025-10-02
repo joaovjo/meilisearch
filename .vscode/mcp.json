@@ -1,0 +1,15 @@
+{
+    "servers": {
+        "meilisearch": {
+            "command": "uvx",
+            "args": [
+                "-n",
+                "meilisearch-mcp"
+            ],
+            "env": {
+                "MEILI_HTTP_ADDR": "http://10.28.13.21:7700",
+                "MEILI_MASTER_KEY": "5jbV22TkJ06JWHYjihuc2PkLBYffP3h9"
+            }
+        }
+    }
+}

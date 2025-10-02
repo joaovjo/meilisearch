@@ -35,26 +35,26 @@ before_script:
   - composer global require "phpcompatibility/phpcompatibility-wp"
   - phpcs --version
 
-PHPunit:PHP7.4:MySQL:
-  image: php:7.4-bullseye
+PHPunit:PHP8.1:MySQL:
+  image: php:8.1-bookworm
   services:
-    - mysql:5.7
-  script:
-  - phpcs
-  - phpunit
-
-PHPunit:PHP8.0:MySQL:
-  image: php:8.0-bullseye
-  services:
-    - mysql:5.7
+    - mysql:8.0
   script:
   - phpcs
   - phpunit
 
 PHPunit:PHP8.2:MySQL:
-  image: php:8.2-bullseye
+  image: php:8.2-bookworm
   services:
-    - mysql:5.7
+    - mysql:8.0
+  script:
+  - phpcs
+  - phpunit
+
+PHPunit:PHP8.3:MySQL:
+  image: php:8.3-bookworm
+  services:
+    - mysql:8.0
   script:
   - phpcs
   - phpunit
