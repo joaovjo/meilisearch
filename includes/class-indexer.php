@@ -69,7 +69,7 @@ class Meilisearch_Indexer {
 		$index_name  = $this->client->get_index_name( $blog_id );
 
 		try {
-			$this->client->get_client()->index( $index_name )->addDocuments( [ $document ] );
+			$this->client->get_client()->index( $index_name )->addDocuments( [ $document ], 'id' );
 		} catch ( Exception $e ) {
 			error_log( "Meilisearch index error for post {$post_id}: " . $e->getMessage() );
 		}
@@ -174,7 +174,7 @@ class Meilisearch_Indexer {
 			// Index in batches.
 			if ( count( $documents ) >= $batch_size ) {
 				try {
-					$this->client->get_client()->index( $index_name )->addDocuments( $documents );
+					$this->client->get_client()->index( $index_name )->addDocuments( $documents, 'id' );
 					$results['indexed'] += count( $documents );
 					$documents = [];
 				} catch ( Exception $e ) {
@@ -186,7 +186,7 @@ class Meilisearch_Indexer {
 		// Index remaining documents.
 		if ( ! empty( $documents ) ) {
 			try {
-				$this->client->get_client()->index( $index_name )->addDocuments( $documents );
+				$this->client->get_client()->index( $index_name )->addDocuments( $documents, 'id' );
 				$results['indexed'] += count( $documents );
 			} catch ( Exception $e ) {
 				$results['errors'][] = $e->getMessage();
