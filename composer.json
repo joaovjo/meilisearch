@@ -14,7 +14,7 @@
   },
   "scripts": {
     "makepot": "wp i18n make-pot .",
-    "docs": "tools/phpDocumentor -d . -t docs/api --ignore vendor,tests,node_modules"
+    "docs": "tools/phpDocumentor.phar -d . -t docs/api --ignore vendor,tests,node_modules"
   },
   "config": {
     "allow-plugins": {

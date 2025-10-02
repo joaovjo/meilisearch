@@ -49,7 +49,7 @@ if ( ! is_admin() ) {
 
 // Include WP-CLI commands.
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
-	require_once MEILISEARCH_PLUGIN_DIR . 'cli/class-commands.php';
+	require_once MEILISEARCH_PLUGIN_DIR . 'includes/class-cli.php';
 }
 
 /**
@@ -126,6 +126,11 @@ function meilisearch_init(): void {
 			// Initialize autocomplete.
 			$autocomplete = new Meilisearch_Autocomplete( $client );
 			$autocomplete->init_hooks();
+		}
+
+		// Register WP-CLI commands.
+		if ( defined( 'WP_CLI' ) && WP_CLI ) {
+			WP_CLI::add_command( 'meilisearch', new Meilisearch_CLI( $client, $indexer ) );
 		}
 	}
 

@@ -72,25 +72,37 @@ Settings are stored network-wide using `get_site_option()`.
 
 ## WP-CLI Commands
 
-### Index all sites
+O plugin inclui comandos WP-CLI completos para gerenciamento. Veja a [documentação completa](docs/WP-CLI.md).
+
+### Comandos Principais
+
 ```bash
-wp meilisearch index --network
+# Verificar saúde do servidor Meilisearch
+wp meilisearch health
+
+# Listar todos os índices
+wp meilisearch list_indexes
+
+# Reindexar todos os blogs da rede
+wp meilisearch reindex
+
+# Reindexar blog específico
+wp meilisearch reindex --blog_id=2
+
+# Buscar posts
+wp meilisearch search "termo de busca"
+
+# Ver estatísticas
+wp meilisearch stats
+
+# Criar índice manualmente
+wp meilisearch create_index 2
+
+# Deletar índice
+wp meilisearch delete_index 2 --yes
 ```
 
-### Reindex (clear and rebuild)
-```bash
-wp meilisearch reindex --network
-```
-
-### Clear all indexes
-```bash
-wp meilisearch clear-index
-```
-
-### Check indexing status
-```bash
-wp meilisearch status --network
-```
+Para mais detalhes, exemplos e casos de uso, consulte [docs/WP-CLI.md](docs/WP-CLI.md).
 
 ## Architecture
 
