@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc
+    xmlns="https://www.phpdoc.org"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://www.phpdoc.org https://docs.phpdoc.org/latest/phpdoc.xsd"
+    version="3.0"
+>
+    <title>Meilisearch Network Search</title>
+    <parser>
+        <target>build/api</target>
+        <encoding>utf-8</encoding>
+        <markers>
+            <item>TODO</item>
+            <item>FIXME</item>
+        </markers>
+        <extensions>
+            <extension>php</extension>
+        </extensions>
+        <visibility>public</visibility>
+        <visibility>protected</visibility>
+        <default-package-name>Meilisearch</default-package-name>
+    </parser>
+    <transformer>
+        <target>build/docs</target>
+    </transformer>
+    <files>
+        <directory>includes</directory>
+        <directory>admin</directory>
+        <directory>public</directory>
+        <file>meilisearch.php</file>
+        <ignore>vendor/**/*</ignore>
+        <ignore>tests/**/*</ignore>
+        <ignore>bin/**/*</ignore>
+        <ignore>tools/**/*</ignore>
+    </files>
+    <settings>
+        <setting name="graphs.enabled" value="true"/>
+        <setting name="linker.external.0" value="phpdoc.org"/>
+    </settings>
+    <transformations>
+        <template name="clean"/>
+    </transformations>
+</phpdoc>

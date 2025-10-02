@@ -157,6 +157,11 @@ vendor/bin/phpcs
 
 # Auto-fix code standards
 vendor/bin/phpcbf
+
+# Generate API documentation
+bash bin/generate-docs.sh
+# Or with composer
+composer docs
 ```
 
 ### File Structure
