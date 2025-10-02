@@ -54,7 +54,8 @@ class Meilisearch_Searcher {
 				->setIndexUid( $index )
 				->setQuery( $query )
 				->setLimit( $args['limit'] )
-				->setOffset( $args['offset'] );
+				->setOffset( $args['offset'] )
+				->setFilter( [ 'post_status = publish' ] );
 
 			$queries[] = $search_query;
 		}
@@ -95,6 +96,7 @@ class Meilisearch_Searcher {
 				[
 					'limit'  => $args['limit'],
 					'offset' => $args['offset'],
+					'filter' => [ 'post_status = publish' ],
 				]
 			);
 
