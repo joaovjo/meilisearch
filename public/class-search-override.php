@@ -20,6 +20,13 @@ class Meilisearch_Search_Override {
 	private Meilisearch_Searcher $searcher;
 
 	/**
+	 * Cache for Meilisearch results.
+	 *
+	 * @var array|null
+	 */
+	private ?array $cached_results = null;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param Meilisearch_Searcher $searcher Meilisearch searcher instance.
@@ -33,6 +40,7 @@ class Meilisearch_Search_Override {
 	 */
 	public function init_hooks(): void {
 		add_action( 'pre_get_posts', [ $this, 'override_search_query' ], 10 );
+		add_filter( 'posts_pre_query', [ $this, 'get_posts_from_meilisearch' ], 10, 2 );
 	}
 
 	/**
@@ -52,8 +60,11 @@ class Meilisearch_Search_Override {
 			return;
 		}
 
+		// Mark this query as Meilisearch-powered.
+		$query->set( 'meilisearch_query', true );
+
 		// Get pagination parameters.
-		$paged       = max( 1, $query->get( 'paged' ) );
+		$paged          = max( 1, $query->get( 'paged' ) );
 		$posts_per_page = $query->get( 'posts_per_page' );
 
 		if ( $posts_per_page < 1 ) {
@@ -71,26 +82,8 @@ class Meilisearch_Search_Override {
 			]
 		);
 
-		// Extract post IDs from results.
-		$post_ids = [];
-		foreach ( $results['hits'] as $hit ) {
-			if ( isset( $hit['id'] ) && isset( $hit['blog_id'] ) ) {
-				// Switch to correct blog context for post ID.
-				switch_to_blog( $hit['blog_id'] );
-				$post_ids[] = $hit['id'];
-				restore_current_blog();
-			}
-		}
-
-		if ( empty( $post_ids ) ) {
-			// No results - set impossible condition.
-			$query->set( 'post__in', [ 0 ] );
-		} else {
-			// Set post IDs in order.
-			$query->set( 'post__in', $post_ids );
-			$query->set( 'orderby', 'post__in' );
-			$query->set( 'ignore_sticky_posts', true );
-		}
+		// Cache results for use in posts_pre_query filter.
+		$this->cached_results = $results;
 
 		// Set total found posts for pagination.
 		add_filter(
@@ -101,5 +94,74 @@ class Meilisearch_Search_Override {
 			10,
 			2
 		);
+	}
+
+	/**
+	 * Get posts from Meilisearch results (cross-site compatible).
+	 *
+	 * @param array|null $posts  Array of post data or null.
+	 * @param WP_Query   $query  The WP_Query instance.
+	 * @return array|null Array of WP_Post objects or null.
+	 */
+	public function get_posts_from_meilisearch( $posts, WP_Query $query ) {
+		// Only process Meilisearch queries.
+		if ( ! $query->get( 'meilisearch_query' ) || null === $this->cached_results ) {
+			return $posts;
+		}
+
+		$results     = $this->cached_results;
+		$post_objects = [];
+		$current_blog_id = get_current_blog_id();
+
+		// Group results by blog_id.
+		$posts_by_blog = [];
+		foreach ( $results['hits'] as $hit ) {
+			$blog_id = $hit['blog_id'] ?? 0;
+			$post_id = $hit['id'] ?? 0;
+
+			if ( $blog_id && $post_id ) {
+				if ( ! isset( $posts_by_blog[ $blog_id ] ) ) {
+					$posts_by_blog[ $blog_id ] = [];
+				}
+				$posts_by_blog[ $blog_id ][] = $post_id;
+			}
+		}
+
+		// Fetch posts from each blog.
+		$fetched_posts = [];
+		foreach ( $posts_by_blog as $blog_id => $post_ids ) {
+			if ( $blog_id !== $current_blog_id ) {
+				switch_to_blog( $blog_id );
+			}
+
+			foreach ( $post_ids as $post_id ) {
+				$post = get_post( $post_id );
+				if ( $post ) {
+					// Add blog_id to post object for reference.
+					$post->meilisearch_blog_id = $blog_id;
+					$fetched_posts[ $blog_id . '_' . $post_id ] = $post;
+				}
+			}
+
+			if ( $blog_id !== $current_blog_id ) {
+				restore_current_blog();
+			}
+		}
+
+		// Rebuild posts array in Meilisearch order.
+		foreach ( $results['hits'] as $hit ) {
+			$blog_id = $hit['blog_id'] ?? 0;
+			$post_id = $hit['id'] ?? 0;
+			$key     = $blog_id . '_' . $post_id;
+
+			if ( isset( $fetched_posts[ $key ] ) ) {
+				$post_objects[] = $fetched_posts[ $key ];
+			}
+		}
+
+		// Clear cache.
+		$this->cached_results = null;
+
+		return ! empty( $post_objects ) ? $post_objects : [ false ];
 	}
 }
