@@ -1,0 +1,21 @@
+{
+  "require-dev": {
+    "wp-cli/i18n-command": "^2",
+    "10up/wp_mock": "^1.1"
+  },
+  "scripts": {
+    "makepot": "wp i18n make-pot .",
+    "docs": "tools/phpDocumentor -d . -t docs/api --ignore vendor,tests,node_modules"
+  },
+  "require": {
+    "meilisearch/meilisearch-php": "^1.16",
+    "guzzlehttp/guzzle": "^7.10",
+    "http-interop/http-factory-guzzle": "^1.0",
+    "react/react": "^1.4.0"
+  },
+  "config": {
+    "allow-plugins": {
+      "php-http/discovery": true
+    }
+  }
+}
