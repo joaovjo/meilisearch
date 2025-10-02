@@ -165,18 +165,19 @@ vendor/bin/phpcbf
 meilisearch/
 ├── includes/
 │   ├── class-client.php          # Meilisearch client wrapper
-│   ├── class-indexer.php         # Fiber-based indexing
+│   ├── class-indexer.php         # Indexing logic
 │   ├── class-searcher.php        # Search queries
-│   └── class-autocomplete.php    # Autocomplete API
+│   ├── class-autocomplete.php    # Autocomplete API
+│   └── class-cli.php             # WP-CLI commands
 ├── admin/
 │   └── class-network-settings.php # Network admin UI
 ├── public/
 │   └── class-search-override.php  # Frontend search replacement
-├── cli/
-│   └── class-commands.php         # WP-CLI commands
 ├── assets/
 │   ├── js/autocomplete.js        # Frontend autocomplete
 │   └── css/autocomplete.css      # Autocomplete styles
+├── docs/
+│   └── WP-CLI.md                 # WP-CLI documentation
 └── .github/
     └── copilot-instructions.md    # AI agent instructions
 ```
