@@ -20,6 +20,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// Start output buffering to prevent any accidental output from vendor files.
+ob_start();
+
 // Plugin constants.
 define( 'MEILISEARCH_VERSION', '0.1.0' );
 define( 'MEILISEARCH_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
@@ -29,6 +32,12 @@ define( 'MEILISEARCH_PLUGIN_FILE', __FILE__ );
 // Require Composer autoloader.
 if ( file_exists( MEILISEARCH_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
 	require_once MEILISEARCH_PLUGIN_DIR . 'vendor/autoload.php';
+}
+
+// Clean any output from vendor autoloading.
+$vendor_output = ob_get_clean();
+if ( ! empty( $vendor_output ) && defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+	error_log( 'Meilisearch vendor output: ' . $vendor_output );
 }
 
 // Include core classes.
@@ -144,4 +153,3 @@ function meilisearch_init(): void {
 	load_plugin_textdomain( 'meilisearch', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 }
 add_action( 'plugins_loaded', 'meilisearch_init' );
-

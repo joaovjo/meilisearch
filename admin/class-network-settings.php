@@ -98,10 +98,10 @@ class Meilisearch_Network_Settings {
 							</label>
 						</th>
 						<td>
-							<input type="checkbox" 
-								   id="meilisearch_enabled" 
-								   name="meilisearch_settings[enabled]" 
-								   value="1" 
+							<input type="checkbox"
+								   id="meilisearch_enabled"
+								   name="meilisearch_settings[enabled]"
+								   value="1"
 								   <?php checked( $settings['enabled'], true ); ?> />
 							<p class="description">
 								<?php esc_html_e( 'Enable Meilisearch search across the network.', 'meilisearch' ); ?>
@@ -116,11 +116,11 @@ class Meilisearch_Network_Settings {
 							</label>
 						</th>
 						<td>
-							<input type="url" 
-								   id="meilisearch_host" 
-								   name="meilisearch_settings[host]" 
-								   value="<?php echo esc_attr( $settings['host'] ); ?>" 
-								   class="regular-text" 
+							<input type="url"
+								   id="meilisearch_host"
+								   name="meilisearch_settings[host]"
+								   value="<?php echo esc_attr( $settings['host'] ); ?>"
+								   class="regular-text"
 								   required />
 							<p class="description">
 								<?php esc_html_e( 'URL of your Meilisearch server (e.g., http://localhost:7700)', 'meilisearch' ); ?>
@@ -135,11 +135,11 @@ class Meilisearch_Network_Settings {
 							</label>
 						</th>
 						<td>
-							<input type="password" 
-								   id="meilisearch_master_key" 
-								   name="meilisearch_settings[master_key]" 
-								   value="<?php echo esc_attr( $settings['master_key'] ); ?>" 
-								   class="regular-text" 
+							<input type="password"
+								   id="meilisearch_master_key"
+								   name="meilisearch_settings[master_key]"
+								   value="<?php echo esc_attr( $settings['master_key'] ); ?>"
+								   class="regular-text"
 								   autocomplete="off" />
 							<p class="description">
 								<?php esc_html_e( 'Your Meilisearch master key (leave empty if not using authentication).', 'meilisearch' ); ?>

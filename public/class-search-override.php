@@ -154,15 +154,15 @@ class Meilisearch_Search_Override {
 				$post = get_post( $post_id );
 				if ( $post ) {
 					$key = $blog_id . '_' . $post_id;
-					
+
 					// Add blog_id to post object for reference.
 					$post->meilisearch_blog_id = $blog_id;
-					
+
 					// Add permalink from Meilisearch if available.
 					if ( isset( $this->permalink_map[ $key ] ) ) {
 						$post->meilisearch_permalink = $this->permalink_map[ $key ];
 					}
-					
+
 					$fetched_posts[ $key ] = $post;
 				}
 			}
@@ -200,13 +200,13 @@ class Meilisearch_Search_Override {
 	public function fix_cross_site_permalink( string $permalink, $post ): string {
 		// Get current blog ID and post ID.
 		$post_id = is_object( $post ) ? $post->ID : $post;
-		
+
 		// Try to get blog_id from post object first.
 		$blog_id = null;
 		if ( is_object( $post ) && isset( $post->meilisearch_blog_id ) ) {
 			$blog_id = $post->meilisearch_blog_id;
 		}
-		
+
 		// If no blog_id from object, try all possible blog IDs in the map.
 		if ( ! $blog_id ) {
 			foreach ( $this->permalink_map as $key => $stored_permalink ) {
@@ -220,7 +220,7 @@ class Meilisearch_Search_Override {
 				return $this->permalink_map[ $key ];
 			}
 		}
-		
+
 		return $permalink;
 	}
 }

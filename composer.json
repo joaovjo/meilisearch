@@ -10,7 +10,8 @@
   },
   "require-dev": {
     "wp-cli/i18n-command": "^2",
-    "10up/wp_mock": "^1.1"
+    "10up/wp_mock": "^1.1",
+    "carthage-software/mago": "^1.0.0-beta.25"
   },
   "scripts": {
     "makepot": "wp i18n make-pot .",
@@ -19,7 +20,8 @@
   },
   "config": {
     "allow-plugins": {
-      "php-http/discovery": true
+      "php-http/discovery": true,
+      "carthage-software/mago": true
     }
   }
 }
