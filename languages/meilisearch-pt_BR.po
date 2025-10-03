@@ -251,3 +251,77 @@ msgstr "Verificar saúde do servidor"
 #: admin/class-dashboard.php
 msgid "View indexing statistics"
 msgstr "Ver estatísticas de indexação"
+
+# admin/class-metrics.php
+msgid "Metrics"
+msgstr "Mtricas"
+
+msgid "Meilisearch Metrics"
+msgstr "Métricas do Meilisearch"
+
+msgid "Real-time metrics from Meilisearch server (not cached)"
+msgstr "Métricas em tempo real do servidor Meilisearch (sem cache)"
+
+msgid "Meilisearch client not configured"
+msgstr "Cliente Meilisearch não configurado"
+
+msgid "Global Statistics"
+msgstr "Estatísticas Globais"
+
+msgid "Metric"
+msgstr "Métrica"
+
+msgid "Value"
+msgstr "Valor"
+
+msgid "Total Database Size"
+msgstr "Tamanho Total do Banco de Dados"
+
+msgid "Last Update"
+msgstr "Última Atualização"
+
+msgid "Total Indexes"
+msgstr "Total de Índices"
+
+msgid "Indexes Statistics"
+msgstr "Estatísticas dos Índices"
+
+msgid "No indexes found."
+msgstr "Nenhum índice encontrado."
+
+msgid "Primary Key"
+msgstr "Chave Primária"
+
+msgid "Created At"
+msgstr "Criado em"
+
+msgid "Updated At"
+msgstr "Atualizado em"
+
+msgid "Number of Documents"
+msgstr "Número de Documentos"
+
+msgid "Is Indexing"
+msgstr "Está Indexando"
+
+msgid "Yes"
+msgstr "Sim"
+
+msgid "No"
+msgstr "Não"
+
+msgid "Field Distribution"
+msgstr "Distribuição de Campos"
+
+msgid "View Details"
+msgstr "Ver Detalhes"
+
+msgid "No field distribution available"
+msgstr "Nenhuma distribuição de campos disponível"
+
+msgid "Refresh Metrics"
+msgstr "Atualizar Métricas"
+
+msgid "Last updated: %s"
+msgstr "Última atualização: %s"
+

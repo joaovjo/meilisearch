@@ -50,6 +50,7 @@ require_once MEILISEARCH_PLUGIN_DIR . 'includes/class-autocomplete.php';
 // Include admin classes.
 if (is_admin() && is_multisite()) {
 	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-dashboard.php';
+	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-metrics.php';
 	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-network-settings.php';
 }
 
@@ -151,6 +152,9 @@ function meilisearch_init(): void
 	if (is_admin() && is_multisite()) {
 		$dashboard = new Meilisearch_Dashboard();
 		$dashboard->init_hooks();
+
+		$metrics = new Meilisearch_Metrics();
+		$metrics->init_hooks();
 
 		$network_settings = new Meilisearch_Network_Settings();
 		$network_settings->init_hooks();
