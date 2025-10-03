@@ -36,12 +36,22 @@ class Meilisearch_Network_Settings
 	 */
 	public function add_network_menu(): void
 	{
-		add_submenu_page(
-			'settings.php',
-			__('Meilisearch Settings', 'meilisearch'),
+		add_menu_page(
+			__('Meilisearch Search', 'meilisearch'),
 			__('Meilisearch', 'meilisearch'),
 			'manage_network_options',
-			'meilisearch-settings',
+			'meilisearch',
+			[$this, 'render_settings_page'],
+			'dashicons-search',
+			30,
+		);
+
+		add_submenu_page(
+			'meilisearch',
+			__('Settings', 'meilisearch'),
+			__('Settings', 'meilisearch'),
+			'manage_network_options',
+			'meilisearch',
 			[$this, 'render_settings_page'],
 		);
 	}
