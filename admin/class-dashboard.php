@@ -28,6 +28,7 @@ class Meilisearch_Dashboard
 	public function init_hooks(): void
 	{
 		add_action('network_admin_menu', [$this, 'add_dashboard_menu']);
+		add_action('network_admin_action_meilisearch_reindex', [$this, 'handle_reindex']);
 	}
 
 	/**
@@ -143,6 +144,54 @@ class Meilisearch_Dashboard
 	}
 
 	/**
+	 * Handle network reindex action.
+	 */
+	public function handle_reindex(): void
+	{
+		// Verify nonce
+		check_admin_referer('meilisearch_reindex');
+
+		// Check permissions
+		if (!current_user_can('manage_network_options')) {
+			wp_die(esc_html__('You do not have permission to perform this action.', 'meilisearch'));
+		}
+
+		// Get indexer
+		$indexer = new Meilisearch_Indexer();
+
+		// Get all sites
+		$sites = get_sites(['number' => 1000]);
+
+		// Reindex each site
+		foreach ($sites as $site) {
+			switch_to_blog($site->blog_id);
+			
+			try {
+				// Clear existing index first
+				$indexer->clear_index();
+				
+				// Reindex all posts
+				$indexer->index_all_posts();
+			} catch (\Exception $e) {
+				error_log(sprintf(
+					'Meilisearch reindex error for blog %d: %s',
+					$site->blog_id,
+					$e->getMessage()
+				));
+			}
+			
+			restore_current_blog();
+		}
+
+		// Redirect back to dashboard with success message
+		wp_redirect(add_query_arg([
+			'page' => 'meilisearch-dashboard',
+			'reindexed' => '1',
+		], network_admin_url('admin.php')));
+		exit();
+	}
+
+	/**
 	 * Get system information.
 	 *
 	 * @return array<string, string>
@@ -183,6 +232,16 @@ class Meilisearch_Dashboard
 	{
 		if (!current_user_can('manage_network_options')) {
 			wp_die(esc_html__('You do not have permission to access this page.', 'meilisearch'));
+		}
+
+		// Check if reindex was triggered and show notice
+		if (isset($_GET['reindexed']) && '1' === $_GET['reindexed']) {
+			?>
+			<div class="notice notice-success is-dismissible">
+				<p><strong><?php esc_html_e('Network reindexing started successfully!', 'meilisearch'); ?></strong></p>
+				<p><?php esc_html_e('The reindexing process is running in the background. This may take several minutes depending on the number of posts.', 'meilisearch'); ?></p>
+			</div>
+			<?php
 		}
 
 		try {
@@ -315,6 +374,10 @@ class Meilisearch_Dashboard
 					<p>
 						<a href="<?php echo esc_url(network_admin_url('admin.php?page=meilisearch-settings')); ?>" class="button button-primary">
 							<?php esc_html_e('Configure Settings', 'meilisearch'); ?>
+						</a>
+						<a href="<?php echo esc_url(wp_nonce_url(network_admin_url('edit.php?action=meilisearch_reindex'), 'meilisearch_reindex')); ?>" class="button button-secondary" onclick="return confirm('<?php echo esc_js(__('Are you sure you want to reindex all sites? This may take several minutes.', 'meilisearch')); ?>');">
+							<span class="dashicons dashicons-update" style="margin-top: 3px;"></span>
+							<?php esc_html_e('Reindex Network', 'meilisearch'); ?>
 						</a>
 					</p>
 						<p style="margin-top: 15px;">

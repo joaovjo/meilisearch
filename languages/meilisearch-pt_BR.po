@@ -336,3 +336,24 @@ msgstr "Formato de nomenclatura do índice. Use {prefix} para prefixo da tabela 
 msgid "Examples:"
 msgstr "Exemplos:"
 
+
+#: admin/class-dashboard.php
+msgid "Network reindexing started successfully!"
+msgstr "Reindexação da rede iniciada com sucesso!"
+
+#: admin/class-dashboard.php
+msgid "The reindexing process is running in the background. This may take several minutes depending on the number of posts."
+msgstr "O processo de reindexação está rodando em segundo plano. Isso pode levar vários minutos dependendo do número de posts."
+
+#: admin/class-dashboard.php
+msgid "Reindex Network"
+msgstr "Reindexar Rede"
+
+#: admin/class-dashboard.php
+msgid "Are you sure you want to reindex all sites? This may take several minutes."
+msgstr "Tem certeza que deseja reindexar todos os sites? Isso pode levar vários minutos."
+
+#: admin/class-dashboard.php
+msgid "You do not have permission to perform this action."
+msgstr "Você não tem permissão para realizar esta ação."
+
