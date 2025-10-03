@@ -61,6 +61,7 @@ class Meilisearch_Network_Settings
 			'host' => 'http://localhost:7700',
 			'master_key' => '',
 			'enabled' => false,
+			'index_format' => '{prefix}posts',
 		];
 		$settings = wp_parse_args($settings, $defaults);
 
@@ -156,6 +157,32 @@ class Meilisearch_Network_Settings
 								   autocomplete="off" />
 							<p class="description">
 								<?php esc_html_e('Your Meilisearch master key (leave empty if not using authentication).', 'meilisearch'); ?>
+							</p>
+						</td>
+					</tr>
+
+					<tr>
+						<th scope="row">
+							<label for="meilisearch_index_format">
+								<?php esc_html_e('Index Name Format', 'meilisearch'); ?>
+							</label>
+						</th>
+						<td>
+							<input type="text"
+								   id="meilisearch_index_format"
+								   name="meilisearch_settings[index_format]"
+								   value="<?php echo esc_attr($settings['index_format']); ?>"
+								   class="regular-text"
+								   placeholder="{prefix}posts" />
+							<p class="description">
+								<?php esc_html_e(
+									'Index naming format. Use {prefix} for table prefix (wp_, wp_2_, wp_3_), {blog_id} for site ID, {site_id} for site ID. Default: {prefix}posts',
+									'meilisearch',
+								); ?><br>
+								<strong><?php esc_html_e('Examples:', 'meilisearch'); ?></strong><br>
+								• <code>{prefix}posts</code> → wp_posts, wp_2_posts, wp_3_posts<br>
+								• <code>site_{blog_id}_posts</code> → site_1_posts, site_2_posts, site_3_posts<br>
+								• <code>wp_{blog_id}_posts</code> → wp_1_posts, wp_2_posts, wp_3_posts (formato atual)
 							</p>
 						</td>
 					</tr>

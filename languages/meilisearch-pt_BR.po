@@ -325,3 +325,14 @@ msgstr "Atualizar Métricas"
 msgid "Last updated: %s"
 msgstr "Última atualização: %s"
 
+
+# admin/class-network-settings.php - Index Format
+msgid "Index Name Format"
+msgstr "Formato do Nome do Índice"
+
+msgid "Index naming format. Use {prefix} for table prefix (wp_, wp_2_, wp_3_), {blog_id} for site ID, {site_id} for site ID. Default: {prefix}posts"
+msgstr "Formato de nomenclatura do índice. Use {prefix} para prefixo da tabela (wp_, wp_2_, wp_3_), {blog_id} para ID do site, {site_id} para ID do site. Padrão: {prefix}posts"
+
+msgid "Examples:"
+msgstr "Exemplos:"
+

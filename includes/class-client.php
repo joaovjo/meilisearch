@@ -69,7 +69,19 @@ class Meilisearch_Client
 	 */
 	public function get_index_name(int $blog_id): string
 	{
-		return "wp_{$blog_id}_posts";
+		$settings = get_site_option('meilisearch_settings', []);
+		$format = $settings['index_format'] ?? '{prefix}posts';
+
+		// Get table prefix for the site
+		switch_to_blog($blog_id);
+		global $wpdb;
+		$prefix = $wpdb->prefix;
+		restore_current_blog();
+
+		// Replace placeholders
+		$index_name = str_replace(['{prefix}', '{blog_id}', '{site_id}'], [$prefix, $blog_id, $blog_id], $format);
+
+		return $index_name;
 	}
 
 	/**
