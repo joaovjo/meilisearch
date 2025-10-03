@@ -255,6 +255,7 @@ class Meilisearch_Network_Settings
 			'host' => esc_url_raw($settings['host'] ?? ''),
 			'master_key' => sanitize_text_field($settings['master_key'] ?? ''),
 			'enabled' => isset($settings['enabled']) && '1' === $settings['enabled'],
+			'index_format' => sanitize_text_field($settings['index_format'] ?? '{prefix}posts'),
 		];
 
 		update_site_option($this->option_name, $sanitized);
@@ -262,7 +263,7 @@ class Meilisearch_Network_Settings
 		wp_redirect(add_query_arg([
 			'page' => 'meilisearch-settings',
 			'updated' => 'true',
-		], network_admin_url('settings.php')));
+		], network_admin_url('admin.php')));
 		exit();
 	}
 }
