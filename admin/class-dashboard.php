@@ -91,8 +91,14 @@ class Meilisearch_Dashboard
 
 		foreach ($sites as $site) {
 			switch_to_blog($site->blog_id);
-			$count = wp_count_posts('post');
-			$total_posts += $count->publish ?? 0;
+
+			// Count all public post types (same as indexer uses)
+			$post_types = get_post_types(['public' => true], 'names');
+			foreach ($post_types as $post_type) {
+				$count = wp_count_posts($post_type);
+				$total_posts += $count->publish ?? 0;
+			}
+
 			restore_current_blog();
 		}
 
