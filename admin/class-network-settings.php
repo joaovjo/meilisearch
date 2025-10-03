@@ -94,7 +94,7 @@ class Meilisearch_Network_Settings
 					)
 				;
 				?>
-						?>
+						
 					</p>
 				</div>
 			<?php endif; ?>
