@@ -56,11 +56,11 @@ trailing-comma = true
 remove-trailing-close-tag = true
 
 # Brace styles (WordPress/PSR-12 compatible)
-control-brace-style = "same-line"
-closure-brace-style = "same-line"
-function-brace-style = "next-line"
-method-brace-style = "next-line"
-classlike-brace-style = "next-line"
+control-brace-style = "same_line"
+closure-brace-style = "same_line"
+function-brace-style = "next_line"
+method-brace-style = "next_line"
+classlike-brace-style = "next_line"
 
 # Empty brace handling
 inline-empty-control-braces = false
@@ -72,17 +72,7 @@ inline-empty-classlike-braces = false
 inline-empty-anonymous-class-braces = true
 
 # Breaking and alignment
-method-chain-breaking-style = "next-line"
-preserve-breaking-member-access-chain = false
-preserve-breaking-argument-list = false
-preserve-breaking-array-like = true
-preserve-breaking-parameter-list = false
-preserve-breaking-attribute-list = false
-preserve-breaking-conditional-expression = false
-break-promoted-properties-list = true
-line-before-binary-operator = true
-always-break-named-arguments-list = true
-always-break-attribute-named-argument-lists = false
+method-chain-breaking-style = "next_line"
 array-table-style-alignment = true
 
 # Import (use) statement handling
@@ -91,44 +81,13 @@ separate-use-types = true
 expand-use-groups = true
 
 # Type hints and syntax preferences
-null-type-hint = "null-pipe"
-parentheses-around-new-in-member-access = false
-parentheses-in-new-expression = true
-parentheses-in-exit-and-die = true
-parentheses-in-attribute = false
-
-# Spacing preferences
-space-before-arrow-function-parameter-list-parenthesis = false
-space-before-closure-parameter-list-parenthesis = true
-space-before-hook-parameter-list-parenthesis = false
-space-before-closure-use-clause-parenthesis = true
-space-after-colon-in-enum-backing-type = true
-space-after-cast-unary-prefix-operators = true
-space-after-reference-unary-prefix-operator = false
-space-after-error-control-unary-prefix-operator = false
-space-after-logical-not-unary-prefix-operator = false
-space-after-bitwise-not-unary-prefix-operator = false
-space-after-increment-unary-prefix-operator = false
-space-after-decrement-unary-prefix-operator = false
-space-after-additive-unary-prefix-operator = false
-space-around-concatenation-binary-operator = true
-space-around-assignment-in-declare = false
-space-within-grouping-parenthesis = false
+null-type-hint = "null_pipe"
 
 # Empty line preferences
-empty-line-after-control-structure = false
 empty-line-after-opening-tag = true
-empty-line-after-declare = true
 empty-line-after-namespace = true
 empty-line-after-use = true
-empty-line-after-symbols = true
-empty-line-after-class-like-constant = false
-empty-line-after-enum-case = false
-empty-line-after-trait-use = false
-empty-line-after-property = false
 empty-line-after-method = true
-empty-line-before-return = false
-empty-line-before-dangling-comments = true
 separate-class-like-members = true
 
 # ==============================================================================
@@ -158,20 +117,13 @@ literal-named-argument = { enabled = false }
 # Complexity thresholds
 cyclomatic-complexity = { level = "warning", threshold = 15 }
 halstead = { effort-threshold = 7000 }
-cognitive-complexity = { level = "warning", threshold = 15 }
-
-# File and function size limits
-max-file-length = { level = "warning", threshold = 500 }
-max-function-length = { level = "warning", threshold = 100 }
-
-# Naming conventions (compatible with WordPress)
-class-name-case = { level = "error" }
-function-name-case = { level = "warning" }
 
 # Best practices
 no-else-clause = { level = "help" }
-no-dead-code = { level = "error" }
-no-unreachable-code = { level = "error" }
+no-empty = { level = "error" }
+no-debug-symbols = { level = "error" }
+no-eval = { level = "error" }
+no-goto = { level = "error" }
 
 # ==============================================================================
 # Analyzer Configuration

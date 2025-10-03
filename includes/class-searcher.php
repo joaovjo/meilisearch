@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Meilisearch Searcher
  *
@@ -12,8 +13,8 @@ use Meilisearch\Contracts\SearchQuery;
  *
  * Handles search queries to Meilisearch.
  */
-class Meilisearch_Searcher {
-
+class Meilisearch_Searcher
+{
 	/**
 	 * Meilisearch client instance.
 	 *
@@ -26,7 +27,8 @@ class Meilisearch_Searcher {
 	 *
 	 * @param Meilisearch_Client $client Meilisearch client instance.
 	 */
-	public function __construct( Meilisearch_Client $client ) {
+	public function __construct(Meilisearch_Client $client)
+	{
 		$this->client = $client;
 	}
 
@@ -37,36 +39,37 @@ class Meilisearch_Searcher {
 	 * @param array  $args   Optional search arguments.
 	 * @return array Search results.
 	 */
-	public function search_network( string $query, array $args = [] ): array {
+	public function search_network(string $query, array $args = []): array
+	{
 		$indexes = $this->client->get_all_index_names();
 		$queries = [];
 
 		$default_args = [
-			'limit'  => 20,
+			'limit' => 20,
 			'offset' => 0,
 		];
 
-		$args = wp_parse_args( $args, $default_args );
+		$args = wp_parse_args($args, $default_args);
 
 		// Prepare multi-search queries.
-		foreach ( $indexes as $index ) {
-			$search_query = ( new SearchQuery() )
-				->setIndexUid( $index )
-				->setQuery( $query )
-				->setLimit( $args['limit'] )
-				->setOffset( $args['offset'] )
-				->setFilter( [ 'post_status = publish' ] );
+		foreach ($indexes as $index) {
+			$search_query = (new SearchQuery())
+				->setIndexUid($index)
+				->setQuery($query)
+				->setLimit($args['limit'])
+				->setOffset($args['offset'])
+				->setFilter(['post_status = publish']);
 
 			$queries[] = $search_query;
 		}
 
 		try {
-			$results = $this->client->get_client()->multiSearch( $queries );
-			return $this->format_results( $results );
-		} catch ( Exception $e ) {
-			error_log( 'Meilisearch search error: ' . $e->getMessage() );
+			$results = $this->client->get_client()->multiSearch($queries);
+			return $this->format_results($results);
+		} catch (Exception $e) {
+			error_log('Meilisearch search error: ' . $e->getMessage());
 			return [
-				'hits'  => [],
+				'hits' => [],
 				'total' => 0,
 			];
 		}
@@ -80,34 +83,35 @@ class Meilisearch_Searcher {
 	 * @param array  $args    Optional search arguments.
 	 * @return array Search results.
 	 */
-	public function search_site( string $query, int $blog_id, array $args = [] ): array {
-		$index_name = $this->client->get_index_name( $blog_id );
+	public function search_site(string $query, int $blog_id, array $args = []): array
+	{
+		$index_name = $this->client->get_index_name($blog_id);
 
 		$default_args = [
-			'limit'  => 20,
+			'limit' => 20,
 			'offset' => 0,
 		];
 
-		$args = wp_parse_args( $args, $default_args );
+		$args = wp_parse_args($args, $default_args);
 
 		try {
-			$results = $this->client->get_client()->index( $index_name )->search(
-				$query,
-				[
-					'limit'  => $args['limit'],
+			$results = $this->client
+				->get_client()
+				->index($index_name)
+				->search($query, [
+					'limit' => $args['limit'],
 					'offset' => $args['offset'],
-					'filter' => [ 'post_status = publish' ],
-				]
-			);
+					'filter' => ['post_status = publish'],
+				]);
 
 			return [
-				'hits'  => $results->getHits(),
+				'hits' => $results->getHits(),
 				'total' => $results->getEstimatedTotalHits(),
 			];
-		} catch ( Exception $e ) {
-			error_log( 'Meilisearch search error: ' . $e->getMessage() );
+		} catch (Exception $e) {
+			error_log('Meilisearch search error: ' . $e->getMessage());
 			return [
-				'hits'  => [],
+				'hits' => [],
 				'total' => 0,
 			];
 		}
@@ -120,23 +124,21 @@ class Meilisearch_Searcher {
 	 * @param int    $limit Number of suggestions.
 	 * @return array Suggestions.
 	 */
-	public function get_suggestions( string $query, int $limit = 5 ): array {
-		$results = $this->search_network(
-			$query,
-			[
-				'limit'  => $limit,
-				'offset' => 0,
-			]
-		);
+	public function get_suggestions(string $query, int $limit = 5): array
+	{
+		$results = $this->search_network($query, [
+			'limit' => $limit,
+			'offset' => 0,
+		]);
 
 		$suggestions = [];
 
-		foreach ( $results['hits'] as $hit ) {
+		foreach ($results['hits'] as $hit) {
 			$suggestions[] = [
-				'title'     => $hit['title'] ?? '',
-				'excerpt'   => $hit['excerpt'] ?? '',
+				'title' => $hit['title'] ?? '',
+				'excerpt' => $hit['excerpt'] ?? '',
 				'permalink' => $hit['permalink'] ?? '',
-				'blog_id'   => $hit['blog_id'] ?? 0,
+				'blog_id' => $hit['blog_id'] ?? 0,
 			];
 		}
 
@@ -149,19 +151,20 @@ class Meilisearch_Searcher {
 	 * @param array $results Raw Meilisearch results.
 	 * @return array Formatted results.
 	 */
-	private function format_results( array $results ): array {
-		$hits  = [];
+	private function format_results(array $results): array
+	{
+		$hits = [];
 		$total = 0;
 
-		if ( isset( $results['results'] ) ) {
-			foreach ( $results['results'] as $result ) {
-				$hits = array_merge( $hits, $result['hits'] ?? [] );
+		if (isset($results['results'])) {
+			foreach ($results['results'] as $result) {
+				$hits = array_merge($hits, $result['hits'] ?? []);
 				$total += $result['estimatedTotalHits'] ?? 0;
 			}
 		}
 
 		return [
-			'hits'  => $hits,
+			'hits' => $hits,
 			'total' => $total,
 		];
 	}
