@@ -8,7 +8,7 @@ declare(strict_types=1);
  * @package Meilisearch
  */
 
-use MeiliSearch\Client;
+use Meilisearch\Client;
 
 /**
  * Class Meilisearch_Client
