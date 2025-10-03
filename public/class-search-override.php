@@ -99,7 +99,7 @@ class Meilisearch_Search_Override
 		$this->cached_results = $results;
 
 		// Set total found posts for pagination.
-		add_filter('found_posts', fn() => $results['total'], 10, 2);
+		add_filter('found_posts', fn(): int => $results['total'], 10, 2);
 	}
 
 	/**
@@ -109,7 +109,7 @@ class Meilisearch_Search_Override
 	 * @param WP_Query   $query  The WP_Query instance.
 	 * @return array|null Array of WP_Post objects or null.
 	 */
-	public function get_posts_from_meilisearch($posts, WP_Query $query)
+	public function get_posts_from_meilisearch(array|null $posts, WP_Query $query): array|null
 	{
 		// Only process Meilisearch queries.
 		if (!$query->get('meilisearch_query') || null === $this->cached_results) {
@@ -188,13 +188,13 @@ class Meilisearch_Search_Override
 	}
 
 	/**
-	 * Fix permalink for cross-site posts.
+	 * Fix cross-site permalink.
 	 *
 	 * @param string  $permalink The post permalink.
 	 * @param WP_Post $post      Post object.
 	 * @return string Corrected permalink.
 	 */
-	public function fix_cross_site_permalink(string $permalink, $post): string
+	public function fix_cross_site_permalink(string $permalink, WP_Post|int $post): string
 	{
 		// Get current blog ID and post ID.
 		$post_id = is_object($post) ? $post->ID : $post;
@@ -212,11 +212,12 @@ class Meilisearch_Search_Override
 					return $stored_permalink;
 				}
 			}
-		} else {
-			$key = $blog_id . '_' . $post_id;
-			if (isset($this->permalink_map[$key])) {
-				return $this->permalink_map[$key];
-			}
+			return $permalink;
+		}
+
+		$key = $blog_id . '_' . $post_id;
+		if (isset($this->permalink_map[$key])) {
+			return $this->permalink_map[$key];
 		}
 
 		return $permalink;

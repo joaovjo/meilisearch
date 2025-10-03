@@ -75,7 +75,7 @@ class Meilisearch_Autocomplete
 	public function handle_autocomplete_request(WP_REST_Request $request): WP_REST_Response
 	{
 		$query = $request->get_param('q');
-		$limit = $request->get_param('limit') ?: 5;
+		$limit = $request->get_param('limit') ?? 5;
 
 		if (null === $query || '' === $query || strlen($query) < 2) {
 			return new WP_REST_Response([], 200);

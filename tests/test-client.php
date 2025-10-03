@@ -16,7 +16,7 @@ class Meilisearch_Client_Test extends WP_UnitTestCase
 	/**
 	 * Test client initialization.
 	 */
-	public function test_client_initialization()
+	public function test_client_initialization(): void
 	{
 		$client = new Meilisearch_Client('http://localhost:7700', 'test_key');
 		static::assertInstanceOf(Meilisearch_Client::class, $client);
@@ -25,7 +25,7 @@ class Meilisearch_Client_Test extends WP_UnitTestCase
 	/**
 	 * Test index name generation.
 	 */
-	public function test_get_index_name()
+	public function test_get_index_name(): void
 	{
 		$client = new Meilisearch_Client('http://localhost:7700');
 		$index_name = $client->get_index_name(1);
@@ -35,7 +35,7 @@ class Meilisearch_Client_Test extends WP_UnitTestCase
 	/**
 	 * Test getting all index names.
 	 */
-	public function test_get_all_index_names()
+	public function test_get_all_index_names(): void
 	{
 		$client = new Meilisearch_Client('http://localhost:7700');
 		$indexes = $client->get_all_index_names();

@@ -664,11 +664,6 @@ start_line = 81
 end_line = 81
 
 [[entries."includes/class-indexer.php".issues]]
-code = "impossible-condition"
-start_line = 239
-end_line = 239
-
-[[entries."includes/class-indexer.php".issues]]
 code = "invalid-iterator"
 start_line = 123
 end_line = 123
@@ -702,6 +697,11 @@ end_line = 237
 code = "invalid-property-access"
 start_line = 238
 end_line = 238
+
+[[entries."includes/class-indexer.php".issues]]
+code = "invalid-property-access"
+start_line = 239
+end_line = 239
 
 [[entries."includes/class-indexer.php".issues]]
 code = "invalid-property-access"
@@ -939,9 +939,19 @@ start_line = 68
 end_line = 68
 
 [[entries."includes/class-indexer.php".issues]]
+code = "redundant-comparison"
+start_line = 239
+end_line = 239
+
+[[entries."includes/class-indexer.php".issues]]
 code = "redundant-condition"
 start_line = 68
 end_line = 68
+
+[[entries."includes/class-indexer.php".issues]]
+code = "redundant-condition"
+start_line = 239
+end_line = 239
 
 [[entries."includes/class-indexer.php".issues]]
 code = "redundant-logical-operation"
@@ -1115,13 +1125,13 @@ end_line = 210
 
 [[entries."public/class-search-override.php".issues]]
 code = "invalid-operand"
-start_line = 215
-end_line = 215
+start_line = 217
+end_line = 217
 
 [[entries."public/class-search-override.php".issues]]
 code = "invalid-operand"
-start_line = 215
-end_line = 215
+start_line = 217
+end_line = 217
 
 [[entries."public/class-search-override.php".issues]]
 code = "invalid-property-access"
@@ -1205,13 +1215,18 @@ end_line = 89
 
 [[entries."public/class-search-override.php".issues]]
 code = "mixed-return-statement"
+start_line = 101
+end_line = 101
+
+[[entries."public/class-search-override.php".issues]]
+code = "mixed-return-statement"
 start_line = 211
 end_line = 211
 
 [[entries."public/class-search-override.php".issues]]
 code = "mixed-return-statement"
-start_line = 217
-end_line = 217
+start_line = 219
+end_line = 219
 
 [[entries."public/class-search-override.php".issues]]
 code = "non-existent-function"

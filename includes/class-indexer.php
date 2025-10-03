@@ -122,7 +122,7 @@ class Meilisearch_Indexer
 		];
 
 		foreach ($sites as $site) {
-			$fiber = new Fiber(function () use ($site, &$results, $progress_callback) {
+			$fiber = new Fiber(function () use ($site, &$results, $progress_callback): void {
 				switch_to_blog($site->blog_id);
 
 				$site_result = $this->index_site_posts($site->blog_id);
@@ -237,7 +237,7 @@ class Meilisearch_Indexer
 			'blog_id' => get_current_blog_id(),
 			'title' => $post->post_title,
 			'content' => wp_strip_all_tags($post->post_content),
-			'excerpt' => $post->post_excerpt ?: wp_trim_words($post->post_content, 55),
+			'excerpt' => '' !== $post->post_excerpt ? $post->post_excerpt : wp_trim_words($post->post_content, 55),
 			'post_type' => $post->post_type,
 			'post_status' => $post->post_status,
 			'date' => strtotime($post->post_date),

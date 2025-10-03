@@ -8,11 +8,6 @@ code = "class-name"
 start_line = 15
 end_line = 15
 
-[[entries."includes/class-autocomplete.php".issues]]
-code = "no-shorthand-ternary"
-start_line = 77
-end_line = 77
-
 [[entries."includes/class-cli.php".issues]]
 code = "braced-string-interpolation"
 start_line = 75
@@ -223,16 +218,6 @@ code = "cyclomatic-complexity"
 start_line = 17
 end_line = 289
 
-[[entries."includes/class-indexer.php".issues]]
-code = "no-shorthand-ternary"
-start_line = 239
-end_line = 239
-
-[[entries."includes/class-indexer.php".issues]]
-code = "return-type"
-start_line = 124
-end_line = 140
-
 [[entries."includes/class-searcher.php".issues]]
 code = "class-name"
 start_line = 17
@@ -246,59 +231,14 @@ end_line = 15
 [[entries."public/class-search-override.php".issues]]
 code = "cyclomatic-complexity"
 start_line = 15
-end_line = 223
+end_line = 224
 
 [[entries."public/class-search-override.php".issues]]
 code = "kan-defect"
 start_line = 15
-end_line = 223
-
-[[entries."public/class-search-override.php".issues]]
-code = "no-else-clause"
-start_line = 214
-end_line = 219
-
-[[entries."public/class-search-override.php".issues]]
-code = "parameter-type"
-start_line = 111
-end_line = 111
-
-[[entries."public/class-search-override.php".issues]]
-code = "parameter-type"
-start_line = 196
-end_line = 196
-
-[[entries."public/class-search-override.php".issues]]
-code = "return-type"
-start_line = 101
-end_line = 101
-
-[[entries."public/class-search-override.php".issues]]
-code = "return-type"
-start_line = 111
-end_line = 187
+end_line = 224
 
 [[entries."tests/test-client.php".issues]]
 code = "class-name"
 start_line = 13
 end_line = 13
-
-[[entries."tests/test-client.php".issues]]
-code = "return-type"
-start_line = 18
-end_line = 22
-
-[[entries."tests/test-client.php".issues]]
-code = "return-type"
-start_line = 27
-end_line = 32
-
-[[entries."tests/test-client.php".issues]]
-code = "return-type"
-start_line = 37
-end_line = 42
-
-[[entries."tests/test-sample.php".issues]]
-code = "return-type"
-start_line = 18
-end_line = 22
