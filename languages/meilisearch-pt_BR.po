@@ -1,0 +1,137 @@
+# Copyright (C) 2025 joaovjo
+# This file is distributed under the same license as the Meilisearch Network Search plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Meilisearch Network Search 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/meilisearch\n"
+"Last-Translator: João Victor <joao@example.com>\n"
+"Language-Team: Portuguese (Brazil) <pt_BR@li.org>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-10-02T18:53:44+00:00\n"
+"PO-Revision-Date: 2025-10-03 00:00+0000\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: meilisearch\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. Plugin Name of the plugin
+#: meilisearch.php
+msgid "Meilisearch Network Search"
+msgstr "Busca de Rede Meilisearch"
+
+#. Plugin URI of the plugin
+#: meilisearch.php
+msgid "https://github.com/joaovjo/meilisearch-plus"
+msgstr "https://github.com/joaovjo/meilisearch-plus"
+
+#. Description of the plugin
+#: meilisearch.php
+msgid "Replace WordPress search with Meilisearch across your entire multisite network with automatic autocomplete. Network-only configuration."
+msgstr "Substitui a busca do WordPress pelo Meilisearch em toda a sua rede multisite com autocompletar automático. Configuração apenas na rede."
+
+#. Author of the plugin
+#: meilisearch.php
+msgid "joaovjo"
+msgstr "joaovjo"
+
+#. Author URI of the plugin
+#: meilisearch.php
+msgid "https://github.com/joaovjo"
+msgstr "https://github.com/joaovjo"
+
+#: admin/class-network-settings.php:36
+msgid "Meilisearch Settings"
+msgstr "Configurações do Meilisearch"
+
+#: admin/class-network-settings.php:37
+msgid "Meilisearch"
+msgstr "Meilisearch"
+
+#: admin/class-network-settings.php:49
+#: admin/class-network-settings.php:205
+msgid "You do not have permission to access this page."
+msgstr "Você não tem permissão para acessar esta página."
+
+#: admin/class-network-settings.php:69
+msgid "Meilisearch Network Settings"
+msgstr "Configurações de Rede do Meilisearch"
+
+#: admin/class-network-settings.php:73
+msgid "Settings saved successfully."
+msgstr "Configurações salvas com sucesso."
+
+#: admin/class-network-settings.php:80
+msgid "Connection Status:"
+msgstr "Status da Conexão:"
+
+#: admin/class-network-settings.php:83
+msgid "Connected successfully!"
+msgstr "Conectado com sucesso!"
+
+#: admin/class-network-settings.php:84
+msgid "Connection failed. Please check your credentials."
+msgstr "Falha na conexão. Por favor, verifique suas credenciais."
+
+#: admin/class-network-settings.php:97
+msgid "Enable Meilisearch"
+msgstr "Ativar Meilisearch"
+
+#: admin/class-network-settings.php:107
+msgid "Enable Meilisearch search across the network."
+msgstr "Ativar busca Meilisearch em toda a rede."
+
+#: admin/class-network-settings.php:115
+msgid "Meilisearch Host"
+msgstr "Host do Meilisearch"
+
+#: admin/class-network-settings.php:126
+msgid "URL of your Meilisearch server (e.g., http://localhost:7700)"
+msgstr "URL do seu servidor Meilisearch (ex: http://localhost:7700)"
+
+#: admin/class-network-settings.php:134
+msgid "Master Key"
+msgstr "Chave Mestre"
+
+#: admin/class-network-settings.php:145
+msgid "Your Meilisearch master key (leave empty if not using authentication)."
+msgstr "Sua chave mestre do Meilisearch (deixe vazio se não estiver usando autenticação)."
+
+#: admin/class-network-settings.php:151
+msgid "Indexing Status"
+msgstr "Status da Indexação"
+
+#: admin/class-network-settings.php:154
+msgid "Save Settings"
+msgstr "Salvar Configurações"
+
+#: admin/class-network-settings.php:171
+msgid "Metric"
+msgstr "Métrica"
+
+#: admin/class-network-settings.php:172
+msgid "Value"
+msgstr "Valor"
+
+#: admin/class-network-settings.php:177
+msgid "Total Sites in Network"
+msgstr "Total de Sites na Rede"
+
+#. translators: %s: WP-CLI command
+#: admin/class-network-settings.php:186
+#, php-format
+msgid "Use WP-CLI to index all sites: %s"
+msgstr "Use o WP-CLI para indexar todos os sites: %s"
+
+#: meilisearch.php:62
+msgid "This plugin must be network activated."
+msgstr "Este plugin deve ser ativado na rede."
+
+#: meilisearch.php:63
+msgid "Network Activation Required"
+msgstr "Ativação de Rede Necessária"
+
+#: meilisearch.php:102
+msgid "Meilisearch plugin requires WordPress Multisite."
+msgstr "O plugin Meilisearch requer WordPress Multisite."
