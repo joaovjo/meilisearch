@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Meilisearch Autocomplete
  *
@@ -75,7 +77,7 @@ class Meilisearch_Autocomplete
 		$query = $request->get_param('q');
 		$limit = $request->get_param('limit') ?: 5;
 
-		if (empty($query) || strlen($query) < 2) {
+		if (null === $query || '' === $query || strlen($query) < 2) {
 			return new WP_REST_Response([], 200);
 		}
 

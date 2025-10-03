@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Class Meilisearch_Client_Test
  *
@@ -17,7 +19,7 @@ class Meilisearch_Client_Test extends WP_UnitTestCase
 	public function test_client_initialization()
 	{
 		$client = new Meilisearch_Client('http://localhost:7700', 'test_key');
-		$this->assertInstanceOf(Meilisearch_Client::class, $client);
+		static::assertInstanceOf(Meilisearch_Client::class, $client);
 	}
 
 	/**
@@ -27,7 +29,7 @@ class Meilisearch_Client_Test extends WP_UnitTestCase
 	{
 		$client = new Meilisearch_Client('http://localhost:7700');
 		$index_name = $client->get_index_name(1);
-		$this->assertEquals('wp_1_posts', $index_name);
+		static::assertSame('wp_1_posts', $index_name);
 	}
 
 	/**
@@ -37,6 +39,6 @@ class Meilisearch_Client_Test extends WP_UnitTestCase
 	{
 		$client = new Meilisearch_Client('http://localhost:7700');
 		$indexes = $client->get_all_index_names();
-		$this->assertIsArray($indexes);
+		static::assertIsArray($indexes);
 	}
 }

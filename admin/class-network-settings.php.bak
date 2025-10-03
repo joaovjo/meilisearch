@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+
 /**
  * Meilisearch Network Settings
  *
@@ -65,7 +66,7 @@ class Meilisearch_Network_Settings
 
 		// Test connection if credentials provided.
 		$connection_status = null;
-		if (isset($settings['host']) && '' !== $settings['host']) {
+		if (isset($settings['host']) && $settings['host'] !== '') {
 			$client = new Meilisearch_Client($settings['host'], $settings['master_key']);
 			$connection_status = $client->test_connection();
 		}
@@ -84,16 +85,13 @@ class Meilisearch_Network_Settings
 				<div class="notice notice-<?php echo $connection_status ? 'success' : 'error'; ?>">
 					<p>
 						<strong><?php esc_html_e('Connection Status:', 'meilisearch'); ?></strong>
-				<?php
+						<?php
 
-				echo
-					esc_html(
-						$connection_status
-							? __('Connected successfully!', 'meilisearch')
-							: __('Connection failed. Please check your credentials.', 'meilisearch'),
-					)
-				;
-				?>
+						echo
+							$connection_status
+								? esc_html__('Connected successfully!', 'meilisearch')
+								: esc_html__('Connection failed. Please check your credentials.', 'meilisearch')
+						;
 						?>
 					</p>
 				</div>

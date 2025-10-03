@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * WP-CLI commands for Meilisearch plugin.
  *
@@ -80,7 +82,7 @@ class Meilisearch_CLI
 			WP_CLI::log("Reindexing blog $blog_id...");
 			$results = $this->indexer->index_site_posts((int) $blog_id);
 
-			if (!empty($results['errors'])) {
+			if (isset($results['errors']) && is_array($results['errors']) && count($results['errors']) > 0) {
 				WP_CLI::warning('Reindexing completed with errors:');
 				foreach ($results['errors'] as $error) {
 					WP_CLI::warning($error);
@@ -297,7 +299,7 @@ class Meilisearch_CLI
 		$blog_id = isset($assoc_args['blog_id']) ? (int) $assoc_args['blog_id'] : null;
 		$format = $assoc_args['format'] ?? 'table';
 
-		if (empty($query)) {
+		if (null === $query || '' === $query) {
 			WP_CLI::error('Search query is required.');
 		}
 
@@ -312,7 +314,7 @@ class Meilisearch_CLI
 				$hits = $results['hits'];
 			}
 
-			if (empty($hits)) {
+			if (!isset($hits) || !is_array($hits) || count($hits) === 0) {
 				WP_CLI::warning('No results found.');
 				return;
 			}
@@ -355,7 +357,7 @@ class Meilisearch_CLI
 		try {
 			$health = $this->client->get_client()->health();
 
-			if (isset($health['status']) && $health['status'] === 'available') {
+			if (isset($health['status']) && 'available' === $health['status']) {
 				WP_CLI::success('Meilisearch server is healthy and available!');
 
 				// Get version info.

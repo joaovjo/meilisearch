@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Meilisearch Search Override
  *
@@ -70,7 +72,7 @@ class Meilisearch_Search_Override
 
 		$search_term = $query->get('s');
 
-		if (empty($search_term)) {
+		if (null === $search_term || '' === $search_term) {
 			return;
 		}
 
@@ -97,14 +99,7 @@ class Meilisearch_Search_Override
 		$this->cached_results = $results;
 
 		// Set total found posts for pagination.
-		add_filter(
-			'found_posts',
-			function () use ($results) {
-				return $results['total'];
-			},
-			10,
-			2,
-		);
+		add_filter('found_posts', fn() => $results['total'], 10, 2);
 	}
 
 	/**
@@ -189,7 +184,7 @@ class Meilisearch_Search_Override
 		// Keep permalink_map for later use by permalink filters.
 		$this->cached_results = null;
 
-		return !empty($post_objects) ? $post_objects : [false];
+		return is_array($post_objects) && count($post_objects) > 0 ? $post_objects : [false];
 	}
 
 	/**

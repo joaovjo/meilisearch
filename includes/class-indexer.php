@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Meilisearch Indexer
  *
@@ -127,7 +129,7 @@ class Meilisearch_Indexer
 				$results['total_posts'] += $site_result['total'];
 				$results['indexed_posts'] += $site_result['indexed'];
 
-				if (!empty($site_result['errors'])) {
+				if (isset($site_result['errors']) && is_array($site_result['errors']) && count($site_result['errors']) > 0) {
 					$results['errors'][$site->blog_id] = $site_result['errors'];
 				}
 
@@ -200,7 +202,7 @@ class Meilisearch_Indexer
 		}
 
 		// Index remaining documents.
-		if (!empty($documents)) {
+		if (is_array($documents) && count($documents) > 0) {
 			try {
 				$this->client
 					->get_client()
