@@ -254,7 +254,7 @@ msgstr "Ver estatísticas de indexação"
 
 # admin/class-metrics.php
 msgid "Metrics"
-msgstr "Mtricas"
+msgstr "Métricas"
 
 msgid "Meilisearch Metrics"
 msgstr "Métricas do Meilisearch"
