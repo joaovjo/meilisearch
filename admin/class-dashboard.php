@@ -31,10 +31,22 @@ class Meilisearch_Dashboard
 	}
 
 	/**
-	 * Add dashboard as first submenu item.
+	 * Add main menu and dashboard page.
 	 */
 	public function add_dashboard_menu(): void
 	{
+		// Main menu with dashboard as the default page
+		add_menu_page(
+			__('Meilisearch Search', 'meilisearch'),
+			__('Meilisearch', 'meilisearch'),
+			'manage_network_options',
+			'meilisearch-dashboard',
+			[$this, 'render_dashboard'],
+			'dashicons-search',
+			30,
+		);
+
+		// Add dashboard submenu (will rename the first item)
 		add_submenu_page(
 			'meilisearch-dashboard',
 			__('Dashboard', 'meilisearch'),
@@ -42,7 +54,6 @@ class Meilisearch_Dashboard
 			'manage_network_options',
 			'meilisearch-dashboard',
 			[$this, 'render_dashboard'],
-			0, // First position
 		);
 	}
 
