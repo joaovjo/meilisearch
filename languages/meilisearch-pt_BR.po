@@ -135,3 +135,119 @@ msgstr "Ativação de Rede Necessária"
 #: meilisearch.php:102
 msgid "Meilisearch plugin requires WordPress Multisite."
 msgstr "O plugin Meilisearch requer WordPress Multisite."
+
+#: admin/class-dashboard.php
+msgid "Meilisearch Search"
+msgstr "Busca Meilisearch"
+
+#: admin/class-dashboard.php
+msgid "Dashboard"
+msgstr "Painel"
+
+#: admin/class-dashboard.php
+msgid "Settings"
+msgstr "Configurações"
+
+#: admin/class-dashboard.php
+msgid "You do not have permission to access this page."
+msgstr "Você não tem permissão para acessar esta página."
+
+#: admin/class-dashboard.php
+msgid "Meilisearch Dashboard"
+msgstr "Painel do Meilisearch"
+
+#: admin/class-dashboard.php
+msgid "Network Statistics"
+msgstr "Estatísticas da Rede"
+
+#: admin/class-dashboard.php
+msgid "Total Sites"
+msgstr "Total de Sites"
+
+#: admin/class-dashboard.php
+msgid "Total Published Posts"
+msgstr "Total de Posts Publicados"
+
+#: admin/class-dashboard.php
+msgid "Meilisearch Server"
+msgstr "Servidor Meilisearch"
+
+#: admin/class-dashboard.php
+msgid "Host"
+msgstr "Host"
+
+#: admin/class-dashboard.php
+msgid "Status"
+msgstr "Status"
+
+#: admin/class-dashboard.php
+msgid "Connected"
+msgstr "Conectado"
+
+#: admin/class-dashboard.php
+msgid "Disconnected"
+msgstr "Desconectado"
+
+#: admin/class-dashboard.php
+msgid "Meilisearch Version"
+msgstr "Versão do Meilisearch"
+
+#: admin/class-dashboard.php
+msgid "System Information"
+msgstr "Informações do Sistema"
+
+#: admin/class-dashboard.php
+msgid "Plugin Version"
+msgstr "Versão do Plugin"
+
+#: admin/class-dashboard.php
+msgid "WordPress Version"
+msgstr "Versão do WordPress"
+
+#: admin/class-dashboard.php
+msgid "PHP Version"
+msgstr "Versão do PHP"
+
+#: admin/class-dashboard.php
+msgid "Meilisearch PHP SDK"
+msgstr "SDK PHP do Meilisearch"
+
+#: admin/class-dashboard.php
+msgid "Guzzle HTTP"
+msgstr "Guzzle HTTP"
+
+#: admin/class-dashboard.php
+msgid "PHP Fiber Support"
+msgstr "Suporte PHP Fiber"
+
+#: admin/class-dashboard.php
+msgid "Available"
+msgstr "Disponível"
+
+#: admin/class-dashboard.php
+msgid "Quick Actions"
+msgstr "Ações Rápidas"
+
+#: admin/class-dashboard.php
+msgid "Configure Settings"
+msgstr "Configurar"
+
+#: admin/class-dashboard.php
+msgid "Manage Indexes"
+msgstr "Gerenciar Índices"
+
+#: admin/class-dashboard.php
+msgid "WP-CLI Commands:"
+msgstr "Comandos WP-CLI:"
+
+#: admin/class-dashboard.php
+msgid "Reindex all sites"
+msgstr "Reindexar todos os sites"
+
+#: admin/class-dashboard.php
+msgid "Check server health"
+msgstr "Verificar saúde do servidor"
+
+#: admin/class-dashboard.php
+msgid "View indexing statistics"
+msgstr "Ver estatísticas de indexação"

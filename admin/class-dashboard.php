@@ -305,17 +305,12 @@ class Meilisearch_Dashboard
 				<!-- Quick Actions -->
 				<div class="postbox">
 					<div class="inside" style="padding: 12px;">
-						<h2 style="margin-top: 0;"><?php esc_html_e('Quick Actions', 'meilisearch'); ?></h2>
-						<p>
-							<a href="<?php echo esc_url(network_admin_url('admin.php?page=meilisearch')); ?>" class="button button-primary">
-								<?php esc_html_e('Configure Settings', 'meilisearch'); ?>
-							</a>
-							<?php if ('available' === $meilisearch_info['status']): ?>
-								<a href="<?php echo esc_url(network_admin_url('admin.php?page=meilisearch-indexes')); ?>" class="button">
-									<?php esc_html_e('Manage Indexes', 'meilisearch'); ?>
-								</a>
-							<?php endif; ?>
-						</p>
+					<h2 style="margin-top: 0;"><?php esc_html_e('Quick Actions', 'meilisearch'); ?></h2>
+					<p>
+						<a href="<?php echo esc_url(network_admin_url('admin.php?page=meilisearch-settings')); ?>" class="button button-primary">
+							<?php esc_html_e('Configure Settings', 'meilisearch'); ?>
+						</a>
+					</p>
 						<p style="margin-top: 15px;">
 							<strong><?php esc_html_e('WP-CLI Commands:', 'meilisearch'); ?></strong><br>
 							<code>wp meilisearch reindex</code> - <?php esc_html_e('Reindex all sites', 'meilisearch'); ?><br>
