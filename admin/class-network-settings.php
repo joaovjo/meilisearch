@@ -52,7 +52,7 @@ class Meilisearch_Network_Settings
 	 */
 	public function render_settings_page(): void
 	{
-		if (!current_user_can('manage_network_options')) {
+		if (!current_user_can('manage_network_options') && !is_super_admin()) {
 			wp_die(esc_html__('You do not have permission to access this page.', 'meilisearch'));
 		}
 
