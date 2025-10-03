@@ -105,8 +105,8 @@ excludes = [
     "tests/bootstrap.php"
 ]
 
-# Baseline file for existing issues (optional)
-# baseline = "linter-baseline.toml"
+# Baseline file for existing issues
+baseline = "linter-baseline.toml"
 
 # Rule configuration
 [linter.rules]
@@ -167,5 +167,5 @@ allow-possibly-undefined-array-keys = true
 check-throws = true
 perform-heuristic-checks = true
 
-# Baseline file for existing issues (optional)
-# baseline = "analyzer-baseline.toml"
+# Baseline file for existing issues
+baseline = "analyzer-baseline.toml"
