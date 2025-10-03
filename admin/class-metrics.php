@@ -98,7 +98,8 @@ class Meilisearch_Metrics
 		}
 
 		try {
-			$indexes = $client->get_client()->getAllIndexes();
+			$indexes_results = $client->get_client()->getIndexes();
+			$indexes = $indexes_results->getResults();
 			$stats = [];
 
 			foreach ($indexes as $index) {
