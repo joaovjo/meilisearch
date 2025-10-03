@@ -16,7 +16,26 @@
   "scripts": {
     "makepot": "wp i18n make-pot .",
     "docs": "phpdoc",
-    "docs:phar": "php tools/phpDocumentor.phar"
+    "docs:phar": "php tools/phpDocumentor.phar",
+    "mago:fmt": "vendor/bin/mago fmt",
+    "mago:fmt:check": "vendor/bin/mago fmt --check",
+    "mago:fmt:dry": "vendor/bin/mago fmt --dry-run",
+    "mago:lint": "vendor/bin/mago lint",
+    "mago:lint:fix": "vendor/bin/mago lint --fix",
+    "mago:lint:rules": "vendor/bin/mago lint --list-rules",
+    "mago:analyze": "vendor/bin/mago analyze",
+    "mago:analyze:baseline": "vendor/bin/mago analyze --generate-baseline analyzer-baseline.toml",
+    "mago:config": "vendor/bin/mago config",
+    "mago:all": [
+      "@mago:fmt",
+      "@mago:lint",
+      "@mago:analyze"
+    ],
+    "mago:check": [
+      "@mago:fmt:check",
+      "@mago:lint",
+      "@mago:analyze"
+    ]
   },
   "config": {
     "allow-plugins": {

@@ -1,29 +1,219 @@
-# Welcome to Mago!
-# For full documentation, see https://mago.carthage.software/tools/overview
-php-version = "8.1.0"
+# Mago Configuration for Meilisearch WordPress Plugin
+# Documentation: https://mago.carthage.software/guide/configuration
+# Last updated: 2025-10-03
 
+# ==============================================================================
+# Global Options
+# ==============================================================================
+php-version = "8.1"
+threads = 4
+use-pager = false
+
+# ==============================================================================
+# Source Configuration
+# ==============================================================================
 [source]
-paths = []
-includes = ["vendor"]
-excludes = []
+# Directories to scan for PHP files
+paths = ["includes", "admin", "public", "tests"]
 
+# Include vendor for context (won't be analyzed/formatted)
+includes = ["vendor"]
+
+# Exclude specific paths and patterns
+excludes = [
+    "vendor/**",
+    ".phpdoc/**",
+    "tools/**",
+    "bin/**",
+    "docs/**",
+    "**/*_generated.php",
+    "**/node_modules/**"
+]
+
+# File extensions to consider as PHP
+extensions = ["php"]
+
+# ==============================================================================
+# Formatter Configuration
+# ==============================================================================
 [formatter]
+# Exclude specific paths from formatting
+excludes = [
+    "vendor/**",
+    ".phpdoc/**",
+    "tools/**"
+]
+
+# Line and indentation settings
 print-width = 120
 tab-width = 4
 use-tabs = true
+end-of-line = "lf"
 
+# Code style preferences
+single-quote = true
+trailing-comma = true
+remove-trailing-close-tag = true
+
+# Brace styles (WordPress/PSR-12 compatible)
+control-brace-style = "same-line"
+closure-brace-style = "same-line"
+function-brace-style = "next-line"
+method-brace-style = "next-line"
+classlike-brace-style = "next-line"
+
+# Empty brace handling
+inline-empty-control-braces = false
+inline-empty-closure-braces = true
+inline-empty-function-braces = false
+inline-empty-method-braces = false
+inline-empty-constructor-braces = true
+inline-empty-classlike-braces = false
+inline-empty-anonymous-class-braces = true
+
+# Breaking and alignment
+method-chain-breaking-style = "next-line"
+preserve-breaking-member-access-chain = false
+preserve-breaking-argument-list = false
+preserve-breaking-array-like = true
+preserve-breaking-parameter-list = false
+preserve-breaking-attribute-list = false
+preserve-breaking-conditional-expression = false
+break-promoted-properties-list = true
+line-before-binary-operator = true
+always-break-named-arguments-list = true
+always-break-attribute-named-argument-lists = false
+array-table-style-alignment = true
+
+# Import (use) statement handling
+sort-uses = true
+separate-use-types = true
+expand-use-groups = true
+
+# Type hints and syntax preferences
+null-type-hint = "null-pipe"
+parentheses-around-new-in-member-access = false
+parentheses-in-new-expression = true
+parentheses-in-exit-and-die = true
+parentheses-in-attribute = false
+
+# Spacing preferences
+space-before-arrow-function-parameter-list-parenthesis = false
+space-before-closure-parameter-list-parenthesis = true
+space-before-hook-parameter-list-parenthesis = false
+space-before-closure-use-clause-parenthesis = true
+space-after-colon-in-enum-backing-type = true
+space-after-cast-unary-prefix-operators = true
+space-after-reference-unary-prefix-operator = false
+space-after-error-control-unary-prefix-operator = false
+space-after-logical-not-unary-prefix-operator = false
+space-after-bitwise-not-unary-prefix-operator = false
+space-after-increment-unary-prefix-operator = false
+space-after-decrement-unary-prefix-operator = false
+space-after-additive-unary-prefix-operator = false
+space-around-concatenation-binary-operator = true
+space-around-assignment-in-declare = false
+space-within-grouping-parenthesis = false
+
+# Empty line preferences
+empty-line-after-control-structure = false
+empty-line-after-opening-tag = true
+empty-line-after-declare = true
+empty-line-after-namespace = true
+empty-line-after-use = true
+empty-line-after-symbols = true
+empty-line-after-class-like-constant = false
+empty-line-after-enum-case = false
+empty-line-after-trait-use = false
+empty-line-after-property = false
+empty-line-after-method = true
+empty-line-before-return = false
+empty-line-before-dangling-comments = true
+separate-class-like-members = true
+
+# ==============================================================================
+# Linter Configuration
+# ==============================================================================
 [linter]
+# Framework integrations
 integrations = ["wordpress", "phpunit"]
 
+# Exclude paths from linting
+excludes = [
+    "vendor/**",
+    ".phpdoc/**",
+    "tools/**",
+    "tests/bootstrap.php"
+]
+
+# Baseline file for existing issues (optional)
+# baseline = "linter-baseline.toml"
+
+# Rule configuration
 [linter.rules]
+# Disable rules that conflict with WordPress coding standards
 ambiguous-function-call = { enabled = false }
 literal-named-argument = { enabled = false }
-halstead = { effort-threshold = 7000 }
 
+# Complexity thresholds
+cyclomatic-complexity = { level = "warning", threshold = 15 }
+halstead = { effort-threshold = 7000 }
+cognitive-complexity = { level = "warning", threshold = 15 }
+
+# File and function size limits
+max-file-length = { level = "warning", threshold = 500 }
+max-function-length = { level = "warning", threshold = 100 }
+
+# Naming conventions (compatible with WordPress)
+class-name-case = { level = "error" }
+function-name-case = { level = "warning" }
+
+# Best practices
+no-else-clause = { level = "help" }
+no-dead-code = { level = "error" }
+no-unreachable-code = { level = "error" }
+
+# ==============================================================================
+# Analyzer Configuration
+# ==============================================================================
 [analyzer]
-find-unused-definitions = true
+# General options
+excludes = [
+    "vendor/**",
+    ".phpdoc/**",
+    "tools/**",
+    "tests/**"
+]
+
+# Issue categories (all enabled by default)
+mixed-issues = true
+falsable-issues = true
+nullable-issues = true
+redundancy-issues = true
+reference-issues = true
+unreachable-issues = true
+deprecation-issues = true
+impossibility-issues = true
+ambiguity-issues = true
+existence-issues = true
+template-issues = true
+argument-issues = true
+operand-issues = true
+property-issues = true
+generator-issues = true
+array-issues = true
+return-issues = true
+method-issues = true
+iterator-issues = true
+
+# Feature flags
 find-unused-expressions = false
+find-unused-definitions = true
 analyze-dead-code = false
-check-throws = true
+memoize-properties = false
 allow-possibly-undefined-array-keys = true
+check-throws = true
 perform-heuristic-checks = true
+
+# Baseline file for existing issues (optional)
+# baseline = "analyzer-baseline.toml"
