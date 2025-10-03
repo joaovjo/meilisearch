@@ -53,6 +53,10 @@ class Meilisearch_Searcher
 
 		$args = wp_parse_args($args, $default_args);
 
+		// Ensure limit and offset are integers.
+		$args['limit'] = (int) $args['limit'];
+		$args['offset'] = (int) $args['offset'];
+
 		// Prepare multi-search queries.
 		foreach ($indexes as $index) {
 			$search_query = (new SearchQuery())
@@ -63,9 +67,7 @@ class Meilisearch_Searcher
 				->setFilter(['post_status = publish']);
 
 			$queries[] = $search_query;
-		}
-
-		try {
+		}		try {
 			$results = $this->client->get_client()->multiSearch($queries);
 			return $this->format_results($results);
 		} catch (Exception $e) {
@@ -95,6 +97,10 @@ class Meilisearch_Searcher
 		];
 
 		$args = wp_parse_args($args, $default_args);
+
+		// Ensure limit and offset are integers.
+		$args['limit'] = (int) $args['limit'];
+		$args['offset'] = (int) $args['offset'];
 
 		try {
 			$results = $this->client

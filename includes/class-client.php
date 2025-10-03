@@ -83,7 +83,7 @@ class Meilisearch_Client
 		$indexes = [];
 
 		foreach ($sites as $site) {
-			$indexes[] = $this->get_index_name($site->blog_id);
+			$indexes[] = $this->get_index_name((int) $site->blog_id);
 		}
 
 		return $indexes;
