@@ -48,6 +48,7 @@ require_once MEILISEARCH_PLUGIN_DIR . 'includes/class-autocomplete.php';
 
 // Include admin classes.
 if ( is_admin() && is_multisite() ) {
+	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-dashboard.php';
 	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-network-settings.php';
 }
 

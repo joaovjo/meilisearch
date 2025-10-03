@@ -1,0 +1,305 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Meilisearch Dashboard
+ *
+ * @package Meilisearch
+ */
+
+/**
+ * Class Meilisearch_Dashboard
+ *
+ * Handles dashboard/overview page with system information and statistics.
+ */
+class Meilisearch_Dashboard
+{
+	/**
+	 * Meilisearch client instance.
+	 *
+	 * @var Meilisearch_Client|null
+	 */
+	private null|Meilisearch_Client $client = null;
+
+	/**
+	 * Initialize hooks.
+	 */
+	public function init_hooks(): void
+	{
+		add_action('network_admin_menu', [$this, 'add_dashboard_menu']);
+	}
+
+	/**
+	 * Add dashboard as first submenu item.
+	 */
+	public function add_dashboard_menu(): void
+	{
+		add_submenu_page(
+			'meilisearch-dashboard',
+			__('Dashboard', 'meilisearch'),
+			__('Dashboard', 'meilisearch'),
+			'manage_network_options',
+			'meilisearch-dashboard',
+			[$this, 'render_dashboard'],
+			0, // First position
+		);
+	}
+
+	/**
+	 * Get Meilisearch client instance.
+	 *
+	 * @return Meilisearch_Client|null
+	 */
+	private function get_client(): null|Meilisearch_Client
+	{
+		if (null !== $this->client) {
+			return $this->client;
+		}
+
+		$settings = get_site_option('meilisearch_settings', []);
+
+		if (isset($settings['host']) && '' !== $settings['host']) {
+			$this->client = new Meilisearch_Client($settings['host'], $settings['master_key'] ?? '');
+			return $this->client;
+		}
+
+		return null;
+	}
+
+	/**
+	 * Get network statistics.
+	 *
+	 * @return array<string, mixed>
+	 */
+	private function get_network_stats(): array
+	{
+		$sites = get_sites(['number' => 9999]);
+		$total_sites = count($sites);
+		$total_posts = 0;
+
+		foreach ($sites as $site) {
+			switch_to_blog($site->blog_id);
+			$count = wp_count_posts('post');
+			$total_posts += $count->publish ?? 0;
+			restore_current_blog();
+		}
+
+		return [
+			'total_sites' => $total_sites,
+			'total_posts' => $total_posts,
+		];
+	}
+
+	/**
+	 * Get Meilisearch server info.
+	 *
+	 * @return array<string, mixed>
+	 */
+	private function get_meilisearch_info(): array
+	{
+		$info = [
+			'status' => 'disconnected',
+			'version' => 'N/A',
+			'host' => 'N/A',
+		];
+
+		$settings = get_site_option('meilisearch_settings', []);
+		$info['host'] = $settings['host'] ?? 'Not configured';
+
+		$client = $this->get_client();
+		if (null === $client) {
+			return $info;
+		}
+
+		try {
+			$health = $client->get_client()->health();
+			$info['status'] = $health['status'] ?? 'unknown';
+
+			$version = $client->get_client()->version();
+			$info['version'] = $version['pkgVersion'] ?? 'Unknown';
+		} catch (Exception $e) {
+			$info['status'] = 'error';
+		}
+
+		return $info;
+	}
+
+	/**
+	 * Get system information.
+	 *
+	 * @return array<string, string>
+	 */
+	private function get_system_info(): array
+	{
+		$composer_lock = MEILISEARCH_PLUGIN_DIR . 'composer.lock';
+		$dependencies = [];
+
+		if (file_exists($composer_lock)) {
+			$contents = file_get_contents($composer_lock);
+			if ($contents !== false) {
+				$lock_data = json_decode($contents, true);
+				if (is_array($lock_data) && isset($lock_data['packages']) && is_array($lock_data['packages'])) {
+					foreach ($lock_data['packages'] as $package) {
+						if (is_array($package) && isset($package['name'], $package['version'])) {
+							$dependencies[$package['name']] = $package['version'];
+						}
+					}
+				}
+			}
+		}
+
+		return [
+			'plugin_version' => MEILISEARCH_VERSION,
+			'wordpress_version' => get_bloginfo('version'),
+			'php_version' => PHP_VERSION,
+			'meilisearch_php_sdk' => $dependencies['meilisearch/meilisearch-php'] ?? 'Unknown',
+			'guzzle' => $dependencies['guzzlehttp/guzzle'] ?? 'Unknown',
+			'react_fiber' => class_exists('Fiber') ? 'Available' : 'Not Available',
+		];
+	}
+
+	/**
+	 * Render dashboard page.
+	 */
+	public function render_dashboard(): void
+	{
+		if (!current_user_can('manage_network_options')) {
+			wp_die(esc_html__('You do not have permission to access this page.', 'meilisearch'));
+		}
+
+		$network_stats = $this->get_network_stats();
+		$meilisearch_info = $this->get_meilisearch_info();
+		$system_info = $this->get_system_info();
+
+		?>
+		<div class="wrap">
+			<h1><?php esc_html_e('Meilisearch Dashboard', 'meilisearch'); ?></h1>
+
+			<div class="meilisearch-dashboard" style="margin-top: 20px;">
+				
+				<!-- Network Statistics -->
+				<div class="postbox" style="margin-bottom: 20px;">
+					<div class="inside" style="padding: 12px;">
+						<h2 style="margin-top: 0;"><?php esc_html_e('Network Statistics', 'meilisearch'); ?></h2>
+						<table class="widefat striped">
+							<tbody>
+								<tr>
+									<td style="width: 40%;"><strong><?php esc_html_e('Total Sites', 'meilisearch'); ?></strong></td>
+									<td><?php echo esc_html((string) $network_stats['total_sites']); ?></td>
+								</tr>
+								<tr>
+									<td><strong><?php esc_html_e('Total Published Posts', 'meilisearch'); ?></strong></td>
+									<td><?php echo esc_html((string) $network_stats['total_posts']); ?></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<!-- Meilisearch Status -->
+				<div class="postbox" style="margin-bottom: 20px;">
+					<div class="inside" style="padding: 12px;">
+						<h2 style="margin-top: 0;"><?php esc_html_e('Meilisearch Server', 'meilisearch'); ?></h2>
+						<table class="widefat striped">
+							<tbody>
+								<tr>
+									<td style="width: 40%;"><strong><?php esc_html_e('Host', 'meilisearch'); ?></strong></td>
+									<td><?php echo esc_html($meilisearch_info['host']); ?></td>
+								</tr>
+								<tr>
+									<td><strong><?php esc_html_e('Status', 'meilisearch'); ?></strong></td>
+									<td>
+										<?php
+
+										$status_class = 'available' === $meilisearch_info['status'] ? 'green' : 'red';
+										$status_text = 'available' === $meilisearch_info['status']
+											? __('Connected', 'meilisearch')
+											: __('Disconnected', 'meilisearch');
+										?>
+										<span style="color: <?php echo esc_attr($status_class); ?>; font-weight: bold;">
+											● <?php echo esc_html($status_text); ?>
+										</span>
+									</td>
+								</tr>
+								<tr>
+									<td><strong><?php esc_html_e('Meilisearch Version', 'meilisearch'); ?></strong></td>
+									<td><?php echo esc_html($meilisearch_info['version']); ?></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<!-- System Information -->
+				<div class="postbox" style="margin-bottom: 20px;">
+					<div class="inside" style="padding: 12px;">
+						<h2 style="margin-top: 0;"><?php esc_html_e('System Information', 'meilisearch'); ?></h2>
+						<table class="widefat striped">
+							<tbody>
+								<tr>
+									<td style="width: 40%;"><strong><?php esc_html_e('Plugin Version', 'meilisearch'); ?></strong></td>
+									<td><?php echo esc_html($system_info['plugin_version']); ?></td>
+								</tr>
+								<tr>
+									<td><strong><?php esc_html_e('WordPress Version', 'meilisearch'); ?></strong></td>
+									<td><?php echo esc_html($system_info['wordpress_version']); ?></td>
+								</tr>
+								<tr>
+									<td><strong><?php esc_html_e('PHP Version', 'meilisearch'); ?></strong></td>
+									<td><?php echo esc_html($system_info['php_version']); ?></td>
+								</tr>
+								<tr>
+									<td><strong><?php esc_html_e('Meilisearch PHP SDK', 'meilisearch'); ?></strong></td>
+									<td><?php echo esc_html($system_info['meilisearch_php_sdk']); ?></td>
+								</tr>
+								<tr>
+									<td><strong><?php esc_html_e('Guzzle HTTP', 'meilisearch'); ?></strong></td>
+									<td><?php echo esc_html($system_info['guzzle']); ?></td>
+								</tr>
+								<tr>
+									<td><strong><?php esc_html_e('PHP Fiber Support', 'meilisearch'); ?></strong></td>
+									<td>
+										<?php
+
+										$fiber_available = 'Available' === $system_info['react_fiber'];
+										$fiber_color = $fiber_available ? 'green' : 'orange';
+										?>
+										<span style="color: <?php echo esc_attr($fiber_color); ?>; font-weight: bold;">
+											<?php echo esc_html($system_info['react_fiber']); ?>
+										</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<!-- Quick Actions -->
+				<div class="postbox">
+					<div class="inside" style="padding: 12px;">
+						<h2 style="margin-top: 0;"><?php esc_html_e('Quick Actions', 'meilisearch'); ?></h2>
+						<p>
+							<a href="<?php echo esc_url(network_admin_url('admin.php?page=meilisearch')); ?>" class="button button-primary">
+								<?php esc_html_e('Configure Settings', 'meilisearch'); ?>
+							</a>
+							<?php if ('available' === $meilisearch_info['status']): ?>
+								<a href="<?php echo esc_url(network_admin_url('admin.php?page=meilisearch-indexes')); ?>" class="button">
+									<?php esc_html_e('Manage Indexes', 'meilisearch'); ?>
+								</a>
+							<?php endif; ?>
+						</p>
+						<p style="margin-top: 15px;">
+							<strong><?php esc_html_e('WP-CLI Commands:', 'meilisearch'); ?></strong><br>
+							<code>wp meilisearch reindex</code> - <?php esc_html_e('Reindex all sites', 'meilisearch'); ?><br>
+							<code>wp meilisearch health</code> - <?php esc_html_e('Check server health', 'meilisearch'); ?><br>
+							<code>wp meilisearch stats</code> - <?php esc_html_e('View indexing statistics', 'meilisearch'); ?>
+						</p>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<?php
+	}
+}

@@ -36,22 +36,24 @@ class Meilisearch_Network_Settings
 	 */
 	public function add_network_menu(): void
 	{
+		// Main menu pointing to dashboard
 		add_menu_page(
 			__('Meilisearch Search', 'meilisearch'),
 			__('Meilisearch', 'meilisearch'),
 			'manage_network_options',
-			'meilisearch',
-			[$this, 'render_settings_page'],
+			'meilisearch-dashboard',
+			'__return_null',
 			'dashicons-search',
 			30,
 		);
 
+		// Settings submenu
 		add_submenu_page(
-			'meilisearch',
+			'meilisearch-dashboard',
 			__('Settings', 'meilisearch'),
 			__('Settings', 'meilisearch'),
 			'manage_network_options',
-			'meilisearch',
+			'meilisearch-settings',
 			[$this, 'render_settings_page'],
 		);
 	}
