@@ -168,9 +168,25 @@ class Meilisearch_Dashboard
 			wp_die(esc_html__('You do not have permission to access this page.', 'meilisearch'));
 		}
 
-		$network_stats = $this->get_network_stats();
-		$meilisearch_info = $this->get_meilisearch_info();
-		$system_info = $this->get_system_info();
+		try {
+			$network_stats = $this->get_network_stats();
+			$meilisearch_info = $this->get_meilisearch_info();
+			$system_info = $this->get_system_info();
+		} catch (\Exception $e) {
+			?>
+			<div class="wrap">
+				<h1><?php esc_html_e('Meilisearch Dashboard', 'meilisearch'); ?></h1>
+				<div class="notice notice-error">
+					<p><strong>Error loading dashboard:</strong> <?php echo esc_html($e->getMessage()); ?></p>
+					<p><strong>File:</strong> <?php echo esc_html($e->getFile()); ?> (line <?php echo
+						esc_html((string) $e->getLine())
+					; ?>)</p>
+				</div>
+			</div>
+			<?php
+
+			return;
+		}
 
 		?>
 		<div class="wrap">
