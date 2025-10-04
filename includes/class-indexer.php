@@ -75,6 +75,9 @@ class Meilisearch_Indexer
 		$index_name = $this->client->get_index_name($blog_id);
 
 		try {
+			// Ensure index exists before indexing
+			$this->ensure_index_exists($blog_id);
+
 			$this->client
 				->get_client()
 				->index($index_name)
@@ -123,18 +126,19 @@ class Meilisearch_Indexer
 
 		foreach ($sites as $site) {
 			$fiber = new Fiber(function () use ($site, &$results, $progress_callback): void {
-				switch_to_blog($site->blog_id);
+				$blog_id = (int) $site->blog_id;
+				switch_to_blog($blog_id);
 
-				$site_result = $this->index_site_posts($site->blog_id);
+				$site_result = $this->index_site_posts($blog_id);
 				$results['total_posts'] += $site_result['total'];
 				$results['indexed_posts'] += $site_result['indexed'];
 
 				if (isset($site_result['errors']) && is_array($site_result['errors']) && count($site_result['errors']) > 0) {
-					$results['errors'][$site->blog_id] = $site_result['errors'];
+					$results['errors'][$blog_id] = $site_result['errors'];
 				}
 
 				if ($progress_callback) {
-					$progress_callback($site->blog_id, $site_result);
+					$progress_callback($blog_id, $site_result);
 				}
 
 				restore_current_blog();
@@ -160,6 +164,12 @@ class Meilisearch_Indexer
 			'indexed' => 0,
 			'errors' => [],
 		];
+
+		// Ensure index exists before indexing
+		if (!$this->ensure_index_exists($blog_id)) {
+			$results['errors'][] = "Failed to create or access index for blog {$blog_id}";
+			return $results;
+		}
 
 		// Ensure we're in the correct blog context.
 		$current_blog_id = get_current_blog_id();
@@ -230,7 +240,7 @@ class Meilisearch_Indexer
 	 */
 	private function prepare_document(WP_Post $post): array
 	{
-		$author = get_userdata($post->post_author);
+		$author = get_userdata((int) $post->post_author);
 
 		return [
 			'id' => $post->ID,
@@ -269,6 +279,34 @@ class Meilisearch_Indexer
 	}
 
 	/**
+	 * Ensure that an index exists for a blog.
+	 * Creates the index if it doesn't exist.
+	 *
+	 * @param int $blog_id Blog ID.
+	 * @return bool True if index exists or was created successfully.
+	 */
+	private function ensure_index_exists(int $blog_id): bool
+	{
+		$index_name = $this->client->get_index_name($blog_id);
+
+		try {
+			// Try to get index stats to check if it exists
+			$this->client->get_client()->index($index_name)->stats();
+			return true;
+		} catch (Exception $e) {
+			// Index doesn't exist, try to create it
+			try {
+				$this->client->create_index($blog_id);
+				error_log("Meilisearch: Created missing index for blog {$blog_id}: {$index_name}");
+				return true;
+			} catch (Exception $create_error) {
+				error_log("Meilisearch: Failed to create index for blog {$blog_id}: " . $create_error->getMessage());
+				return false;
+			}
+		}
+	}
+
+	/**
 	 * Create index for a new site.
 	 *
 	 * @param int $blog_id New site ID.
@@ -285,6 +323,6 @@ class Meilisearch_Indexer
 	 */
 	public function delete_site_index(WP_Site $site): void
 	{
-		$this->client->delete_index($site->blog_id);
+		$this->client->delete_index((int) $site->blog_id);
 	}
 }
