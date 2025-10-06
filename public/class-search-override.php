@@ -143,17 +143,38 @@ class Meilisearch_Search_Override
 		// Fetch posts from each blog.
 		$fetched_posts = [];
 		foreach ($posts_by_blog as $blog_id => $post_ids) {
-			if ($blog_id !== $current_blog_id) {
+			// Check if blog exists in current network.
+			$blog_exists = get_blog_details($blog_id, false);
+			
+			if ($blog_id !== $current_blog_id && $blog_exists) {
 				switch_to_blog($blog_id);
 			}
 
 			foreach ($post_ids as $post_id) {
-				$post = get_post($post_id);
+				$post = null;
+				
+				// Only try to get post if blog exists in current network.
+				if ($blog_exists) {
+					$post = get_post($post_id);
+				}
+				
+				// If post not found (external network), create a pseudo-post from Meilisearch data.
+				if (!$post) {
+					// Find the hit data for this post.
+					foreach ($results['hits'] as $hit) {
+						if (($hit['blog_id'] ?? 0) === $blog_id && ($hit['id'] ?? 0) === $post_id) {
+							$post = $this->create_pseudo_post_from_hit($hit);
+							break;
+						}
+					}
+				}
+				
 				if ($post) {
 					$key = $blog_id . '_' . $post_id;
 
 					// Add blog_id to post object for reference.
 					$post->meilisearch_blog_id = $blog_id;
+					$post->meilisearch_external = !$blog_exists;
 
 					// Add permalink from Meilisearch if available.
 					if (isset($this->permalink_map[$key])) {
@@ -164,7 +185,7 @@ class Meilisearch_Search_Override
 				}
 			}
 
-			if ($blog_id !== $current_blog_id) {
+			if ($blog_id !== $current_blog_id && $blog_exists) {
 				restore_current_blog();
 			}
 		}
@@ -188,6 +209,51 @@ class Meilisearch_Search_Override
 	}
 
 	/**
+	 * Create a pseudo WP_Post object from Meilisearch hit data.
+	 *
+	 * Used for posts from external networks that don't exist in the current database.
+	 *
+	 * @param array $hit Meilisearch hit data.
+	 * @return WP_Post|null Pseudo post object or null.
+	 */
+	private function create_pseudo_post_from_hit(array $hit): ?WP_Post
+	{
+		if (!isset($hit['id']) || !isset($hit['title'])) {
+			return null;
+		}
+
+		// Create a stdClass that mimics WP_Post structure.
+		$post_data = [
+			'ID'                    => $hit['id'],
+			'post_author'           => $hit['author_id'] ?? 0,
+			'post_date'             => isset($hit['date']) ? date('Y-m-d H:i:s', $hit['date']) : '',
+			'post_date_gmt'         => isset($hit['date']) ? gmdate('Y-m-d H:i:s', $hit['date']) : '',
+			'post_content'          => $hit['content'] ?? '',
+			'post_title'            => $hit['title'] ?? '',
+			'post_excerpt'          => $hit['excerpt'] ?? '',
+			'post_status'           => $hit['post_status'] ?? 'publish',
+			'comment_status'        => 'closed',
+			'ping_status'           => 'closed',
+			'post_password'         => '',
+			'post_name'             => sanitize_title($hit['title'] ?? ''),
+			'to_ping'               => '',
+			'pinged'                => '',
+			'post_modified'         => isset($hit['modified']) ? date('Y-m-d H:i:s', $hit['modified']) : '',
+			'post_modified_gmt'     => isset($hit['modified']) ? gmdate('Y-m-d H:i:s', $hit['modified']) : '',
+			'post_content_filtered' => '',
+			'post_parent'           => 0,
+			'guid'                  => $hit['permalink'] ?? '',
+			'menu_order'            => 0,
+			'post_type'             => $hit['post_type'] ?? 'post',
+			'post_mime_type'        => '',
+			'comment_count'         => 0,
+			'filter'                => 'raw',
+		];
+
+		return new WP_Post((object) $post_data);
+	}
+
+	/**
 	 * Fix cross-site permalink.
 	 *
 	 * @param string  $permalink The post permalink.
@@ -198,6 +264,13 @@ class Meilisearch_Search_Override
 	{
 		// Get current blog ID and post ID.
 		$post_id = is_object($post) ? $post->ID : $post;
+
+		// For external network posts, always use Meilisearch permalink.
+		if (is_object($post) && isset($post->meilisearch_external) && $post->meilisearch_external) {
+			if (isset($post->meilisearch_permalink)) {
+				return $post->meilisearch_permalink;
+			}
+		}
 
 		// Try to get blog_id from post object first.
 		$blog_id = null;
