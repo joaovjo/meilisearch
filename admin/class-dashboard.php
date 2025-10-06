@@ -27,6 +27,9 @@ class Meilisearch_Dashboard
 	 */
 	public function init_hooks(): void
 	{
+		if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+			error_log('Meilisearch Dashboard: Registering hooks');
+		}
 		add_action('network_admin_menu', [$this, 'add_dashboard_menu']);
 		add_action('network_admin_action_meilisearch_reindex', [$this, 'handle_reindex']);
 	}
@@ -148,17 +151,41 @@ class Meilisearch_Dashboard
 	 */
 	public function handle_reindex(): void
 	{
+		if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+			error_log('Meilisearch Dashboard: handle_reindex() called');
+		}
+
 		// Verify nonce
-		check_admin_referer('meilisearch_reindex');
+		try {
+			check_admin_referer('meilisearch_reindex');
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				error_log('Meilisearch Dashboard: Nonce verified');
+			}
+		} catch (\Exception $e) {
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				error_log('Meilisearch Dashboard: Nonce verification failed - ' . $e->getMessage());
+			}
+			throw $e;
+		}
 
 		// Check permissions
 		if (!current_user_can('manage_network_options')) {
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				error_log('Meilisearch Dashboard: Permission denied');
+			}
 			wp_die(esc_html__('You do not have permission to perform this action.', 'meilisearch'));
+		}
+
+		if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+			error_log('Meilisearch Dashboard: Getting client');
 		}
 
 		// Get Meilisearch client
 		$client = $this->get_client();
 		if (null === $client) {
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				error_log('Meilisearch Dashboard: Client is null - not configured');
+			}
 			wp_die(
 				esc_html__('Meilisearch is not configured. Please configure the settings first.', 'meilisearch'),
 				esc_html__('Configuration Required', 'meilisearch'),
@@ -166,15 +193,31 @@ class Meilisearch_Dashboard
 			);
 		}
 
+		if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+			error_log('Meilisearch Dashboard: Creating indexer');
+		}
+
 		// Get indexer with client
 		$indexer = new Meilisearch_Indexer($client);
+
+		if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+			error_log('Meilisearch Dashboard: Getting sites');
+		}
 
 		// Get all sites
 		$sites = get_sites(['number' => 1000]);
 
+		if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+			error_log('Meilisearch Dashboard: Found ' . count($sites) . ' sites to reindex');
+		}
+
 		// Reindex each site
 		foreach ($sites as $site) {
 			switch_to_blog($site->blog_id);
+
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				error_log('Meilisearch Dashboard: Reindexing blog ' . $site->blog_id);
+			}
 
 			try {
 				// Clear existing index first
@@ -190,6 +233,10 @@ class Meilisearch_Dashboard
 			}
 
 			restore_current_blog();
+		}
+
+		if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+			error_log('Meilisearch Dashboard: Reindexing complete, redirecting...');
 		}
 
 		// Redirect back to dashboard with success message
