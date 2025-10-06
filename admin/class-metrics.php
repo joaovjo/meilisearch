@@ -3,27 +3,27 @@
 declare(strict_types=1);
 
 /**
- * Meilisearch Metrics Page
+ * Página de Métricas Meilisearch
  *
  * @package Meilisearch
  */
 
 /**
- * Class Meilisearch_Metrics
+ * Classe Meilisearch_Metrics
  *
- * Displays real-time metrics from Meilisearch server.
+ * Exibe métricas em tempo real do servidor Meilisearch.
  */
 class Meilisearch_Metrics
 {
 	/**
-	 * Meilisearch client instance.
+	 * Instância do cliente Meilisearch.
 	 *
 	 * @var Meilisearch_Client|null
 	 */
 	private null|Meilisearch_Client $client = null;
 
 	/**
-	 * Initialize WordPress hooks.
+	 * Inicializar hooks do WordPress.
 	 */
 	public function init_hooks(): void
 	{
@@ -31,7 +31,7 @@ class Meilisearch_Metrics
 	}
 
 	/**
-	 * Add network admin menu item.
+	 * Adicionar item de menu da administração de rede.
 	 */
 	public function add_network_menu(): void
 	{
@@ -46,7 +46,7 @@ class Meilisearch_Metrics
 	}
 
 	/**
-	 * Get Meilisearch client instance.
+	 * Obter instância do cliente Meilisearch.
 	 *
 	 * @return Meilisearch_Client|null
 	 */
@@ -66,7 +66,7 @@ class Meilisearch_Metrics
 	}
 
 	/**
-	 * Get global stats from Meilisearch.
+	 * Obter estatísticas globais do Meilisearch.
 	 *
 	 * @return array<string, mixed>
 	 */
@@ -86,7 +86,7 @@ class Meilisearch_Metrics
 	}
 
 	/**
-	 * Get stats for all indexes based on configured format.
+	 * Obter estatísticas de todos os índices baseado no formato configurado.
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
@@ -118,7 +118,7 @@ class Meilisearch_Metrics
 						'stats' => $index_stats,
 					];
 				} catch (Exception $e) {
-					// Index doesn't exist for this site, skip it
+					// Índice não existe para este site, pulá-lo
 					continue;
 				}
 			}
@@ -130,10 +130,10 @@ class Meilisearch_Metrics
 	}
 
 	/**
-	 * Format bytes to human readable size.
+	 * Formatar bytes para tamanho legível.
 	 *
-	 * @param int $bytes Bytes to format.
-	 * @return string Formatted size.
+	 * @param int $bytes Bytes para formatar.
+	 * @return string Tamanho formatado.
 	 */
 	private function format_bytes(int $bytes): string
 	{
@@ -147,7 +147,7 @@ class Meilisearch_Metrics
 	}
 
 	/**
-	 * Render metrics page.
+	 * Renderizar página de métricas.
 	 */
 	public function render_metrics_page(): void
 	{

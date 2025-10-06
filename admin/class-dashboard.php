@@ -3,27 +3,27 @@
 declare(strict_types=1);
 
 /**
- * Meilisearch Dashboard
+ * Painel Meilisearch
  *
  * @package Meilisearch
  */
 
 /**
- * Class Meilisearch_Dashboard
+ * Classe Meilisearch_Dashboard
  *
- * Handles dashboard/overview page with system information and statistics.
+ * Gerencia página do painel/visão geral com informações do sistema e estatísticas.
  */
 class Meilisearch_Dashboard
 {
 	/**
-	 * Meilisearch client instance.
+	 * Instância do cliente Meilisearch.
 	 *
 	 * @var Meilisearch_Client|null
 	 */
 	private null|Meilisearch_Client $client = null;
 
 	/**
-	 * Initialize hooks.
+	 * Inicializar hooks.
 	 */
 	public function init_hooks(): void
 	{
@@ -35,7 +35,7 @@ class Meilisearch_Dashboard
 	}
 
 	/**
-	 * Add main menu and dashboard page.
+	 * Adicionar menu principal e página do painel.
 	 */
 	public function add_dashboard_menu(): void
 	{
@@ -62,7 +62,7 @@ class Meilisearch_Dashboard
 	}
 
 	/**
-	 * Get Meilisearch client instance.
+	 * Obter instância do cliente Meilisearch.
 	 *
 	 * @return Meilisearch_Client|null
 	 */
@@ -83,7 +83,7 @@ class Meilisearch_Dashboard
 	}
 
 	/**
-	 * Get network statistics.
+	 * Obter estatísticas da rede.
 	 *
 	 * @return array<string, mixed>
 	 */
@@ -96,7 +96,7 @@ class Meilisearch_Dashboard
 		foreach ($sites as $site) {
 			switch_to_blog($site->blog_id);
 
-			// Count all public post types (same as indexer uses)
+			// Contar todos os tipos de post públicos (mesmo que o indexador usa)
 			$post_types = get_post_types(['public' => true], 'names');
 			foreach ($post_types as $post_type) {
 				$count = wp_count_posts($post_type);
@@ -113,7 +113,7 @@ class Meilisearch_Dashboard
 	}
 
 	/**
-	 * Get Meilisearch server info.
+	 * Obter informações do servidor Meilisearch.
 	 *
 	 * @return array<string, mixed>
 	 */
@@ -147,11 +147,11 @@ class Meilisearch_Dashboard
 	}
 
 	/**
-	 * Handle network reindex action.
+	 * Gerenciar ação de reindexação da rede.
 	 */
 	public function handle_reindex(): void
 	{
-		// Ensure we're in network admin context
+		// Garantir que estamos no contexto de administração de rede
 		if (!is_network_admin()) {
 			wp_die(esc_html__('This action can only be performed in network admin.', 'meilisearch'));
 		}
@@ -160,7 +160,7 @@ class Meilisearch_Dashboard
 			error_log('Meilisearch Dashboard: handle_reindex() called');
 		}
 
-		// Verify nonce
+		// Verificar nonce
 		try {
 			check_admin_referer('meilisearch_reindex');
 			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
@@ -173,7 +173,7 @@ class Meilisearch_Dashboard
 			throw $e;
 		}
 
-		// Check permissions
+		// Verificar permissões
 		if (!current_user_can('manage_network_options')) {
 			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
 				error_log('Meilisearch Dashboard: Permission denied');
@@ -185,7 +185,7 @@ class Meilisearch_Dashboard
 			error_log('Meilisearch Dashboard: Getting client');
 		}
 
-		// Get Meilisearch client
+		// Obter cliente Meilisearch
 		$client = $this->get_client();
 		if (null === $client) {
 			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
@@ -202,14 +202,14 @@ class Meilisearch_Dashboard
 			error_log('Meilisearch Dashboard: Creating indexer');
 		}
 
-		// Get indexer with client
+		// Obter indexador com cliente
 		$indexer = new Meilisearch_Indexer($client);
 
 		if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
 			error_log('Meilisearch Dashboard: Starting bulk reindex');
 		}
 
-		// Use bulk_index_network method which handles all sites
+		// Usar método bulk_index_network que gerencia todos os sites
 		try {
 			$results = $indexer->bulk_index_network(function ($blog_id, $site_result) {
 				if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
@@ -245,7 +245,7 @@ class Meilisearch_Dashboard
 			error_log('Meilisearch Dashboard: Reindexing complete, redirecting...');
 		}
 
-		// Redirect back to dashboard with success message
+		// Redirecionar de volta ao painel com mensagem de sucesso
 		wp_redirect(add_query_arg([
 			'page' => 'meilisearch-dashboard',
 			'reindexed' => '1',
@@ -254,7 +254,7 @@ class Meilisearch_Dashboard
 	}
 
 	/**
-	 * Get system information.
+	 * Obter informações do sistema.
 	 *
 	 * @return array<string, string>
 	 */
@@ -288,7 +288,7 @@ class Meilisearch_Dashboard
 	}
 
 	/**
-	 * Render dashboard page.
+	 * Renderizar página do painel.
 	 */
 	public function render_dashboard(): void
 	{
@@ -296,8 +296,8 @@ class Meilisearch_Dashboard
 			wp_die(esc_html__('You do not have permission to access this page.', 'meilisearch'));
 		}
 
-		// Check if reindex was triggered and show notice.
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display of success message.
+		// Verificar se a reindexação foi acionada e mostrar aviso.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Exibição somente leitura de mensagem de sucesso.
 		if (isset($_GET['reindexed']) && '1' === $_GET['reindexed']) { ?>
 			<div class="notice notice-success is-dismissible">
 				<p><strong><?php esc_html_e('Network reindexing started successfully!', 'meilisearch'); ?></strong></p>

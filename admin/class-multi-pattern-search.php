@@ -1,9 +1,9 @@
 <?php
 /**
- * Multi-Pattern Search Settings
+ * Configurações de Busca Multi-Padrão
  *
- * Allows administrators to select additional index patterns to include in search results
- * beyond the current network's configured pattern.
+ * Permite que administradores selecionem padrões de índice adicionais para incluir nos resultados de busca
+ * além do padrão configurado da rede atual.
  *
  * @package    Meilisearch
  * @subpackage Admin
@@ -11,40 +11,40 @@
  */
 
 /**
- * Class Meilisearch_Multi_Pattern_Search
+ * Classe Meilisearch_Multi_Pattern_Search
  *
- * Manages the configuration of multiple index patterns for cross-network search.
- * This allows searching across different WordPress networks that share the same
- * Meilisearch server.
+ * Gerencia a configuração de múltiplos padrões de índice para busca entre redes.
+ * Isso permite buscar em diferentes redes WordPress que compartilham o mesmo
+ * servidor Meilisearch.
  *
- * Features:
- * - Detect all available index patterns from Meilisearch
- * - Select additional patterns to include in searches
- * - Save configuration per network
- * - Real-time pattern detection (no cache)
+ * Recursos:
+ * - Detectar todos os padrões de índice disponíveis do Meilisearch
+ * - Selecionar padrões adicionais para incluir nas buscas
+ * - Salvar configuração por rede
+ * - Detecção de padrão em tempo real (sem cache)
  *
  * @since 1.0.0
  */
 class Meilisearch_Multi_Pattern_Search {
 
 	/**
-	 * Meilisearch client instance
+	 * Instância do cliente Meilisearch
 	 *
 	 * @var Meilisearch_Client
 	 */
 	private $client;
 
 	/**
-	 * Option name for storing selected patterns
+	 * Nome da opção para armazenar padrões selecionados
 	 *
 	 * @var string
 	 */
 	private const OPTION_NAME = 'meilisearch_additional_patterns';
 
 	/**
-	 * Constructor
+	 * Construtor
 	 *
-	 * Initializes the multi-pattern search settings and hooks.
+	 * Inicializa as configurações de busca multi-padrão e hooks.
 	 *
 	 * @since 1.0.0
 	 */
@@ -56,9 +56,9 @@ class Meilisearch_Multi_Pattern_Search {
 	}
 
 	/**
-	 * Initialize hooks
+	 * Inicializar hooks
 	 *
-	 * Registers all necessary WordPress hooks for the multi-pattern search functionality.
+	 * Registra todos os hooks do WordPress necessários para a funcionalidade de busca multi-padrão.
 	 *
 	 * @since 1.0.0
 	 * @return void
@@ -70,9 +70,9 @@ class Meilisearch_Multi_Pattern_Search {
 	}
 
 	/**
-	 * Add menu page to WordPress admin
+	 * Adicionar página de menu ao admin do WordPress
 	 *
-	 * Adds the Multi-Pattern Search page to both network admin and site admin menus.
+	 * Adiciona a página de Busca Multi-Padrão aos menus de administração de rede e site.
 	 *
 	 * @since 1.0.0
 	 * @return void
@@ -95,13 +95,13 @@ class Meilisearch_Multi_Pattern_Search {
 	}
 
 	/**
-	 * Get all indexes from Meilisearch
+	 * Obter todos os índices do Meilisearch
 	 *
-	 * Fetches the complete list of indexes from the Meilisearch server.
-	 * This data is not cached to ensure real-time accuracy.
+	 * Busca a lista completa de índices do servidor Meilisearch.
+	 * Estes dados não são armazenados em cache para garantir precisão em tempo real.
 	 *
 	 * @since 1.0.0
-	 * @return array Array of index objects with uid, primaryKey, and other metadata
+	 * @return array Array de objetos de índice com uid, primaryKey e outros metadados
 	 */
 	private function get_all_indexes(): array {
 		if ( ! $this->client ) {
@@ -130,22 +130,22 @@ class Meilisearch_Multi_Pattern_Search {
 	}
 
 	/**
-	 * Parse index name to extract pattern components
+	 * Analisar nome do índice para extrair componentes do padrão
 	 *
-	 * Analyzes an index name to identify its pattern structure.
-	 * Supports various WordPress multisite index naming patterns.
+	 * Analisa um nome de índice para identificar sua estrutura de padrão.
+	 * Suporta vários padrões de nomenclatura de índice multisite do WordPress.
 	 *
-	 * Pattern examples:
+	 * Exemplos de padrão:
 	 * - wp_posts -> prefix: wp_, suffix: posts
 	 * - setur_1_posts -> prefix: setur_, blog_id: 1, suffix: posts
 	 * - mysite_posts -> prefix: mysite_, suffix: posts
 	 *
 	 * @since 1.0.0
-	 * @param string $index_name The index name to parse.
-	 * @return array{prefix: string, blog_id: string|null, suffix: string}|null Pattern components or null if no match
+	 * @param string $index_name O nome do índice para analisar.
+	 * @return array{prefix: string, blog_id: string|null, suffix: string}|null Componentes do padrão ou null se não houver correspondência
 	 */
 	private function parse_index_name( string $index_name ): ?array {
-		// Pattern 1: prefix_blogid_suffix (e.g., setur_1_posts, setur_2_posts)
+		// Padrão 1: prefix_blogid_suffix (ex: setur_1_posts, setur_2_posts)
 		if ( preg_match( '/^([a-zA-Z0-9_]+)_(\d+)_([a-zA-Z0-9_]+)$/', $index_name, $matches ) ) {
 			return array(
 				'prefix'  => $matches[1] . '_',
@@ -154,7 +154,7 @@ class Meilisearch_Multi_Pattern_Search {
 			);
 		}
 
-		// Pattern 2: prefix_suffix (e.g., wp_posts, mysite_posts)
+		// Padrão 2: prefix_suffix (ex: wp_posts, mysite_posts)
 		if ( preg_match( '/^([a-zA-Z0-9_]+)_([a-zA-Z0-9_]+)$/', $index_name, $matches ) ) {
 			return array(
 				'prefix'  => $matches[1] . '_',
@@ -167,12 +167,12 @@ class Meilisearch_Multi_Pattern_Search {
 	}
 
 	/**
-	 * Analyze all index patterns
+	 * Analisar todos os padrões de índice
 	 *
-	 * Groups indexes by their detected patterns and extracts metadata for each pattern.
+	 * Agrupa índices por seus padrões detectados e extrai metadados para cada padrão.
 	 *
 	 * @since 1.0.0
-	 * @return array Array of patterns with metadata (format, count, network_url, indexes)
+	 * @return array Array de padrões com metadados (format, count, network_url, indexes)
 	 */
 	private function analyze_index_patterns(): array {
 		$indexes = $this->get_all_indexes();
@@ -185,7 +185,7 @@ class Meilisearch_Multi_Pattern_Search {
 				continue;
 			}
 
-			// Create pattern key
+			// Criar chave de padrão
 			if ( $parsed['blog_id'] !== null ) {
 				$pattern_key = $parsed['prefix'] . '{blog_id}_' . $parsed['suffix'];
 			} else {
@@ -207,7 +207,7 @@ class Meilisearch_Multi_Pattern_Search {
 			$patterns[ $pattern_key ]['indexes'][] = $index['uid'];
 		}
 
-		// Get network URL for each pattern
+		// Obter URL da rede para cada padrão
 		foreach ( $patterns as $key => $data ) {
 			$patterns[ $key ]['network_url'] = $this->get_network_url_for_pattern( $data['indexes'] );
 		}
@@ -216,14 +216,14 @@ class Meilisearch_Multi_Pattern_Search {
 	}
 
 	/**
-	 * Get network URL from index documents
+	 * Obter URL da rede a partir de documentos do índice
 	 *
-	 * Extracts the network URL by searching documents in the pattern's indexes
-	 * and parsing the permalink field.
+	 * Extrai a URL da rede buscando documentos nos índices do padrão
+	 * e analisando o campo permalink.
 	 *
 	 * @since 1.0.0
-	 * @param array $index_names Array of index names belonging to this pattern.
-	 * @return string|null Network URL or null if not found
+	 * @param array $index_names Array de nomes de índice pertencentes a este padrão.
+	 * @return string|null URL da rede ou null se não encontrado
 	 */
 	private function get_network_url_for_pattern( array $index_names ): ?string {
 		if ( ! $this->client ) {
@@ -258,40 +258,40 @@ class Meilisearch_Multi_Pattern_Search {
 	}
 
 	/**
-	 * Get current network's pattern
+	 * Obter padrão da rede atual
 	 *
-	 * Determines the index pattern configured for the current WordPress network.
+	 * Determina o padrão de índice configurado para a rede WordPress atual.
 	 *
 	 * @since 1.0.0
-	 * @return string The current network's index pattern
+	 * @return string O padrão de índice da rede atual
 	 */
 	private function get_current_pattern(): string {
 		$settings = get_site_option( 'meilisearch_settings', array() );
 		$format = $settings['index_format'] ?? '{prefix}posts';
 
-		// Convert the format template to a pattern representation
-		// We keep {blog_id} and {site_id} as-is for pattern matching
-		// But replace {prefix} with actual prefix value
+		// Converter o template de formato para uma representação de padrão
+		// Mantemos {blog_id} e {site_id} como está para correspondência de padrão
+		// Mas substituir {prefix} com o valor de prefixo real
 		
-		// Get the actual prefix for the main site
+		// Obter o prefixo real para o site principal
 		switch_to_blog( 1 );
 		global $wpdb;
 		$prefix = $wpdb->prefix;
 		restore_current_blog();
 
-		// Replace only {prefix} placeholder, keep {blog_id} and {site_id} for pattern matching
+		// Substituir apenas o marcador {prefix}, manter {blog_id} e {site_id} para correspondência de padrão
 		$pattern = str_replace( '{prefix}', $prefix, $format );
 
 		return $pattern;
 	}
 
 	/**
-	 * Get saved additional patterns
+	 * Obter padrões adicionais salvos
 	 *
-	 * Retrieves the list of additional patterns selected for cross-network search.
+	 * Recupera a lista de padrões adicionais selecionados para busca entre redes.
 	 *
 	 * @since 1.0.0
-	 * @return array Array of selected pattern keys
+	 * @return array Array de chaves de padrão selecionadas
 	 */
 	public function get_additional_patterns(): array {
 		if ( is_multisite() ) {
@@ -304,38 +304,38 @@ class Meilisearch_Multi_Pattern_Search {
 	}
 
 	/**
-	 * Save settings
+	 * Salvar configurações
 	 *
-	 * Processes the form submission and saves selected additional patterns.
+	 * Processa o envio do formulário e salva os padrões adicionais selecionados.
 	 *
 	 * @since 1.0.0
 	 * @return void
 	 */
 	public function save_settings(): void {
-		// Check nonce
+		// Verificar nonce
 		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'save_additional_patterns' ) ) {
 			wp_die( __( 'Security check failed', 'meilisearch' ) );
 		}
 
-		// Check permissions
+		// Verificar permissões
 		$capability = is_multisite() ? 'manage_network_options' : 'manage_options';
 		if ( ! current_user_can( $capability ) ) {
 			wp_die( __( 'You do not have permission to perform this action', 'meilisearch' ) );
 		}
 
-		// Get selected patterns
+		// Obter padrões selecionados
 		$selected_patterns = isset( $_POST['additional_patterns'] ) && is_array( $_POST['additional_patterns'] )
 			? array_map( 'sanitize_text_field', $_POST['additional_patterns'] )
 			: array();
 
-		// Save to database
+		// Salvar no banco de dados
 		if ( is_multisite() ) {
 			update_site_option( self::OPTION_NAME, $selected_patterns );
 		} else {
 			update_option( self::OPTION_NAME, $selected_patterns );
 		}
 
-		// Redirect back with success message
+		// Redirecionar de volta com mensagem de sucesso
 		$redirect_url = add_query_arg(
 			array(
 				'page'    => 'meilisearch-multi-pattern',
@@ -349,9 +349,9 @@ class Meilisearch_Multi_Pattern_Search {
 	}
 
 	/**
-	 * Render the settings page
+	 * Renderizar a página de configurações
 	 *
-	 * Displays the multi-pattern search configuration interface.
+	 * Exibe a interface de configuração de busca multi-padrão.
 	 *
 	 * @since 1.0.0
 	 * @return void

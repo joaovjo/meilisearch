@@ -3,27 +3,27 @@
 declare(strict_types=1);
 
 /**
- * Meilisearch Index Analyzer Page
+ * Página de Analisador de Índices Meilisearch
  *
  * @package Meilisearch
  */
 
 /**
- * Class Meilisearch_Index_Analyzer
+ * Classe Meilisearch_Index_Analyzer
  *
- * Analyzes all Meilisearch indexes to identify WordPress networks and their index naming patterns.
+ * Analisa todos os índices do Meilisearch para identificar redes WordPress e seus padrões de nomenclatura de índices.
  */
 class Meilisearch_Index_Analyzer
 {
 	/**
-	 * Meilisearch client instance.
+	 * Instância do cliente Meilisearch.
 	 *
 	 * @var Meilisearch_Client|null
 	 */
 	private null|Meilisearch_Client $client = null;
 
 	/**
-	 * Initialize WordPress hooks.
+	 * Inicializar hooks do WordPress.
 	 */
 	public function init_hooks(): void
 	{
@@ -31,7 +31,7 @@ class Meilisearch_Index_Analyzer
 	}
 
 	/**
-	 * Add network admin menu item.
+	 * Adicionar item de menu da administração de rede.
 	 */
 	public function add_network_menu(): void
 	{
@@ -46,7 +46,7 @@ class Meilisearch_Index_Analyzer
 	}
 
 	/**
-	 * Get Meilisearch client instance.
+	 * Obter instância do cliente Meilisearch.
 	 *
 	 * @return Meilisearch_Client|null
 	 */
@@ -66,7 +66,7 @@ class Meilisearch_Index_Analyzer
 	}
 
 	/**
-	 * Get all indexes from Meilisearch server.
+	 * Obter todos os índices do servidor Meilisearch.
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
@@ -97,10 +97,10 @@ class Meilisearch_Index_Analyzer
 	}
 
 	/**
-	 * Parse index name to extract pattern components.
+	 * Analisar nome do índice para extrair componentes do padrão.
 	 *
-	 * @param string $index_name Index name to parse.
-	 * @return array<string, mixed> Parsed components.
+	 * @param string $index_name Nome do índice para analisar.
+	 * @return array<string, mixed> Componentes analisados.
 	 */
 	private function parse_index_name(string $index_name): array
 	{
@@ -111,8 +111,8 @@ class Meilisearch_Index_Analyzer
 			'pattern' => null,
 		];
 
-		// Try to match common patterns
-		// Pattern 1: wp_posts, wp_2_posts, wp_3_posts (prefix format)
+		// Tentar corresponder padrões comuns
+		// Padrão 1: wp_posts, wp_2_posts, wp_3_posts (formato de prefixo)
 		if (preg_match('/^(wp_)(\d+)_(.+)$/', $index_name, $matches)) {
 			$parsed['prefix'] = $matches[1] . $matches[2] . '_';
 			$parsed['blog_id'] = (int) $matches[2];
@@ -123,14 +123,14 @@ class Meilisearch_Index_Analyzer
 			$parsed['suffix'] = $matches[2];
 			$parsed['pattern'] = '{prefix}' . $matches[2];
 		}
-		// Pattern 2: site_1_posts, site_2_posts (blog_id format)
+		// Padrão 2: site_1_posts, site_2_posts (formato blog_id)
 		elseif (preg_match('/^([a-z_]+)_(\d+)_(.+)$/', $index_name, $matches)) {
 			$parsed['prefix'] = $matches[1] . '_';
 			$parsed['blog_id'] = (int) $matches[2];
 			$parsed['suffix'] = $matches[3];
 			$parsed['pattern'] = $matches[1] . '_{blog_id}_' . $matches[3];
 		}
-		// Pattern 3: simple format without numbers
+		// Padrão 3: formato simples sem números
 		else {
 			$parsed['pattern'] = $index_name;
 			$parsed['suffix'] = $index_name;
@@ -140,7 +140,7 @@ class Meilisearch_Index_Analyzer
 	}
 
 	/**
-	 * Analyze indexes and group by network pattern.
+	 * Analisar índices e agrupar por padrão de rede.
 	 *
 	 * @return array<string, array<string, mixed>>
 	 */
@@ -171,13 +171,13 @@ class Meilisearch_Index_Analyzer
 			}
 		}
 
-		// Try to identify network URLs for each pattern
+		// Tentar identificar URLs de rede para cada padrão
 		foreach ($patterns as $pattern => &$data) {
 			if (!empty($data['indexes'])) {
 				$network_url = $this->get_network_url_for_pattern($data['blog_ids'], $data['indexes']);
 				$data['network_url'] = $network_url;
 				
-				// Get site names from Meilisearch data
+				// Obter nomes de sites a partir de dados do Meilisearch
 				$site_names = $this->get_site_names_from_indexes($data['indexes']);
 				$data['site_names'] = $site_names;
 			}
@@ -187,11 +187,11 @@ class Meilisearch_Index_Analyzer
 	}
 
 	/**
-	 * Get network URL for a set of blog IDs and index names.
+	 * Obter URL da rede para um conjunto de IDs de blog e nomes de índice.
 	 *
-	 * @param array<int>    $blog_ids    Blog IDs to check.
-	 * @param array<string> $index_names Index names from this pattern.
-	 * @return string|null Network URL or null if not found.
+	 * @param array<int>    $blog_ids    IDs de blog para verificar.
+	 * @param array<string> $index_names Nomes de índice deste padrão.
+	 * @return string|null URL da rede ou null se não encontrado.
 	 */
 	private function get_network_url_for_pattern(array $blog_ids, array $index_names): null|string
 	{
@@ -204,27 +204,27 @@ class Meilisearch_Index_Analyzer
 			return null;
 		}
 
-		// Try each index name until we find one with documents
+		// Tentar cada nome de índice até encontrarmos um com documentos
 		foreach ($index_names as $index_name) {
 			try {
-				// Get a sample document from the index to extract the permalink
+				// Obter um documento de amostra do índice para extrair o permalink
 				$results = $client->get_client()
 					->index($index_name)
 					->search('', ['limit' => 1]);
 				
-				// Get hits from the SearchResult object
+				// Obter hits do objeto SearchResult
 				$hits = $results->getHits();
 				
 				if (!empty($hits)) {
 					$document = $hits[0];
 					
-					// Extract URL from permalink field
+					// Extrair URL do campo permalink
 					if (isset($document['permalink'])) {
 						$parsed = parse_url($document['permalink']);
 						if ($parsed && isset($parsed['scheme'], $parsed['host'])) {
 							$url = $parsed['scheme'] . '://' . $parsed['host'];
 							
-							// Include port if present
+							// Incluir porta se presente
 							if (isset($parsed['port'])) {
 								$url .= ':' . $parsed['port'];
 							}
@@ -234,7 +234,7 @@ class Meilisearch_Index_Analyzer
 					}
 				}
 			} catch (Exception $e) {
-				// Index doesn't exist or has no documents, try next index
+				// Índice não existe ou não tem documentos, tentar próximo índice
 				continue;
 			}
 		}
@@ -243,10 +243,10 @@ class Meilisearch_Index_Analyzer
 	}
 
 	/**
-	 * Get site names for blog IDs using Meilisearch data.
+	 * Obter nomes de sites para IDs de blog usando dados do Meilisearch.
 	 *
-	 * @param array<string> $index_names Index names from this pattern.
-	 * @return array<int, string> Array of blog_id => site_name.
+	 * @param array<string> $index_names Nomes de índice deste padrão.
+	 * @return array<int, string> Array de blog_id => nome_do_site.
 	 */
 	private function get_site_names_from_indexes(array $index_names): array
 	{
@@ -257,7 +257,7 @@ class Meilisearch_Index_Analyzer
 
 		$site_names = [];
 
-		// Try each index name to extract site information
+		// Tentar cada nome de índice para extrair informações do site
 		foreach ($index_names as $index_name) {
 			try {
 				// Get a sample document from the index
@@ -270,17 +270,17 @@ class Meilisearch_Index_Analyzer
 				if (!empty($hits)) {
 					$document = $hits[0];
 					
-					// Extract blog_id and site name from document
+					// Extrair blog_id e nome do site do documento
 					if (isset($document['blog_id'])) {
 						$blog_id = (int) $document['blog_id'];
 						
-						// Try to get site name from permalink
+						// Tentar obter nome do site a partir do permalink
 						if (isset($document['permalink'])) {
 							$parsed = parse_url($document['permalink']);
 							if ($parsed && isset($parsed['host'])) {
 								$site_name = $parsed['host'];
 								
-								// Add path if it's a subdirectory site
+								// Adicionar caminho se for um site de subdiretório
 								if (isset($parsed['path']) && $parsed['path'] !== '/') {
 									$path_parts = explode('/', trim($parsed['path'], '/'));
 									if (!empty($path_parts[0])) {
@@ -294,7 +294,7 @@ class Meilisearch_Index_Analyzer
 					}
 				}
 			} catch (Exception $e) {
-				// Index doesn't exist or has no documents, skip
+				// Índice não existe ou não tem documentos, pular
 				continue;
 			}
 		}
@@ -303,7 +303,7 @@ class Meilisearch_Index_Analyzer
 	}
 
 	/**
-	 * Render analyzer page.
+	 * Renderizar página do analisador.
 	 */
 	public function render_analyzer_page(): void
 	{
@@ -329,10 +329,10 @@ class Meilisearch_Index_Analyzer
 
 		$patterns = $this->analyze_index_patterns();
 		
-		// Get current network URL for comparison
+		// Obter URL da rede atual para comparação
 		$current_network_url = untrailingslashit(network_site_url());
 		
-		// Sort patterns to put current network first
+		// Ordenar padrões para colocar a rede atual primeiro
 		uasort($patterns, function($a, $b) use ($current_network_url) {
 			$a_is_current = ($a['network_url'] && $a['network_url'] === $current_network_url);
 			$b_is_current = ($b['network_url'] && $b['network_url'] === $current_network_url);
