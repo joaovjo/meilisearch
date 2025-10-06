@@ -31,7 +31,7 @@ class Meilisearch_Dashboard
 			error_log('Meilisearch Dashboard: Registering hooks');
 		}
 		add_action('network_admin_menu', [$this, 'add_dashboard_menu']);
-		add_action('network_admin_action_meilisearch_reindex', [$this, 'handle_reindex']);
+		add_action('admin_action_meilisearch_reindex', [$this, 'handle_reindex']);
 	}
 
 	/**
@@ -151,6 +151,11 @@ class Meilisearch_Dashboard
 	 */
 	public function handle_reindex(): void
 	{
+		// Ensure we're in network admin context
+		if (!is_network_admin()) {
+			wp_die(esc_html__('This action can only be performed in network admin.', 'meilisearch'));
+		}
+
 		if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
 			error_log('Meilisearch Dashboard: handle_reindex() called');
 		}
