@@ -184,7 +184,7 @@ class Meilisearch_Search_Override
 		// Keep permalink_map for later use by permalink filters.
 		$this->cached_results = null;
 
-		return is_array($post_objects) && count($post_objects) > 0 ? $post_objects : [false];
+		return $post_objects;
 	}
 
 	/**
