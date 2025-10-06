@@ -70,6 +70,11 @@ class Meilisearch_Indexer
 			return;
 		}
 
+		// Check if post type should be indexed.
+		if (!$this->should_index_post_type($post->post_type)) {
+			return;
+		}
+
 		$document = $this->prepare_document($post);
 		$blog_id = get_current_blog_id();
 		$index_name = $this->client->get_index_name($blog_id);
@@ -183,9 +188,12 @@ class Meilisearch_Indexer
 			switch_to_blog($blog_id);
 		}
 
+		// Get configured post types to index.
+		$post_types = $this->get_indexable_post_types();
+
 		// Get all published posts.
 		$args = [
-			'post_type' => 'any',
+			'post_type' => $post_types,
 			'post_status' => 'publish',
 			'posts_per_page' => -1,
 			'orderby' => 'ID',
@@ -339,5 +347,37 @@ class Meilisearch_Indexer
 	public function delete_site_index(WP_Site $site): void
 	{
 		$this->client->delete_index((int) $site->blog_id);
+	}
+
+	/**
+	 * Get list of post types that should be indexed.
+	 *
+	 * @return array List of post type names.
+	 */
+	private function get_indexable_post_types(): array
+	{
+		$settings = get_site_option('meilisearch_settings', []);
+		$post_types = isset($settings['post_types']) && is_array($settings['post_types']) 
+			? $settings['post_types'] 
+			: ['post', 'page'];
+
+		// Ensure we have at least one post type.
+		if (empty($post_types)) {
+			$post_types = ['post', 'page'];
+		}
+
+		return $post_types;
+	}
+
+	/**
+	 * Check if a post type should be indexed.
+	 *
+	 * @param string $post_type Post type name.
+	 * @return bool True if should be indexed.
+	 */
+	private function should_index_post_type(string $post_type): bool
+	{
+		$indexable_types = $this->get_indexable_post_types();
+		return in_array($post_type, $indexable_types, true);
 	}
 }

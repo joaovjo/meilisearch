@@ -62,6 +62,7 @@ class Meilisearch_Network_Settings
 			'master_key' => '',
 			'enabled' => false,
 			'index_format' => '{prefix}posts',
+			'post_types' => ['post', 'page'],
 		];
 		$settings = wp_parse_args($settings, $defaults);
 
@@ -210,6 +211,37 @@ class Meilisearch_Network_Settings
 							</p>
 						</td>
 					</tr>
+
+					<tr>
+						<th scope="row">
+							<label for="meilisearch_post_types">
+								<?php esc_html_e('Post Types to Index', 'meilisearch'); ?>
+							</label>
+						</th>
+						<td>
+							<?php
+							$post_types = get_post_types(['public' => true], 'objects');
+							$selected_post_types = isset($settings['post_types']) && is_array($settings['post_types']) 
+								? $settings['post_types'] 
+								: ['post', 'page'];
+							?>
+							<fieldset>
+								<?php foreach ($post_types as $post_type): ?>
+									<label style="display: block; margin-bottom: 5px;">
+										<input type="checkbox"
+											   name="meilisearch_settings[post_types][]"
+											   value="<?php echo esc_attr($post_type->name); ?>"
+											   <?php checked(in_array($post_type->name, $selected_post_types, true)); ?> />
+										<?php echo esc_html($post_type->label); ?>
+										<span style="color: #666; font-size: 0.9em;">(<?php echo esc_html($post_type->name); ?>)</span>
+									</label>
+								<?php endforeach; ?>
+							</fieldset>
+							<p class="description">
+								<?php esc_html_e('Select which post types should be indexed in Meilisearch. Only published content will be indexed.', 'meilisearch'); ?>
+							</p>
+						</td>
+					</tr>
 				</table>
 
 				<h2><?php esc_html_e('Indexing Status', 'meilisearch'); ?></h2>
@@ -289,11 +321,16 @@ class Meilisearch_Network_Settings
 		$settings = isset($_POST['meilisearch_settings']) ? wp_unslash($_POST['meilisearch_settings']) : [];
 
 		// Sanitize settings.
+		$post_types = isset($settings['post_types']) && is_array($settings['post_types']) 
+			? array_map('sanitize_key', $settings['post_types']) 
+			: ['post', 'page'];
+
 		$sanitized = [
 			'host' => esc_url_raw($settings['host'] ?? ''),
 			'master_key' => sanitize_text_field($settings['master_key'] ?? ''),
 			'enabled' => isset($settings['enabled']) && '1' === $settings['enabled'],
 			'index_format' => sanitize_text_field($settings['index_format'] ?? '{prefix}posts'),
+			'post_types' => $post_types,
 		];
 
 		update_site_option($this->option_name, $sanitized);

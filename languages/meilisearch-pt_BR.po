@@ -580,3 +580,12 @@ msgstr "Inativo"
 #: admin/class-multi-pattern-search.php:334
 msgid "Meilisearch is not configured. Please configure it in the Settings page first."
 msgstr "O Meilisearch não está configurado. Por favor, configure-o na página de Configurações primeiro."
+
+#: admin/class-network-settings.php:223
+msgid "Post Types to Index"
+msgstr "Tipos de Posts para Indexar"
+
+#: admin/class-network-settings.php:246
+msgid "Select which post types should be indexed in Meilisearch. Only published content will be indexed."
+msgstr "Selecione quais tipos de posts devem ser indexados no Meilisearch. Apenas conteúdo publicado será indexado."
+

@@ -89,6 +89,7 @@ function meilisearch_activate(bool $network_wide): void
 		'host' => 'http://localhost:7700',
 		'master_key' => '',
 		'enabled' => false,
+		'post_types' => ['post', 'page'],
 	];
 
 	if (!get_site_option('meilisearch_settings')) {
