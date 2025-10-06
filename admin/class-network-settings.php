@@ -275,27 +275,15 @@ class Meilisearch_Network_Settings
 					<td><?php echo esc_html($total_sites); ?></td>
 				</tr>
 				<tr>
-					<td colspan="2">
-						<p class="description">
-							<?php
-
-
-
-							printf(
-	
+				<td colspan="2">
+					<p class="description">
+						<?php
+						printf(
 							/* translators: %s: WP-CLI command */
-	
-
-	
 							esc_html__('Use WP-CLI to index all sites: %s', 'meilisearch'),
-	
-
-	
-							'<code>wp meilisearch index --network</code>',
-
-							);
-
-
+							'<code>wp meilisearch index --network</code>'
+						);
+						?>
 
 							?>
 						</p>

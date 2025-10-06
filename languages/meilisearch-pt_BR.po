@@ -38,11 +38,11 @@ msgstr "https://github.com/joaovjo"
 msgid "Meilisearch"
 msgstr "Meilisearch"
 
-#: admin/class-dashboard.php:295
+#: admin/class-dashboard.php:296
 #: admin/class-index-analyzer.php:311
 #: admin/class-metrics.php:155
 #: admin/class-network-settings.php:56
-#: admin/class-network-settings.php:317
+#: admin/class-network-settings.php:305
 msgid "You do not have permission to access this page."
 msgstr "Você não tem permissão para acessar esta página."
 
@@ -113,7 +113,8 @@ msgstr "Valor"
 msgid "Total Sites in Network"
 msgstr "Total de Sites na Rede"
 
-#: admin/class-network-settings.php:290
+#. translators: %s: WP-CLI command
+#: admin/class-network-settings.php:283
 #, php-format
 msgid "Use WP-CLI to index all sites: %s"
 msgstr "Use o WP-CLI para indexar todos os sites: %s"
@@ -144,97 +145,97 @@ msgstr "Painel"
 msgid "Settings"
 msgstr "Configurações"
 
-#: admin/class-dashboard.php:319
-#: admin/class-dashboard.php:334
+#: admin/class-dashboard.php:320
+#: admin/class-dashboard.php:335
 msgid "Meilisearch Dashboard"
 msgstr "Painel do Meilisearch"
 
-#: admin/class-dashboard.php:341
+#: admin/class-dashboard.php:342
 msgid "Network Statistics"
 msgstr "Estatísticas da Rede"
 
-#: admin/class-dashboard.php:345
+#: admin/class-dashboard.php:346
 msgid "Total Sites"
 msgstr "Total de Sites"
 
-#: admin/class-dashboard.php:350
+#: admin/class-dashboard.php:351
 msgid "Total Published Posts"
 msgstr "Total de Posts Publicados"
 
-#: admin/class-dashboard.php:361
+#: admin/class-dashboard.php:362
 msgid "Meilisearch Server"
 msgstr "Servidor Meilisearch"
 
-#: admin/class-dashboard.php:365
+#: admin/class-dashboard.php:366
 msgid "Host"
 msgstr "Host"
 
-#: admin/class-dashboard.php:369
+#: admin/class-dashboard.php:370
 #: admin/class-multi-pattern-search.php:411
 msgid "Status"
 msgstr "Status"
 
-#: admin/class-dashboard.php:376
+#: admin/class-dashboard.php:377
 msgid "Connected"
 msgstr "Conectado"
 
-#: admin/class-dashboard.php:377
+#: admin/class-dashboard.php:378
 msgid "Disconnected"
 msgstr "Desconectado"
 
-#: admin/class-dashboard.php:386
+#: admin/class-dashboard.php:387
 msgid "Meilisearch Version"
 msgstr "Versão do Meilisearch"
 
-#: admin/class-dashboard.php:397
+#: admin/class-dashboard.php:398
 msgid "System Information"
 msgstr "Informações do Sistema"
 
-#: admin/class-dashboard.php:402
+#: admin/class-dashboard.php:403
 msgid "Plugin Version"
 msgstr "Versão do Plugin"
 
-#: admin/class-dashboard.php:407
+#: admin/class-dashboard.php:408
 msgid "WordPress Version"
 msgstr "Versão do WordPress"
 
-#: admin/class-dashboard.php:411
+#: admin/class-dashboard.php:412
 msgid "PHP Version"
 msgstr "Versão do PHP"
 
-#: admin/class-dashboard.php:415
+#: admin/class-dashboard.php:416
 msgid "Meilisearch PHP SDK"
 msgstr "SDK PHP do Meilisearch"
 
-#: admin/class-dashboard.php:419
+#: admin/class-dashboard.php:420
 msgid "Guzzle HTTP"
 msgstr "Guzzle HTTP"
 
-#: admin/class-dashboard.php:423
+#: admin/class-dashboard.php:424
 msgid "PHP Fiber Support"
 msgstr "Suporte PHP Fiber"
 
-#: admin/class-dashboard.php:445
+#: admin/class-dashboard.php:446
 msgid "Quick Actions"
 msgstr "Ações Rápidas"
 
-#: admin/class-dashboard.php:449
+#: admin/class-dashboard.php:450
 msgid "Configure Settings"
 msgstr "Configurar"
 
-#: admin/class-dashboard.php:461
+#: admin/class-dashboard.php:462
 msgid "WP-CLI Commands:"
 msgstr "Comandos WP-CLI:"
 
-#: admin/class-dashboard.php:462
+#: admin/class-dashboard.php:463
 msgid "Reindex all sites"
 msgstr "Reindexar todos os sites"
 
-#: admin/class-dashboard.php:463
+#: admin/class-dashboard.php:464
 msgid "Check server health"
 msgstr "Verificar saúde do servidor"
 
-#: admin/class-dashboard.php:464
+#: admin/class-dashboard.php:465
 msgid "View indexing statistics"
 msgstr "Ver estatísticas de indexação"
 
@@ -269,7 +270,7 @@ msgid "Last Update"
 msgstr "Última Atualização"
 
 #: admin/class-index-analyzer.php:370
-#: admin/class-index-analyzer.php:452
+#: admin/class-index-analyzer.php:455
 #: admin/class-metrics.php:194
 msgid "Total Indexes"
 msgstr "Total de Índices"
@@ -282,51 +283,52 @@ msgstr "Estatísticas dos Índices"
 msgid "No indexes found."
 msgstr "Nenhum índice encontrado."
 
-#: admin/class-metrics.php:219
+#: admin/class-metrics.php:222
 msgid "Primary Key"
 msgstr "Chave Primária"
 
-#: admin/class-metrics.php:223
+#: admin/class-metrics.php:226
 msgid "Created At"
 msgstr "Criado em"
 
-#: admin/class-metrics.php:227
+#: admin/class-metrics.php:230
 msgid "Updated At"
 msgstr "Atualizado em"
 
-#: admin/class-metrics.php:231
+#: admin/class-metrics.php:234
 msgid "Number of Documents"
 msgstr "Número de Documentos"
 
-#: admin/class-metrics.php:235
+#: admin/class-metrics.php:238
 msgid "Is Indexing"
 msgstr "Está Indexando"
 
-#: admin/class-metrics.php:238
+#: admin/class-metrics.php:241
 msgid "Yes"
 msgstr "Sim"
 
-#: admin/class-metrics.php:240
+#: admin/class-metrics.php:243
 msgid "No"
 msgstr "Não"
 
-#: admin/class-metrics.php:245
+#: admin/class-metrics.php:248
 msgid "Field Distribution"
 msgstr "Distribuição de Campos"
 
-#: admin/class-metrics.php:249
+#: admin/class-metrics.php:252
 msgid "View Details"
 msgstr "Ver Detalhes"
 
-#: admin/class-metrics.php:257
+#: admin/class-metrics.php:260
 msgid "No field distribution available"
 msgstr "Nenhuma distribuição de campos disponível"
 
-#: admin/class-metrics.php:271
+#: admin/class-metrics.php:274
 msgid "Refresh Metrics"
 msgstr "Atualizar Métricas"
 
-#: admin/class-metrics.php:284
+#. translators: %s: current time
+#: admin/class-metrics.php:280
 #, php-format
 msgid "Last updated: %s"
 msgstr "Última atualização: %s"
@@ -343,19 +345,19 @@ msgstr "Formato de nomenclatura do índice. Use {prefix} para prefixo da tabela 
 msgid "Examples:"
 msgstr "Exemplos:"
 
-#: admin/class-dashboard.php:302
+#: admin/class-dashboard.php:303
 msgid "Network reindexing started successfully!"
 msgstr "Reindexação da rede iniciada com sucesso!"
 
-#: admin/class-dashboard.php:303
+#: admin/class-dashboard.php:304
 msgid "The reindexing process is running in the background. This may take several minutes depending on the number of posts."
 msgstr "O processo de reindexação está rodando em segundo plano. Isso pode levar vários minutos dependendo do número de posts."
 
-#: admin/class-dashboard.php:457
+#: admin/class-dashboard.php:458
 msgid "Reindex Network"
 msgstr "Reindexar Rede"
 
-#: admin/class-dashboard.php:454
+#: admin/class-dashboard.php:455
 msgid "Are you sure you want to reindex all sites? This may take several minutes."
 msgstr "Tem certeza que deseja reindexar todos os sites? Isso pode levar vários minutos."
 
@@ -395,7 +397,7 @@ msgid "Index Name Pattern"
 msgstr "Padrão de Nome do Índice"
 
 #: admin/class-index-analyzer.php:368
-#: admin/class-index-analyzer.php:436
+#: admin/class-index-analyzer.php:439
 #: admin/class-multi-pattern-search.php:409
 msgid "Network URL"
 msgstr "URL da Rede"
@@ -408,7 +410,8 @@ msgstr "Quantidade de Sites"
 msgid "Network URL not detected"
 msgstr "URL da rede não detectada"
 
-#: admin/class-index-analyzer.php:422
+#. translators: %d: number of indexes
+#: admin/class-index-analyzer.php:424
 #, php-format
 msgid "%d indexes"
 msgstr "%d índices"
@@ -417,63 +420,64 @@ msgstr "%d índices"
 msgid "Index Details by Pattern"
 msgstr "Detalhes dos Índices por Padrão"
 
-#: admin/class-index-analyzer.php:432
+#: admin/class-index-analyzer.php:435
 msgid "Pattern Format"
 msgstr "Formato do Padrão"
 
-#: admin/class-index-analyzer.php:443
+#: admin/class-index-analyzer.php:446
 msgid "Not detected"
 msgstr "Não detectado"
 
-#: admin/class-index-analyzer.php:448
+#: admin/class-index-analyzer.php:451
 msgid "Unique Sites"
 msgstr "Sites Únicos"
 
-#: admin/class-index-analyzer.php:476
+#: admin/class-index-analyzer.php:482
 msgid "Index Names"
 msgstr "Nomes dos Índices"
 
-#: admin/class-index-analyzer.php:480
+#: admin/class-index-analyzer.php:486
 msgid "View all index names"
 msgstr "Ver todos os nomes de índices"
 
-#: admin/class-index-analyzer.php:498
+#: admin/class-index-analyzer.php:504
 msgid "Summary Statistics"
 msgstr "Estatísticas Resumidas"
 
-#: admin/class-index-analyzer.php:503
+#: admin/class-index-analyzer.php:509
 msgid "Total Detected Networks"
 msgstr "Total de Redes Detectadas"
 
-#: admin/class-index-analyzer.php:507
+#: admin/class-index-analyzer.php:513
 msgid "Total Indexes in Meilisearch"
 msgstr "Total de Índices no Meilisearch"
 
-#: admin/class-index-analyzer.php:511
+#: admin/class-index-analyzer.php:517
 msgid "Current WordPress Network"
 msgstr "Rede WordPress Atual"
 
-#: admin/class-index-analyzer.php:527
+#: admin/class-index-analyzer.php:533
 msgid "Refresh Analysis"
 msgstr "Atualizar Análise"
 
 #. translators: %s: current time
-#: admin/class-index-analyzer.php:533
+#: admin/class-index-analyzer.php:539
 #, php-format
 msgid "Last analyzed: %s"
 msgstr "Última análise: %s"
 
 #: admin/class-index-analyzer.php:383
-#: admin/class-index-analyzer.php:425
+#: admin/class-index-analyzer.php:428
 #: admin/class-multi-pattern-search.php:438
 msgid "Current Network"
 msgstr "Rede Atual"
 
-#: admin/class-index-analyzer.php:457
+#: admin/class-index-analyzer.php:460
 msgid "Sites"
 msgstr "Sites"
 
-#: admin/class-index-analyzer.php:461
+#. translators: %d: number of sites
+#: admin/class-index-analyzer.php:466
 #, php-format
 msgid "View %d sites"
 msgstr "Ver %d sites"
@@ -495,16 +499,18 @@ msgstr ""
 msgid "Configuration Required"
 msgstr ""
 
-#: admin/class-dashboard.php:237
+#. translators: %s: error message
+#: admin/class-dashboard.php:238
 #, php-format
 msgid "Error during reindexing: %s"
 msgstr ""
 
-#: admin/class-dashboard.php:238
+#: admin/class-dashboard.php:239
 msgid "Reindex Error"
 msgstr ""
 
-#: admin/class-metrics.php:212
+#. translators: %d: site/blog ID
+#: admin/class-metrics.php:214
 #, php-format
 msgid "Site ID: %d"
 msgstr ""

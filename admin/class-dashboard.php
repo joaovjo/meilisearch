@@ -234,6 +234,7 @@ class Meilisearch_Dashboard
 				error_log('Meilisearch Dashboard: Reindex error - ' . $e->getMessage());
 			}
 			wp_die(
+				/* translators: %s: error message */
 				esc_html(sprintf(__('Error during reindexing: %s', 'meilisearch'), $e->getMessage())),
 				esc_html__('Reindex Error', 'meilisearch'),
 				['back_link' => true],

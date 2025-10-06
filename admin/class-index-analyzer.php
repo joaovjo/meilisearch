@@ -419,7 +419,10 @@ class Meilisearch_Index_Analyzer
 							<h3 class="hndle">
 								<code><?php echo esc_html($pattern_data['pattern']); ?></code>
 								<span style="color: #666; font-weight: normal; font-size: 12px; margin-left: 10px;">
-									(<?php printf(esc_html__('%d indexes', 'meilisearch'), $pattern_data['count']); ?>)
+									(<?php
+									/* translators: %d: number of indexes */
+									printf(esc_html__('%d indexes', 'meilisearch'), $pattern_data['count']);
+									?>)
 								</span>
 								<?php if ($is_current_network): ?>
 									<span class="current-network-badge" style="margin-left: 10px;"><?php esc_html_e('Current Network', 'meilisearch'); ?></span>
@@ -458,7 +461,10 @@ class Meilisearch_Index_Analyzer
 									<td>
 										<details>
 											<summary style="cursor: pointer;">
-												<?php printf(esc_html__('View %d sites', 'meilisearch'), count($pattern_data['site_names'])); ?>
+												<?php
+												/* translators: %d: number of sites */
+												printf(esc_html__('View %d sites', 'meilisearch'), count($pattern_data['site_names']));
+												?>
 											</summary>
 											<ul style="margin-top: 10px; max-height: 300px; overflow-y: auto;">
 												<?php foreach ($pattern_data['site_names'] as $blog_id => $site_name): ?>

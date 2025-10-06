@@ -209,7 +209,10 @@ class Meilisearch_Metrics
 								<h3 class="hndle">
 									<?php echo esc_html($index['uid']); ?>
 									<span style="color: #666; font-weight: normal; font-size: 12px;">
-										(<?php printf(esc_html__('Site ID: %d', 'meilisearch'), $index['blog_id']); ?>)
+										(<?php
+										/* translators: %d: site/blog ID */
+										printf(esc_html__('Site ID: %d', 'meilisearch'), $index['blog_id']);
+										?>)
 									</span>
 								</h3>
 							</div>
@@ -269,27 +272,15 @@ class Meilisearch_Metrics
 					<p>
 						<a href="<?php echo esc_url(add_query_arg('refresh', time())); ?>" class="button button-primary">
 							<?php esc_html_e('Refresh Metrics', 'meilisearch'); ?>
-						</a>
-						<span style="margin-left: 10px; color: #666;">
-							<?php
-
-
-
-							printf(
-	
+					</a>
+					<span style="margin-left: 10px; color: #666;">
+						<?php
+						printf(
 							/* translators: %s: current time */
-	
-
-	
 							esc_html__('Last updated: %s', 'meilisearch'),
-	
-
-	
-							esc_html(current_time('Y-m-d H:i:s')),
-
-							);
-
-
+							esc_html(current_time('Y-m-d H:i:s'))
+						);
+						?>
 
 							?>
 						</span>
