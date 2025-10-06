@@ -89,7 +89,7 @@
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    Meilisearch_Autocomplete
+    Meilisearch_Metrics
 
     
             <div class="phpdocumentor-element__package">
@@ -108,17 +108,17 @@
 </div>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="includes/class-autocomplete.php"><a href="files/includes-class-autocomplete.html"><abbr title="includes/class-autocomplete.php">class-autocomplete.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-metrics.php"><a href="files/admin-class-metrics.html"><abbr title="admin/class-metrics.php">class-metrics.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">16</span>
 
-            <a href="classes/Meilisearch-Autocomplete.html#source-view.16" class="phpdocumentor-element-found-in__source" data-line="16" data-modal="source-view" data-src="files/includes/class-autocomplete.php.txt"></a>
+            <a href="classes/Meilisearch-Metrics.html#source-view.16" class="phpdocumentor-element-found-in__source" data-line="16" data-modal="source-view" data-src="files/admin/class-metrics.php.txt"></a>
     </aside>
 
-            <p class="phpdocumentor-summary">Class Meilisearch_Autocomplete</p>
+            <p class="phpdocumentor-summary">Class Meilisearch_Metrics</p>
 
 
-    <section class="phpdocumentor-description"><p>Handles autocomplete functionality for search.</p>
+    <section class="phpdocumentor-description"><p>Displays real-time metrics from Meilisearch server.</p>
 </section>
 
 
@@ -129,7 +129,7 @@
 
 <h3 id="toc">
     Table of Contents
-    <a href="classes/Meilisearch-Autocomplete.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/Meilisearch-Metrics.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h3>
 
@@ -143,14 +143,14 @@
 
 <h4 id="toc-properties">
     Properties
-    <a href="classes/Meilisearch-Autocomplete.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/Meilisearch-Metrics.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a class="" href="classes/Meilisearch-Autocomplete.html#property_client">$client</a>
+    <a class="" href="classes/Meilisearch-Metrics.html#property_client">$client</a>
     <span>
-                        &nbsp;: <a href="classes/Meilisearch-Client.html"><abbr title="\Meilisearch_Client">Meilisearch_Client</abbr></a>            </span>
+                        &nbsp;: <a href="classes/Meilisearch-Client.html"><abbr title="\Meilisearch_Client">Meilisearch_Client</abbr></a>|null            </span>
 </dt>
 <dd>Meilisearch client instance.</dd>
 
@@ -158,44 +158,58 @@
 
 <h4 id="toc-methods">
     Methods
-    <a href="classes/Meilisearch-Autocomplete.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/Meilisearch-Metrics.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Meilisearch-Autocomplete.html#method___construct">__construct()</a>
-    <span>
-                                &nbsp;: mixed    </span>
-</dt>
-<dd>Constructor.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Meilisearch-Autocomplete.html#method_enqueue_scripts">enqueue_scripts()</a>
+    <a class="" href="classes/Meilisearch-Metrics.html#method_add_network_menu">add_network_menu()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Enqueue autocomplete scripts and styles.</dd>
+<dd>Add network admin menu item.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Meilisearch-Autocomplete.html#method_handle_autocomplete_request">handle_autocomplete_request()</a>
-    <span>
-                                &nbsp;: <abbr title="\WP_REST_Response">WP_REST_Response</abbr>    </span>
-</dt>
-<dd>Handle autocomplete REST API request.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Meilisearch-Autocomplete.html#method_init_hooks">init_hooks()</a>
+    <a class="" href="classes/Meilisearch-Metrics.html#method_init_hooks">init_hooks()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
 <dd>Initialize WordPress hooks.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Meilisearch-Autocomplete.html#method_register_rest_route">register_rest_route()</a>
+    <a class="" href="classes/Meilisearch-Metrics.html#method_render_metrics_page">render_metrics_page()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Register REST API endpoint for autocomplete.</dd>
+<dd>Render metrics page.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/Meilisearch-Metrics.html#method_format_bytes">format_bytes()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Format bytes to human readable size.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/Meilisearch-Metrics.html#method_get_all_indexes_stats">get_all_indexes_stats()</a>
+    <span>
+                                &nbsp;: array&lt;int, array&lt;string, mixed&gt;&gt;    </span>
+</dt>
+<dd>Get stats for all indexes based on configured format.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/Meilisearch-Metrics.html#method_get_client">get_client()</a>
+    <span>
+                                &nbsp;: <a href="classes/Meilisearch-Client.html"><abbr title="\Meilisearch_Client">Meilisearch_Client</abbr></a>|null    </span>
+</dt>
+<dd>Get Meilisearch client instance.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/Meilisearch-Metrics.html#method_get_global_stats">get_global_stats()</a>
+    <span>
+                                &nbsp;: array&lt;string, mixed&gt;    </span>
+</dt>
+<dd>Get global stats from Meilisearch.</dd>
 
     </dl>
 
@@ -207,7 +221,7 @@
     <section class="phpdocumentor-properties">
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
-            <a href="classes/Meilisearch-Autocomplete.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/Meilisearch-Metrics.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
@@ -219,17 +233,17 @@
 >
     <h4 class="phpdocumentor-element__name" id="property_client">
         $client
-        <a href="classes/Meilisearch-Autocomplete.html#property_client" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/Meilisearch-Metrics.html#property_client" class="headerlink"><i class="fas fa-link"></i></a>
 
         <span class="phpdocumentor-element__modifiers">
                                             </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="includes/class-autocomplete.php"><a href="files/includes-class-autocomplete.html"><abbr title="includes/class-autocomplete.php">class-autocomplete.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-metrics.php"><a href="files/admin-class-metrics.html"><abbr title="admin/class-metrics.php">class-metrics.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">23</span>
 
-            <a href="classes/Meilisearch-Autocomplete.html#source-view.23" class="phpdocumentor-element-found-in__source" data-line="23" data-modal="source-view" data-src="files/includes/class-autocomplete.php.txt"></a>
+            <a href="classes/Meilisearch-Metrics.html#source-view.23" class="phpdocumentor-element-found-in__source" data-line="23" data-modal="source-view" data-src="files/admin/class-metrics.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Meilisearch client instance.</p>
@@ -237,9 +251,9 @@
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
         <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__type"><a href="classes/Meilisearch-Client.html"><abbr title="\Meilisearch_Client">Meilisearch_Client</abbr></a></span>
+            <span class="phpdocumentor-signature__type"><a href="classes/Meilisearch-Client.html"><abbr title="\Meilisearch_Client">Meilisearch_Client</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$client</span>
-    </code>
+     = <span class="phpdocumentor-signature__default-value">\null</span></code>
 
     
     
@@ -255,7 +269,7 @@
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a href="classes/Meilisearch-Autocomplete.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/Meilisearch-Metrics.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
@@ -264,72 +278,24 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method___construct">
-        __construct()
-        <a href="classes/Meilisearch-Autocomplete.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_add_network_menu">
+        add_network_menu()
+        <a href="classes/Meilisearch-Metrics.html#method_add_network_menu" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="includes/class-autocomplete.php"><a href="files/includes-class-autocomplete.html"><abbr title="includes/class-autocomplete.php">class-autocomplete.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-metrics.php"><a href="files/admin-class-metrics.html"><abbr title="admin/class-metrics.php">class-metrics.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">30</span>
+    <span class="phpdocumentor-element-found-in__line">36</span>
 
-            <a href="classes/Meilisearch-Autocomplete.html#source-view.30" class="phpdocumentor-element-found-in__source" data-line="30" data-modal="source-view" data-src="files/includes/class-autocomplete.php.txt"></a>
+            <a href="classes/Meilisearch-Metrics.html#source-view.36" class="phpdocumentor-element-found-in__source" data-line="36" data-modal="source-view" data-src="files/admin/class-metrics.php.txt"></a>
     </aside>
 
-        <p class="phpdocumentor-summary">Constructor.</p>
+        <p class="phpdocumentor-summary">Add network admin menu item.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Meilisearch-Client.html"><abbr title="\Meilisearch_Client">Meilisearch_Client</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$client</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$client</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Meilisearch-Client.html"><abbr title="\Meilisearch_Client">Meilisearch_Client</abbr></a></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Meilisearch client instance.</p>
-</section>
-
-            </dd>
-            </dl>
-
-    
-
-    
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_enqueue_scripts">
-        enqueue_scripts()
-        <a href="classes/Meilisearch-Autocomplete.html#method_enqueue_scripts" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="includes/class-autocomplete.php"><a href="files/includes-class-autocomplete.html"><abbr title="includes/class-autocomplete.php">class-autocomplete.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">93</span>
-
-            <a href="classes/Meilisearch-Autocomplete.html#source-view.93" class="phpdocumentor-element-found-in__source" data-line="93" data-modal="source-view" data-src="files/includes/class-autocomplete.php.txt"></a>
-    </aside>
-
-        <p class="phpdocumentor-summary">Enqueue autocomplete scripts and styles.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">enqueue_scripts</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">add_network_menu</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -341,62 +307,6 @@
     
 
     
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_handle_autocomplete_request">
-        handle_autocomplete_request()
-        <a href="classes/Meilisearch-Autocomplete.html#method_handle_autocomplete_request" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="includes/class-autocomplete.php"><a href="files/includes-class-autocomplete.html"><abbr title="includes/class-autocomplete.php">class-autocomplete.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">75</span>
-
-            <a href="classes/Meilisearch-Autocomplete.html#source-view.75" class="phpdocumentor-element-found-in__source" data-line="75" data-modal="source-view" data-src="files/includes/class-autocomplete.php.txt"></a>
-    </aside>
-
-        <p class="phpdocumentor-summary">Handle autocomplete REST API request.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">handle_autocomplete_request</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\WP_REST_Request">WP_REST_Request</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$request</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\WP_REST_Response">WP_REST_Response</abbr></span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$request</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\WP_REST_Request">WP_REST_Request</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Request object.</p>
-</section>
-
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><abbr title="\WP_REST_Response">WP_REST_Response</abbr></span>
-                    &mdash;
-                <section class="phpdocumentor-description"><p>Response object.</p>
-</section>
-
-            </section>
-
 </article>
                     <article
         class="phpdocumentor-element
@@ -406,15 +316,15 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_init_hooks">
         init_hooks()
-        <a href="classes/Meilisearch-Autocomplete.html#method_init_hooks" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/Meilisearch-Metrics.html#method_init_hooks" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="includes/class-autocomplete.php"><a href="files/includes-class-autocomplete.html"><abbr title="includes/class-autocomplete.php">class-autocomplete.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-metrics.php"><a href="files/admin-class-metrics.html"><abbr title="admin/class-metrics.php">class-metrics.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">38</span>
+    <span class="phpdocumentor-element-found-in__line">28</span>
 
-            <a href="classes/Meilisearch-Autocomplete.html#source-view.38" class="phpdocumentor-element-found-in__source" data-line="38" data-modal="source-view" data-src="files/includes/class-autocomplete.php.txt"></a>
+            <a href="classes/Meilisearch-Metrics.html#source-view.28" class="phpdocumentor-element-found-in__source" data-line="28" data-modal="source-view" data-src="files/admin/class-metrics.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Initialize WordPress hooks.</p>
@@ -440,24 +350,24 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_register_rest_route">
-        register_rest_route()
-        <a href="classes/Meilisearch-Autocomplete.html#method_register_rest_route" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_render_metrics_page">
+        render_metrics_page()
+        <a href="classes/Meilisearch-Metrics.html#method_render_metrics_page" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="includes/class-autocomplete.php"><a href="files/includes-class-autocomplete.html"><abbr title="includes/class-autocomplete.php">class-autocomplete.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-metrics.php"><a href="files/admin-class-metrics.html"><abbr title="admin/class-metrics.php">class-metrics.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">47</span>
+    <span class="phpdocumentor-element-found-in__line">152</span>
 
-            <a href="classes/Meilisearch-Autocomplete.html#source-view.47" class="phpdocumentor-element-found-in__source" data-line="47" data-modal="source-view" data-src="files/includes/class-autocomplete.php.txt"></a>
+            <a href="classes/Meilisearch-Metrics.html#source-view.152" class="phpdocumentor-element-found-in__source" data-line="152" data-modal="source-view" data-src="files/admin/class-metrics.php.txt"></a>
     </aside>
 
-        <p class="phpdocumentor-summary">Register REST API endpoint for autocomplete.</p>
+        <p class="phpdocumentor-summary">Render metrics page.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">register_rest_route</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">render_metrics_page</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -470,13 +380,189 @@
 
     
 </article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_format_bytes">
+        format_bytes()
+        <a href="classes/Meilisearch-Metrics.html#method_format_bytes" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-metrics.php"><a href="files/admin-class-metrics.html"><abbr title="admin/class-metrics.php">class-metrics.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">138</span>
+
+            <a href="classes/Meilisearch-Metrics.html#source-view.138" class="phpdocumentor-element-found-in__source" data-line="138" data-modal="source-view" data-src="files/admin/class-metrics.php.txt"></a>
+    </aside>
+
+        <p class="phpdocumentor-summary">Format bytes to human readable size.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">format_bytes</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$bytes</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$bytes</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Bytes to format.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Formatted size.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_get_all_indexes_stats">
+        get_all_indexes_stats()
+        <a href="classes/Meilisearch-Metrics.html#method_get_all_indexes_stats" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-metrics.php"><a href="files/admin-class-metrics.html"><abbr title="admin/class-metrics.php">class-metrics.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">93</span>
+
+            <a href="classes/Meilisearch-Metrics.html#source-view.93" class="phpdocumentor-element-found-in__source" data-line="93" data-modal="source-view" data-src="files/admin/class-metrics.php.txt"></a>
+    </aside>
+
+        <p class="phpdocumentor-summary">Get stats for all indexes based on configured format.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">get_all_indexes_stats</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;int, array&lt;string, mixed&gt;&gt;</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;int, array&lt;string, mixed&gt;&gt;</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_get_client">
+        get_client()
+        <a href="classes/Meilisearch-Metrics.html#method_get_client" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-metrics.php"><a href="files/admin-class-metrics.html"><abbr title="admin/class-metrics.php">class-metrics.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">53</span>
+
+            <a href="classes/Meilisearch-Metrics.html#source-view.53" class="phpdocumentor-element-found-in__source" data-line="53" data-modal="source-view" data-src="files/admin/class-metrics.php.txt"></a>
+    </aside>
+
+        <p class="phpdocumentor-summary">Get Meilisearch client instance.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">get_client</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Meilisearch-Client.html"><abbr title="\Meilisearch_Client">Meilisearch_Client</abbr></a>|null</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/Meilisearch-Client.html"><abbr title="\Meilisearch_Client">Meilisearch_Client</abbr></a>|null</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_get_global_stats">
+        get_global_stats()
+        <a href="classes/Meilisearch-Metrics.html#method_get_global_stats" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-metrics.php"><a href="files/admin-class-metrics.html"><abbr title="admin/class-metrics.php">class-metrics.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">73</span>
+
+            <a href="classes/Meilisearch-Metrics.html#source-view.73" class="phpdocumentor-element-found-in__source" data-line="73" data-modal="source-view" data-src="files/admin/class-metrics.php.txt"></a>
+    </aside>
+
+        <p class="phpdocumentor-summary">Get global stats from Meilisearch.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">get_global_stats</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, mixed&gt;</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string, mixed&gt;</span>
+            </section>
+
+</article>
             </section>
 
         <div class="phpdocumentor-modal" id="source-view">
     <div class="phpdocumentor-modal-bg" data-exit-button></div>
     <div class="phpdocumentor-modal-container">
         <div class="phpdocumentor-modal-content">
-            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/includes/class-autocomplete.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
+            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/admin/class-metrics.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
         </div>
         <button data-exit-button class="phpdocumentor-modal__close">&times;</button>
     </div>
@@ -577,26 +663,28 @@
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                                            <li><a href="classes/Meilisearch-Autocomplete.html#toc-properties">Properties</a></li>
-                                                            <li><a href="classes/Meilisearch-Autocomplete.html#toc-methods">Methods</a></li>
+                                                            <li><a href="classes/Meilisearch-Metrics.html#toc-properties">Properties</a></li>
+                                                            <li><a href="classes/Meilisearch-Metrics.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
             
                             <li class="phpdocumentor-on-this-page-section__title">Properties</li>
                 <li>
                     <ul class="phpdocumentor-list -clean">
-                                                    <li class=""><a href="classes/Meilisearch-Autocomplete.html#property_client">$client</a></li>
+                                                    <li class=""><a href="classes/Meilisearch-Metrics.html#property_client">$client</a></li>
                                             </ul>
                 </li>
             
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li class=""><a href="classes/Meilisearch-Autocomplete.html#method___construct">__construct()</a></li>
-                                            <li class=""><a href="classes/Meilisearch-Autocomplete.html#method_enqueue_scripts">enqueue_scripts()</a></li>
-                                            <li class=""><a href="classes/Meilisearch-Autocomplete.html#method_handle_autocomplete_request">handle_autocomplete_request()</a></li>
-                                            <li class=""><a href="classes/Meilisearch-Autocomplete.html#method_init_hooks">init_hooks()</a></li>
-                                            <li class=""><a href="classes/Meilisearch-Autocomplete.html#method_register_rest_route">register_rest_route()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Metrics.html#method_add_network_menu">add_network_menu()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Metrics.html#method_init_hooks">init_hooks()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Metrics.html#method_render_metrics_page">render_metrics_page()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Metrics.html#method_format_bytes">format_bytes()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Metrics.html#method_get_all_indexes_stats">get_all_indexes_stats()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Metrics.html#method_get_client">get_client()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Metrics.html#method_get_global_stats">get_global_stats()</a></li>
                                     </ul>
             </li>
                     </ul>
@@ -616,7 +704,7 @@
     </section>
 </section>
         </div>
-        <a href="classes/Meilisearch-Autocomplete.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/Meilisearch-Metrics.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 

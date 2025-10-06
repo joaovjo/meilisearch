@@ -1,6 +1,226 @@
 Search.appendIndex(
     [
                 {
+            "fqsen": "\\Meilisearch_Dashboard",
+            "name": "Meilisearch_Dashboard",
+            "summary": "Class\u0020Meilisearch_Dashboard",
+            "url": "classes/Meilisearch-Dashboard.html"
+        },                {
+            "fqsen": "\\Meilisearch_Dashboard\u003A\u003Ainit_hooks\u0028\u0029",
+            "name": "init_hooks",
+            "summary": "Initialize\u0020hooks.",
+            "url": "classes/Meilisearch-Dashboard.html#method_init_hooks"
+        },                {
+            "fqsen": "\\Meilisearch_Dashboard\u003A\u003Aadd_dashboard_menu\u0028\u0029",
+            "name": "add_dashboard_menu",
+            "summary": "Add\u0020main\u0020menu\u0020and\u0020dashboard\u0020page.",
+            "url": "classes/Meilisearch-Dashboard.html#method_add_dashboard_menu"
+        },                {
+            "fqsen": "\\Meilisearch_Dashboard\u003A\u003Aget_client\u0028\u0029",
+            "name": "get_client",
+            "summary": "Get\u0020Meilisearch\u0020client\u0020instance.",
+            "url": "classes/Meilisearch-Dashboard.html#method_get_client"
+        },                {
+            "fqsen": "\\Meilisearch_Dashboard\u003A\u003Aget_network_stats\u0028\u0029",
+            "name": "get_network_stats",
+            "summary": "Get\u0020network\u0020statistics.",
+            "url": "classes/Meilisearch-Dashboard.html#method_get_network_stats"
+        },                {
+            "fqsen": "\\Meilisearch_Dashboard\u003A\u003Aget_meilisearch_info\u0028\u0029",
+            "name": "get_meilisearch_info",
+            "summary": "Get\u0020Meilisearch\u0020server\u0020info.",
+            "url": "classes/Meilisearch-Dashboard.html#method_get_meilisearch_info"
+        },                {
+            "fqsen": "\\Meilisearch_Dashboard\u003A\u003Ahandle_reindex\u0028\u0029",
+            "name": "handle_reindex",
+            "summary": "Handle\u0020network\u0020reindex\u0020action.",
+            "url": "classes/Meilisearch-Dashboard.html#method_handle_reindex"
+        },                {
+            "fqsen": "\\Meilisearch_Dashboard\u003A\u003Aget_system_info\u0028\u0029",
+            "name": "get_system_info",
+            "summary": "Get\u0020system\u0020information.",
+            "url": "classes/Meilisearch-Dashboard.html#method_get_system_info"
+        },                {
+            "fqsen": "\\Meilisearch_Dashboard\u003A\u003Arender_dashboard\u0028\u0029",
+            "name": "render_dashboard",
+            "summary": "Render\u0020dashboard\u0020page.",
+            "url": "classes/Meilisearch-Dashboard.html#method_render_dashboard"
+        },                {
+            "fqsen": "\\Meilisearch_Dashboard\u003A\u003A\u0024client",
+            "name": "client",
+            "summary": "Meilisearch\u0020client\u0020instance.",
+            "url": "classes/Meilisearch-Dashboard.html#property_client"
+        },                {
+            "fqsen": "\\Meilisearch_Index_Analyzer",
+            "name": "Meilisearch_Index_Analyzer",
+            "summary": "Class\u0020Meilisearch_Index_Analyzer",
+            "url": "classes/Meilisearch-Index-Analyzer.html"
+        },                {
+            "fqsen": "\\Meilisearch_Index_Analyzer\u003A\u003Ainit_hooks\u0028\u0029",
+            "name": "init_hooks",
+            "summary": "Initialize\u0020WordPress\u0020hooks.",
+            "url": "classes/Meilisearch-Index-Analyzer.html#method_init_hooks"
+        },                {
+            "fqsen": "\\Meilisearch_Index_Analyzer\u003A\u003Aadd_network_menu\u0028\u0029",
+            "name": "add_network_menu",
+            "summary": "Add\u0020network\u0020admin\u0020menu\u0020item.",
+            "url": "classes/Meilisearch-Index-Analyzer.html#method_add_network_menu"
+        },                {
+            "fqsen": "\\Meilisearch_Index_Analyzer\u003A\u003Aget_client\u0028\u0029",
+            "name": "get_client",
+            "summary": "Get\u0020Meilisearch\u0020client\u0020instance.",
+            "url": "classes/Meilisearch-Index-Analyzer.html#method_get_client"
+        },                {
+            "fqsen": "\\Meilisearch_Index_Analyzer\u003A\u003Aget_all_indexes\u0028\u0029",
+            "name": "get_all_indexes",
+            "summary": "Get\u0020all\u0020indexes\u0020from\u0020Meilisearch\u0020server.",
+            "url": "classes/Meilisearch-Index-Analyzer.html#method_get_all_indexes"
+        },                {
+            "fqsen": "\\Meilisearch_Index_Analyzer\u003A\u003Aparse_index_name\u0028\u0029",
+            "name": "parse_index_name",
+            "summary": "Parse\u0020index\u0020name\u0020to\u0020extract\u0020pattern\u0020components.",
+            "url": "classes/Meilisearch-Index-Analyzer.html#method_parse_index_name"
+        },                {
+            "fqsen": "\\Meilisearch_Index_Analyzer\u003A\u003Aanalyze_index_patterns\u0028\u0029",
+            "name": "analyze_index_patterns",
+            "summary": "Analyze\u0020indexes\u0020and\u0020group\u0020by\u0020network\u0020pattern.",
+            "url": "classes/Meilisearch-Index-Analyzer.html#method_analyze_index_patterns"
+        },                {
+            "fqsen": "\\Meilisearch_Index_Analyzer\u003A\u003Aget_network_url_for_pattern\u0028\u0029",
+            "name": "get_network_url_for_pattern",
+            "summary": "Get\u0020network\u0020URL\u0020for\u0020a\u0020set\u0020of\u0020blog\u0020IDs\u0020and\u0020index\u0020names.",
+            "url": "classes/Meilisearch-Index-Analyzer.html#method_get_network_url_for_pattern"
+        },                {
+            "fqsen": "\\Meilisearch_Index_Analyzer\u003A\u003Aget_site_names_from_indexes\u0028\u0029",
+            "name": "get_site_names_from_indexes",
+            "summary": "Get\u0020site\u0020names\u0020for\u0020blog\u0020IDs\u0020using\u0020Meilisearch\u0020data.",
+            "url": "classes/Meilisearch-Index-Analyzer.html#method_get_site_names_from_indexes"
+        },                {
+            "fqsen": "\\Meilisearch_Index_Analyzer\u003A\u003Arender_analyzer_page\u0028\u0029",
+            "name": "render_analyzer_page",
+            "summary": "Render\u0020analyzer\u0020page.",
+            "url": "classes/Meilisearch-Index-Analyzer.html#method_render_analyzer_page"
+        },                {
+            "fqsen": "\\Meilisearch_Index_Analyzer\u003A\u003A\u0024client",
+            "name": "client",
+            "summary": "Meilisearch\u0020client\u0020instance.",
+            "url": "classes/Meilisearch-Index-Analyzer.html#property_client"
+        },                {
+            "fqsen": "\\Meilisearch_Metrics",
+            "name": "Meilisearch_Metrics",
+            "summary": "Class\u0020Meilisearch_Metrics",
+            "url": "classes/Meilisearch-Metrics.html"
+        },                {
+            "fqsen": "\\Meilisearch_Metrics\u003A\u003Ainit_hooks\u0028\u0029",
+            "name": "init_hooks",
+            "summary": "Initialize\u0020WordPress\u0020hooks.",
+            "url": "classes/Meilisearch-Metrics.html#method_init_hooks"
+        },                {
+            "fqsen": "\\Meilisearch_Metrics\u003A\u003Aadd_network_menu\u0028\u0029",
+            "name": "add_network_menu",
+            "summary": "Add\u0020network\u0020admin\u0020menu\u0020item.",
+            "url": "classes/Meilisearch-Metrics.html#method_add_network_menu"
+        },                {
+            "fqsen": "\\Meilisearch_Metrics\u003A\u003Aget_client\u0028\u0029",
+            "name": "get_client",
+            "summary": "Get\u0020Meilisearch\u0020client\u0020instance.",
+            "url": "classes/Meilisearch-Metrics.html#method_get_client"
+        },                {
+            "fqsen": "\\Meilisearch_Metrics\u003A\u003Aget_global_stats\u0028\u0029",
+            "name": "get_global_stats",
+            "summary": "Get\u0020global\u0020stats\u0020from\u0020Meilisearch.",
+            "url": "classes/Meilisearch-Metrics.html#method_get_global_stats"
+        },                {
+            "fqsen": "\\Meilisearch_Metrics\u003A\u003Aget_all_indexes_stats\u0028\u0029",
+            "name": "get_all_indexes_stats",
+            "summary": "Get\u0020stats\u0020for\u0020all\u0020indexes\u0020based\u0020on\u0020configured\u0020format.",
+            "url": "classes/Meilisearch-Metrics.html#method_get_all_indexes_stats"
+        },                {
+            "fqsen": "\\Meilisearch_Metrics\u003A\u003Aformat_bytes\u0028\u0029",
+            "name": "format_bytes",
+            "summary": "Format\u0020bytes\u0020to\u0020human\u0020readable\u0020size.",
+            "url": "classes/Meilisearch-Metrics.html#method_format_bytes"
+        },                {
+            "fqsen": "\\Meilisearch_Metrics\u003A\u003Arender_metrics_page\u0028\u0029",
+            "name": "render_metrics_page",
+            "summary": "Render\u0020metrics\u0020page.",
+            "url": "classes/Meilisearch-Metrics.html#method_render_metrics_page"
+        },                {
+            "fqsen": "\\Meilisearch_Metrics\u003A\u003A\u0024client",
+            "name": "client",
+            "summary": "Meilisearch\u0020client\u0020instance.",
+            "url": "classes/Meilisearch-Metrics.html#property_client"
+        },                {
+            "fqsen": "\\Meilisearch_Multi_Pattern_Search",
+            "name": "Meilisearch_Multi_Pattern_Search",
+            "summary": "Class\u0020Meilisearch_Multi_Pattern_Search",
+            "url": "classes/Meilisearch-Multi-Pattern-Search.html"
+        },                {
+            "fqsen": "\\Meilisearch_Multi_Pattern_Search\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Constructor",
+            "url": "classes/Meilisearch-Multi-Pattern-Search.html#method___construct"
+        },                {
+            "fqsen": "\\Meilisearch_Multi_Pattern_Search\u003A\u003Ainit_hooks\u0028\u0029",
+            "name": "init_hooks",
+            "summary": "Initialize\u0020hooks",
+            "url": "classes/Meilisearch-Multi-Pattern-Search.html#method_init_hooks"
+        },                {
+            "fqsen": "\\Meilisearch_Multi_Pattern_Search\u003A\u003Aadd_menu_page\u0028\u0029",
+            "name": "add_menu_page",
+            "summary": "Add\u0020menu\u0020page\u0020to\u0020WordPress\u0020admin",
+            "url": "classes/Meilisearch-Multi-Pattern-Search.html#method_add_menu_page"
+        },                {
+            "fqsen": "\\Meilisearch_Multi_Pattern_Search\u003A\u003Aget_all_indexes\u0028\u0029",
+            "name": "get_all_indexes",
+            "summary": "Get\u0020all\u0020indexes\u0020from\u0020Meilisearch",
+            "url": "classes/Meilisearch-Multi-Pattern-Search.html#method_get_all_indexes"
+        },                {
+            "fqsen": "\\Meilisearch_Multi_Pattern_Search\u003A\u003Aparse_index_name\u0028\u0029",
+            "name": "parse_index_name",
+            "summary": "Parse\u0020index\u0020name\u0020to\u0020extract\u0020pattern\u0020components",
+            "url": "classes/Meilisearch-Multi-Pattern-Search.html#method_parse_index_name"
+        },                {
+            "fqsen": "\\Meilisearch_Multi_Pattern_Search\u003A\u003Aanalyze_index_patterns\u0028\u0029",
+            "name": "analyze_index_patterns",
+            "summary": "Analyze\u0020all\u0020index\u0020patterns",
+            "url": "classes/Meilisearch-Multi-Pattern-Search.html#method_analyze_index_patterns"
+        },                {
+            "fqsen": "\\Meilisearch_Multi_Pattern_Search\u003A\u003Aget_network_url_for_pattern\u0028\u0029",
+            "name": "get_network_url_for_pattern",
+            "summary": "Get\u0020network\u0020URL\u0020from\u0020index\u0020documents",
+            "url": "classes/Meilisearch-Multi-Pattern-Search.html#method_get_network_url_for_pattern"
+        },                {
+            "fqsen": "\\Meilisearch_Multi_Pattern_Search\u003A\u003Aget_current_pattern\u0028\u0029",
+            "name": "get_current_pattern",
+            "summary": "Get\u0020current\u0020network\u0027s\u0020pattern",
+            "url": "classes/Meilisearch-Multi-Pattern-Search.html#method_get_current_pattern"
+        },                {
+            "fqsen": "\\Meilisearch_Multi_Pattern_Search\u003A\u003Aget_additional_patterns\u0028\u0029",
+            "name": "get_additional_patterns",
+            "summary": "Get\u0020saved\u0020additional\u0020patterns",
+            "url": "classes/Meilisearch-Multi-Pattern-Search.html#method_get_additional_patterns"
+        },                {
+            "fqsen": "\\Meilisearch_Multi_Pattern_Search\u003A\u003Asave_settings\u0028\u0029",
+            "name": "save_settings",
+            "summary": "Save\u0020settings",
+            "url": "classes/Meilisearch-Multi-Pattern-Search.html#method_save_settings"
+        },                {
+            "fqsen": "\\Meilisearch_Multi_Pattern_Search\u003A\u003Arender_page\u0028\u0029",
+            "name": "render_page",
+            "summary": "Render\u0020the\u0020settings\u0020page",
+            "url": "classes/Meilisearch-Multi-Pattern-Search.html#method_render_page"
+        },                {
+            "fqsen": "\\Meilisearch_Multi_Pattern_Search\u003A\u003AOPTION_NAME",
+            "name": "OPTION_NAME",
+            "summary": "Option\u0020name\u0020for\u0020storing\u0020selected\u0020patterns",
+            "url": "classes/Meilisearch-Multi-Pattern-Search.html#constant_OPTION_NAME"
+        },                {
+            "fqsen": "\\Meilisearch_Multi_Pattern_Search\u003A\u003A\u0024client",
+            "name": "client",
+            "summary": "Meilisearch\u0020client\u0020instance",
+            "url": "classes/Meilisearch-Multi-Pattern-Search.html#property_client"
+        },                {
             "fqsen": "\\Meilisearch_Network_Settings",
             "name": "Meilisearch_Network_Settings",
             "summary": "Class\u0020Meilisearch_Network_Settings",
@@ -226,6 +446,11 @@ Search.appendIndex(
             "summary": "Get\u0020post\u0020terms\u0020as\u0020array\u0020of\u0020names.",
             "url": "classes/Meilisearch-Indexer.html#method_get_post_terms"
         },                {
+            "fqsen": "\\Meilisearch_Indexer\u003A\u003Aensure_index_exists\u0028\u0029",
+            "name": "ensure_index_exists",
+            "summary": "Ensure\u0020that\u0020an\u0020index\u0020exists\u0020for\u0020a\u0020blog.",
+            "url": "classes/Meilisearch-Indexer.html#method_ensure_index_exists"
+        },                {
             "fqsen": "\\Meilisearch_Indexer\u003A\u003Acreate_site_index\u0028\u0029",
             "name": "create_site_index",
             "summary": "Create\u0020index\u0020for\u0020a\u0020new\u0020site.",
@@ -236,10 +461,55 @@ Search.appendIndex(
             "summary": "Delete\u0020index\u0020for\u0020a\u0020deleted\u0020site.",
             "url": "classes/Meilisearch-Indexer.html#method_delete_site_index"
         },                {
+            "fqsen": "\\Meilisearch_Indexer\u003A\u003Aget_indexable_post_types\u0028\u0029",
+            "name": "get_indexable_post_types",
+            "summary": "Get\u0020list\u0020of\u0020post\u0020types\u0020that\u0020should\u0020be\u0020indexed.",
+            "url": "classes/Meilisearch-Indexer.html#method_get_indexable_post_types"
+        },                {
+            "fqsen": "\\Meilisearch_Indexer\u003A\u003Ashould_index_post_type\u0028\u0029",
+            "name": "should_index_post_type",
+            "summary": "Check\u0020if\u0020a\u0020post\u0020type\u0020should\u0020be\u0020indexed.",
+            "url": "classes/Meilisearch-Indexer.html#method_should_index_post_type"
+        },                {
             "fqsen": "\\Meilisearch_Indexer\u003A\u003A\u0024client",
             "name": "client",
             "summary": "Meilisearch\u0020client\u0020instance.",
             "url": "classes/Meilisearch-Indexer.html#property_client"
+        },                {
+            "fqsen": "\\Meilisearch_Search_API",
+            "name": "Meilisearch_Search_API",
+            "summary": "Class\u0020Meilisearch_Search_API",
+            "url": "classes/Meilisearch-Search-API.html"
+        },                {
+            "fqsen": "\\Meilisearch_Search_API\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Constructor.",
+            "url": "classes/Meilisearch-Search-API.html#method___construct"
+        },                {
+            "fqsen": "\\Meilisearch_Search_API\u003A\u003Ainit_hooks\u0028\u0029",
+            "name": "init_hooks",
+            "summary": "Initialize\u0020WordPress\u0020hooks.",
+            "url": "classes/Meilisearch-Search-API.html#method_init_hooks"
+        },                {
+            "fqsen": "\\Meilisearch_Search_API\u003A\u003Aregister_rest_routes\u0028\u0029",
+            "name": "register_rest_routes",
+            "summary": "Register\u0020REST\u0020API\u0020endpoints.",
+            "url": "classes/Meilisearch-Search-API.html#method_register_rest_routes"
+        },                {
+            "fqsen": "\\Meilisearch_Search_API\u003A\u003Ahandle_search_request\u0028\u0029",
+            "name": "handle_search_request",
+            "summary": "Handle\u0020search\u0020REST\u0020API\u0020request.",
+            "url": "classes/Meilisearch-Search-API.html#method_handle_search_request"
+        },                {
+            "fqsen": "\\Meilisearch_Search_API\u003A\u003Aformat_search_results\u0028\u0029",
+            "name": "format_search_results",
+            "summary": "Format\u0020search\u0020results\u0020for\u0020API\u0020response.",
+            "url": "classes/Meilisearch-Search-API.html#method_format_search_results"
+        },                {
+            "fqsen": "\\Meilisearch_Search_API\u003A\u003A\u0024client",
+            "name": "client",
+            "summary": "Meilisearch\u0020client\u0020instance.",
+            "url": "classes/Meilisearch-Search-API.html#property_client"
         },                {
             "fqsen": "\\Meilisearch_Searcher",
             "name": "Meilisearch_Searcher",
@@ -255,6 +525,16 @@ Search.appendIndex(
             "name": "search_network",
             "summary": "Search\u0020across\u0020all\u0020network\u0020indexes.",
             "url": "classes/Meilisearch-Searcher.html#method_search_network"
+        },                {
+            "fqsen": "\\Meilisearch_Searcher\u003A\u003Aget_searchable_indexes\u0028\u0029",
+            "name": "get_searchable_indexes",
+            "summary": "Get\u0020all\u0020searchable\u0020indexes\u0020including\u0020additional\u0020patterns.",
+            "url": "classes/Meilisearch-Searcher.html#method_get_searchable_indexes"
+        },                {
+            "fqsen": "\\Meilisearch_Searcher\u003A\u003Aconvert_pattern_to_regex\u0028\u0029",
+            "name": "convert_pattern_to_regex",
+            "summary": "Convert\u0020pattern\u0020format\u0020to\u0020regex",
+            "url": "classes/Meilisearch-Searcher.html#method_convert_pattern_to_regex"
         },                {
             "fqsen": "\\Meilisearch_Searcher\u003A\u003Asearch_site\u0028\u0029",
             "name": "search_site",
@@ -336,9 +616,14 @@ Search.appendIndex(
             "summary": "Get\u0020posts\u0020from\u0020Meilisearch\u0020results\u0020\u0028cross\u002Dsite\u0020compatible\u0029.",
             "url": "classes/Meilisearch-Search-Override.html#method_get_posts_from_meilisearch"
         },                {
+            "fqsen": "\\Meilisearch_Search_Override\u003A\u003Acreate_pseudo_post_from_hit\u0028\u0029",
+            "name": "create_pseudo_post_from_hit",
+            "summary": "Create\u0020a\u0020pseudo\u0020WP_Post\u0020object\u0020from\u0020Meilisearch\u0020hit\u0020data.",
+            "url": "classes/Meilisearch-Search-Override.html#method_create_pseudo_post_from_hit"
+        },                {
             "fqsen": "\\Meilisearch_Search_Override\u003A\u003Afix_cross_site_permalink\u0028\u0029",
             "name": "fix_cross_site_permalink",
-            "summary": "Fix\u0020permalink\u0020for\u0020cross\u002Dsite\u0020posts.",
+            "summary": "Fix\u0020cross\u002Dsite\u0020permalink.",
             "url": "classes/Meilisearch-Search-Override.html#method_fix_cross_site_permalink"
         },                {
             "fqsen": "\\Meilisearch_Search_Override\u003A\u003A\u0024searcher",
