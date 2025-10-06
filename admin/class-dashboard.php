@@ -206,38 +206,38 @@ class Meilisearch_Dashboard
 		$indexer = new Meilisearch_Indexer($client);
 
 		if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
-			error_log('Meilisearch Dashboard: Getting sites');
+			error_log('Meilisearch Dashboard: Starting bulk reindex');
 		}
 
-		// Get all sites
-		$sites = get_sites(['number' => 1000]);
-
-		if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
-			error_log('Meilisearch Dashboard: Found ' . count($sites) . ' sites to reindex');
-		}
-
-		// Reindex each site
-		foreach ($sites as $site) {
-			switch_to_blog($site->blog_id);
+		// Use bulk_index_network method which handles all sites
+		try {
+			$results = $indexer->bulk_index_network(function ($blog_id, $site_result) {
+				if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+					error_log(sprintf(
+						'Meilisearch Dashboard: Blog %d - Indexed %d of %d posts',
+						$blog_id,
+						$site_result['indexed'],
+						$site_result['total']
+					));
+				}
+			});
 
 			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
-				error_log('Meilisearch Dashboard: Reindexing blog ' . $site->blog_id);
+				error_log(sprintf(
+					'Meilisearch Dashboard: Reindex complete - %d posts indexed across %d sites',
+					$results['indexed_posts'],
+					$results['total_sites']
+				));
 			}
-
-			try {
-				// Clear existing index first
-				$indexer->clear_index();
-
-				// Reindex all posts
-				$indexer->index_all_posts();
-			} catch (\Exception $e) {
-				if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
-					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Debug logging only.
-					error_log(sprintf('Meilisearch reindex error for blog %d: %s', $site->blog_id, $e->getMessage()));
-				}
+		} catch (\Exception $e) {
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				error_log('Meilisearch Dashboard: Reindex error - ' . $e->getMessage());
 			}
-
-			restore_current_blog();
+			wp_die(
+				esc_html(sprintf(__('Error during reindexing: %s', 'meilisearch'), $e->getMessage())),
+				esc_html__('Reindex Error', 'meilisearch'),
+				['back_link' => true]
+			);
 		}
 
 		if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
