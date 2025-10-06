@@ -194,7 +194,7 @@ class Meilisearch_Dashboard
 			wp_die(
 				esc_html__('Meilisearch is not configured. Please configure the settings first.', 'meilisearch'),
 				esc_html__('Configuration Required', 'meilisearch'),
-				['back_link' => true]
+				['back_link' => true],
 			);
 		}
 
@@ -217,7 +217,7 @@ class Meilisearch_Dashboard
 						'Meilisearch Dashboard: Blog %d - Indexed %d of %d posts',
 						$blog_id,
 						$site_result['indexed'],
-						$site_result['total']
+						$site_result['total'],
 					));
 				}
 			});
@@ -226,7 +226,7 @@ class Meilisearch_Dashboard
 				error_log(sprintf(
 					'Meilisearch Dashboard: Reindex complete - %d posts indexed across %d sites',
 					$results['indexed_posts'],
-					$results['total_sites']
+					$results['total_sites'],
 				));
 			}
 		} catch (\Exception $e) {
@@ -236,7 +236,7 @@ class Meilisearch_Dashboard
 			wp_die(
 				esc_html(sprintf(__('Error during reindexing: %s', 'meilisearch'), $e->getMessage())),
 				esc_html__('Reindex Error', 'meilisearch'),
-				['back_link' => true]
+				['back_link' => true],
 			);
 		}
 
