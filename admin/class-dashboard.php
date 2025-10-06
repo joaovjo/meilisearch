@@ -239,11 +239,9 @@ class Meilisearch_Dashboard
 			<div class="notice notice-success is-dismissible">
 				<p><strong><?php esc_html_e('Network reindexing started successfully!', 'meilisearch'); ?></strong></p>
 				<p><?php esc_html_e(
-
 					'The reindexing process is running in the background. This may take several minutes depending on the number of posts.',
 
 					'meilisearch',
-
 				); ?>
 				</p>
 			</div>
@@ -260,15 +258,11 @@ class Meilisearch_Dashboard
 				<div class="notice notice-error">
 					<p><strong>Error loading dashboard:</strong> <?php echo esc_html($e->getMessage()); ?></p>
 					<p><strong>File:</strong> <?php echo esc_html($e->getFile()); ?> (line <?php echo
-
-							esc_html((string) $e->getLine())
-
-						; ?>)</p>
+						esc_html((string) $e->getLine())
+					; ?>)</p>
 				</div>
 			</div>
 			<?php
-
-
 
 			return;
 		}
@@ -314,14 +308,10 @@ class Meilisearch_Dashboard
 									<td>
 										<?php
 
-
-
 										$status_class = 'available' === $meilisearch_info['status'] ? 'green' : 'red';
 
 										$status_text = 'available' === $meilisearch_info['status']
-
 											? __('Connected', 'meilisearch')
-
 											: __('Disconnected', 'meilisearch');
 
 										?>
@@ -372,8 +362,6 @@ class Meilisearch_Dashboard
 									<td>
 										<?php
 
-
-
 										$fiber_available = 'Available' === $system_info['react_fiber'];
 
 										$fiber_color = $fiber_available ? 'green' : 'orange';
@@ -399,14 +387,10 @@ class Meilisearch_Dashboard
 								<?php esc_html_e('Configure Settings', 'meilisearch'); ?>
 							</a>
 							<a href="<?php echo
-
 								esc_url(wp_nonce_url(network_admin_url('edit.php?action=meilisearch_reindex'), 'meilisearch_reindex'))
-
 							; ?>" class="button button-secondary" onclick="return confirm('<?php echo
-
-							 	esc_js(__('Are you sure you want to reindex all sites? This may take several minutes.', 'meilisearch'))
-
-							 ; ?>');">
+								esc_js(__('Are you sure you want to reindex all sites? This may take several minutes.', 'meilisearch'))
+							; ?>');">
 								<span class="dashicons dashicons-update" style="margin-top: 3px;"></span>
 								<?php esc_html_e('Reindex Network', 'meilisearch'); ?>
 							</a>

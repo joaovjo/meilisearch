@@ -264,11 +264,17 @@ class Meilisearch_Metrics
 	
 							/* translators: %s: current time */
 	
+
+	
 							esc_html__('Last updated: %s', 'meilisearch'),
+	
+
 	
 							esc_html(current_time('Y-m-d H:i:s')),
 
 							);
+
+
 
 							?>
 						</span>

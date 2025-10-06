@@ -82,6 +82,8 @@ class Meilisearch_Network_Settings
 
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display of success message.
 
+
+
 			if (isset($_GET['updated'])): ?>
 				<div class="notice notice-success is-dismissible">
 					<p><?php esc_html_e('Settings saved successfully.', 'meilisearch'); ?></p>
@@ -109,6 +111,8 @@ class Meilisearch_Network_Settings
 				)
 
 				;
+
+
 
 				?>
 						
@@ -194,6 +198,8 @@ class Meilisearch_Network_Settings
 	
 								'Index naming format. Use {prefix} for table prefix (wp_, wp_2_, wp_3_), {blog_id} for site ID, {site_id} for site ID. Default: {prefix}posts',
 	
+
+	
 								'meilisearch',
 
 								); ?><br>
@@ -247,11 +253,17 @@ class Meilisearch_Network_Settings
 	
 							/* translators: %s: WP-CLI command */
 	
+
+	
 							esc_html__('Use WP-CLI to index all sites: %s', 'meilisearch'),
+	
+
 	
 							'<code>wp meilisearch index --network</code>',
 
 							);
+
+
 
 							?>
 						</p>

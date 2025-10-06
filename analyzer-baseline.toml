@@ -160,18 +160,18 @@ end_line = 232
 
 [[entries."admin/class-dashboard.php".issues]]
 code = "non-existent-function"
-start_line = 395
-end_line = 395
+start_line = 396
+end_line = 396
 
 [[entries."admin/class-dashboard.php".issues]]
 code = "non-existent-function"
-start_line = 401
-end_line = 401
+start_line = 402
+end_line = 402
 
 [[entries."admin/class-dashboard.php".issues]]
 code = "non-existent-function"
-start_line = 401
-end_line = 401
+start_line = 402
+end_line = 402
 
 [[entries."admin/class-dashboard.php".issues]]
 code = "redundant-null-coalesce"
@@ -340,13 +340,8 @@ end_line = 349
 
 [[entries."admin/class-dashboard.php".issues]]
 code = "too-many-arguments"
-start_line = 350
-end_line = 350
-
-[[entries."admin/class-dashboard.php".issues]]
-code = "too-many-arguments"
-start_line = 353
-end_line = 353
+start_line = 351
+end_line = 351
 
 [[entries."admin/class-dashboard.php".issues]]
 code = "too-many-arguments"
@@ -355,8 +350,8 @@ end_line = 354
 
 [[entries."admin/class-dashboard.php".issues]]
 code = "too-many-arguments"
-start_line = 357
-end_line = 357
+start_line = 355
+end_line = 355
 
 [[entries."admin/class-dashboard.php".issues]]
 code = "too-many-arguments"
@@ -365,8 +360,8 @@ end_line = 358
 
 [[entries."admin/class-dashboard.php".issues]]
 code = "too-many-arguments"
-start_line = 361
-end_line = 361
+start_line = 359
+end_line = 359
 
 [[entries."admin/class-dashboard.php".issues]]
 code = "too-many-arguments"
@@ -375,8 +370,8 @@ end_line = 362
 
 [[entries."admin/class-dashboard.php".issues]]
 code = "too-many-arguments"
-start_line = 365
-end_line = 365
+start_line = 363
+end_line = 363
 
 [[entries."admin/class-dashboard.php".issues]]
 code = "too-many-arguments"
@@ -385,13 +380,13 @@ end_line = 366
 
 [[entries."admin/class-dashboard.php".issues]]
 code = "too-many-arguments"
-start_line = 369
-end_line = 369
+start_line = 367
+end_line = 367
 
 [[entries."admin/class-dashboard.php".issues]]
 code = "too-many-arguments"
-start_line = 380
-end_line = 380
+start_line = 370
+end_line = 370
 
 [[entries."admin/class-dashboard.php".issues]]
 code = "too-many-arguments"
@@ -400,38 +395,48 @@ end_line = 381
 
 [[entries."admin/class-dashboard.php".issues]]
 code = "too-many-arguments"
-start_line = 393
-end_line = 393
+start_line = 382
+end_line = 382
 
 [[entries."admin/class-dashboard.php".issues]]
 code = "too-many-arguments"
-start_line = 395
-end_line = 395
+start_line = 394
+end_line = 394
 
 [[entries."admin/class-dashboard.php".issues]]
 code = "too-many-arguments"
-start_line = 397
-end_line = 397
+start_line = 396
+end_line = 396
 
 [[entries."admin/class-dashboard.php".issues]]
 code = "too-many-arguments"
-start_line = 401
-end_line = 401
+start_line = 398
+end_line = 398
 
 [[entries."admin/class-dashboard.php".issues]]
 code = "too-many-arguments"
-start_line = 407
-end_line = 407
+start_line = 402
+end_line = 402
 
 [[entries."admin/class-dashboard.php".issues]]
 code = "too-many-arguments"
-start_line = 407
-end_line = 407
+start_line = 406
+end_line = 406
 
 [[entries."admin/class-dashboard.php".issues]]
 code = "too-many-arguments"
-start_line = 411
-end_line = 411
+start_line = 406
+end_line = 406
+
+[[entries."admin/class-dashboard.php".issues]]
+code = "too-many-arguments"
+start_line = 410
+end_line = 410
+
+[[entries."admin/class-dashboard.php".issues]]
+code = "too-many-arguments"
+start_line = 414
+end_line = 414
 
 [[entries."admin/class-dashboard.php".issues]]
 code = "too-many-arguments"
@@ -447,11 +452,6 @@ end_line = 416
 code = "too-many-arguments"
 start_line = 417
 end_line = 417
-
-[[entries."admin/class-dashboard.php".issues]]
-code = "too-many-arguments"
-start_line = 418
-end_line = 418
 
 [[entries."admin/class-metrics.php".issues]]
 code = "invalid-iterator"

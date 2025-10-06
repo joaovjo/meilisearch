@@ -6,17 +6,12 @@ end_line = 15
 [[entries."admin/class-dashboard.php".issues]]
 code = "cyclomatic-complexity"
 start_line = 15
-end_line = 427
+end_line = 426
 
 [[entries."admin/class-dashboard.php".issues]]
 code = "kan-defect"
 start_line = 15
-end_line = 427
-
-[[entries."admin/class-dashboard.php".issues]]
-code = "no-boolean-literal-comparison"
-start_line = 204
-end_line = 204
+end_line = 426
 
 [[entries."admin/class-dashboard.php".issues]]
 code = "use-wp-functions"
