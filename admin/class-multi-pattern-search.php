@@ -49,7 +49,10 @@ class Meilisearch_Multi_Pattern_Search {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		$this->client = new Meilisearch_Client();
+		$settings = get_site_option( 'meilisearch_settings', array() );
+		if ( ! empty( $settings['host'] ) ) {
+			$this->client = new Meilisearch_Client( $settings['host'], $settings['master_key'] ?? '' );
+		}
 		add_action( 'network_admin_menu', array( $this, 'add_menu_page' ) );
 		add_action( 'admin_menu', array( $this, 'add_menu_page' ) );
 		add_action( 'admin_post_save_additional_patterns', array( $this, 'save_settings' ) );
@@ -90,6 +93,10 @@ class Meilisearch_Multi_Pattern_Search {
 	 * @return array Array of index objects with uid, primaryKey, and other metadata
 	 */
 	private function get_all_indexes(): array {
+		if ( ! $this->client ) {
+			return array();
+		}
+
 		try {
 			$indexes = $this->client->get_indexes();
 			return $indexes->getResults();
@@ -196,6 +203,10 @@ class Meilisearch_Multi_Pattern_Search {
 	 * @return string|null Network URL or null if not found
 	 */
 	private function get_network_url_for_pattern( array $index_names ): ?string {
+		if ( ! $this->client ) {
+			return null;
+		}
+
 		foreach ( $index_names as $index_name ) {
 			try {
 				$results = $this->client->search( $index_name, '', array( 'limit' => 1 ) );
@@ -312,14 +323,27 @@ class Meilisearch_Multi_Pattern_Search {
 	 * @return void
 	 */
 	public function render_page(): void {
-		$patterns = $this->analyze_index_patterns();
-		$current_pattern = $this->get_current_pattern();
-		$selected_patterns = $this->get_additional_patterns();
-		$updated = isset( $_GET['updated'] ) && $_GET['updated'] === 'true';
-
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html( __( 'Multi-Pattern Search', 'meilisearch' ) ); ?></h1>
+
+			<?php if ( ! $this->client ) : ?>
+				<div class="notice notice-error">
+					<p>
+						<?php
+						esc_html_e( 'Meilisearch is not configured. Please configure it in the Settings page first.', 'meilisearch' );
+						?>
+					</p>
+				</div>
+				<?php return; ?>
+			<?php endif; ?>
+
+			<?php
+			$patterns = $this->analyze_index_patterns();
+			$current_pattern = $this->get_current_pattern();
+			$selected_patterns = $this->get_additional_patterns();
+			$updated = isset( $_GET['updated'] ) && $_GET['updated'] === 'true';
+			?>
 
 			<?php if ( $updated ) : ?>
 				<div class="notice notice-success is-dismissible">

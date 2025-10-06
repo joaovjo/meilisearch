@@ -94,7 +94,7 @@ msgstr "Sua chave mestre do Meilisearch (deixe vazio se não estiver usando aute
 msgid "Indexing Status"
 msgstr "Status da Indexação"
 
-#: admin/class-multi-pattern-search.php:428
+#: admin/class-multi-pattern-search.php:452
 #: admin/class-network-settings.php:218
 msgid "Save Settings"
 msgstr "Salvar Configurações"
@@ -170,7 +170,7 @@ msgid "Host"
 msgstr "Host"
 
 #: admin/class-dashboard.php:369
-#: admin/class-multi-pattern-search.php:353
+#: admin/class-multi-pattern-search.php:377
 msgid "Status"
 msgstr "Status"
 
@@ -396,7 +396,7 @@ msgstr "Padrão de Nome do Índice"
 
 #: admin/class-index-analyzer.php:368
 #: admin/class-index-analyzer.php:436
-#: admin/class-multi-pattern-search.php:351
+#: admin/class-multi-pattern-search.php:375
 msgid "Network URL"
 msgstr "URL da Rede"
 
@@ -465,7 +465,7 @@ msgstr "Última análise: %s"
 
 #: admin/class-index-analyzer.php:383
 #: admin/class-index-analyzer.php:425
-#: admin/class-multi-pattern-search.php:380
+#: admin/class-multi-pattern-search.php:404
 msgid "Current Network"
 msgstr "Rede Atual"
 
@@ -509,70 +509,74 @@ msgstr ""
 msgid "Site ID: %d"
 msgstr ""
 
-#: admin/class-multi-pattern-search.php:67
-#: admin/class-multi-pattern-search.php:68
-#: admin/class-multi-pattern-search.php:322
+#: admin/class-multi-pattern-search.php:70
+#: admin/class-multi-pattern-search.php:71
+#: admin/class-multi-pattern-search.php:328
 msgid "Multi-Pattern Search"
 msgstr "Busca Multi-Padrão"
 
-#: admin/class-multi-pattern-search.php:272
+#: admin/class-multi-pattern-search.php:283
 msgid "Security check failed"
 msgstr "Verificação de segurança falhou"
 
-#: admin/class-multi-pattern-search.php:278
+#: admin/class-multi-pattern-search.php:289
 msgid "You do not have permission to perform this action"
 msgstr "Você não tem permissão para realizar esta ação"
 
-#: admin/class-multi-pattern-search.php:326
+#: admin/class-multi-pattern-search.php:350
 msgid "Settings saved successfully!"
 msgstr "Configurações salvas com sucesso!"
 
-#: admin/class-multi-pattern-search.php:331
+#: admin/class-multi-pattern-search.php:355
 msgid "About Multi-Pattern Search"
 msgstr "Sobre a Busca Multi-Padrão"
 
-#: admin/class-multi-pattern-search.php:332
+#: admin/class-multi-pattern-search.php:356
 msgid "This feature allows you to search across multiple WordPress networks that share the same Meilisearch server. Select additional index patterns below to include their content in your search results."
 msgstr "Este recurso permite pesquisar em várias redes WordPress que compartilham o mesmo servidor Meilisearch. Selecione padrões de índice adicionais abaixo para incluir seu conteúdo nos resultados de busca."
 
-#: admin/class-multi-pattern-search.php:339
+#: admin/class-multi-pattern-search.php:363
 msgid "Available Index Patterns"
 msgstr "Padrões de Índice Disponíveis"
 
-#: admin/class-multi-pattern-search.php:343
+#: admin/class-multi-pattern-search.php:367
 msgid "No index patterns found in Meilisearch."
 msgstr "Nenhum padrão de índice encontrado no Meilisearch."
 
-#: admin/class-multi-pattern-search.php:349
+#: admin/class-multi-pattern-search.php:373
 msgid "Select"
 msgstr "Selecionar"
 
-#: admin/class-multi-pattern-search.php:350
+#: admin/class-multi-pattern-search.php:374
 msgid "Pattern"
 msgstr "Padrão"
 
-#: admin/class-multi-pattern-search.php:352
+#: admin/class-multi-pattern-search.php:376
 msgid "Indexes"
 msgstr "Índices"
 
-#: admin/class-multi-pattern-search.php:391
+#: admin/class-multi-pattern-search.php:415
 msgid "Unknown"
 msgstr "Desconhecido"
 
-#: admin/class-multi-pattern-search.php:400
+#: admin/class-multi-pattern-search.php:424
 msgid "index"
 msgid_plural "indexes"
 msgstr[0] "índice"
 msgstr[1] "índices"
 
-#: admin/class-multi-pattern-search.php:409
+#: admin/class-multi-pattern-search.php:433
 msgid "Current"
 msgstr "Atual"
 
-#: admin/class-multi-pattern-search.php:413
+#: admin/class-multi-pattern-search.php:437
 msgid "Active"
 msgstr "Ativo"
 
-#: admin/class-multi-pattern-search.php:417
+#: admin/class-multi-pattern-search.php:441
 msgid "Inactive"
 msgstr "Inativo"
+
+#: admin/class-multi-pattern-search.php:334
+msgid "Meilisearch is not configured. Please configure it in the Settings page first."
+msgstr "O Meilisearch não está configurado. Por favor, configure-o na página de Configurações primeiro."
