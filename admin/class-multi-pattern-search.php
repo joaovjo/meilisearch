@@ -109,8 +109,20 @@ class Meilisearch_Multi_Pattern_Search {
 		}
 
 		try {
-			$indexes = $this->client->get_indexes();
-			return $indexes->getResults();
+			$sdk_client = $this->client->get_client();
+			$indexes_result = $sdk_client->getIndexes();
+			
+			$indexes = array();
+			foreach ( $indexes_result->getResults() as $index ) {
+				$indexes[] = array(
+					'uid'        => $index->getUid(),
+					'primaryKey' => $index->getPrimaryKey(),
+					'createdAt'  => $index->getCreatedAt(),
+					'updatedAt'  => $index->getUpdatedAt(),
+				);
+			}
+			
+			return $indexes;
 		} catch ( Exception $e ) {
 			error_log( 'Meilisearch Multi-Pattern: Error fetching indexes - ' . $e->getMessage() );
 			return array();
@@ -167,7 +179,7 @@ class Meilisearch_Multi_Pattern_Search {
 		$patterns = array();
 
 		foreach ( $indexes as $index ) {
-			$parsed = $this->parse_index_name( $index->getUid() );
+			$parsed = $this->parse_index_name( $index['uid'] );
 
 			if ( ! $parsed ) {
 				continue;
@@ -192,7 +204,7 @@ class Meilisearch_Multi_Pattern_Search {
 			}
 
 			$patterns[ $pattern_key ]['count']++;
-			$patterns[ $pattern_key ]['indexes'][] = $index->getUid();
+			$patterns[ $pattern_key ]['indexes'][] = $index['uid'];
 		}
 
 		// Get network URL for each pattern
