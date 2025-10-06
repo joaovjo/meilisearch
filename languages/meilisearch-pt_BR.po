@@ -466,6 +466,19 @@ msgstr "Atualizar Análise"
 msgid "Last analyzed: %s"
 msgstr "Última análise: %s"
 
+#: admin/class-index-analyzer.php:299
+msgid "Current Network"
+msgstr "Rede Atual"
+
+#: admin/class-index-analyzer.php:455
+msgid "Sites"
+msgstr "Sites"
+
+#: admin/class-index-analyzer.php:458
+#, php-format
+msgid "View %d sites"
+msgstr "Ver %d sites"
+
 #: admin/class-metrics.php:159
 msgid "Error:"
 msgstr "Erro:"

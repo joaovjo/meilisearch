@@ -173,9 +173,13 @@ class Meilisearch_Index_Analyzer
 
 		// Try to identify network URLs for each pattern
 		foreach ($patterns as $pattern => &$data) {
-			if (!empty($data['blog_ids'])) {
-				$network_url = $this->get_network_url_for_blogs($data['blog_ids']);
+			if (!empty($data['indexes'])) {
+				$network_url = $this->get_network_url_for_pattern($data['blog_ids'], $data['indexes']);
 				$data['network_url'] = $network_url;
+				
+				// Get site names from Meilisearch data
+				$site_names = $this->get_site_names_from_indexes($data['indexes']);
+				$data['site_names'] = $site_names;
 			}
 		}
 
@@ -183,52 +187,119 @@ class Meilisearch_Index_Analyzer
 	}
 
 	/**
-	 * Get network URL for a set of blog IDs.
+	 * Get network URL for a set of blog IDs and index names.
 	 *
-	 * @param array<int> $blog_ids Blog IDs to check.
+	 * @param array<int>    $blog_ids    Blog IDs to check.
+	 * @param array<string> $index_names Index names from this pattern.
 	 * @return string|null Network URL or null if not found.
 	 */
-	private function get_network_url_for_blogs(array $blog_ids): null|string
+	private function get_network_url_for_pattern(array $blog_ids, array $index_names): null|string
 	{
-		if (empty($blog_ids)) {
+		if (empty($index_names)) {
 			return null;
 		}
 
-		global $wpdb;
-
-		// Get the first blog ID and find its network
-		$blog_id = $blog_ids[0];
-		
-		// Query to get site domain from wp_blogs and wp_site tables
-		$query = $wpdb->prepare(
-			"SELECT s.domain, s.path 
-			FROM {$wpdb->blogs} b 
-			INNER JOIN {$wpdb->site} s ON b.site_id = s.id 
-			WHERE b.blog_id = %d 
-			LIMIT 1",
-			$blog_id
-		);
-
-		$result = $wpdb->get_row($query);
-
-		if ($result) {
-			$protocol = is_ssl() ? 'https://' : 'http://';
-			return $protocol . $result->domain . rtrim($result->path, '/');
+		$client = $this->get_client();
+		if (null === $client) {
+			return null;
 		}
 
-		// Fallback: try to get blog details
-		$blog_details = get_blog_details($blog_id);
-		if ($blog_details) {
-			// Extract base domain (remove subdomain/path for main network URL)
-			$site_url = untrailingslashit($blog_details->siteurl);
-			// Try to get the network/site URL
-			$parsed = parse_url($site_url);
-			if ($parsed && isset($parsed['scheme'], $parsed['host'])) {
-				return $parsed['scheme'] . '://' . $parsed['host'];
+		// Try each index name until we find one with documents
+		foreach ($index_names as $index_name) {
+			try {
+				// Get a sample document from the index to extract the permalink
+				$results = $client->get_client()
+					->index($index_name)
+					->search('', ['limit' => 1]);
+				
+				// Get hits from the SearchResult object
+				$hits = $results->getHits();
+				
+				if (!empty($hits)) {
+					$document = $hits[0];
+					
+					// Extract URL from permalink field
+					if (isset($document['permalink'])) {
+						$parsed = parse_url($document['permalink']);
+						if ($parsed && isset($parsed['scheme'], $parsed['host'])) {
+							$url = $parsed['scheme'] . '://' . $parsed['host'];
+							
+							// Include port if present
+							if (isset($parsed['port'])) {
+								$url .= ':' . $parsed['port'];
+							}
+							
+							return $url;
+						}
+					}
+				}
+			} catch (Exception $e) {
+				// Index doesn't exist or has no documents, try next index
+				continue;
 			}
 		}
 
 		return null;
+	}
+
+	/**
+	 * Get site names for blog IDs using Meilisearch data.
+	 *
+	 * @param array<string> $index_names Index names from this pattern.
+	 * @return array<int, string> Array of blog_id => site_name.
+	 */
+	private function get_site_names_from_indexes(array $index_names): array
+	{
+		$client = $this->get_client();
+		if (null === $client) {
+			return [];
+		}
+
+		$site_names = [];
+
+		// Try each index name to extract site information
+		foreach ($index_names as $index_name) {
+			try {
+				// Get a sample document from the index
+				$results = $client->get_client()
+					->index($index_name)
+					->search('', ['limit' => 1]);
+				
+				$hits = $results->getHits();
+				
+				if (!empty($hits)) {
+					$document = $hits[0];
+					
+					// Extract blog_id and site name from document
+					if (isset($document['blog_id'])) {
+						$blog_id = (int) $document['blog_id'];
+						
+						// Try to get site name from permalink
+						if (isset($document['permalink'])) {
+							$parsed = parse_url($document['permalink']);
+							if ($parsed && isset($parsed['host'])) {
+								$site_name = $parsed['host'];
+								
+								// Add path if it's a subdirectory site
+								if (isset($parsed['path']) && $parsed['path'] !== '/') {
+									$path_parts = explode('/', trim($parsed['path'], '/'));
+									if (!empty($path_parts[0])) {
+										$site_name .= '/' . $path_parts[0];
+									}
+								}
+								
+								$site_names[$blog_id] = $site_name;
+							}
+						}
+					}
+				}
+			} catch (Exception $e) {
+				// Index doesn't exist or has no documents, skip
+				continue;
+			}
+		}
+
+		return $site_names;
 	}
 
 	/**
@@ -257,6 +328,26 @@ class Meilisearch_Index_Analyzer
 		}
 
 		$patterns = $this->analyze_index_patterns();
+		
+		// Get current network URL for comparison
+		$current_network_url = untrailingslashit(network_site_url());
+		
+		// Sort patterns to put current network first
+		uasort($patterns, function($a, $b) use ($current_network_url) {
+			$a_is_current = ($a['network_url'] && $a['network_url'] === $current_network_url);
+			$b_is_current = ($b['network_url'] && $b['network_url'] === $current_network_url);
+			
+			// Current network comes first
+			if ($a_is_current && !$b_is_current) {
+				return -1;
+			}
+			if (!$a_is_current && $b_is_current) {
+				return 1;
+			}
+			
+			// Otherwise sort alphabetically by pattern
+			return strcmp($a['pattern'], $b['pattern']);
+		});
 
 		?>
 		<div class="wrap">
@@ -281,9 +372,16 @@ class Meilisearch_Index_Analyzer
 					</thead>
 					<tbody>
 						<?php foreach ($patterns as $pattern_data): ?>
-							<tr>
+							<?php 
+							$is_current_network = ($pattern_data['network_url'] && $pattern_data['network_url'] === $current_network_url);
+							$row_class = $is_current_network ? 'current-network-row' : '';
+							?>
+							<tr class="<?php echo esc_attr($row_class); ?>">
 								<td>
 									<strong><code><?php echo esc_html($pattern_data['pattern']); ?></code></strong>
+									<?php if ($is_current_network): ?>
+										<span class="current-network-badge"><?php esc_html_e('Current Network', 'meilisearch'); ?></span>
+									<?php endif; ?>
 								</td>
 								<td>
 									<?php if ($pattern_data['network_url']): ?>
@@ -312,13 +410,20 @@ class Meilisearch_Index_Analyzer
 				<h2 style="margin-top: 30px;"><?php esc_html_e('Index Details by Pattern', 'meilisearch'); ?></h2>
 				
 				<?php foreach ($patterns as $pattern_data): ?>
-					<div class="postbox" style="margin-bottom: 20px;">
+					<?php 
+					$is_current_network = ($pattern_data['network_url'] && $pattern_data['network_url'] === $current_network_url);
+					$postbox_class = $is_current_network ? 'postbox current-network-postbox' : 'postbox';
+					?>
+					<div class="<?php echo esc_attr($postbox_class); ?>" style="margin-bottom: 20px;">
 						<div class="postbox-header">
 							<h3 class="hndle">
 								<code><?php echo esc_html($pattern_data['pattern']); ?></code>
 								<span style="color: #666; font-weight: normal; font-size: 12px; margin-left: 10px;">
 									(<?php printf(esc_html__('%d indexes', 'meilisearch'), $pattern_data['count']); ?>)
 								</span>
+								<?php if ($is_current_network): ?>
+									<span class="current-network-badge" style="margin-left: 10px;"><?php esc_html_e('Current Network', 'meilisearch'); ?></span>
+								<?php endif; ?>
 							</h3>
 						</div>
 						<div class="inside">
@@ -347,6 +452,26 @@ class Meilisearch_Index_Analyzer
 									<td><strong><?php esc_html_e('Total Indexes', 'meilisearch'); ?></strong></td>
 									<td><?php echo esc_html($pattern_data['count']); ?></td>
 								</tr>
+								<?php if (!empty($pattern_data['site_names'])): ?>
+								<tr>
+									<td><strong><?php esc_html_e('Sites', 'meilisearch'); ?></strong></td>
+									<td>
+										<details>
+											<summary style="cursor: pointer;">
+												<?php printf(esc_html__('View %d sites', 'meilisearch'), count($pattern_data['site_names'])); ?>
+											</summary>
+											<ul style="margin-top: 10px; max-height: 300px; overflow-y: auto;">
+												<?php foreach ($pattern_data['site_names'] as $blog_id => $site_name): ?>
+													<li>
+														<strong><?php echo esc_html($site_name); ?></strong>
+														<span style="color: #666; font-size: 12px;">(Blog ID: <?php echo esc_html($blog_id); ?>)</span>
+													</li>
+												<?php endforeach; ?>
+											</ul>
+										</details>
+									</td>
+								</tr>
+								<?php endif; ?>
 								<tr>
 									<td><strong><?php esc_html_e('Index Names', 'meilisearch'); ?></strong></td>
 									<td>
@@ -448,11 +573,47 @@ class Meilisearch_Index_Analyzer
 				border: 1px solid #ddd;
 				border-radius: 3px;
 			}
+			details ul li {
+				padding: 5px 0;
+				border-bottom: 1px solid #eee;
+			}
+			details ul li:last-child {
+				border-bottom: none;
+			}
 			.wp-list-table code {
 				background: #f0f0f0;
 				padding: 2px 6px;
 				border-radius: 3px;
 				font-size: 13px;
+			}
+			
+			/* Current Network Styles */
+			.current-network-badge {
+				display: inline-block;
+				background: #2271b1;
+				color: #fff;
+				padding: 2px 8px;
+				border-radius: 3px;
+				font-size: 11px;
+				font-weight: 600;
+				text-transform: uppercase;
+				margin-left: 8px;
+				vertical-align: middle;
+			}
+			.current-network-row {
+				background-color: #e7f5ff !important;
+				border-left: 3px solid #2271b1;
+			}
+			.current-network-row td {
+				font-weight: 500;
+			}
+			.current-network-postbox {
+				border: 2px solid #2271b1 !important;
+				box-shadow: 0 1px 3px rgba(34, 113, 177, 0.2);
+			}
+			.current-network-postbox .postbox-header {
+				background: #e7f5ff;
+				border-bottom: 2px solid #2271b1;
 			}
 		</style>
 		<?php
