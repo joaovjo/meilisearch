@@ -6,12 +6,12 @@ end_line = 15
 [[entries."admin/class-dashboard.php".issues]]
 code = "cyclomatic-complexity"
 start_line = 15
-end_line = 426
+end_line = 410
 
 [[entries."admin/class-dashboard.php".issues]]
 code = "kan-defect"
 start_line = 15
-end_line = 426
+end_line = 410
 
 [[entries."admin/class-dashboard.php".issues]]
 code = "use-wp-functions"
@@ -26,12 +26,12 @@ end_line = 15
 [[entries."admin/class-metrics.php".issues]]
 code = "cyclomatic-complexity"
 start_line = 15
-end_line = 311
+end_line = 317
 
 [[entries."admin/class-metrics.php".issues]]
 code = "no-else-clause"
 start_line = 162
-end_line = 277
+end_line = 283
 
 [[entries."admin/class-metrics.php".issues]]
 code = "no-else-clause"
