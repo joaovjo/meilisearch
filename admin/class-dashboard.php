@@ -202,7 +202,7 @@ class Meilisearch_Dashboard
 
 		if (file_exists($composer_lock)) {
 			$contents = file_get_contents($composer_lock);
-			if (false !== $contents) {
+			if ($contents) {
 				$lock_data = json_decode($contents, true);
 				if (is_array($lock_data) && isset($lock_data['packages']) && is_array($lock_data['packages'])) {
 					foreach ($lock_data['packages'] as $package) {
