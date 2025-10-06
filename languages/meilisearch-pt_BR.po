@@ -34,14 +34,15 @@ msgstr "joaovjo"
 msgid "https://github.com/joaovjo"
 msgstr "https://github.com/joaovjo"
 
-#: admin/class-dashboard.php:42
+#: admin/class-dashboard.php:45
 msgid "Meilisearch"
 msgstr "Meilisearch"
 
-#: admin/class-dashboard.php:237
-#: admin/class-metrics.php:145
+#: admin/class-dashboard.php:295
+#: admin/class-index-analyzer.php:311
+#: admin/class-metrics.php:155
 #: admin/class-network-settings.php:56
-#: admin/class-network-settings.php:251
+#: admin/class-network-settings.php:285
 msgid "You do not have permission to access this page."
 msgstr "Você não tem permissão para acessar esta página."
 
@@ -49,92 +50,91 @@ msgstr "Você não tem permissão para acessar esta página."
 msgid "Meilisearch Network Settings"
 msgstr "Configurações de Rede do Meilisearch"
 
-#: admin/class-network-settings.php:84
+#: admin/class-network-settings.php:89
 msgid "Settings saved successfully."
 msgstr "Configurações salvas com sucesso."
 
-#: admin/class-network-settings.php:91
+#: admin/class-network-settings.php:96
 msgid "Connection Status:"
 msgstr "Status da Conexão:"
 
-#: admin/class-network-settings.php:97
+#: admin/class-network-settings.php:107
 msgid "Connected successfully!"
 msgstr "Conectado com sucesso!"
 
-#: admin/class-network-settings.php:98
+#: admin/class-network-settings.php:109
 msgid "Connection failed. Please check your credentials."
 msgstr "Falha na conexão. Por favor, verifique suas credenciais."
 
-#: admin/class-network-settings.php:114
+#: admin/class-network-settings.php:130
 msgid "Enable Meilisearch"
 msgstr "Ativar Meilisearch"
 
-#: admin/class-network-settings.php:124
+#: admin/class-network-settings.php:140
 msgid "Enable Meilisearch search across the network."
 msgstr "Ativar busca Meilisearch em toda a rede."
 
-#: admin/class-network-settings.php:132
+#: admin/class-network-settings.php:148
 msgid "Meilisearch Host"
 msgstr "Host do Meilisearch"
 
-#: admin/class-network-settings.php:143
+#: admin/class-network-settings.php:159
 msgid "URL of your Meilisearch server (e.g., http://localhost:7700)"
 msgstr "URL do seu servidor Meilisearch (ex: http://localhost:7700)"
 
-#: admin/class-network-settings.php:151
+#: admin/class-network-settings.php:167
 msgid "Master Key"
 msgstr "Chave Mestre"
 
-#: admin/class-network-settings.php:162
+#: admin/class-network-settings.php:178
 msgid "Your Meilisearch master key (leave empty if not using authentication)."
 msgstr "Sua chave mestre do Meilisearch (deixe vazio se não estiver usando autenticação)."
 
-#: admin/class-network-settings.php:194
+#: admin/class-network-settings.php:215
 msgid "Indexing Status"
 msgstr "Status da Indexação"
 
-#: admin/class-network-settings.php:197
+#: admin/class-network-settings.php:218
 msgid "Save Settings"
 msgstr "Salvar Configurações"
 
-#: admin/class-metrics.php:170
-#: admin/class-network-settings.php:215
+#: admin/class-metrics.php:180
+#: admin/class-network-settings.php:236
 msgid "Metric"
 msgstr "Métrica"
 
-#: admin/class-metrics.php:171
-#: admin/class-network-settings.php:216
+#: admin/class-metrics.php:181
+#: admin/class-network-settings.php:237
 msgid "Value"
 msgstr "Valor"
 
-#: admin/class-network-settings.php:221
+#: admin/class-network-settings.php:242
 msgid "Total Sites in Network"
 msgstr "Total de Sites na Rede"
 
-#. translators: %s: WP-CLI command
-#: admin/class-network-settings.php:231
+#: admin/class-network-settings.php:258
 #, php-format
 msgid "Use WP-CLI to index all sites: %s"
 msgstr "Use o WP-CLI para indexar todos os sites: %s"
 
-#: meilisearch.php:78
+#: meilisearch.php:79
 msgid "This plugin must be network activated."
 msgstr "Este plugin deve ser ativado na rede."
 
-#: meilisearch.php:79
+#: meilisearch.php:80
 msgid "Network Activation Required"
 msgstr "Ativação de Rede Necessária"
 
-#: meilisearch.php:120
+#: meilisearch.php:121
 msgid "Meilisearch plugin requires WordPress Multisite."
 msgstr "O plugin Meilisearch requer WordPress Multisite."
 
-#: admin/class-dashboard.php:41
+#: admin/class-dashboard.php:44
 msgid "Meilisearch Search"
 msgstr "Busca Meilisearch"
 
-#: admin/class-dashboard.php:53
-#: admin/class-dashboard.php:54
+#: admin/class-dashboard.php:56
+#: admin/class-dashboard.php:57
 msgid "Dashboard"
 msgstr "Painel"
 
@@ -143,96 +143,96 @@ msgstr "Painel"
 msgid "Settings"
 msgstr "Configurações"
 
-#: admin/class-dashboard.php:259
-#: admin/class-dashboard.php:274
+#: admin/class-dashboard.php:319
+#: admin/class-dashboard.php:334
 msgid "Meilisearch Dashboard"
 msgstr "Painel do Meilisearch"
 
-#: admin/class-dashboard.php:281
+#: admin/class-dashboard.php:341
 msgid "Network Statistics"
 msgstr "Estatísticas da Rede"
 
-#: admin/class-dashboard.php:285
+#: admin/class-dashboard.php:345
 msgid "Total Sites"
 msgstr "Total de Sites"
 
-#: admin/class-dashboard.php:290
+#: admin/class-dashboard.php:350
 msgid "Total Published Posts"
 msgstr "Total de Posts Publicados"
 
-#: admin/class-dashboard.php:301
+#: admin/class-dashboard.php:361
 msgid "Meilisearch Server"
 msgstr "Servidor Meilisearch"
 
-#: admin/class-dashboard.php:305
+#: admin/class-dashboard.php:365
 msgid "Host"
 msgstr "Host"
 
-#: admin/class-dashboard.php:309
+#: admin/class-dashboard.php:369
 msgid "Status"
 msgstr "Status"
 
-#: admin/class-dashboard.php:315
+#: admin/class-dashboard.php:376
 msgid "Connected"
 msgstr "Conectado"
 
-#: admin/class-dashboard.php:316
+#: admin/class-dashboard.php:377
 msgid "Disconnected"
 msgstr "Desconectado"
 
-#: admin/class-dashboard.php:324
+#: admin/class-dashboard.php:386
 msgid "Meilisearch Version"
 msgstr "Versão do Meilisearch"
 
-#: admin/class-dashboard.php:335
+#: admin/class-dashboard.php:397
 msgid "System Information"
 msgstr "Informações do Sistema"
 
-#: admin/class-dashboard.php:340
+#: admin/class-dashboard.php:402
 msgid "Plugin Version"
 msgstr "Versão do Plugin"
 
-#: admin/class-dashboard.php:344
+#: admin/class-dashboard.php:407
 msgid "WordPress Version"
 msgstr "Versão do WordPress"
 
-#: admin/class-dashboard.php:348
+#: admin/class-dashboard.php:411
 msgid "PHP Version"
 msgstr "Versão do PHP"
 
-#: admin/class-dashboard.php:352
+#: admin/class-dashboard.php:415
 msgid "Meilisearch PHP SDK"
 msgstr "SDK PHP do Meilisearch"
 
-#: admin/class-dashboard.php:356
+#: admin/class-dashboard.php:419
 msgid "Guzzle HTTP"
 msgstr "Guzzle HTTP"
 
-#: admin/class-dashboard.php:360
+#: admin/class-dashboard.php:423
 msgid "PHP Fiber Support"
 msgstr "Suporte PHP Fiber"
 
-#: admin/class-dashboard.php:380
+#: admin/class-dashboard.php:445
 msgid "Quick Actions"
 msgstr "Ações Rápidas"
 
-#: admin/class-dashboard.php:384
+#: admin/class-dashboard.php:449
 msgid "Configure Settings"
 msgstr "Configurar"
 
-#: admin/class-dashboard.php:394
+#: admin/class-dashboard.php:461
 msgid "WP-CLI Commands:"
 msgstr "Comandos WP-CLI:"
 
-#: admin/class-dashboard.php:395
+#: admin/class-dashboard.php:462
 msgid "Reindex all sites"
 msgstr "Reindexar todos os sites"
 
-#: admin/class-dashboard.php:396
+#: admin/class-dashboard.php:463
 msgid "Check server health"
 msgstr "Verificar saúde do servidor"
 
-#: admin/class-dashboard.php:397
+#: admin/class-dashboard.php:464
 msgid "View indexing statistics"
 msgstr "Ver estatísticas de indexação"
 
@@ -241,121 +241,123 @@ msgstr "Ver estatísticas de indexação"
 msgid "Metrics"
 msgstr "Métricas"
 
-#: admin/class-metrics.php:153
+#: admin/class-metrics.php:163
 msgid "Meilisearch Metrics"
 msgstr "Métricas do Meilisearch"
 
-#: admin/class-metrics.php:154
+#: admin/class-metrics.php:164
 msgid "Real-time metrics from Meilisearch server (not cached)"
 msgstr "Métricas em tempo real do servidor Meilisearch (sem cache)"
 
+#: admin/class-index-analyzer.php:322
 #: admin/class-metrics.php:77
 msgid "Meilisearch client not configured"
 msgstr "Cliente Meilisearch não configurado"
 
-#: admin/class-metrics.php:166
+#: admin/class-metrics.php:176
 msgid "Global Statistics"
 msgstr "Estatísticas Globais"
 
-#: admin/class-metrics.php:176
+#: admin/class-metrics.php:186
 msgid "Total Database Size"
 msgstr "Tamanho Total do Banco de Dados"
 
-#: admin/class-metrics.php:180
+#: admin/class-metrics.php:190
 msgid "Last Update"
 msgstr "Última Atualização"
 
-#: admin/class-metrics.php:184
+#: admin/class-index-analyzer.php:370
+#: admin/class-index-analyzer.php:452
+#: admin/class-metrics.php:194
 msgid "Total Indexes"
 msgstr "Total de Índices"
 
-#: admin/class-metrics.php:191
+#: admin/class-metrics.php:201
 msgid "Indexes Statistics"
 msgstr "Estatísticas dos Índices"
 
-#: admin/class-metrics.php:194
+#: admin/class-metrics.php:204
 msgid "No indexes found."
 msgstr "Nenhum índice encontrado."
 
-#: admin/class-metrics.php:204
+#: admin/class-metrics.php:219
 msgid "Primary Key"
 msgstr "Chave Primária"
 
-#: admin/class-metrics.php:208
+#: admin/class-metrics.php:223
 msgid "Created At"
 msgstr "Criado em"
 
-#: admin/class-metrics.php:212
+#: admin/class-metrics.php:227
 msgid "Updated At"
 msgstr "Atualizado em"
 
-#: admin/class-metrics.php:216
+#: admin/class-metrics.php:231
 msgid "Number of Documents"
 msgstr "Número de Documentos"
 
-#: admin/class-metrics.php:220
+#: admin/class-metrics.php:235
 msgid "Is Indexing"
 msgstr "Está Indexando"
 
-#: admin/class-metrics.php:223
+#: admin/class-metrics.php:238
 msgid "Yes"
 msgstr "Sim"
 
-#: admin/class-metrics.php:225
+#: admin/class-metrics.php:240
 msgid "No"
 msgstr "Não"
 
-#: admin/class-metrics.php:230
+#: admin/class-metrics.php:245
 msgid "Field Distribution"
 msgstr "Distribuição de Campos"
 
-#: admin/class-metrics.php:234
+#: admin/class-metrics.php:249
 msgid "View Details"
 msgstr "Ver Detalhes"
 
-#: admin/class-metrics.php:242
+#: admin/class-metrics.php:257
 msgid "No field distribution available"
 msgstr "Nenhuma distribuição de campos disponível"
 
-#: admin/class-metrics.php:256
+#: admin/class-metrics.php:271
 msgid "Refresh Metrics"
 msgstr "Atualizar Métricas"
 
-#. translators: %s: current time
-#: admin/class-metrics.php:263
+#: admin/class-metrics.php:284
 #, php-format
 msgid "Last updated: %s"
 msgstr "Última atualização: %s"
 
-#: admin/class-network-settings.php:170
+#: admin/class-network-settings.php:186
 msgid "Index Name Format"
 msgstr "Formato do Nome do Índice"
 
-#: admin/class-network-settings.php:181
+#: admin/class-network-settings.php:197
 msgid "Index naming format. Use {prefix} for table prefix (wp_, wp_2_, wp_3_), {blog_id} for site ID, {site_id} for site ID. Default: {prefix}posts"
 msgstr "Formato de nomenclatura do índice. Use {prefix} para prefixo da tabela (wp_, wp_2_, wp_3_), {blog_id} para ID do site, {site_id} para ID do site. Padrão: {prefix}posts"
 
-#: admin/class-network-settings.php:185
+#: admin/class-network-settings.php:206
 msgid "Examples:"
 msgstr "Exemplos:"
 
-#: admin/class-dashboard.php:245
+#: admin/class-dashboard.php:302
 msgid "Network reindexing started successfully!"
 msgstr "Reindexação da rede iniciada com sucesso!"
 
-#: admin/class-dashboard.php:246
+#: admin/class-dashboard.php:303
 msgid "The reindexing process is running in the background. This may take several minutes depending on the number of posts."
 msgstr "O processo de reindexação está rodando em segundo plano. Isso pode levar vários minutos dependendo do número de posts."
 
-#: admin/class-dashboard.php:390
+#: admin/class-dashboard.php:457
 msgid "Reindex Network"
 msgstr "Reindexar Rede"
 
-#: admin/class-dashboard.php:388
+#: admin/class-dashboard.php:454
 msgid "Are you sure you want to reindex all sites? This may take several minutes."
 msgstr "Tem certeza que deseja reindexar todos os sites? Isso pode levar vários minutos."
 
-#: admin/class-dashboard.php:156
+#: admin/class-dashboard.php:181
 msgid "You do not have permission to perform this action."
 msgstr "Você não tem permissão para realizar esta ação."
 
@@ -364,122 +366,141 @@ msgstr "Você não tem permissão para realizar esta ação."
 msgid "https://github.com/joaovjo/meilisearch"
 msgstr ""
 
-#: admin/class-index-analyzer.php:37
+#: admin/class-index-analyzer.php:40
+#: admin/class-index-analyzer.php:41
 msgid "Index Analyzer"
 msgstr "Analisador de Índices"
 
-#: admin/class-index-analyzer.php:38
-msgid "Index Analyzer"
-msgstr "Analisador de Índices"
-
-#: admin/class-index-analyzer.php:234
+#: admin/class-index-analyzer.php:318
+#: admin/class-index-analyzer.php:354
 msgid "Meilisearch Index Analyzer"
 msgstr "Analisador de Índices do Meilisearch"
 
-#: admin/class-index-analyzer.php:242
-msgid "Meilisearch client not configured"
-msgstr "Cliente Meilisearch não configurado"
-
-#: admin/class-index-analyzer.php:252
+#: admin/class-index-analyzer.php:355
 msgid "Analysis of all indexes in Meilisearch server to identify WordPress networks and their naming patterns (not cached)"
 msgstr "Análise de todos os índices no servidor Meilisearch para identificar redes WordPress e seus padrões de nomenclatura (sem cache)"
 
-#: admin/class-index-analyzer.php:255
+#: admin/class-index-analyzer.php:359
 msgid "No indexes found in Meilisearch server."
 msgstr "Nenhum índice encontrado no servidor Meilisearch."
 
-#: admin/class-index-analyzer.php:259
+#: admin/class-index-analyzer.php:363
 msgid "Detected Network Patterns"
 msgstr "Padrões de Rede Detectados"
 
-#: admin/class-index-analyzer.php:262
+#: admin/class-index-analyzer.php:367
 msgid "Index Name Pattern"
 msgstr "Padrão de Nome do Índice"
 
-#: admin/class-index-analyzer.php:263
+#: admin/class-index-analyzer.php:368
+#: admin/class-index-analyzer.php:436
 msgid "Network URL"
 msgstr "URL da Rede"
 
-#: admin/class-index-analyzer.php:264
+#: admin/class-index-analyzer.php:369
 msgid "Sites Count"
 msgstr "Quantidade de Sites"
 
-#: admin/class-index-analyzer.php:265
-msgid "Total Indexes"
-msgstr "Total de Índices"
-
-#: admin/class-index-analyzer.php:278
+#: admin/class-index-analyzer.php:394
 msgid "Network URL not detected"
 msgstr "URL da rede não detectada"
 
-#: admin/class-index-analyzer.php:290
+#: admin/class-index-analyzer.php:422
 #, php-format
 msgid "%d indexes"
 msgstr "%d índices"
 
-#: admin/class-index-analyzer.php:297
+#: admin/class-index-analyzer.php:410
 msgid "Index Details by Pattern"
 msgstr "Detalhes dos Índices por Padrão"
 
-#: admin/class-index-analyzer.php:308
+#: admin/class-index-analyzer.php:432
 msgid "Pattern Format"
 msgstr "Formato do Padrão"
 
-#: admin/class-index-analyzer.php:320
+#: admin/class-index-analyzer.php:443
 msgid "Not detected"
 msgstr "Não detectado"
 
-#: admin/class-index-analyzer.php:325
+#: admin/class-index-analyzer.php:448
 msgid "Unique Sites"
 msgstr "Sites Únicos"
 
-#: admin/class-index-analyzer.php:329
+#: admin/class-index-analyzer.php:476
 msgid "Index Names"
 msgstr "Nomes dos Índices"
 
-#: admin/class-index-analyzer.php:332
+#: admin/class-index-analyzer.php:480
 msgid "View all index names"
 msgstr "Ver todos os nomes de índices"
 
-#: admin/class-index-analyzer.php:347
+#: admin/class-index-analyzer.php:498
 msgid "Summary Statistics"
 msgstr "Estatísticas Resumidas"
 
-#: admin/class-index-analyzer.php:352
+#: admin/class-index-analyzer.php:503
 msgid "Total Detected Networks"
 msgstr "Total de Redes Detectadas"
 
-#: admin/class-index-analyzer.php:356
+#: admin/class-index-analyzer.php:507
 msgid "Total Indexes in Meilisearch"
 msgstr "Total de Índices no Meilisearch"
 
-#: admin/class-index-analyzer.php:360
+#: admin/class-index-analyzer.php:511
 msgid "Current WordPress Network"
 msgstr "Rede WordPress Atual"
 
-#: admin/class-index-analyzer.php:374
+#: admin/class-index-analyzer.php:527
 msgid "Refresh Analysis"
 msgstr "Atualizar Análise"
 
-#: admin/class-index-analyzer.php:378
+#. translators: %s: current time
+#: admin/class-index-analyzer.php:533
 #, php-format
 msgid "Last analyzed: %s"
 msgstr "Última análise: %s"
 
-#: admin/class-index-analyzer.php:299
+#: admin/class-index-analyzer.php:383
+#: admin/class-index-analyzer.php:425
 msgid "Current Network"
 msgstr "Rede Atual"
 
-#: admin/class-index-analyzer.php:455
+#: admin/class-index-analyzer.php:457
 msgid "Sites"
 msgstr "Sites"
 
-#: admin/class-index-analyzer.php:458
+#: admin/class-index-analyzer.php:461
 #, php-format
 msgid "View %d sites"
 msgstr "Ver %d sites"
 
-#: admin/class-metrics.php:159
+#: admin/class-index-analyzer.php:321
+#: admin/class-metrics.php:169
 msgid "Error:"
 msgstr "Erro:"
 
+#: admin/class-dashboard.php:156
+msgid "This action can only be performed in network admin."
+msgstr ""
+
+#: admin/class-dashboard.php:195
+msgid "Meilisearch is not configured. Please configure the settings first."
+msgstr ""
+
+#: admin/class-dashboard.php:196
+msgid "Configuration Required"
+msgstr ""
+
+#: admin/class-dashboard.php:237
+#, php-format
+msgid "Error during reindexing: %s"
+msgstr ""
+
+#: admin/class-dashboard.php:238
+msgid "Reindex Error"
+msgstr ""
+
+#: admin/class-metrics.php:212
+#, php-format
+msgid "Site ID: %d"
+msgstr ""
