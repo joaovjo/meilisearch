@@ -364,6 +364,109 @@ msgstr "Você não tem permissão para realizar esta ação."
 msgid "https://github.com/joaovjo/meilisearch"
 msgstr ""
 
+#: admin/class-index-analyzer.php:37
+msgid "Index Analyzer"
+msgstr "Analisador de Índices"
+
+#: admin/class-index-analyzer.php:38
+msgid "Index Analyzer"
+msgstr "Analisador de Índices"
+
+#: admin/class-index-analyzer.php:234
+msgid "Meilisearch Index Analyzer"
+msgstr "Analisador de Índices do Meilisearch"
+
+#: admin/class-index-analyzer.php:242
+msgid "Meilisearch client not configured"
+msgstr "Cliente Meilisearch não configurado"
+
+#: admin/class-index-analyzer.php:252
+msgid "Analysis of all indexes in Meilisearch server to identify WordPress networks and their naming patterns (not cached)"
+msgstr "Análise de todos os índices no servidor Meilisearch para identificar redes WordPress e seus padrões de nomenclatura (sem cache)"
+
+#: admin/class-index-analyzer.php:255
+msgid "No indexes found in Meilisearch server."
+msgstr "Nenhum índice encontrado no servidor Meilisearch."
+
+#: admin/class-index-analyzer.php:259
+msgid "Detected Network Patterns"
+msgstr "Padrões de Rede Detectados"
+
+#: admin/class-index-analyzer.php:262
+msgid "Index Name Pattern"
+msgstr "Padrão de Nome do Índice"
+
+#: admin/class-index-analyzer.php:263
+msgid "Network URL"
+msgstr "URL da Rede"
+
+#: admin/class-index-analyzer.php:264
+msgid "Sites Count"
+msgstr "Quantidade de Sites"
+
+#: admin/class-index-analyzer.php:265
+msgid "Total Indexes"
+msgstr "Total de Índices"
+
+#: admin/class-index-analyzer.php:278
+msgid "Network URL not detected"
+msgstr "URL da rede não detectada"
+
+#: admin/class-index-analyzer.php:290
+#, php-format
+msgid "%d indexes"
+msgstr "%d índices"
+
+#: admin/class-index-analyzer.php:297
+msgid "Index Details by Pattern"
+msgstr "Detalhes dos Índices por Padrão"
+
+#: admin/class-index-analyzer.php:308
+msgid "Pattern Format"
+msgstr "Formato do Padrão"
+
+#: admin/class-index-analyzer.php:320
+msgid "Not detected"
+msgstr "Não detectado"
+
+#: admin/class-index-analyzer.php:325
+msgid "Unique Sites"
+msgstr "Sites Únicos"
+
+#: admin/class-index-analyzer.php:329
+msgid "Index Names"
+msgstr "Nomes dos Índices"
+
+#: admin/class-index-analyzer.php:332
+msgid "View all index names"
+msgstr "Ver todos os nomes de índices"
+
+#: admin/class-index-analyzer.php:347
+msgid "Summary Statistics"
+msgstr "Estatísticas Resumidas"
+
+#: admin/class-index-analyzer.php:352
+msgid "Total Detected Networks"
+msgstr "Total de Redes Detectadas"
+
+#: admin/class-index-analyzer.php:356
+msgid "Total Indexes in Meilisearch"
+msgstr "Total de Índices no Meilisearch"
+
+#: admin/class-index-analyzer.php:360
+msgid "Current WordPress Network"
+msgstr "Rede WordPress Atual"
+
+#: admin/class-index-analyzer.php:374
+msgid "Refresh Analysis"
+msgstr "Atualizar Análise"
+
+#: admin/class-index-analyzer.php:378
+#, php-format
+msgid "Last analyzed: %s"
+msgstr "Última análise: %s"
+
 #: admin/class-metrics.php:159
 msgid "Error:"
 msgstr "Erro:"
+

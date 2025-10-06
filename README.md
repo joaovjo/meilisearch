@@ -11,6 +11,8 @@ Replace WordPress default search with **Meilisearch** across your entire multisi
 - 🔧 **WP-CLI support** - Bulk indexing and management via command line
 - 🔄 **Auto-sync** - Content automatically indexed on publish/update
 - 🚀 **Modern PHP** - Uses Fiber + ReactPHP for concurrent operations (PHP 8.1+)
+- 📊 **Real-time Metrics** - Monitor index statistics and performance without cache
+- 🔎 **Index Analyzer** - Automatically detect multiple WordPress networks and their index patterns
 
 ## Requirements
 
@@ -66,9 +68,26 @@ wp meilisearch index --url=site.example.com
 
 The plugin is configured **only** in the Network Admin panel:
 
-- **Network Admin → Settings → Meilisearch**
+- **Network Admin → Meilisearch → Dashboard** - Overview and quick access
+- **Network Admin → Meilisearch → Settings** - Configure connection and index format
+- **Network Admin → Meilisearch → Metrics** - Real-time index statistics (no cache)
+- **Network Admin → Meilisearch → Index Analyzer** - Detect multiple WordPress networks and patterns
 
 Settings are stored network-wide using `get_site_option()`.
+
+### Index Analyzer
+
+The Index Analyzer page helps identify and manage multiple WordPress networks sharing the same Meilisearch server:
+
+- **Automatic Pattern Detection** - Analyzes all indexes to identify naming patterns
+- **Network URL Discovery** - Maps index patterns to their WordPress network URLs
+- **Multi-Network Support** - Perfect for hosting multiple WordPress installations
+- **Real-time Analysis** - No caching, always shows current state
+
+This is especially useful when:
+- Managing multiple WordPress Multisite installations
+- Each network uses different index naming formats
+- You need to identify which indexes belong to which network
 
 ## WP-CLI Commands
 
@@ -175,6 +194,9 @@ meilisearch/
 │   ├── class-autocomplete.php    # Autocomplete API
 │   └── class-cli.php             # WP-CLI commands
 ├── admin/
+│   ├── class-dashboard.php        # Dashboard overview
+│   ├── class-metrics.php          # Real-time metrics page
+│   ├── class-index-analyzer.php   # Network pattern analyzer
 │   └── class-network-settings.php # Network admin UI
 ├── public/
 │   └── class-search-override.php  # Frontend search replacement

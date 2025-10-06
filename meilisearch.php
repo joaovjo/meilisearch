@@ -54,6 +54,7 @@ require_once MEILISEARCH_PLUGIN_DIR . 'includes/class-autocomplete.php';
 if (is_admin() && is_multisite()) {
 	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-dashboard.php';
 	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-metrics.php';
+	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-index-analyzer.php';
 	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-network-settings.php';
 }
 
@@ -158,6 +159,9 @@ function meilisearch_init(): void
 
 		$metrics = new Meilisearch_Metrics();
 		$metrics->init_hooks();
+
+		$index_analyzer = new Meilisearch_Index_Analyzer();
+		$index_analyzer->init_hooks();
 
 		$network_settings = new Meilisearch_Network_Settings();
 		$network_settings->init_hooks();
