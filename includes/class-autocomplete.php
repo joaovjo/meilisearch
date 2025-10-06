@@ -3,29 +3,29 @@
 declare(strict_types=1);
 
 /**
- * Meilisearch Autocomplete
+ * Autocompletar Meilisearch
  *
  * @package Meilisearch
  */
 
 /**
- * Class Meilisearch_Autocomplete
+ * Classe Meilisearch_Autocomplete
  *
- * Handles autocomplete functionality for search.
+ * Gerencia funcionalidade de autocompletar para busca.
  */
 class Meilisearch_Autocomplete
 {
 	/**
-	 * Meilisearch client instance.
+	 * Instância do cliente Meilisearch.
 	 *
 	 * @var Meilisearch_Client
 	 */
 	private Meilisearch_Client $client;
 
 	/**
-	 * Constructor.
+	 * Construtor.
 	 *
-	 * @param Meilisearch_Client $client Meilisearch client instance.
+	 * @param Meilisearch_Client $client Instância do cliente Meilisearch.
 	 */
 	public function __construct(Meilisearch_Client $client)
 	{
@@ -33,7 +33,7 @@ class Meilisearch_Autocomplete
 	}
 
 	/**
-	 * Initialize WordPress hooks.
+	 * Inicializar hooks do WordPress.
 	 */
 	public function init_hooks(): void
 	{
@@ -42,7 +42,7 @@ class Meilisearch_Autocomplete
 	}
 
 	/**
-	 * Register REST API endpoint for autocomplete.
+	 * Registrar endpoint REST API para autocompletar.
 	 */
 	public function register_rest_route(): void
 	{
@@ -67,10 +67,10 @@ class Meilisearch_Autocomplete
 	}
 
 	/**
-	 * Handle autocomplete REST API request.
+	 * Gerenciar requisição REST API de autocompletar.
 	 *
-	 * @param WP_REST_Request $request Request object.
-	 * @return WP_REST_Response Response object.
+	 * @param WP_REST_Request $request Objeto de requisição.
+	 * @return WP_REST_Response Objeto de resposta.
 	 */
 	public function handle_autocomplete_request(WP_REST_Request $request): WP_REST_Response
 	{
@@ -88,7 +88,7 @@ class Meilisearch_Autocomplete
 	}
 
 	/**
-	 * Enqueue autocomplete scripts and styles.
+	 * Enfileirar scripts e estilos de autocompletar.
 	 */
 	public function enqueue_scripts(): void
 	{

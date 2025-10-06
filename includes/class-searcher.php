@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Meilisearch Searcher
+ * Buscador Meilisearch
  *
  * @package Meilisearch
  */
@@ -11,23 +11,23 @@ declare(strict_types=1);
 use Meilisearch\Contracts\SearchQuery;
 
 /**
- * Class Meilisearch_Searcher
+ * Classe Meilisearch_Searcher
  *
- * Handles search queries to Meilisearch.
+ * Gerencia consultas de busca ao Meilisearch.
  */
 class Meilisearch_Searcher
 {
 	/**
-	 * Meilisearch client instance.
+	 * Instância do cliente Meilisearch.
 	 *
 	 * @var Meilisearch_Client
 	 */
 	private Meilisearch_Client $client;
 
 	/**
-	 * Constructor.
+	 * Construtor.
 	 *
-	 * @param Meilisearch_Client $client Meilisearch client instance.
+	 * @param Meilisearch_Client $client Instância do cliente Meilisearch.
 	 */
 	public function __construct(Meilisearch_Client $client)
 	{
@@ -35,11 +35,11 @@ class Meilisearch_Searcher
 	}
 
 	/**
-	 * Search across all network indexes.
+	 * Buscar em todos os índices da rede.
 	 *
-	 * @param string $query  Search query.
-	 * @param array  $args   Optional search arguments.
-	 * @return array Search results.
+	 * @param string $query  Consulta de busca.
+	 * @param array  $args   Argumentos opcionais de busca.
+	 * @return array Resultados da busca.
 	 */
 	public function search_network(string $query, array $args = []): array
 	{
@@ -57,7 +57,7 @@ class Meilisearch_Searcher
 		$args['limit'] = (int) $args['limit'];
 		$args['offset'] = (int) $args['offset'];
 
-		// Prepare multi-search queries.
+		// Preparar consultas de multi-busca.
 		foreach ($indexes as $index) {
 			$search_query = (new SearchQuery())
 				->setIndexUid($index)
@@ -73,7 +73,7 @@ class Meilisearch_Searcher
 			return $this->format_results($results);
 		} catch (Exception $e) {
 			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
-				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Debug logging only.
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
 				error_log('Meilisearch search error: ' . $e->getMessage());
 			}
 			return [
@@ -84,20 +84,20 @@ class Meilisearch_Searcher
 	}
 
 	/**
-	 * Get all searchable indexes including additional patterns.
+	 * Obter todos os índices pesquisáveis incluindo padrões adicionais.
 	 *
-	 * Returns indexes from the current network plus any additional patterns
-	 * selected in the Multi-Pattern Search settings.
+	 * Retorna índices da rede atual mais quaisquer padrões adicionais
+	 * selecionados nas configurações de Busca Multi-Padrão.
 	 *
 	 * @since 1.0.0
-	 * @return array Array of index names to search
+	 * @return array Array de nomes de índices para buscar
 	 */
 	private function get_searchable_indexes(): array
 	{
-		// Start with current network indexes
+		// Iniciar com índices da rede atual
 		$indexes = $this->client->get_all_index_names();
 
-		// Get additional patterns configuration
+		// Obter configuração de padrões adicionais
 		$additional_patterns = is_multisite() 
 			? get_site_option('meilisearch_additional_patterns', [])
 			: get_option('meilisearch_additional_patterns', []);
@@ -106,7 +106,7 @@ class Meilisearch_Searcher
 			return $indexes;
 		}
 
-		// Get all available indexes from Meilisearch
+		// Obter todos os índices disponíveis do Meilisearch
 		try {
 			$sdk_client = $this->client->get_client();
 			$all_indexes = $sdk_client->getIndexes();
@@ -116,7 +116,7 @@ class Meilisearch_Searcher
 				$all_index_names[] = $index->getUid();
 			}
 
-			// Match indexes against additional patterns
+			// Fazer correspondência de índices contra padrões adicionais
 			foreach ($additional_patterns as $pattern) {
 				$pattern_regex = $this->convert_pattern_to_regex($pattern);
 
@@ -128,7 +128,7 @@ class Meilisearch_Searcher
 			}
 		} catch (Exception $e) {
 			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
-				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Debug logging only.
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
 				error_log('Meilisearch get indexes error: ' . $e->getMessage());
 			}
 		}
@@ -137,35 +137,35 @@ class Meilisearch_Searcher
 	}
 
 	/**
-	 * Convert pattern format to regex
+	 * Converter formato de padrão para regex
 	 *
-	 * Converts index pattern format (e.g., "setur_{blog_id}_posts") to a regex pattern.
+	 * Converte formato de padrão de índice (ex: "setur_{blog_id}_posts") para um padrão regex.
 	 *
 	 * @since 1.0.0
-	 * @param string $pattern Pattern format string.
-	 * @return string Regex pattern
+	 * @param string $pattern String de formato de padrão.
+	 * @return string Padrão regex
 	 */
 	private function convert_pattern_to_regex(string $pattern): string
 	{
-		// Escape special regex characters except our placeholders
+		// Escapar caracteres regex especiais exceto nossos marcadores
 		$regex = preg_quote($pattern, '/');
 
-		// Replace {blog_id} placeholder with number pattern
+		// Substituir marcador {blog_id} com padrão de número
 		$regex = str_replace('\{blog_id\}', '\d+', $regex);
 
-		// Replace {type} placeholder if present
+		// Substituir marcador {type} se presente
 		$regex = str_replace('\{type\}', '[a-z]+', $regex);
 
 		return '/^' . $regex . '$/';
 	}
 
 	/**
-	 * Search in a specific site index.
+	 * Buscar em um índice específico de site.
 	 *
-	 * @param string $query   Search query.
-	 * @param int    $blog_id Site ID.
-	 * @param array  $args    Optional search arguments.
-	 * @return array Search results.
+	 * @param string $query   Consulta de busca.
+	 * @param int    $blog_id ID do site.
+	 * @param array  $args    Argumentos opcionais de busca.
+	 * @return array Resultados da busca.
 	 */
 	public function search_site(string $query, int $blog_id, array $args = []): array
 	{
@@ -178,11 +178,11 @@ class Meilisearch_Searcher
 
 		$args = wp_parse_args($args, $default_args);
 
-		// Ensure limit and offset are integers.
+		// Garantir que limit e offset são inteiros.
 		$args['limit'] = (int) $args['limit'];
 		$args['offset'] = (int) $args['offset'];
 
-		try {
+	try {
 			$results = $this->client
 				->get_client()
 				->index($index_name)
@@ -198,7 +198,7 @@ class Meilisearch_Searcher
 			];
 		} catch (Exception $e) {
 			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
-				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Debug logging only.
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
 				error_log('Meilisearch search error: ' . $e->getMessage());
 			}
 			return [
@@ -209,11 +209,11 @@ class Meilisearch_Searcher
 	}
 
 	/**
-	 * Get autocomplete suggestions.
+	 * Obter sugestões de autocompletar.
 	 *
-	 * @param string $query Search query.
-	 * @param int    $limit Number of suggestions.
-	 * @return array Suggestions.
+	 * @param string $query Consulta de busca.
+	 * @param int    $limit Número de sugestões.
+	 * @return array Sugestões.
 	 */
 	public function get_suggestions(string $query, int $limit = 5): array
 	{
@@ -237,10 +237,10 @@ class Meilisearch_Searcher
 	}
 
 	/**
-	 * Format multi-search results.
+	 * Formatar resultados de multi-busca.
 	 *
-	 * @param array $results Raw Meilisearch results.
-	 * @return array Formatted results.
+	 * @param array $results Resultados brutos do Meilisearch.
+	 * @return array Resultados formatados.
 	 */
 	private function format_results(array $results): array
 	{
