@@ -368,7 +368,7 @@ msgstr "Você não tem permissão para realizar esta ação."
 #. Plugin URI of the plugin
 #: meilisearch.php
 msgid "https://github.com/joaovjo/meilisearch"
-msgstr ""
+msgstr "https://github.com/joaovjo/meilisearch"
 
 #: admin/class-index-analyzer.php:40
 #: admin/class-index-analyzer.php:41
@@ -489,31 +489,31 @@ msgstr "Erro:"
 
 #: admin/class-dashboard.php:156
 msgid "This action can only be performed in network admin."
-msgstr ""
+msgstr "Esta ação só pode ser realizada no admin da rede."
 
 #: admin/class-dashboard.php:195
 msgid "Meilisearch is not configured. Please configure the settings first."
-msgstr ""
+msgstr "O Meilisearch não está configurado. Por favor, configure as definições primeiro."
 
 #: admin/class-dashboard.php:196
 msgid "Configuration Required"
-msgstr ""
+msgstr "Configuração Necessária"
 
 #. translators: %s: error message
 #: admin/class-dashboard.php:238
 #, php-format
 msgid "Error during reindexing: %s"
-msgstr ""
+msgstr "Erro durante a reindexação: %s"
 
 #: admin/class-dashboard.php:239
 msgid "Reindex Error"
-msgstr ""
+msgstr "Erro de Reindexação"
 
 #. translators: %d: site/blog ID
 #: admin/class-metrics.php:214
 #, php-format
 msgid "Site ID: %d"
-msgstr ""
+msgstr "ID do Site: %d"
 
 #: admin/class-multi-pattern-search.php:81
 #: admin/class-multi-pattern-search.php:82
