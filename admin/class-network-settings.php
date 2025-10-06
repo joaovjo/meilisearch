@@ -76,7 +76,10 @@ class Meilisearch_Network_Settings
 		<div class="wrap">
 			<h1><?php esc_html_e('Meilisearch Network Settings', 'meilisearch'); ?></h1>
 
-			<?php if (isset($_GET['updated'])): ?>
+			<?php
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display of success message.
+			if (isset($_GET['updated'])):
+			?>
 				<div class="notice notice-success is-dismissible">
 					<p><?php esc_html_e('Settings saved successfully.', 'meilisearch'); ?></p>
 				</div>
@@ -248,7 +251,8 @@ class Meilisearch_Network_Settings
 			wp_die(esc_html__('You do not have permission to access this page.', 'meilisearch'));
 		}
 
-		$settings = isset($_POST['meilisearch_settings']) ? $_POST['meilisearch_settings'] : [];
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Validated via nonce above, sanitized individually below.
+		$settings = isset($_POST['meilisearch_settings']) ? wp_unslash($_POST['meilisearch_settings']) : [];
 
 		// Sanitize settings.
 		$sanitized = [

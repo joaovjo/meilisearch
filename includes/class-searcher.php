@@ -67,11 +67,15 @@ class Meilisearch_Searcher
 				->setFilter(['post_status = publish']);
 
 			$queries[] = $search_query;
-		}		try {
+		}
+		try {
 			$results = $this->client->get_client()->multiSearch($queries);
 			return $this->format_results($results);
 		} catch (Exception $e) {
-			error_log('Meilisearch search error: ' . $e->getMessage());
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Debug logging only.
+				error_log('Meilisearch search error: ' . $e->getMessage());
+			}
 			return [
 				'hits' => [],
 				'total' => 0,
@@ -117,7 +121,10 @@ class Meilisearch_Searcher
 				'total' => $results->getEstimatedTotalHits(),
 			];
 		} catch (Exception $e) {
-			error_log('Meilisearch search error: ' . $e->getMessage());
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Debug logging only.
+				error_log('Meilisearch search error: ' . $e->getMessage());
+			}
 			return [
 				'hits' => [],
 				'total' => 0,

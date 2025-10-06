@@ -83,7 +83,10 @@ class Meilisearch_Indexer
 				->index($index_name)
 				->addDocuments([$document], 'id');
 		} catch (Exception $e) {
-			error_log("Meilisearch index error for post {$post_id}: " . $e->getMessage());
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Debug logging only.
+				error_log("Meilisearch index error for post {$post_id}: " . $e->getMessage());
+			}
 		}
 	}
 
@@ -104,7 +107,10 @@ class Meilisearch_Indexer
 				->index($index_name)
 				->deleteDocument($post_id);
 		} catch (Exception $e) {
-			error_log("Meilisearch delete error for post {$post_id}: " . $e->getMessage());
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Debug logging only.
+				error_log("Meilisearch delete error for post {$post_id}: " . $e->getMessage());
+			}
 		}
 	}
 
@@ -297,10 +303,16 @@ class Meilisearch_Indexer
 			// Index doesn't exist, try to create it
 			try {
 				$this->client->create_index($blog_id);
-				error_log("Meilisearch: Created missing index for blog {$blog_id}: {$index_name}");
+				if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Debug logging only.
+					error_log("Meilisearch: Created missing index for blog {$blog_id}: {$index_name}");
+				}
 				return true;
 			} catch (Exception $create_error) {
-				error_log("Meilisearch: Failed to create index for blog {$blog_id}: " . $create_error->getMessage());
+				if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Debug logging only.
+					error_log("Meilisearch: Failed to create index for blog {$blog_id}: " . $create_error->getMessage());
+				}
 				return false;
 			}
 		}

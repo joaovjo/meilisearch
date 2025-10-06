@@ -165,21 +165,24 @@ class Meilisearch_Dashboard
 		// Reindex each site
 		foreach ($sites as $site) {
 			switch_to_blog($site->blog_id);
-			
+
 			try {
 				// Clear existing index first
 				$indexer->clear_index();
-				
+
 				// Reindex all posts
 				$indexer->index_all_posts();
 			} catch (\Exception $e) {
-				error_log(sprintf(
-					'Meilisearch reindex error for blog %d: %s',
-					$site->blog_id,
-					$e->getMessage()
-				));
+				if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Debug logging only.
+					error_log(sprintf(
+						'Meilisearch reindex error for blog %d: %s',
+						$site->blog_id,
+						$e->getMessage()
+					));
+				}
 			}
-			
+
 			restore_current_blog();
 		}
 
@@ -234,12 +237,14 @@ class Meilisearch_Dashboard
 			wp_die(esc_html__('You do not have permission to access this page.', 'meilisearch'));
 		}
 
-		// Check if reindex was triggered and show notice
+		// Check if reindex was triggered and show notice.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display of success message.
 		if (isset($_GET['reindexed']) && '1' === $_GET['reindexed']) {
 			?>
 			<div class="notice notice-success is-dismissible">
 				<p><strong><?php esc_html_e('Network reindexing started successfully!', 'meilisearch'); ?></strong></p>
-				<p><?php esc_html_e('The reindexing process is running in the background. This may take several minutes depending on the number of posts.', 'meilisearch'); ?></p>
+				<p><?php esc_html_e('The reindexing process is running in the background. This may take several minutes depending on the number of posts.', 'meilisearch'); ?>
+				</p>
 			</div>
 			<?php
 		}
@@ -255,8 +260,8 @@ class Meilisearch_Dashboard
 				<div class="notice notice-error">
 					<p><strong>Error loading dashboard:</strong> <?php echo esc_html($e->getMessage()); ?></p>
 					<p><strong>File:</strong> <?php echo esc_html($e->getFile()); ?> (line <?php echo
-						esc_html((string) $e->getLine())
-					; ?>)</p>
+							esc_html((string) $e->getLine())
+						; ?>)</p>
 				</div>
 			</div>
 			<?php
@@ -269,7 +274,7 @@ class Meilisearch_Dashboard
 			<h1><?php esc_html_e('Meilisearch Dashboard', 'meilisearch'); ?></h1>
 
 			<div class="meilisearch-dashboard" style="margin-top: 20px;">
-				
+
 				<!-- Network Statistics -->
 				<div class="postbox" style="margin-bottom: 20px;">
 					<div class="inside" style="padding: 12px;">
@@ -277,7 +282,8 @@ class Meilisearch_Dashboard
 						<table class="widefat striped">
 							<tbody>
 								<tr>
-									<td style="width: 40%;"><strong><?php esc_html_e('Total Sites', 'meilisearch'); ?></strong></td>
+									<td style="width: 40%;"><strong><?php esc_html_e('Total Sites', 'meilisearch'); ?></strong>
+									</td>
 									<td><?php echo esc_html((string) $network_stats['total_sites']); ?></td>
 								</tr>
 								<tr>
@@ -330,7 +336,8 @@ class Meilisearch_Dashboard
 						<table class="widefat striped">
 							<tbody>
 								<tr>
-									<td style="width: 40%;"><strong><?php esc_html_e('Plugin Version', 'meilisearch'); ?></strong></td>
+									<td style="width: 40%;">
+										<strong><?php esc_html_e('Plugin Version', 'meilisearch'); ?></strong></td>
 									<td><?php echo esc_html($system_info['plugin_version']); ?></td>
 								</tr>
 								<tr>
@@ -370,16 +377,19 @@ class Meilisearch_Dashboard
 				<!-- Quick Actions -->
 				<div class="postbox">
 					<div class="inside" style="padding: 12px;">
-					<h2 style="margin-top: 0;"><?php esc_html_e('Quick Actions', 'meilisearch'); ?></h2>
-					<p>
-						<a href="<?php echo esc_url(network_admin_url('admin.php?page=meilisearch-settings')); ?>" class="button button-primary">
-							<?php esc_html_e('Configure Settings', 'meilisearch'); ?>
-						</a>
-						<a href="<?php echo esc_url(wp_nonce_url(network_admin_url('edit.php?action=meilisearch_reindex'), 'meilisearch_reindex')); ?>" class="button button-secondary" onclick="return confirm('<?php echo esc_js(__('Are you sure you want to reindex all sites? This may take several minutes.', 'meilisearch')); ?>');">
-							<span class="dashicons dashicons-update" style="margin-top: 3px;"></span>
-							<?php esc_html_e('Reindex Network', 'meilisearch'); ?>
-						</a>
-					</p>
+						<h2 style="margin-top: 0;"><?php esc_html_e('Quick Actions', 'meilisearch'); ?></h2>
+						<p>
+							<a href="<?php echo esc_url(network_admin_url('admin.php?page=meilisearch-settings')); ?>"
+								class="button button-primary">
+								<?php esc_html_e('Configure Settings', 'meilisearch'); ?>
+							</a>
+							<a href="<?php echo esc_url(wp_nonce_url(network_admin_url('edit.php?action=meilisearch_reindex'), 'meilisearch_reindex')); ?>"
+								class="button button-secondary"
+								onclick="return confirm('<?php echo esc_js(__('Are you sure you want to reindex all sites? This may take several minutes.', 'meilisearch')); ?>');">
+								<span class="dashicons dashicons-update" style="margin-top: 3px;"></span>
+								<?php esc_html_e('Reindex Network', 'meilisearch'); ?>
+							</a>
+						</p>
 						<p style="margin-top: 15px;">
 							<strong><?php esc_html_e('WP-CLI Commands:', 'meilisearch'); ?></strong><br>
 							<code>wp meilisearch reindex</code> - <?php esc_html_e('Reindex all sites', 'meilisearch'); ?><br>

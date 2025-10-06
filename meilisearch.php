@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name:     Meilisearch Network Search
- * Plugin URI:      https://github.com/joaovjo/meilisearch-plus
+ * Plugin URI:      https://github.com/joaovjo/meilisearch
  * Description:     Replace WordPress search with Meilisearch across your entire multisite network with automatic autocomplete. Network-only configuration.
  * Author:          joaovjo
  * Author URI:      https://github.com/joaovjo
@@ -12,6 +12,8 @@
  * Network:         true
  * Requires PHP:    8.1
  * Requires at least: 6.0
+ * License:         GPL-2.0-or-later
+ * License URI:     https://www.gnu.org/licenses/gpl-2.0.html
  *
  * @package         Meilisearch
  */
@@ -37,7 +39,8 @@ if (file_exists(MEILISEARCH_PLUGIN_DIR . 'vendor/autoload.php')) {
 
 // Clean any output from vendor autoloading.
 $vendor_output = ob_get_clean();
-if (!empty($vendor_output) && defined('WP_DEBUG') && WP_DEBUG) {
+if (!empty($vendor_output) && defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+	// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Debug logging only.
 	error_log('Meilisearch vendor output: ' . $vendor_output);
 }
 
@@ -159,9 +162,6 @@ function meilisearch_init(): void
 		$network_settings = new Meilisearch_Network_Settings();
 		$network_settings->init_hooks();
 	}
-
-	// Load text domain.
-	load_plugin_textdomain('meilisearch', false, dirname(plugin_basename(__FILE__)) . '/languages');
 }
 
 add_action('plugins_loaded', 'meilisearch_init');

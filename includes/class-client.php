@@ -128,7 +128,10 @@ class Meilisearch_Client
 
 			return $task;
 		} catch (Exception $e) {
-			error_log('Meilisearch create index error: ' . $e->getMessage());
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Debug logging only.
+				error_log('Meilisearch create index error: ' . $e->getMessage());
+			}
 			return null;
 		}
 	}
@@ -146,7 +149,10 @@ class Meilisearch_Client
 			$this->client->deleteIndex($index_name);
 			return true;
 		} catch (Exception $e) {
-			error_log('Meilisearch delete index error: ' . $e->getMessage());
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Debug logging only.
+				error_log('Meilisearch delete index error: ' . $e->getMessage());
+			}
 			return false;
 		}
 	}
@@ -162,7 +168,10 @@ class Meilisearch_Client
 			$this->client->health();
 			return true;
 		} catch (Exception $e) {
-			error_log('Meilisearch connection error: ' . $e->getMessage());
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Debug logging only.
+				error_log('Meilisearch connection error: ' . $e->getMessage());
+			}
 			return false;
 		}
 	}
