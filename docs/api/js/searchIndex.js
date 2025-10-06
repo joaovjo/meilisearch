@@ -258,47 +258,47 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Meilisearch_Autocomplete",
             "name": "Meilisearch_Autocomplete",
-            "summary": "Class\u0020Meilisearch_Autocomplete",
+            "summary": "Classe\u0020Meilisearch_Autocomplete",
             "url": "classes/Meilisearch-Autocomplete.html"
         },                {
             "fqsen": "\\Meilisearch_Autocomplete\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "Constructor.",
+            "summary": "Construtor.",
             "url": "classes/Meilisearch-Autocomplete.html#method___construct"
         },                {
             "fqsen": "\\Meilisearch_Autocomplete\u003A\u003Ainit_hooks\u0028\u0029",
             "name": "init_hooks",
-            "summary": "Initialize\u0020WordPress\u0020hooks.",
+            "summary": "Inicializar\u0020hooks\u0020do\u0020WordPress.",
             "url": "classes/Meilisearch-Autocomplete.html#method_init_hooks"
         },                {
             "fqsen": "\\Meilisearch_Autocomplete\u003A\u003Aregister_rest_route\u0028\u0029",
             "name": "register_rest_route",
-            "summary": "Register\u0020REST\u0020API\u0020endpoint\u0020for\u0020autocomplete.",
+            "summary": "Registrar\u0020endpoint\u0020REST\u0020API\u0020para\u0020autocompletar.",
             "url": "classes/Meilisearch-Autocomplete.html#method_register_rest_route"
         },                {
             "fqsen": "\\Meilisearch_Autocomplete\u003A\u003Ahandle_autocomplete_request\u0028\u0029",
             "name": "handle_autocomplete_request",
-            "summary": "Handle\u0020autocomplete\u0020REST\u0020API\u0020request.",
+            "summary": "Gerenciar\u0020requisi\u00E7\u00E3o\u0020REST\u0020API\u0020de\u0020autocompletar.",
             "url": "classes/Meilisearch-Autocomplete.html#method_handle_autocomplete_request"
         },                {
             "fqsen": "\\Meilisearch_Autocomplete\u003A\u003Aenqueue_scripts\u0028\u0029",
             "name": "enqueue_scripts",
-            "summary": "Enqueue\u0020autocomplete\u0020scripts\u0020and\u0020styles.",
+            "summary": "Enfileirar\u0020scripts\u0020e\u0020estilos\u0020de\u0020autocompletar.",
             "url": "classes/Meilisearch-Autocomplete.html#method_enqueue_scripts"
         },                {
             "fqsen": "\\Meilisearch_Autocomplete\u003A\u003A\u0024client",
             "name": "client",
-            "summary": "Meilisearch\u0020client\u0020instance.",
+            "summary": "Inst\u00E2ncia\u0020do\u0020cliente\u0020Meilisearch.",
             "url": "classes/Meilisearch-Autocomplete.html#property_client"
         },                {
             "fqsen": "\\Meilisearch_CLI",
             "name": "Meilisearch_CLI",
-            "summary": "Meilisearch\u0020WP\u002DCLI\u0020commands.",
+            "summary": "Comandos\u0020WP\u002DCLI\u0020do\u0020Meilisearch.",
             "url": "classes/Meilisearch-CLI.html"
         },                {
             "fqsen": "\\Meilisearch_CLI\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "Constructor.",
+            "summary": "Construtor.",
             "url": "classes/Meilisearch-CLI.html#method___construct"
         },                {
             "fqsen": "\\Meilisearch_CLI\u003A\u003Areindex\u0028\u0029",
@@ -338,222 +338,222 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Meilisearch_CLI\u003A\u003A\u0024client",
             "name": "client",
-            "summary": "Meilisearch\u0020client\u0020instance.",
+            "summary": "Inst\u00E2ncia\u0020do\u0020cliente\u0020Meilisearch.",
             "url": "classes/Meilisearch-CLI.html#property_client"
         },                {
             "fqsen": "\\Meilisearch_CLI\u003A\u003A\u0024indexer",
             "name": "indexer",
-            "summary": "Meilisearch\u0020indexer\u0020instance.",
+            "summary": "Inst\u00E2ncia\u0020do\u0020indexador\u0020Meilisearch.",
             "url": "classes/Meilisearch-CLI.html#property_indexer"
         },                {
             "fqsen": "\\Meilisearch_Client",
             "name": "Meilisearch_Client",
-            "summary": "Class\u0020Meilisearch_Client",
+            "summary": "Classe\u0020Meilisearch_Client",
             "url": "classes/Meilisearch-Client.html"
         },                {
             "fqsen": "\\Meilisearch_Client\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "Constructor.",
+            "summary": "Construtor.",
             "url": "classes/Meilisearch-Client.html#method___construct"
         },                {
             "fqsen": "\\Meilisearch_Client\u003A\u003Aget_client\u0028\u0029",
             "name": "get_client",
-            "summary": "Get\u0020the\u0020Meilisearch\u0020client\u0020instance.",
+            "summary": "Obter\u0020a\u0020inst\u00E2ncia\u0020do\u0020cliente\u0020Meilisearch.",
             "url": "classes/Meilisearch-Client.html#method_get_client"
         },                {
             "fqsen": "\\Meilisearch_Client\u003A\u003Aget_index_name\u0028\u0029",
             "name": "get_index_name",
-            "summary": "Get\u0020index\u0020name\u0020for\u0020a\u0020specific\u0020site.",
+            "summary": "Obter\u0020nome\u0020do\u0020\u00EDndice\u0020para\u0020um\u0020site\u0020espec\u00EDfico.",
             "url": "classes/Meilisearch-Client.html#method_get_index_name"
         },                {
             "fqsen": "\\Meilisearch_Client\u003A\u003Aget_all_index_names\u0028\u0029",
             "name": "get_all_index_names",
-            "summary": "Get\u0020all\u0020index\u0020names\u0020for\u0020the\u0020network.",
+            "summary": "Obter\u0020todos\u0020os\u0020nomes\u0020de\u0020\u00EDndices\u0020da\u0020rede.",
             "url": "classes/Meilisearch-Client.html#method_get_all_index_names"
         },                {
             "fqsen": "\\Meilisearch_Client\u003A\u003Acreate_index\u0028\u0029",
             "name": "create_index",
-            "summary": "Create\u0020index\u0020for\u0020a\u0020site.",
+            "summary": "Criar\u0020\u00EDndice\u0020para\u0020um\u0020site.",
             "url": "classes/Meilisearch-Client.html#method_create_index"
         },                {
             "fqsen": "\\Meilisearch_Client\u003A\u003Adelete_index\u0028\u0029",
             "name": "delete_index",
-            "summary": "Delete\u0020index\u0020for\u0020a\u0020site.",
+            "summary": "Excluir\u0020\u00EDndice\u0020de\u0020um\u0020site.",
             "url": "classes/Meilisearch-Client.html#method_delete_index"
         },                {
             "fqsen": "\\Meilisearch_Client\u003A\u003Atest_connection\u0028\u0029",
             "name": "test_connection",
-            "summary": "Test\u0020connection\u0020to\u0020Meilisearch\u0020server.",
+            "summary": "Testar\u0020conex\u00E3o\u0020com\u0020o\u0020servidor\u0020Meilisearch.",
             "url": "classes/Meilisearch-Client.html#method_test_connection"
         },                {
             "fqsen": "\\Meilisearch_Client\u003A\u003A\u0024client",
             "name": "client",
-            "summary": "Meilisearch\u0020client\u0020instance.",
+            "summary": "Inst\u00E2ncia\u0020do\u0020cliente\u0020Meilisearch.",
             "url": "classes/Meilisearch-Client.html#property_client"
         },                {
             "fqsen": "\\Meilisearch_Client\u003A\u003A\u0024host",
             "name": "host",
-            "summary": "Meilisearch\u0020host\u0020URL.",
+            "summary": "URL\u0020do\u0020host\u0020Meilisearch.",
             "url": "classes/Meilisearch-Client.html#property_host"
         },                {
             "fqsen": "\\Meilisearch_Client\u003A\u003A\u0024master_key",
             "name": "master_key",
-            "summary": "Meilisearch\u0020master\u0020key.",
+            "summary": "Chave\u0020mestra\u0020do\u0020Meilisearch.",
             "url": "classes/Meilisearch-Client.html#property_master_key"
         },                {
             "fqsen": "\\Meilisearch_Indexer",
             "name": "Meilisearch_Indexer",
-            "summary": "Class\u0020Meilisearch_Indexer",
+            "summary": "Classe\u0020Meilisearch_Indexer",
             "url": "classes/Meilisearch-Indexer.html"
         },                {
             "fqsen": "\\Meilisearch_Indexer\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "Constructor.",
+            "summary": "Construtor.",
             "url": "classes/Meilisearch-Indexer.html#method___construct"
         },                {
             "fqsen": "\\Meilisearch_Indexer\u003A\u003Ainit_hooks\u0028\u0029",
             "name": "init_hooks",
-            "summary": "Initialize\u0020WordPress\u0020hooks.",
+            "summary": "Inicializar\u0020hooks\u0020do\u0020WordPress.",
             "url": "classes/Meilisearch-Indexer.html#method_init_hooks"
         },                {
             "fqsen": "\\Meilisearch_Indexer\u003A\u003Aindex_post\u0028\u0029",
             "name": "index_post",
-            "summary": "Index\u0020a\u0020single\u0020post.",
+            "summary": "Indexar\u0020um\u0020\u00FAnico\u0020post.",
             "url": "classes/Meilisearch-Indexer.html#method_index_post"
         },                {
             "fqsen": "\\Meilisearch_Indexer\u003A\u003Adelete_post\u0028\u0029",
             "name": "delete_post",
-            "summary": "Delete\u0020a\u0020post\u0020from\u0020the\u0020index.",
+            "summary": "Excluir\u0020um\u0020post\u0020do\u0020\u00EDndice.",
             "url": "classes/Meilisearch-Indexer.html#method_delete_post"
         },                {
             "fqsen": "\\Meilisearch_Indexer\u003A\u003Abulk_index_network\u0028\u0029",
             "name": "bulk_index_network",
-            "summary": "Bulk\u0020index\u0020all\u0020posts\u0020across\u0020the\u0020network\u0020using\u0020Fiber.",
+            "summary": "Indexar\u0020em\u0020massa\u0020todos\u0020os\u0020posts\u0020da\u0020rede\u0020usando\u0020Fiber.",
             "url": "classes/Meilisearch-Indexer.html#method_bulk_index_network"
         },                {
             "fqsen": "\\Meilisearch_Indexer\u003A\u003Aindex_site_posts\u0028\u0029",
             "name": "index_site_posts",
-            "summary": "Index\u0020all\u0020posts\u0020for\u0020a\u0020specific\u0020site.",
+            "summary": "Indexar\u0020todos\u0020os\u0020posts\u0020de\u0020um\u0020site\u0020espec\u00EDfico.",
             "url": "classes/Meilisearch-Indexer.html#method_index_site_posts"
         },                {
             "fqsen": "\\Meilisearch_Indexer\u003A\u003Aprepare_document\u0028\u0029",
             "name": "prepare_document",
-            "summary": "Prepare\u0020a\u0020post\u0020document\u0020for\u0020indexing.",
+            "summary": "Preparar\u0020um\u0020documento\u0020de\u0020post\u0020para\u0020indexa\u00E7\u00E3o.",
             "url": "classes/Meilisearch-Indexer.html#method_prepare_document"
         },                {
             "fqsen": "\\Meilisearch_Indexer\u003A\u003Aget_post_terms\u0028\u0029",
             "name": "get_post_terms",
-            "summary": "Get\u0020post\u0020terms\u0020as\u0020array\u0020of\u0020names.",
+            "summary": "Obter\u0020termos\u0020do\u0020post\u0020como\u0020array\u0020de\u0020nomes.",
             "url": "classes/Meilisearch-Indexer.html#method_get_post_terms"
         },                {
             "fqsen": "\\Meilisearch_Indexer\u003A\u003Aensure_index_exists\u0028\u0029",
             "name": "ensure_index_exists",
-            "summary": "Ensure\u0020that\u0020an\u0020index\u0020exists\u0020for\u0020a\u0020blog.",
+            "summary": "Garantir\u0020que\u0020um\u0020\u00EDndice\u0020existe\u0020para\u0020um\u0020blog.",
             "url": "classes/Meilisearch-Indexer.html#method_ensure_index_exists"
         },                {
             "fqsen": "\\Meilisearch_Indexer\u003A\u003Acreate_site_index\u0028\u0029",
             "name": "create_site_index",
-            "summary": "Create\u0020index\u0020for\u0020a\u0020new\u0020site.",
+            "summary": "Criar\u0020\u00EDndice\u0020para\u0020um\u0020novo\u0020site.",
             "url": "classes/Meilisearch-Indexer.html#method_create_site_index"
         },                {
             "fqsen": "\\Meilisearch_Indexer\u003A\u003Adelete_site_index\u0028\u0029",
             "name": "delete_site_index",
-            "summary": "Delete\u0020index\u0020for\u0020a\u0020deleted\u0020site.",
+            "summary": "Excluir\u0020\u00EDndice\u0020de\u0020um\u0020site\u0020exclu\u00EDdo.",
             "url": "classes/Meilisearch-Indexer.html#method_delete_site_index"
         },                {
             "fqsen": "\\Meilisearch_Indexer\u003A\u003Aget_indexable_post_types\u0028\u0029",
             "name": "get_indexable_post_types",
-            "summary": "Get\u0020list\u0020of\u0020post\u0020types\u0020that\u0020should\u0020be\u0020indexed.",
+            "summary": "Obter\u0020lista\u0020de\u0020tipos\u0020de\u0020post\u0020que\u0020devem\u0020ser\u0020indexados.",
             "url": "classes/Meilisearch-Indexer.html#method_get_indexable_post_types"
         },                {
             "fqsen": "\\Meilisearch_Indexer\u003A\u003Ashould_index_post_type\u0028\u0029",
             "name": "should_index_post_type",
-            "summary": "Check\u0020if\u0020a\u0020post\u0020type\u0020should\u0020be\u0020indexed.",
+            "summary": "Verificar\u0020se\u0020um\u0020tipo\u0020de\u0020post\u0020deve\u0020ser\u0020indexado.",
             "url": "classes/Meilisearch-Indexer.html#method_should_index_post_type"
         },                {
             "fqsen": "\\Meilisearch_Indexer\u003A\u003A\u0024client",
             "name": "client",
-            "summary": "Meilisearch\u0020client\u0020instance.",
+            "summary": "Inst\u00E2ncia\u0020do\u0020cliente\u0020Meilisearch.",
             "url": "classes/Meilisearch-Indexer.html#property_client"
         },                {
             "fqsen": "\\Meilisearch_Search_API",
             "name": "Meilisearch_Search_API",
-            "summary": "Class\u0020Meilisearch_Search_API",
+            "summary": "Classe\u0020Meilisearch_Search_API",
             "url": "classes/Meilisearch-Search-API.html"
         },                {
             "fqsen": "\\Meilisearch_Search_API\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "Constructor.",
+            "summary": "Construtor.",
             "url": "classes/Meilisearch-Search-API.html#method___construct"
         },                {
             "fqsen": "\\Meilisearch_Search_API\u003A\u003Ainit_hooks\u0028\u0029",
             "name": "init_hooks",
-            "summary": "Initialize\u0020WordPress\u0020hooks.",
+            "summary": "Inicializar\u0020hooks\u0020do\u0020WordPress.",
             "url": "classes/Meilisearch-Search-API.html#method_init_hooks"
         },                {
             "fqsen": "\\Meilisearch_Search_API\u003A\u003Aregister_rest_routes\u0028\u0029",
             "name": "register_rest_routes",
-            "summary": "Register\u0020REST\u0020API\u0020endpoints.",
+            "summary": "Registrar\u0020endpoints\u0020REST\u0020API.",
             "url": "classes/Meilisearch-Search-API.html#method_register_rest_routes"
         },                {
             "fqsen": "\\Meilisearch_Search_API\u003A\u003Ahandle_search_request\u0028\u0029",
             "name": "handle_search_request",
-            "summary": "Handle\u0020search\u0020REST\u0020API\u0020request.",
+            "summary": "Gerenciar\u0020requisi\u00E7\u00E3o\u0020REST\u0020API\u0020de\u0020busca.",
             "url": "classes/Meilisearch-Search-API.html#method_handle_search_request"
         },                {
             "fqsen": "\\Meilisearch_Search_API\u003A\u003Aformat_search_results\u0028\u0029",
             "name": "format_search_results",
-            "summary": "Format\u0020search\u0020results\u0020for\u0020API\u0020response.",
+            "summary": "Formatar\u0020resultados\u0020de\u0020busca\u0020para\u0020resposta\u0020da\u0020API.",
             "url": "classes/Meilisearch-Search-API.html#method_format_search_results"
         },                {
             "fqsen": "\\Meilisearch_Search_API\u003A\u003A\u0024client",
             "name": "client",
-            "summary": "Meilisearch\u0020client\u0020instance.",
+            "summary": "Inst\u00E2ncia\u0020do\u0020cliente\u0020Meilisearch.",
             "url": "classes/Meilisearch-Search-API.html#property_client"
         },                {
             "fqsen": "\\Meilisearch_Searcher",
             "name": "Meilisearch_Searcher",
-            "summary": "Class\u0020Meilisearch_Searcher",
+            "summary": "Classe\u0020Meilisearch_Searcher",
             "url": "classes/Meilisearch-Searcher.html"
         },                {
             "fqsen": "\\Meilisearch_Searcher\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "Constructor.",
+            "summary": "Construtor.",
             "url": "classes/Meilisearch-Searcher.html#method___construct"
         },                {
             "fqsen": "\\Meilisearch_Searcher\u003A\u003Asearch_network\u0028\u0029",
             "name": "search_network",
-            "summary": "Search\u0020across\u0020all\u0020network\u0020indexes.",
+            "summary": "Buscar\u0020em\u0020todos\u0020os\u0020\u00EDndices\u0020da\u0020rede.",
             "url": "classes/Meilisearch-Searcher.html#method_search_network"
         },                {
             "fqsen": "\\Meilisearch_Searcher\u003A\u003Aget_searchable_indexes\u0028\u0029",
             "name": "get_searchable_indexes",
-            "summary": "Get\u0020all\u0020searchable\u0020indexes\u0020including\u0020additional\u0020patterns.",
+            "summary": "Obter\u0020todos\u0020os\u0020\u00EDndices\u0020pesquis\u00E1veis\u0020incluindo\u0020padr\u00F5es\u0020adicionais.",
             "url": "classes/Meilisearch-Searcher.html#method_get_searchable_indexes"
         },                {
             "fqsen": "\\Meilisearch_Searcher\u003A\u003Aconvert_pattern_to_regex\u0028\u0029",
             "name": "convert_pattern_to_regex",
-            "summary": "Convert\u0020pattern\u0020format\u0020to\u0020regex",
+            "summary": "Converter\u0020formato\u0020de\u0020padr\u00E3o\u0020para\u0020regex",
             "url": "classes/Meilisearch-Searcher.html#method_convert_pattern_to_regex"
         },                {
             "fqsen": "\\Meilisearch_Searcher\u003A\u003Asearch_site\u0028\u0029",
             "name": "search_site",
-            "summary": "Search\u0020in\u0020a\u0020specific\u0020site\u0020index.",
+            "summary": "Buscar\u0020em\u0020um\u0020\u00EDndice\u0020espec\u00EDfico\u0020de\u0020site.",
             "url": "classes/Meilisearch-Searcher.html#method_search_site"
         },                {
             "fqsen": "\\Meilisearch_Searcher\u003A\u003Aget_suggestions\u0028\u0029",
             "name": "get_suggestions",
-            "summary": "Get\u0020autocomplete\u0020suggestions.",
+            "summary": "Obter\u0020sugest\u00F5es\u0020de\u0020autocompletar.",
             "url": "classes/Meilisearch-Searcher.html#method_get_suggestions"
         },                {
             "fqsen": "\\Meilisearch_Searcher\u003A\u003Aformat_results\u0028\u0029",
             "name": "format_results",
-            "summary": "Format\u0020multi\u002Dsearch\u0020results.",
+            "summary": "Formatar\u0020resultados\u0020de\u0020multi\u002Dbusca.",
             "url": "classes/Meilisearch-Searcher.html#method_format_results"
         },                {
             "fqsen": "\\Meilisearch_Searcher\u003A\u003A\u0024client",
             "name": "client",
-            "summary": "Meilisearch\u0020client\u0020instance.",
+            "summary": "Inst\u00E2ncia\u0020do\u0020cliente\u0020Meilisearch.",
             "url": "classes/Meilisearch-Searcher.html#property_client"
         },                {
             "fqsen": "\\MEILISEARCH_VERSION",
@@ -593,52 +593,52 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Meilisearch_Search_Override",
             "name": "Meilisearch_Search_Override",
-            "summary": "Class\u0020Meilisearch_Search_Override",
+            "summary": "Classe\u0020Meilisearch_Search_Override",
             "url": "classes/Meilisearch-Search-Override.html"
         },                {
             "fqsen": "\\Meilisearch_Search_Override\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "Constructor.",
+            "summary": "Construtor.",
             "url": "classes/Meilisearch-Search-Override.html#method___construct"
         },                {
             "fqsen": "\\Meilisearch_Search_Override\u003A\u003Ainit_hooks\u0028\u0029",
             "name": "init_hooks",
-            "summary": "Initialize\u0020WordPress\u0020hooks.",
+            "summary": "Inicializar\u0020hooks\u0020do\u0020WordPress.",
             "url": "classes/Meilisearch-Search-Override.html#method_init_hooks"
         },                {
             "fqsen": "\\Meilisearch_Search_Override\u003A\u003Aoverride_search_query\u0028\u0029",
             "name": "override_search_query",
-            "summary": "Override\u0020WordPress\u0020search\u0020query\u0020with\u0020Meilisearch\u0020results.",
+            "summary": "Substituir\u0020consulta\u0020de\u0020busca\u0020do\u0020WordPress\u0020com\u0020resultados\u0020do\u0020Meilisearch.",
             "url": "classes/Meilisearch-Search-Override.html#method_override_search_query"
         },                {
             "fqsen": "\\Meilisearch_Search_Override\u003A\u003Aget_posts_from_meilisearch\u0028\u0029",
             "name": "get_posts_from_meilisearch",
-            "summary": "Get\u0020posts\u0020from\u0020Meilisearch\u0020results\u0020\u0028cross\u002Dsite\u0020compatible\u0029.",
+            "summary": "Obter\u0020posts\u0020dos\u0020resultados\u0020do\u0020Meilisearch\u0020\u0028compat\u00EDvel\u0020com\u0020m\u00FAltiplos\u0020sites\u0029.",
             "url": "classes/Meilisearch-Search-Override.html#method_get_posts_from_meilisearch"
         },                {
             "fqsen": "\\Meilisearch_Search_Override\u003A\u003Acreate_pseudo_post_from_hit\u0028\u0029",
             "name": "create_pseudo_post_from_hit",
-            "summary": "Create\u0020a\u0020pseudo\u0020WP_Post\u0020object\u0020from\u0020Meilisearch\u0020hit\u0020data.",
+            "summary": "Criar\u0020um\u0020objeto\u0020pseudo\u0020WP_Post\u0020a\u0020partir\u0020de\u0020dados\u0020do\u0020hit\u0020do\u0020Meilisearch.",
             "url": "classes/Meilisearch-Search-Override.html#method_create_pseudo_post_from_hit"
         },                {
             "fqsen": "\\Meilisearch_Search_Override\u003A\u003Afix_cross_site_permalink\u0028\u0029",
             "name": "fix_cross_site_permalink",
-            "summary": "Fix\u0020cross\u002Dsite\u0020permalink.",
+            "summary": "Corrigir\u0020permalink\u0020entre\u0020sites.",
             "url": "classes/Meilisearch-Search-Override.html#method_fix_cross_site_permalink"
         },                {
             "fqsen": "\\Meilisearch_Search_Override\u003A\u003A\u0024searcher",
             "name": "searcher",
-            "summary": "Meilisearch\u0020searcher\u0020instance.",
+            "summary": "Inst\u00E2ncia\u0020do\u0020buscador\u0020Meilisearch.",
             "url": "classes/Meilisearch-Search-Override.html#property_searcher"
         },                {
             "fqsen": "\\Meilisearch_Search_Override\u003A\u003A\u0024cached_results",
             "name": "cached_results",
-            "summary": "Cache\u0020for\u0020Meilisearch\u0020results.",
+            "summary": "Cache\u0020para\u0020resultados\u0020do\u0020Meilisearch.",
             "url": "classes/Meilisearch-Search-Override.html#property_cached_results"
         },                {
             "fqsen": "\\Meilisearch_Search_Override\u003A\u003A\u0024permalink_map",
             "name": "permalink_map",
-            "summary": "Map\u0020of\u0020post\u0020permalinks\u0020from\u0020Meilisearch\u0020\u0028blog_id_postid\u0020\u003D\u003E\u0020permalink\u0029.",
+            "summary": "Mapa\u0020de\u0020permalinks\u0020de\u0020posts\u0020do\u0020Meilisearch\u0020\u0028blog_id_postid\u0020\u003D\u003E\u0020permalink\u0029.",
             "url": "classes/Meilisearch-Search-Override.html#property_permalink_map"
         },                {
             "fqsen": "\\",

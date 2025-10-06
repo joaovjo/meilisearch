@@ -3,29 +3,29 @@
 declare(strict_types=1);
 
 /**
- * Meilisearch Search API
+ * API de Busca Meilisearch
  *
  * @package Meilisearch
  */
 
 /**
- * Class Meilisearch_Search_API
+ * Classe Meilisearch_Search_API
  *
- * Handles REST API endpoints for search functionality.
+ * Gerencia endpoints REST API para funcionalidade de busca.
  */
 class Meilisearch_Search_API
 {
 	/**
-	 * Meilisearch client instance.
+	 * Instância do cliente Meilisearch.
 	 *
 	 * @var Meilisearch_Client
 	 */
 	private Meilisearch_Client $client;
 
 	/**
-	 * Constructor.
+	 * Construtor.
 	 *
-	 * @param Meilisearch_Client $client Meilisearch client instance.
+	 * @param Meilisearch_Client $client Instância do cliente Meilisearch.
 	 */
 	public function __construct(Meilisearch_Client $client)
 	{
@@ -33,7 +33,7 @@ class Meilisearch_Search_API
 	}
 
 	/**
-	 * Initialize WordPress hooks.
+	 * Inicializar hooks do WordPress.
 	 */
 	public function init_hooks(): void
 	{
@@ -41,7 +41,7 @@ class Meilisearch_Search_API
 	}
 
 	/**
-	 * Register REST API endpoints.
+	 * Registrar endpoints REST API.
 	 */
 	public function register_rest_routes(): void
 	{
@@ -54,7 +54,7 @@ class Meilisearch_Search_API
 					'required' => true,
 					'type' => 'string',
 					'sanitize_callback' => 'sanitize_text_field',
-					'description' => 'Search query string',
+					'description' => 'String de consulta de busca',
 				],
 				'limit' => [
 					'required' => false,
@@ -63,7 +63,7 @@ class Meilisearch_Search_API
 					'sanitize_callback' => 'absint',
 					'minimum' => 1,
 					'maximum' => 100,
-					'description' => 'Number of results to return',
+					'description' => 'Número de resultados a retornar',
 				],
 				'offset' => [
 					'required' => false,
@@ -71,7 +71,7 @@ class Meilisearch_Search_API
 					'default' => 0,
 					'sanitize_callback' => 'absint',
 					'minimum' => 0,
-					'description' => 'Number of results to skip',
+					'description' => 'Número de resultados a pular',
 				],
 				'page' => [
 					'required' => false,
@@ -79,17 +79,17 @@ class Meilisearch_Search_API
 					'default' => 1,
 					'sanitize_callback' => 'absint',
 					'minimum' => 1,
-					'description' => 'Page number (alternative to offset)',
+					'description' => 'Número da página (alternativa ao offset)',
 				],
 			],
 		]);
 	}
 
 	/**
-	 * Handle search REST API request.
+	 * Gerenciar requisição REST API de busca.
 	 *
-	 * @param WP_REST_Request $request Request object.
-	 * @return WP_REST_Response Response object.
+	 * @param WP_REST_Request $request Objeto de requisição.
+	 * @return WP_REST_Response Objeto de resposta.
 	 */
 	public function handle_search_request(WP_REST_Request $request): WP_REST_Response
 	{
@@ -98,7 +98,7 @@ class Meilisearch_Search_API
 		$page = $request->get_param('page') ?? 1;
 		$offset = $request->get_param('offset');
 
-		// If offset is not provided, calculate from page.
+		// Se offset não foi fornecido, calcular a partir da página.
 		if (null === $offset) {
 			$offset = ($page - 1) * $limit;
 		}
@@ -120,10 +120,10 @@ class Meilisearch_Search_API
 			'offset' => $offset,
 		]);
 
-		// Format results with full details.
+		// Formatar resultados com detalhes completos.
 		$formatted_results = $this->format_search_results($results['hits']);
 
-		// Calculate pagination info.
+		// Calcular informações de paginação.
 		$total_pages = $limit > 0 ? (int) ceil($results['total'] / $limit) : 0;
 
 		return new WP_REST_Response([
@@ -138,10 +138,10 @@ class Meilisearch_Search_API
 	}
 
 	/**
-	 * Format search results for API response.
+	 * Formatar resultados de busca para resposta da API.
 	 *
-	 * @param array $hits Raw search hits.
-	 * @return array Formatted results.
+	 * @param array $hits Hits de busca brutos.
+	 * @return array Resultados formatados.
 	 */
 	private function format_search_results(array $hits): array
 	{
@@ -162,7 +162,7 @@ class Meilisearch_Search_API
 				'author_id' => $hit['author_id'] ?? 0,
 			];
 
-			// Add author information if available.
+			// Adicionar informações do autor se disponível.
 			if (!empty($hit['author_id'])) {
 				$author = get_userdata((int) $hit['author_id']);
 				if ($author) {
@@ -174,12 +174,12 @@ class Meilisearch_Search_API
 				}
 			}
 
-			// Add featured image if available.
+			// Adicionar imagem destacada se disponível.
 			if (!empty($hit['featured_image'])) {
 				$result['featured_image'] = $hit['featured_image'];
 			}
 
-			// Add categories and tags if available.
+			// Adicionar categorias e tags se disponíveis.
 			if (!empty($hit['categories'])) {
 				$result['categories'] = $hit['categories'];
 			}

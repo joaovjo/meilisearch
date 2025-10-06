@@ -3,35 +3,35 @@
 declare(strict_types=1);
 
 /**
- * WP-CLI commands for Meilisearch plugin.
+ * Comandos WP-CLI para o plugin Meilisearch.
  *
  * @package Meilisearch
  */
 
 /**
- * Meilisearch WP-CLI commands.
+ * Comandos WP-CLI do Meilisearch.
  */
 class Meilisearch_CLI
 {
 	/**
-	 * Meilisearch client instance.
+	 * Instância do cliente Meilisearch.
 	 *
 	 * @var Meilisearch_Client
 	 */
 	private Meilisearch_Client $client;
 
 	/**
-	 * Meilisearch indexer instance.
+	 * Instância do indexador Meilisearch.
 	 *
 	 * @var Meilisearch_Indexer
 	 */
 	private Meilisearch_Indexer $indexer;
 
 	/**
-	 * Constructor.
+	 * Construtor.
 	 *
-	 * @param Meilisearch_Client  $client  Meilisearch client instance.
-	 * @param Meilisearch_Indexer $indexer Meilisearch indexer instance.
+	 * @param Meilisearch_Client  $client  Instância do cliente Meilisearch.
+	 * @param Meilisearch_Indexer $indexer Instância do indexador Meilisearch.
 	 */
 	public function __construct(Meilisearch_Client $client, Meilisearch_Indexer $indexer)
 	{
