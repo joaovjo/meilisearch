@@ -162,6 +162,11 @@ function meilisearch_init(): void
 		$network_settings = new Meilisearch_Network_Settings();
 		$network_settings->init_hooks();
 	}
+
+	// Load text domain for translations.
+	// Note: This is required for plugins not hosted on WordPress.org.
+	// For WordPress.org plugins, translations are loaded automatically.
+	load_plugin_textdomain('meilisearch', false, dirname(plugin_basename(__FILE__)) . '/languages');
 }
 
 add_action('plugins_loaded', 'meilisearch_init');
