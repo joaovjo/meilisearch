@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PHPUnit bootstrap file.
+ * Arquivo bootstrap do PHPUnit.
  *
  * @package Meilisearch
  */
@@ -12,7 +12,7 @@ if (!$_tests_dir) {
 	$_tests_dir = rtrim(sys_get_temp_dir(), '/\\') . '/wordpress-tests-lib';
 }
 
-// Forward custom PHPUnit Polyfills configuration to PHPUnit bootstrap file.
+// Encaminhar configuração personalizada de Polyfills do PHPUnit para o arquivo bootstrap do PHPUnit.
 $_phpunit_polyfills_path = getenv('WP_TESTS_PHPUNIT_POLYFILLS_PATH');
 if (false !== $_phpunit_polyfills_path) {
 	define('WP_TESTS_PHPUNIT_POLYFILLS_PATH', $_phpunit_polyfills_path);
@@ -23,11 +23,11 @@ if (!file_exists("{$_tests_dir}/includes/functions.php")) {
 	exit(1);
 }
 
-// Give access to tests_add_filter() function.
+// Dar acesso à função tests_add_filter().
 require_once "{$_tests_dir}/includes/functions.php";
 
 /**
- * Manually load the plugin being tested.
+ * Carregar manualmente o plugin sendo testado.
  */
 function _manually_load_plugin()
 {
@@ -36,5 +36,5 @@ function _manually_load_plugin()
 
 tests_add_filter('muplugins_loaded', '_manually_load_plugin');
 
-// Start up the WP testing environment.
+// Iniciar o ambiente de testes do WP.
 require "{$_tests_dir}/includes/bootstrap.php";
