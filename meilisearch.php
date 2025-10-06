@@ -49,6 +49,7 @@ require_once MEILISEARCH_PLUGIN_DIR . 'includes/class-client.php';
 require_once MEILISEARCH_PLUGIN_DIR . 'includes/class-indexer.php';
 require_once MEILISEARCH_PLUGIN_DIR . 'includes/class-searcher.php';
 require_once MEILISEARCH_PLUGIN_DIR . 'includes/class-autocomplete.php';
+require_once MEILISEARCH_PLUGIN_DIR . 'includes/class-search-api.php';
 
 // Include admin classes.
 if (is_admin() && is_multisite()) {
@@ -146,6 +147,10 @@ function meilisearch_init(): void
 			$autocomplete = new Meilisearch_Autocomplete($client);
 			$autocomplete->init_hooks();
 		}
+
+		// Initialize Search API (always available).
+		$search_api = new Meilisearch_Search_API($client);
+		$search_api->init_hooks();
 
 		// Register WP-CLI commands.
 		if (defined('WP_CLI') && WP_CLI) {
