@@ -382,17 +382,17 @@ class Meilisearch_Dashboard
 					<div class="inside" style="padding: 12px;">
 						<h2 style="margin-top: 0;"><?php esc_html_e('Quick Actions', 'meilisearch'); ?></h2>
 						<p>
-							<a href="<?php echo esc_url(network_admin_url('admin.php?page=meilisearch-settings')); ?>"
-								class="button button-primary">
-								<?php esc_html_e('Configure Settings', 'meilisearch'); ?>
-							</a>
-							<a href="<?php echo
-								esc_url(wp_nonce_url(network_admin_url('edit.php?action=meilisearch_reindex'), 'meilisearch_reindex'))
-							; ?>" class="button button-secondary" onclick="return confirm('<?php echo
-								esc_js(__('Are you sure you want to reindex all sites? This may take several minutes.', 'meilisearch'))
-							; ?>');">
-								<span class="dashicons dashicons-update" style="margin-top: 3px;"></span>
-								<?php esc_html_e('Reindex Network', 'meilisearch'); ?>
+						<a href="<?php echo esc_url(network_admin_url('admin.php?page=meilisearch-settings')); ?>"
+							class="button button-primary">
+							<?php esc_html_e('Configure Settings', 'meilisearch'); ?>
+						</a>
+						<a href="<?php echo
+							esc_url(wp_nonce_url(network_admin_url('admin.php?action=meilisearch_reindex'), 'meilisearch_reindex'))
+						; ?>" class="button button-secondary" onclick="return confirm('<?php echo
+							esc_js(__('Are you sure you want to reindex all sites? This may take several minutes.', 'meilisearch'))
+						; ?>');">
+							<span class="dashicons dashicons-update" style="margin-top: 3px;"></span>
+							<?php esc_html_e('Reindex Network', 'meilisearch'); ?>
 							</a>
 						</p>
 						<p style="margin-top: 15px;">
