@@ -297,7 +297,10 @@ class Meilisearch_Indexer
 
 		try {
 			// Try to get index stats to check if it exists
-			$this->client->get_client()->index($index_name)->stats();
+			$this->client
+				->get_client()
+				->index($index_name)
+				->stats();
 			return true;
 		} catch (Exception $e) {
 			// Index doesn't exist, try to create it

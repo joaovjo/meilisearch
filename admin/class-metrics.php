@@ -258,11 +258,18 @@ class Meilisearch_Metrics
 						<span style="margin-left: 10px; color: #666;">
 							<?php
 
+
+
 							printf(
-								/* translators: %s: current time */
-								esc_html__('Last updated: %s', 'meilisearch'),
-								esc_html(current_time('Y-m-d H:i:s')),
+	
+							/* translators: %s: current time */
+	
+							esc_html__('Last updated: %s', 'meilisearch'),
+	
+							esc_html(current_time('Y-m-d H:i:s')),
+
 							);
+
 							?>
 						</span>
 					</p>

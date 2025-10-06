@@ -77,9 +77,12 @@ class Meilisearch_Network_Settings
 			<h1><?php esc_html_e('Meilisearch Network Settings', 'meilisearch'); ?></h1>
 
 			<?php
+
+
+
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display of success message.
-			if (isset($_GET['updated'])):
-			?>
+
+			if (isset($_GET['updated'])): ?>
 				<div class="notice notice-success is-dismissible">
 					<p><?php esc_html_e('Settings saved successfully.', 'meilisearch'); ?></p>
 				</div>
@@ -91,13 +94,22 @@ class Meilisearch_Network_Settings
 						<strong><?php esc_html_e('Connection Status:', 'meilisearch'); ?></strong>
 				<?php
 
+
+
 				echo
-					esc_html(
-						$connection_status
-							? __('Connected successfully!', 'meilisearch')
-							: __('Connection failed. Please check your credentials.', 'meilisearch'),
-					)
+	
+				esc_html(
+		
+				$connection_status
+			
+				? __('Connected successfully!', 'meilisearch')
+			
+				: __('Connection failed. Please check your credentials.', 'meilisearch'),
+	
+				)
+
 				;
+
 				?>
 						
 					</p>
@@ -179,8 +191,11 @@ class Meilisearch_Network_Settings
 								   placeholder="{prefix}posts" />
 							<p class="description">
 								<?php esc_html_e(
-									'Index naming format. Use {prefix} for table prefix (wp_, wp_2_, wp_3_), {blog_id} for site ID, {site_id} for site ID. Default: {prefix}posts',
-									'meilisearch',
+	
+								'Index naming format. Use {prefix} for table prefix (wp_, wp_2_, wp_3_), {blog_id} for site ID, {site_id} for site ID. Default: {prefix}posts',
+	
+								'meilisearch',
+
 								); ?><br>
 								<strong><?php esc_html_e('Examples:', 'meilisearch'); ?></strong><br>
 								• <code>{prefix}posts</code> → wp_posts, wp_2_posts, wp_3_posts<br>
@@ -226,11 +241,18 @@ class Meilisearch_Network_Settings
 						<p class="description">
 							<?php
 
+
+
 							printf(
-								/* translators: %s: WP-CLI command */
-								esc_html__('Use WP-CLI to index all sites: %s', 'meilisearch'),
-								'<code>wp meilisearch index --network</code>',
+	
+							/* translators: %s: WP-CLI command */
+	
+							esc_html__('Use WP-CLI to index all sites: %s', 'meilisearch'),
+	
+							'<code>wp meilisearch index --network</code>',
+
 							);
+
 							?>
 						</p>
 					</td>

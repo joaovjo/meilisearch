@@ -175,11 +175,7 @@ class Meilisearch_Dashboard
 			} catch (\Exception $e) {
 				if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
 					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Debug logging only.
-					error_log(sprintf(
-						'Meilisearch reindex error for blog %d: %s',
-						$site->blog_id,
-						$e->getMessage()
-					));
+					error_log(sprintf('Meilisearch reindex error for blog %d: %s', $site->blog_id, $e->getMessage()));
 				}
 			}
 
@@ -206,7 +202,7 @@ class Meilisearch_Dashboard
 
 		if (file_exists($composer_lock)) {
 			$contents = file_get_contents($composer_lock);
-			if ($contents !== false) {
+			if (false !== $contents) {
 				$lock_data = json_decode($contents, true);
 				if (is_array($lock_data) && isset($lock_data['packages']) && is_array($lock_data['packages'])) {
 					foreach ($lock_data['packages'] as $package) {
@@ -239,15 +235,19 @@ class Meilisearch_Dashboard
 
 		// Check if reindex was triggered and show notice.
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display of success message.
-		if (isset($_GET['reindexed']) && '1' === $_GET['reindexed']) {
-			?>
+		if (isset($_GET['reindexed']) && '1' === $_GET['reindexed']) { ?>
 			<div class="notice notice-success is-dismissible">
 				<p><strong><?php esc_html_e('Network reindexing started successfully!', 'meilisearch'); ?></strong></p>
-				<p><?php esc_html_e('The reindexing process is running in the background. This may take several minutes depending on the number of posts.', 'meilisearch'); ?>
+				<p><?php esc_html_e(
+	
+				'The reindexing process is running in the background. This may take several minutes depending on the number of posts.',
+	
+				'meilisearch',
+
+				); ?>
 				</p>
 			</div>
-			<?php
-		}
+			<?php }
 
 		try {
 			$network_stats = $this->get_network_stats();
@@ -260,11 +260,15 @@ class Meilisearch_Dashboard
 				<div class="notice notice-error">
 					<p><strong>Error loading dashboard:</strong> <?php echo esc_html($e->getMessage()); ?></p>
 					<p><strong>File:</strong> <?php echo esc_html($e->getFile()); ?> (line <?php echo
-							esc_html((string) $e->getLine())
-						; ?>)</p>
+	
+					esc_html((string) $e->getLine())
+
+					; ?>)</p>
 				</div>
 			</div>
 			<?php
+
+
 
 			return;
 		}
@@ -310,10 +314,16 @@ class Meilisearch_Dashboard
 									<td>
 										<?php
 
+
+
 										$status_class = 'available' === $meilisearch_info['status'] ? 'green' : 'red';
+
 										$status_text = 'available' === $meilisearch_info['status']
-											? __('Connected', 'meilisearch')
-											: __('Disconnected', 'meilisearch');
+	
+										? __('Connected', 'meilisearch')
+	
+										: __('Disconnected', 'meilisearch');
+
 										?>
 										<span style="color: <?php echo esc_attr($status_class); ?>; font-weight: bold;">
 											● <?php echo esc_html($status_text); ?>
@@ -361,8 +371,12 @@ class Meilisearch_Dashboard
 									<td>
 										<?php
 
+
+
 										$fiber_available = 'Available' === $system_info['react_fiber'];
+
 										$fiber_color = $fiber_available ? 'green' : 'orange';
+
 										?>
 										<span style="color: <?php echo esc_attr($fiber_color); ?>; font-weight: bold;">
 											<?php echo esc_html($system_info['react_fiber']); ?>
@@ -383,9 +397,17 @@ class Meilisearch_Dashboard
 								class="button button-primary">
 								<?php esc_html_e('Configure Settings', 'meilisearch'); ?>
 							</a>
-							<a href="<?php echo esc_url(wp_nonce_url(network_admin_url('edit.php?action=meilisearch_reindex'), 'meilisearch_reindex')); ?>"
+							<a href="<?php echo
+	
+							esc_url(wp_nonce_url(network_admin_url('edit.php?action=meilisearch_reindex'), 'meilisearch_reindex'))
+
+							; ?>"
 								class="button button-secondary"
-								onclick="return confirm('<?php echo esc_js(__('Are you sure you want to reindex all sites? This may take several minutes.', 'meilisearch')); ?>');">
+								onclick="return confirm('<?php echo
+	
+								esc_js(__('Are you sure you want to reindex all sites? This may take several minutes.', 'meilisearch'))
+
+								; ?>');">
 								<span class="dashicons dashicons-update" style="margin-top: 3px;"></span>
 								<?php esc_html_e('Reindex Network', 'meilisearch'); ?>
 							</a>
