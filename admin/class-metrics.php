@@ -86,7 +86,7 @@ class Meilisearch_Metrics
 	}
 
 	/**
-	 * Get stats for all indexes.
+	 * Get stats for all indexes based on configured format.
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
@@ -98,19 +98,29 @@ class Meilisearch_Metrics
 		}
 
 		try {
-			$indexes_results = $client->get_client()->getIndexes();
-			$indexes = $indexes_results->getResults();
+			$sites = get_sites(['number' => 9999]);
 			$stats = [];
 
-			foreach ($indexes as $index) {
-				$index_stats = $index->stats();
-				$stats[] = [
-					'uid' => $index->getUid(),
-					'primary_key' => $index->getPrimaryKey(),
-					'created_at' => $index->getCreatedAt()?->format('Y-m-d H:i:s'),
-					'updated_at' => $index->getUpdatedAt()?->format('Y-m-d H:i:s'),
-					'stats' => $index_stats,
-				];
+			foreach ($sites as $site) {
+				$blog_id = (int) $site->blog_id;
+				$index_name = $client->get_index_name($blog_id);
+
+				try {
+					$index = $client->get_client()->index($index_name);
+					$index_stats = $index->stats();
+					
+					$stats[] = [
+						'uid' => $index->getUid(),
+						'blog_id' => $blog_id,
+						'primary_key' => $index->getPrimaryKey(),
+						'created_at' => $index->getCreatedAt()?->format('Y-m-d H:i:s'),
+						'updated_at' => $index->getUpdatedAt()?->format('Y-m-d H:i:s'),
+						'stats' => $index_stats,
+					];
+				} catch (Exception $e) {
+					// Index doesn't exist for this site, skip it
+					continue;
+				}
 			}
 
 			return $stats;
@@ -196,7 +206,12 @@ class Meilisearch_Metrics
 					<?php foreach ($indexes_stats as $index): ?>
 						<div class="postbox" style="margin-bottom: 20px;">
 							<div class="postbox-header">
-								<h3 class="hndle"><?php echo esc_html($index['uid']); ?></h3>
+								<h3 class="hndle">
+									<?php echo esc_html($index['uid']); ?>
+									<span style="color: #666; font-weight: normal; font-size: 12px;">
+										(<?php printf(esc_html__('Site ID: %d', 'meilisearch'), $index['blog_id']); ?>)
+									</span>
+								</h3>
 							</div>
 							<div class="inside">
 								<table class="widefat">
