@@ -156,8 +156,18 @@ class Meilisearch_Dashboard
 			wp_die(esc_html__('You do not have permission to perform this action.', 'meilisearch'));
 		}
 
-		// Get indexer
-		$indexer = new Meilisearch_Indexer();
+		// Get Meilisearch client
+		$client = $this->get_client();
+		if (null === $client) {
+			wp_die(
+				esc_html__('Meilisearch is not configured. Please configure the settings first.', 'meilisearch'),
+				esc_html__('Configuration Required', 'meilisearch'),
+				['back_link' => true]
+			);
+		}
+
+		// Get indexer with client
+		$indexer = new Meilisearch_Indexer($client);
 
 		// Get all sites
 		$sites = get_sites(['number' => 1000]);
