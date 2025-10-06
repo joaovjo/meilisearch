@@ -50,7 +50,7 @@ class Meilisearch_Dashboard
 			30,
 		);
 
-		// Add dashboard submenu (will rename the first item)
+		// Adicionar submenu do dashboard (vai renomear o primeiro item)
 		add_submenu_page(
 			'meilisearch-dashboard',
 			__('Dashboard', 'meilisearch'),

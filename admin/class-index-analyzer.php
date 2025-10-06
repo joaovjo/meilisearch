@@ -260,7 +260,7 @@ class Meilisearch_Index_Analyzer
 		// Tentar cada nome de índice para extrair informações do site
 		foreach ($index_names as $index_name) {
 			try {
-				// Get a sample document from the index
+				// Obter um documento de exemplo do índice
 				$results = $client->get_client()
 					->index($index_name)
 					->search('', ['limit' => 1]);

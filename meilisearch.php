@@ -18,40 +18,40 @@
  * @package         Meilisearch
  */
 
-// Exit if accessed directly.
+// Sair se acessado diretamente.
 if (!defined('ABSPATH')) {
 	exit();
 }
 
-// Start output buffering to prevent any accidental output from vendor files.
+// Iniciar buffer de saída para prevenir qualquer saída acidental de arquivos vendor.
 ob_start();
 
-// Plugin constants.
+// Constantes do plugin.
 define('MEILISEARCH_VERSION', '0.1.0');
 define('MEILISEARCH_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('MEILISEARCH_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('MEILISEARCH_PLUGIN_FILE', __FILE__);
 
-// Require Composer autoloader.
+// Requer autoloader do Composer.
 if (file_exists(MEILISEARCH_PLUGIN_DIR . 'vendor/autoload.php')) {
 	require_once MEILISEARCH_PLUGIN_DIR . 'vendor/autoload.php';
 }
 
-// Clean any output from vendor autoloading.
+// Limpar qualquer saída do autoload do vendor.
 $vendor_output = ob_get_clean();
 if (!empty($vendor_output) && defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
-	// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Debug logging only.
+	// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Log de debug apenas.
 	error_log('Meilisearch vendor output: ' . $vendor_output);
 }
 
-// Include core classes.
+// Incluir classes principais.
 require_once MEILISEARCH_PLUGIN_DIR . 'includes/class-client.php';
 require_once MEILISEARCH_PLUGIN_DIR . 'includes/class-indexer.php';
 require_once MEILISEARCH_PLUGIN_DIR . 'includes/class-searcher.php';
 require_once MEILISEARCH_PLUGIN_DIR . 'includes/class-autocomplete.php';
 require_once MEILISEARCH_PLUGIN_DIR . 'includes/class-search-api.php';
 
-// Include admin classes.
+// Incluir classes admin.
 if (is_admin() && is_multisite()) {
 	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-dashboard.php';
 	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-metrics.php';
@@ -60,12 +60,12 @@ if (is_admin() && is_multisite()) {
 	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-network-settings.php';
 }
 
-// Include public classes.
+// Incluir classes públicas.
 if (!is_admin()) {
 	require_once MEILISEARCH_PLUGIN_DIR . 'public/class-search-override.php';
 }
 
-// Include WP-CLI commands.
+// Incluir comandos WP-CLI.
 if (defined('WP_CLI') && WP_CLI) {
 	require_once MEILISEARCH_PLUGIN_DIR . 'includes/class-cli.php';
 }
@@ -84,7 +84,7 @@ function meilisearch_activate(bool $network_wide): void
 		);
 	}
 
-	// Set default options.
+	// Definir opções padrão.
 	$default_settings = [
 		'host' => 'http://localhost:7700',
 		'master_key' => '',
@@ -96,7 +96,7 @@ function meilisearch_activate(bool $network_wide): void
 		update_site_option('meilisearch_settings', $default_settings);
 	}
 
-	// Flush rewrite rules.
+	// Limpar regras de reescrita.
 	flush_rewrite_rules();
 }
 
@@ -113,11 +113,11 @@ function meilisearch_deactivate(): void
 register_deactivation_hook(__FILE__, 'meilisearch_deactivate');
 
 /**
- * Initialize the plugin.
+ * Inicializar o plugin.
  */
 function meilisearch_init(): void
 {
-	// Check if running in multisite.
+	// Verificar se está rodando em multisite.
 	if (!is_multisite()) {
 		add_action('admin_notices', function () {
 			echo '<div class="notice notice-error"><p>';
@@ -127,39 +127,39 @@ function meilisearch_init(): void
 		return;
 	}
 
-	// Initialize components.
+	// Inicializar componentes.
 	$settings = get_site_option('meilisearch_settings', []);
 
 	if (!empty($settings['enabled']) && !empty($settings['host'])) {
-		// Initialize client.
+		// Inicializar cliente.
 		$client = new Meilisearch_Client($settings['host'], $settings['master_key'] ?? '');
 
-		// Initialize indexer.
+		// Inicializar indexador.
 		$indexer = new Meilisearch_Indexer($client);
 		$indexer->init_hooks();
 
-		// Initialize search override (frontend only).
+		// Inicializar override de busca (apenas frontend).
 		if (!is_admin()) {
 			$searcher = new Meilisearch_Searcher($client);
 			$search_override = new Meilisearch_Search_Override($searcher);
 			$search_override->init_hooks();
 
-			// Initialize autocomplete.
+			// Inicializar autocomplete.
 			$autocomplete = new Meilisearch_Autocomplete($client);
 			$autocomplete->init_hooks();
 		}
 
-		// Initialize Search API (always available).
+		// Inicializar Search API (sempre disponível).
 		$search_api = new Meilisearch_Search_API($client);
 		$search_api->init_hooks();
 
-		// Register WP-CLI commands.
+		// Registrar comandos WP-CLI.
 		if (defined('WP_CLI') && WP_CLI) {
 			WP_CLI::add_command('meilisearch', new Meilisearch_CLI($client, $indexer));
 		}
 	}
 
-	// Initialize network admin dashboard and settings (admin only).
+	// Inicializar dashboard e configurações do admin de rede (apenas admin).
 	if (is_admin() && is_multisite()) {
 		$dashboard = new Meilisearch_Dashboard();
 		$dashboard->init_hooks();
@@ -177,9 +177,9 @@ function meilisearch_init(): void
 		$network_settings->init_hooks();
 	}
 
-	// Load text domain for translations.
-	// Note: This is required for plugins not hosted on WordPress.org.
-	// For WordPress.org plugins, translations are loaded automatically.
+	// Carregar domínio de texto para traduções.
+	// Nota: Isso é necessário para plugins não hospedados no WordPress.org.
+	// Para plugins do WordPress.org, as traduções são carregadas automaticamente.
 	load_plugin_textdomain('meilisearch', false, dirname(plugin_basename(__FILE__)) . '/languages');
 }
 
