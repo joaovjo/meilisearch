@@ -43,7 +43,7 @@ class Meilisearch_Searcher
 	 */
 	public function search_network(string $query, array $args = []): array
 	{
-		$indexes = $this->client->get_all_index_names();
+		$indexes = $this->get_searchable_indexes();
 		$queries = [];
 
 		$default_args = [
@@ -81,6 +81,81 @@ class Meilisearch_Searcher
 				'total' => 0,
 			];
 		}
+	}
+
+	/**
+	 * Get all searchable indexes including additional patterns.
+	 *
+	 * Returns indexes from the current network plus any additional patterns
+	 * selected in the Multi-Pattern Search settings.
+	 *
+	 * @since 1.0.0
+	 * @return array Array of index names to search
+	 */
+	private function get_searchable_indexes(): array
+	{
+		// Start with current network indexes
+		$indexes = $this->client->get_all_index_names();
+
+		// Get additional patterns configuration
+		$additional_patterns = is_multisite() 
+			? get_site_option('meilisearch_additional_patterns', [])
+			: get_option('meilisearch_additional_patterns', []);
+
+		if (empty($additional_patterns) || !is_array($additional_patterns)) {
+			return $indexes;
+		}
+
+		// Get all available indexes from Meilisearch
+		try {
+			$all_indexes = $this->client->get_indexes();
+			$all_index_names = [];
+
+			foreach ($all_indexes->getResults() as $index) {
+				$all_index_names[] = $index->getUid();
+			}
+
+			// Match indexes against additional patterns
+			foreach ($additional_patterns as $pattern) {
+				$pattern_regex = $this->convert_pattern_to_regex($pattern);
+
+				foreach ($all_index_names as $index_name) {
+					if (preg_match($pattern_regex, $index_name) && !in_array($index_name, $indexes, true)) {
+						$indexes[] = $index_name;
+					}
+				}
+			}
+		} catch (Exception $e) {
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Debug logging only.
+				error_log('Meilisearch get indexes error: ' . $e->getMessage());
+			}
+		}
+
+		return $indexes;
+	}
+
+	/**
+	 * Convert pattern format to regex
+	 *
+	 * Converts index pattern format (e.g., "setur_{blog_id}_posts") to a regex pattern.
+	 *
+	 * @since 1.0.0
+	 * @param string $pattern Pattern format string.
+	 * @return string Regex pattern
+	 */
+	private function convert_pattern_to_regex(string $pattern): string
+	{
+		// Escape special regex characters except our placeholders
+		$regex = preg_quote($pattern, '/');
+
+		// Replace {blog_id} placeholder with number pattern
+		$regex = str_replace('\{blog_id\}', '\d+', $regex);
+
+		// Replace {type} placeholder if present
+		$regex = str_replace('\{type\}', '[a-z]+', $regex);
+
+		return '/^' . $regex . '$/';
 	}
 
 	/**

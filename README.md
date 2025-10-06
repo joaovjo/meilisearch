@@ -13,6 +13,7 @@ Replace WordPress default search with **Meilisearch** across your entire multisi
 - 🚀 **Modern PHP** - Uses Fiber + ReactPHP for concurrent operations (PHP 8.1+)
 - 📊 **Real-time Metrics** - Monitor index statistics and performance without cache
 - 🔎 **Index Analyzer** - Automatically detect multiple WordPress networks and their index patterns
+- 🔗 **Multi-Pattern Search** - Search across multiple WordPress networks simultaneously
 
 ## Requirements
 
@@ -72,6 +73,7 @@ The plugin is configured **only** in the Network Admin panel:
 - **Network Admin → Meilisearch → Settings** - Configure connection and index format
 - **Network Admin → Meilisearch → Metrics** - Real-time index statistics (no cache)
 - **Network Admin → Meilisearch → Index Analyzer** - Detect multiple WordPress networks and patterns
+- **Network Admin → Meilisearch → Multi-Pattern Search** - Configure cross-network search
 
 Settings are stored network-wide using `get_site_option()`.
 
@@ -88,6 +90,22 @@ This is especially useful when:
 - Managing multiple WordPress Multisite installations
 - Each network uses different index naming formats
 - You need to identify which indexes belong to which network
+
+### Multi-Pattern Search
+
+The Multi-Pattern Search page allows you to search across multiple WordPress networks that share the same Meilisearch server:
+
+- **Cross-Network Search** - Include results from other WordPress networks in your searches
+- **Pattern Selection** - Choose which index patterns to include in search results
+- **Real-time Configuration** - Changes take effect immediately without reindexing
+- **Visual Interface** - Easy checkbox selection with network URL display
+
+Use cases:
+- **Corporate Portals** - Search across public and internal networks
+- **Multi-Brand Sites** - Unified search across different brand networks
+- **Migration Support** - Include both old and new index patterns during transitions
+
+See [full Multi-Pattern Search documentation](docs/MULTI-PATTERN-SEARCH.md) for detailed usage.
 
 ## WP-CLI Commands
 
