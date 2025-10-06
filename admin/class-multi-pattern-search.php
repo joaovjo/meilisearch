@@ -232,7 +232,9 @@ class Meilisearch_Multi_Pattern_Search {
 
 		foreach ( $index_names as $index_name ) {
 			try {
-				$results = $this->client->search( $index_name, '', array( 'limit' => 1 ) );
+				$sdk_client = $this->client->get_client();
+				$index = $sdk_client->index( $index_name );
+				$results = $index->search( '', array( 'limit' => 1 ) );
 				$hits = $results->getHits();
 
 				if ( ! empty( $hits ) && isset( $hits[0]['permalink'] ) ) {
