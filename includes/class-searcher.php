@@ -108,7 +108,8 @@ class Meilisearch_Searcher
 
 		// Get all available indexes from Meilisearch
 		try {
-			$all_indexes = $this->client->get_indexes();
+			$sdk_client = $this->client->get_client();
+			$all_indexes = $sdk_client->getIndexes();
 			$all_index_names = [];
 
 			foreach ($all_indexes->getResults() as $index) {

@@ -267,11 +267,22 @@ class Meilisearch_Multi_Pattern_Search {
 	 */
 	private function get_current_pattern(): string {
 		$settings = get_site_option( 'meilisearch_settings', array() );
-		$format = $settings['index_name_format'] ?? 'wp_{type}';
+		$format = $settings['index_format'] ?? '{prefix}posts';
 
-		// Convert format to pattern
-		$pattern = str_replace( '{type}', 'posts', $format );
-		$pattern = str_replace( '{blog_id}', '{blog_id}', $pattern );
+		// Get the actual prefix for the main site
+		switch_to_blog( 1 );
+		global $wpdb;
+		$prefix = $wpdb->prefix;
+		restore_current_blog();
+
+		// Replace placeholders with actual values to get the real pattern
+		$pattern = str_replace( '{prefix}', $prefix, $format );
+		$pattern = str_replace( '{blog_id}', '', $pattern ); // Remove blog_id placeholder
+		$pattern = str_replace( '{site_id}', '', $pattern ); // Remove site_id placeholder
+		
+		// Clean up any double underscores or trailing underscores
+		$pattern = preg_replace( '/_+/', '_', $pattern );
+		$pattern = rtrim( $pattern, '_' );
 
 		return $pattern;
 	}
