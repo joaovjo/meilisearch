@@ -165,6 +165,7 @@ function meilisearch_init(): void
 		$index_analyzer->init_hooks();
 
 		$multi_pattern = new Meilisearch_Multi_Pattern_Search();
+		$multi_pattern->init_hooks();
 
 		$network_settings = new Meilisearch_Network_Settings();
 		$network_settings->init_hooks();

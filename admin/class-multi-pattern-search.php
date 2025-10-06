@@ -53,6 +53,17 @@ class Meilisearch_Multi_Pattern_Search {
 		if ( ! empty( $settings['host'] ) ) {
 			$this->client = new Meilisearch_Client( $settings['host'], $settings['master_key'] ?? '' );
 		}
+	}
+
+	/**
+	 * Initialize hooks
+	 *
+	 * Registers all necessary WordPress hooks for the multi-pattern search functionality.
+	 *
+	 * @since 1.0.0
+	 * @return void
+	 */
+	public function init_hooks(): void {
 		add_action( 'network_admin_menu', array( $this, 'add_menu_page' ) );
 		add_action( 'admin_menu', array( $this, 'add_menu_page' ) );
 		add_action( 'admin_post_save_additional_patterns', array( $this, 'save_settings' ) );
@@ -74,7 +85,7 @@ class Meilisearch_Multi_Pattern_Search {
 		$callback   = array( $this, 'render_page' );
 
 		add_submenu_page(
-			'meilisearch',
+			'meilisearch-dashboard',
 			$page_title,
 			$menu_title,
 			$capability,
