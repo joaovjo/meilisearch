@@ -27,9 +27,6 @@ class Meilisearch_Dashboard
 	 */
 	public function init_hooks(): void
 	{
-		if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
-			error_log('Meilisearch Dashboard: Registering hooks');
-		}
 		add_action('network_admin_menu', [$this, 'add_dashboard_menu']);
 		add_action('admin_action_meilisearch_reindex', [$this, 'handle_reindex']);
 	}
