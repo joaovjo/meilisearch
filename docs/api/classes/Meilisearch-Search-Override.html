@@ -59,6 +59,12 @@
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
     <a href="packages/Meilisearch.html" class="">Meilisearch</a>
 </h4>
+    <ul class="phpdocumentor-list">
+                    <li>
+                <a href="packages/Meilisearch-Admin.html" class="">Admin</a>
+                
+            </li>
+            </ul>
 
                         </section>
             
@@ -104,15 +110,15 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="public/class-search-override.php"><a href="files/public-class-search-override.html"><abbr title="public/class-search-override.php">class-search-override.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">13</span>
+    <span class="phpdocumentor-element-found-in__line">16</span>
 
-            <a href="classes/Meilisearch-Search-Override.html#source-view.13" class="phpdocumentor-element-found-in__source" data-line="13" data-modal="source-view" data-src="files/public/class-search-override.php.txt"></a>
+            <a href="classes/Meilisearch-Search-Override.html#source-view.16" class="phpdocumentor-element-found-in__source" data-line="16" data-modal="source-view" data-src="files/public/class-search-override.php.txt"></a>
     </aside>
 
-            <p class="phpdocumentor-summary">Class Meilisearch_Search_Override</p>
+            <p class="phpdocumentor-summary">Classe Meilisearch_Search_Override</p>
 
 
-    <section class="phpdocumentor-description"><p>Replaces WordPress default search with Meilisearch.</p>
+    <section class="phpdocumentor-description"><p>Substitui a busca padrão do WordPress pelo Meilisearch.</p>
 </section>
 
 
@@ -146,21 +152,21 @@
     <span>
                         &nbsp;: array&lt;string|int, mixed&gt;|null            </span>
 </dt>
-<dd>Cache for Meilisearch results.</dd>
+<dd>Cache para resultados do Meilisearch.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a class="" href="classes/Meilisearch-Search-Override.html#property_permalink_map">$permalink_map</a>
     <span>
                         &nbsp;: array&lt;string|int, mixed&gt;            </span>
 </dt>
-<dd>Map of post permalinks from Meilisearch (blog_id_postid =&gt; permalink).</dd>
+<dd>Mapa de permalinks de posts do Meilisearch (blog_id_postid =&gt; permalink).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a class="" href="classes/Meilisearch-Search-Override.html#property_searcher">$searcher</a>
     <span>
                         &nbsp;: <a href="classes/Meilisearch-Searcher.html"><abbr title="\Meilisearch_Searcher">Meilisearch_Searcher</abbr></a>            </span>
 </dt>
-<dd>Meilisearch searcher instance.</dd>
+<dd>Instância do buscador Meilisearch.</dd>
 
     </dl>
 
@@ -175,35 +181,42 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Constructor.</dd>
+<dd>Construtor.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Meilisearch-Search-Override.html#method_fix_cross_site_permalink">fix_cross_site_permalink()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Fix permalink for cross-site posts.</dd>
+<dd>Corrigir permalink entre sites.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Meilisearch-Search-Override.html#method_get_posts_from_meilisearch">get_posts_from_meilisearch()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;|null    </span>
 </dt>
-<dd>Get posts from Meilisearch results (cross-site compatible).</dd>
+<dd>Obter posts dos resultados do Meilisearch (compatível com múltiplos sites).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Meilisearch-Search-Override.html#method_init_hooks">init_hooks()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Initialize WordPress hooks.</dd>
+<dd>Inicializar hooks do WordPress.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Meilisearch-Search-Override.html#method_override_search_query">override_search_query()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Override WordPress search query with Meilisearch results.</dd>
+<dd>Substituir consulta de busca do WordPress com resultados do Meilisearch.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/Meilisearch-Search-Override.html#method_create_pseudo_post_from_hit">create_pseudo_post_from_hit()</a>
+    <span>
+                                &nbsp;: <abbr title="\WP_Post">WP_Post</abbr>|null    </span>
+</dt>
+<dd>Criar um objeto pseudo WP_Post a partir de dados do hit do Meilisearch.</dd>
 
     </dl>
 
@@ -235,12 +248,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="public/class-search-override.php"><a href="files/public-class-search-override.html"><abbr title="public/class-search-override.php">class-search-override.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">27</span>
+    <span class="phpdocumentor-element-found-in__line">30</span>
 
-            <a href="classes/Meilisearch-Search-Override.html#source-view.27" class="phpdocumentor-element-found-in__source" data-line="27" data-modal="source-view" data-src="files/public/class-search-override.php.txt"></a>
+            <a href="classes/Meilisearch-Search-Override.html#source-view.30" class="phpdocumentor-element-found-in__source" data-line="30" data-modal="source-view" data-src="files/public/class-search-override.php.txt"></a>
     </aside>
 
-        <p class="phpdocumentor-summary">Cache for Meilisearch results.</p>
+        <p class="phpdocumentor-summary">Cache para resultados do Meilisearch.</p>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
@@ -275,12 +288,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="public/class-search-override.php"><a href="files/public-class-search-override.html"><abbr title="public/class-search-override.php">class-search-override.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">34</span>
+    <span class="phpdocumentor-element-found-in__line">37</span>
 
-            <a href="classes/Meilisearch-Search-Override.html#source-view.34" class="phpdocumentor-element-found-in__source" data-line="34" data-modal="source-view" data-src="files/public/class-search-override.php.txt"></a>
+            <a href="classes/Meilisearch-Search-Override.html#source-view.37" class="phpdocumentor-element-found-in__source" data-line="37" data-modal="source-view" data-src="files/public/class-search-override.php.txt"></a>
     </aside>
 
-        <p class="phpdocumentor-summary">Map of post permalinks from Meilisearch (blog_id_postid =&gt; permalink).</p>
+        <p class="phpdocumentor-summary">Mapa de permalinks de posts do Meilisearch (blog_id_postid =&gt; permalink).</p>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
@@ -315,12 +328,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="public/class-search-override.php"><a href="files/public-class-search-override.html"><abbr title="public/class-search-override.php">class-search-override.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">20</span>
+    <span class="phpdocumentor-element-found-in__line">23</span>
 
-            <a href="classes/Meilisearch-Search-Override.html#source-view.20" class="phpdocumentor-element-found-in__source" data-line="20" data-modal="source-view" data-src="files/public/class-search-override.php.txt"></a>
+            <a href="classes/Meilisearch-Search-Override.html#source-view.23" class="phpdocumentor-element-found-in__source" data-line="23" data-modal="source-view" data-src="files/public/class-search-override.php.txt"></a>
     </aside>
 
-        <p class="phpdocumentor-summary">Meilisearch searcher instance.</p>
+        <p class="phpdocumentor-summary">Instância do buscador Meilisearch.</p>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
@@ -360,12 +373,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="public/class-search-override.php"><a href="files/public-class-search-override.html"><abbr title="public/class-search-override.php">class-search-override.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">41</span>
+    <span class="phpdocumentor-element-found-in__line">44</span>
 
-            <a href="classes/Meilisearch-Search-Override.html#source-view.41" class="phpdocumentor-element-found-in__source" data-line="41" data-modal="source-view" data-src="files/public/class-search-override.php.txt"></a>
+            <a href="classes/Meilisearch-Search-Override.html#source-view.44" class="phpdocumentor-element-found-in__source" data-line="44" data-modal="source-view" data-src="files/public/class-search-override.php.txt"></a>
     </aside>
 
-        <p class="phpdocumentor-summary">Constructor.</p>
+        <p class="phpdocumentor-summary">Construtor.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -382,7 +395,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Meilisearch-Searcher.html"><abbr title="\Meilisearch_Searcher">Meilisearch_Searcher</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Meilisearch searcher instance.</p>
+                    <section class="phpdocumentor-description"><p>Instância do buscador Meilisearch.</p>
 </section>
 
             </dd>
@@ -408,12 +421,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="public/class-search-override.php"><a href="files/public-class-search-override.html"><abbr title="public/class-search-override.php">class-search-override.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">200</span>
+    <span class="phpdocumentor-element-found-in__line">263</span>
 
-            <a href="classes/Meilisearch-Search-Override.html#source-view.200" class="phpdocumentor-element-found-in__source" data-line="200" data-modal="source-view" data-src="files/public/class-search-override.php.txt"></a>
+            <a href="classes/Meilisearch-Search-Override.html#source-view.263" class="phpdocumentor-element-found-in__source" data-line="263" data-modal="source-view" data-src="files/public/class-search-override.php.txt"></a>
     </aside>
 
-        <p class="phpdocumentor-summary">Fix permalink for cross-site posts.</p>
+        <p class="phpdocumentor-summary">Corrigir permalink entre sites.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -430,7 +443,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The post permalink.</p>
+                    <section class="phpdocumentor-description"><p>O permalink do post.</p>
 </section>
 
             </dd>
@@ -439,7 +452,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\WP_Post">WP_Post</abbr></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Post object.</p>
+                    <section class="phpdocumentor-description"><p>Objeto do post.</p>
 </section>
 
             </dd>
@@ -453,7 +466,7 @@
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
                     &mdash;
-                <section class="phpdocumentor-description"><p>Corrected permalink.</p>
+                <section class="phpdocumentor-description"><p>Permalink corrigido.</p>
 </section>
 
             </section>
@@ -473,12 +486,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="public/class-search-override.php"><a href="files/public-class-search-override.html"><abbr title="public/class-search-override.php">class-search-override.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">116</span>
+    <span class="phpdocumentor-element-found-in__line">112</span>
 
-            <a href="classes/Meilisearch-Search-Override.html#source-view.116" class="phpdocumentor-element-found-in__source" data-line="116" data-modal="source-view" data-src="files/public/class-search-override.php.txt"></a>
+            <a href="classes/Meilisearch-Search-Override.html#source-view.112" class="phpdocumentor-element-found-in__source" data-line="112" data-modal="source-view" data-src="files/public/class-search-override.php.txt"></a>
     </aside>
 
-        <p class="phpdocumentor-summary">Get posts from Meilisearch results (cross-site compatible).</p>
+        <p class="phpdocumentor-summary">Obter posts dos resultados do Meilisearch (compatível com múltiplos sites).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -495,7 +508,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Array of post data or null.</p>
+                    <section class="phpdocumentor-description"><p>Array de dados de post ou null.</p>
 </section>
 
             </dd>
@@ -504,7 +517,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\WP_Query">WP_Query</abbr></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The WP_Query instance.</p>
+                    <section class="phpdocumentor-description"><p>A instância WP_Query.</p>
 </section>
 
             </dd>
@@ -518,7 +531,7 @@
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|null</span>
                     &mdash;
-                <section class="phpdocumentor-description"><p>Array of WP_Post objects or null.</p>
+                <section class="phpdocumentor-description"><p>Array de objetos WP_Post ou null.</p>
 </section>
 
             </section>
@@ -538,12 +551,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="public/class-search-override.php"><a href="files/public-class-search-override.html"><abbr title="public/class-search-override.php">class-search-override.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">48</span>
+    <span class="phpdocumentor-element-found-in__line">52</span>
 
-            <a href="classes/Meilisearch-Search-Override.html#source-view.48" class="phpdocumentor-element-found-in__source" data-line="48" data-modal="source-view" data-src="files/public/class-search-override.php.txt"></a>
+            <a href="classes/Meilisearch-Search-Override.html#source-view.52" class="phpdocumentor-element-found-in__source" data-line="52" data-modal="source-view" data-src="files/public/class-search-override.php.txt"></a>
     </aside>
 
-        <p class="phpdocumentor-summary">Initialize WordPress hooks.</p>
+        <p class="phpdocumentor-summary">Inicializar hooks do WordPress.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -574,12 +587,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="public/class-search-override.php"><a href="files/public-class-search-override.html"><abbr title="public/class-search-override.php">class-search-override.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">61</span>
+    <span class="phpdocumentor-element-found-in__line">66</span>
 
-            <a href="classes/Meilisearch-Search-Override.html#source-view.61" class="phpdocumentor-element-found-in__source" data-line="61" data-modal="source-view" data-src="files/public/class-search-override.php.txt"></a>
+            <a href="classes/Meilisearch-Search-Override.html#source-view.66" class="phpdocumentor-element-found-in__source" data-line="66" data-modal="source-view" data-src="files/public/class-search-override.php.txt"></a>
     </aside>
 
-        <p class="phpdocumentor-summary">Override WordPress search query with Meilisearch results.</p>
+        <p class="phpdocumentor-summary">Substituir consulta de busca do WordPress com resultados do Meilisearch.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -596,7 +609,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\WP_Query">WP_Query</abbr></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The WP_Query instance.</p>
+                    <section class="phpdocumentor-description"><p>A instância WP_Query.</p>
 </section>
 
             </dd>
@@ -607,6 +620,64 @@
     
 
     
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_create_pseudo_post_from_hit">
+        create_pseudo_post_from_hit()
+        <a href="classes/Meilisearch-Search-Override.html#method_create_pseudo_post_from_hit" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="public/class-search-override.php"><a href="files/public-class-search-override.html"><abbr title="public/class-search-override.php">class-search-override.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">219</span>
+
+            <a href="classes/Meilisearch-Search-Override.html#source-view.219" class="phpdocumentor-element-found-in__source" data-line="219" data-modal="source-view" data-src="files/public/class-search-override.php.txt"></a>
+    </aside>
+
+        <p class="phpdocumentor-summary">Criar um objeto pseudo WP_Post a partir de dados do hit do Meilisearch.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">create_pseudo_post_from_hit</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$hit</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\WP_Post">WP_Post</abbr>|null</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>Usado para posts de redes externas que não existem no banco de dados atual.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$hit</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Dados do hit do Meilisearch.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><abbr title="\WP_Post">WP_Post</abbr>|null</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Objeto pseudo post ou null.</p>
+</section>
+
+            </section>
+
 </article>
             </section>
 
@@ -737,6 +808,7 @@
                                             <li class=""><a href="classes/Meilisearch-Search-Override.html#method_get_posts_from_meilisearch">get_posts_from_meilisearch()</a></li>
                                             <li class=""><a href="classes/Meilisearch-Search-Override.html#method_init_hooks">init_hooks()</a></li>
                                             <li class=""><a href="classes/Meilisearch-Search-Override.html#method_override_search_query">override_search_query()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Search-Override.html#method_create_pseudo_post_from_hit">create_pseudo_post_from_hit()</a></li>
                                     </ul>
             </li>
                     </ul>

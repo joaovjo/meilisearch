@@ -3,35 +3,35 @@
 declare(strict_types=1);
 
 /**
- * WP-CLI commands for Meilisearch plugin.
+ * Comandos WP-CLI para o plugin Meilisearch.
  *
  * @package Meilisearch
  */
 
 /**
- * Meilisearch WP-CLI commands.
+ * Comandos WP-CLI do Meilisearch.
  */
 class Meilisearch_CLI
 {
 	/**
-	 * Meilisearch client instance.
+	 * Instância do cliente Meilisearch.
 	 *
 	 * @var Meilisearch_Client
 	 */
 	private Meilisearch_Client $client;
 
 	/**
-	 * Meilisearch indexer instance.
+	 * Instância do indexador Meilisearch.
 	 *
 	 * @var Meilisearch_Indexer
 	 */
 	private Meilisearch_Indexer $indexer;
 
 	/**
-	 * Constructor.
+	 * Construtor.
 	 *
-	 * @param Meilisearch_Client  $client  Meilisearch client instance.
-	 * @param Meilisearch_Indexer $indexer Meilisearch indexer instance.
+	 * @param Meilisearch_Client  $client  Instância do cliente Meilisearch.
+	 * @param Meilisearch_Indexer $indexer Instância do indexador Meilisearch.
 	 */
 	public function __construct(Meilisearch_Client $client, Meilisearch_Indexer $indexer)
 	{
@@ -40,36 +40,36 @@ class Meilisearch_CLI
 	}
 
 	/**
-	 * Reindex all posts for a specific blog or all blogs in the network.
+	 * Reindexa todos os posts de um blog específico ou todos os blogs da rede.
 	 *
-	 * ## OPTIONS
+	 * ## OPÇÕES
 	 *
 	 * [--blog_id=<blog_id>]
-	 * : The blog ID to reindex. If not provided, reindexes all blogs in the network.
+	 * : O ID do blog a ser reindexado. Se não fornecido, reindexa todos os blogs da rede.
 	 *
 	 * [--url=<url>]
-	 * : The blog URL to reindex (alternative to blog_id).
+	 * : A URL do blog a ser reindexado (alternativa ao blog_id).
 	 *
-	 * ## EXAMPLES
+	 * ## EXEMPLOS
 	 *
-	 *     # Reindex a specific blog by ID
+	 *     # Reindexar um blog específico por ID
 	 *     wp meilisearch reindex --blog_id=2
 	 *
-	 *     # Reindex a specific blog by URL
+	 *     # Reindexar um blog específico por URL
 	 *     wp meilisearch reindex --url=http://example.com/labcom/
 	 *
-	 *     # Reindex all blogs in the network
+	 *     # Reindexar todos os blogs da rede
 	 *     wp meilisearch reindex
 	 *
-	 * @param array $args       Positional arguments.
-	 * @param array $assoc_args Associative arguments.
+	 * @param array $args       Argumentos posicionais.
+	 * @param array $assoc_args Argumentos associativos.
 	 */
 	public function reindex($args, $assoc_args)
 	{
 		$blog_id = $assoc_args['blog_id'] ?? null;
 		$url = $assoc_args['url'] ?? null;
 
-		// If URL is provided, get blog_id from it.
+		// Se a URL for fornecida, obter blog_id dela.
 		if ($url && !$blog_id) {
 			$blog_id = get_blog_id_from_url($url);
 			if (!$blog_id) {
@@ -78,7 +78,7 @@ class Meilisearch_CLI
 		}
 
 		if ($blog_id) {
-			// Reindex single blog.
+			// Reindexar um único blog.
 			WP_CLI::log("Reindexing blog $blog_id...");
 			$results = $this->indexer->index_site_posts((int) $blog_id);
 
@@ -91,7 +91,7 @@ class Meilisearch_CLI
 
 			WP_CLI::success(sprintf('Reindexed %d of %d posts for blog %d', $results['indexed'], $results['total'], $blog_id));
 		} else {
-			// Reindex all blogs in network.
+			// Reindexar todos os blogs da rede.
 			if (!is_multisite()) {
 				WP_CLI::error('This is not a multisite installation. Use --blog_id=1 or --url parameter.');
 			}
@@ -118,23 +118,23 @@ class Meilisearch_CLI
 	}
 
 	/**
-	 * List all Meilisearch indexes.
+	 * Lista todos os índices do Meilisearch.
 	 *
-	 * ## OPTIONS
+	 * ## OPÇÕES
 	 *
 	 * [--format=<format>]
-	 * : Output format. Options: table, json, csv, yaml, count. Default: table
+	 * : Formato de saída. Opções: table, json, csv, yaml, count. Padrão: table
 	 *
-	 * ## EXAMPLES
+	 * ## EXEMPLOS
 	 *
-	 *     # List all indexes as table
+	 *     # Listar todos os índices como tabela
 	 *     wp meilisearch list-indexes
 	 *
-	 *     # List all indexes as JSON
+	 *     # Listar todos os índices como JSON
 	 *     wp meilisearch list-indexes --format=json
 	 *
-	 * @param array $args       Positional arguments.
-	 * @param array $assoc_args Associative arguments.
+	 * @param array $args       Argumentos posicionais.
+	 * @param array $assoc_args Argumentos associativos.
 	 */
 	public function list_indexes($args, $assoc_args)
 	{
@@ -145,7 +145,7 @@ class Meilisearch_CLI
 			$data = [];
 
 			foreach ($indexes as $index) {
-				// Extract blog_id from index name (wp_X_posts).
+				// Extrair blog_id do nome do índice (wp_X_posts).
 				preg_match('/wp_(\d+)_posts/', $index, $matches);
 				$blog_id = $matches[1] ?? 'unknown';
 
@@ -155,7 +155,7 @@ class Meilisearch_CLI
 					$blog_name = $blog_details ? $blog_details->blogname : 'Blog not found';
 				}
 
-				// Get index stats.
+				// Obter estatísticas do índice.
 				$stats = $this->client
 					->get_client()
 					->index($index)
@@ -177,20 +177,20 @@ class Meilisearch_CLI
 	}
 
 	/**
-	 * Create index for a specific blog.
+	 * Cria índice para um blog específico.
 	 *
-	 * ## OPTIONS
+	 * ## OPÇÕES
 	 *
 	 * <blog_id>
-	 * : The blog ID to create index for.
+	 * : O ID do blog para criar o índice.
 	 *
-	 * ## EXAMPLES
+	 * ## EXEMPLOS
 	 *
-	 *     # Create index for blog 2
+	 *     # Criar índice para o blog 2
 	 *     wp meilisearch create-index 2
 	 *
-	 * @param array $args       Positional arguments.
-	 * @param array $assoc_args Associative arguments.
+	 * @param array $args       Argumentos posicionais.
+	 * @param array $assoc_args Argumentos associativos.
 	 */
 	public function create_index($args, $assoc_args)
 	{
@@ -216,23 +216,23 @@ class Meilisearch_CLI
 	}
 
 	/**
-	 * Delete index for a specific blog.
+	 * Remove índice de um blog específico.
 	 *
-	 * ## OPTIONS
+	 * ## OPÇÕES
 	 *
 	 * <blog_id>
-	 * : The blog ID to delete index for.
+	 * : O ID do blog para remover o índice.
 	 *
 	 * [--yes]
-	 * : Skip confirmation prompt.
+	 * : Pular prompt de confirmação.
 	 *
-	 * ## EXAMPLES
+	 * ## EXEMPLOS
 	 *
-	 *     # Delete index for blog 2
+	 *     # Remover índice do blog 2
 	 *     wp meilisearch delete-index 2 --yes
 	 *
-	 * @param array $args       Positional arguments.
-	 * @param array $assoc_args Associative arguments.
+	 * @param array $args       Argumentos posicionais.
+	 * @param array $assoc_args Argumentos associativos.
 	 */
 	public function delete_index($args, $assoc_args)
 	{
@@ -262,35 +262,35 @@ class Meilisearch_CLI
 	}
 
 	/**
-	 * Search posts across the network.
+	 * Busca posts em toda a rede.
 	 *
-	 * ## OPTIONS
+	 * ## OPÇÕES
 	 *
 	 * <query>
-	 * : The search query.
+	 * : A consulta de busca.
 	 *
 	 * [--limit=<limit>]
-	 * : Maximum number of results. Default: 20
+	 * : Número máximo de resultados. Padrão: 20
 	 *
 	 * [--blog_id=<blog_id>]
-	 * : Search only in specific blog. If not provided, searches all blogs.
+	 * : Buscar apenas em um blog específico. Se não fornecido, busca em todos os blogs.
 	 *
 	 * [--format=<format>]
-	 * : Output format. Options: table, json, csv, yaml. Default: table
+	 * : Formato de saída. Opções: table, json, csv, yaml. Padrão: table
 	 *
-	 * ## EXAMPLES
+	 * ## EXEMPLOS
 	 *
-	 *     # Search for "mundo" across all blogs
+	 *     # Buscar por "mundo" em todos os blogs
 	 *     wp meilisearch search "mundo"
 	 *
-	 *     # Search in specific blog with limit
+	 *     # Buscar em blog específico com limite
 	 *     wp meilisearch search "inteligente" --blog_id=2 --limit=10
 	 *
-	 *     # Get results as JSON
+	 *     # Obter resultados como JSON
 	 *     wp meilisearch search "mundo" --format=json
 	 *
-	 * @param array $args       Positional arguments.
-	 * @param array $assoc_args Associative arguments.
+	 * @param array $args       Argumentos posicionais.
+	 * @param array $assoc_args Argumentos associativos.
 	 */
 	public function search($args, $assoc_args)
 	{
@@ -340,15 +340,15 @@ class Meilisearch_CLI
 	}
 
 	/**
-	 * Check Meilisearch server connection and health.
+	 * Verifica a conexão e saúde do servidor Meilisearch.
 	 *
-	 * ## EXAMPLES
+	 * ## EXEMPLOS
 	 *
-	 *     # Check server health
+	 *     # Verificar saúde do servidor
 	 *     wp meilisearch health
 	 *
-	 * @param array $args       Positional arguments.
-	 * @param array $assoc_args Associative arguments.
+	 * @param array $args       Argumentos posicionais.
+	 * @param array $assoc_args Argumentos associativos.
 	 */
 	public function health($args, $assoc_args)
 	{
@@ -360,7 +360,7 @@ class Meilisearch_CLI
 			if (isset($health['status']) && 'available' === $health['status']) {
 				WP_CLI::success('Meilisearch server is healthy and available!');
 
-				// Get version info.
+				// Obter informações de versão.
 				$version = $this->client->get_client()->version();
 				WP_CLI::log('Version: ' . ($version['pkgVersion'] ?? 'Unknown'));
 			} else {
@@ -372,23 +372,23 @@ class Meilisearch_CLI
 	}
 
 	/**
-	 * Get statistics about indexed documents.
+	 * Obtém estatísticas sobre documentos indexados.
 	 *
-	 * ## OPTIONS
+	 * ## OPÇÕES
 	 *
 	 * [--blog_id=<blog_id>]
-	 * : Get stats for specific blog. If not provided, shows stats for all blogs.
+	 * : Obter estatísticas para um blog específico. Se não fornecido, mostra estatísticas de todos os blogs.
 	 *
-	 * ## EXAMPLES
+	 * ## EXEMPLOS
 	 *
-	 *     # Get stats for all blogs
+	 *     # Obter estatísticas de todos os blogs
 	 *     wp meilisearch stats
 	 *
-	 *     # Get stats for specific blog
+	 *     # Obter estatísticas de um blog específico
 	 *     wp meilisearch stats --blog_id=2
 	 *
-	 * @param array $args       Positional arguments.
-	 * @param array $assoc_args Associative arguments.
+	 * @param array $args       Argumentos posicionais.
+	 * @param array $assoc_args Argumentos associativos.
 	 */
 	public function stats($args, $assoc_args)
 	{
@@ -396,7 +396,7 @@ class Meilisearch_CLI
 
 		try {
 			if ($blog_id) {
-				// Stats for specific blog.
+				// Estatísticas para um blog específico.
 				$index_name = $this->client->get_index_name($blog_id);
 				$stats = $this->client
 					->get_client()
@@ -414,7 +414,7 @@ class Meilisearch_CLI
 					}
 				}
 			} else {
-				// Stats for all indexes.
+				// Estatísticas para todos os índices.
 				$all_stats = $this->client->get_client()->stats();
 
 				WP_CLI::log('Global Meilisearch Statistics:');

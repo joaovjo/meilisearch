@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Meilisearch Indexer
+ * Indexador Meilisearch
  *
  * @package Meilisearch
  */
@@ -11,23 +11,23 @@ declare(strict_types=1);
 use React\EventLoop\Loop;
 
 /**
- * Class Meilisearch_Indexer
+ * Classe Meilisearch_Indexer
  *
- * Handles indexing of WordPress content to Meilisearch using Fiber for concurrency.
+ * Gerencia a indexação de conteúdo do WordPress no Meilisearch usando Fiber para concorrência.
  */
 class Meilisearch_Indexer
 {
 	/**
-	 * Meilisearch client instance.
+	 * Instância do cliente Meilisearch.
 	 *
 	 * @var Meilisearch_Client
 	 */
 	private Meilisearch_Client $client;
 
 	/**
-	 * Constructor.
+	 * Construtor.
 	 *
-	 * @param Meilisearch_Client $client Meilisearch client instance.
+	 * @param Meilisearch_Client $client Instância do cliente Meilisearch.
 	 */
 	public function __construct(Meilisearch_Client $client)
 	{
@@ -35,38 +35,43 @@ class Meilisearch_Indexer
 	}
 
 	/**
-	 * Initialize WordPress hooks.
+	 * Inicializar hooks do WordPress.
 	 */
 	public function init_hooks(): void
 	{
-		// Index on post save.
+		// Indexar ao salvar post.
 		add_action('save_post', [$this, 'index_post'], 10, 2);
 
-		// Remove from index on post delete.
+		// Remover do índice ao excluir post.
 		add_action('delete_post', [$this, 'delete_post'], 10, 2);
 
-		// Create index when new site is created.
+		// Criar índice quando novo site é criado.
 		add_action('wpmu_new_blog', [$this, 'create_site_index'], 10, 1);
 
-		// Delete index when site is deleted.
+		// Excluir índice quando site é excluído.
 		add_action('wp_delete_site', [$this, 'delete_site_index'], 10, 1);
 	}
 
 	/**
-	 * Index a single post.
+	 * Indexar um único post.
 	 *
-	 * @param int     $post_id Post ID.
-	 * @param WP_Post $post    Post object.
+	 * @param int     $post_id ID do post.
+	 * @param WP_Post $post    Objeto do post.
 	 */
 	public function index_post(int $post_id, WP_Post $post): void
 	{
-		// Skip autosaves and revisions.
+		// Pular autoguardados e revisões.
 		if (wp_is_post_autosave($post_id) || wp_is_post_revision($post_id)) {
 			return;
 		}
 
-		// Only index published posts.
+		// Indexar apenas posts publicados.
 		if ('publish' !== $post->post_status) {
+			return;
+		}
+
+		// Verificar se o tipo de post deve ser indexado.
+		if (!$this->should_index_post_type($post->post_type)) {
 			return;
 		}
 
@@ -75,20 +80,26 @@ class Meilisearch_Indexer
 		$index_name = $this->client->get_index_name($blog_id);
 
 		try {
+			// Garantir que o índice existe antes de indexar
+			$this->ensure_index_exists($blog_id);
+
 			$this->client
 				->get_client()
 				->index($index_name)
 				->addDocuments([$document], 'id');
 		} catch (Exception $e) {
-			error_log("Meilisearch index error for post {$post_id}: " . $e->getMessage());
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
+				error_log("Meilisearch index error for post {$post_id}: " . $e->getMessage());
+			}
 		}
 	}
 
 	/**
-	 * Delete a post from the index.
+	 * Excluir um post do índice.
 	 *
-	 * @param int     $post_id Post ID.
-	 * @param WP_Post $post    Post object.
+	 * @param int     $post_id ID do post.
+	 * @param WP_Post $post    Objeto do post.
 	 */
 	public function delete_post(int $post_id, WP_Post $post): void
 	{
@@ -101,15 +112,18 @@ class Meilisearch_Indexer
 				->index($index_name)
 				->deleteDocument($post_id);
 		} catch (Exception $e) {
-			error_log("Meilisearch delete error for post {$post_id}: " . $e->getMessage());
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
+				error_log("Meilisearch delete error for post {$post_id}: " . $e->getMessage());
+			}
 		}
 	}
 
 	/**
-	 * Bulk index all posts across the network using Fiber.
+	 * Indexar em massa todos os posts da rede usando Fiber.
 	 *
-	 * @param callable|null $progress_callback Optional callback for progress updates.
-	 * @return array Results with counts.
+	 * @param callable|null $progress_callback Callback opcional para atualizações de progresso.
+	 * @return array Resultados com contagens.
 	 */
 	public function bulk_index_network(null|callable $progress_callback = null): array
 	{
@@ -123,18 +137,19 @@ class Meilisearch_Indexer
 
 		foreach ($sites as $site) {
 			$fiber = new Fiber(function () use ($site, &$results, $progress_callback): void {
-				switch_to_blog($site->blog_id);
+				$blog_id = (int) $site->blog_id;
+				switch_to_blog($blog_id);
 
-				$site_result = $this->index_site_posts($site->blog_id);
+				$site_result = $this->index_site_posts($blog_id);
 				$results['total_posts'] += $site_result['total'];
 				$results['indexed_posts'] += $site_result['indexed'];
 
 				if (isset($site_result['errors']) && is_array($site_result['errors']) && count($site_result['errors']) > 0) {
-					$results['errors'][$site->blog_id] = $site_result['errors'];
+					$results['errors'][$blog_id] = $site_result['errors'];
 				}
 
 				if ($progress_callback) {
-					$progress_callback($site->blog_id, $site_result);
+					$progress_callback($blog_id, $site_result);
 				}
 
 				restore_current_blog();
@@ -147,10 +162,10 @@ class Meilisearch_Indexer
 	}
 
 	/**
-	 * Index all posts for a specific site.
+	 * Indexar todos os posts de um site específico.
 	 *
-	 * @param int $blog_id Site ID.
-	 * @return array Results with counts.
+	 * @param int $blog_id ID do site.
+	 * @return array Resultados com contagens.
 	 */
 	public function index_site_posts(int $blog_id): array
 	{
@@ -161,15 +176,24 @@ class Meilisearch_Indexer
 			'errors' => [],
 		];
 
-		// Ensure we're in the correct blog context.
+		// Garantir que o índice existe antes de indexar
+		if (!$this->ensure_index_exists($blog_id)) {
+			$results['errors'][] = "Failed to create or access index for blog {$blog_id}";
+			return $results;
+		}
+
+		// Garantir que estamos no contexto do blog correto.
 		$current_blog_id = get_current_blog_id();
 		if ($current_blog_id !== $blog_id) {
 			switch_to_blog($blog_id);
 		}
 
-		// Get all published posts.
+		// Obter tipos de post configurados para indexação.
+		$post_types = $this->get_indexable_post_types();
+
+		// Obter todos os posts publicados.
 		$args = [
-			'post_type' => 'any',
+			'post_type' => $post_types,
 			'post_status' => 'publish',
 			'posts_per_page' => -1,
 			'orderby' => 'ID',
@@ -179,14 +203,14 @@ class Meilisearch_Indexer
 		$posts = get_posts($args);
 		$results['total'] = count($posts);
 
-		// Prepare documents in batches.
+		// Preparar documentos em lotes.
 		$batch_size = 100;
 		$documents = [];
 
 		foreach ($posts as $post) {
 			$documents[] = $this->prepare_document($post);
 
-			// Index in batches.
+			// Indexar em lotes.
 			if (count($documents) >= $batch_size) {
 				try {
 					$this->client
@@ -201,7 +225,7 @@ class Meilisearch_Indexer
 			}
 		}
 
-		// Index remaining documents.
+		// Indexar documentos restantes.
 		if (is_array($documents) && count($documents) > 0) {
 			try {
 				$this->client
@@ -214,7 +238,7 @@ class Meilisearch_Indexer
 			}
 		}
 
-		// Restore blog context if needed.
+		// Restaurar contexto do blog se necessário.
 		if ($current_blog_id !== $blog_id) {
 			restore_current_blog();
 		}
@@ -223,14 +247,14 @@ class Meilisearch_Indexer
 	}
 
 	/**
-	 * Prepare a post document for indexing.
+	 * Preparar um documento de post para indexação.
 	 *
-	 * @param WP_Post $post Post object.
-	 * @return array Document data.
+	 * @param WP_Post $post Objeto do post.
+	 * @return array Dados do documento.
 	 */
 	private function prepare_document(WP_Post $post): array
 	{
-		$author = get_userdata($post->post_author);
+		$author = get_userdata((int) $post->post_author);
 
 		return [
 			'id' => $post->ID,
@@ -251,11 +275,11 @@ class Meilisearch_Indexer
 	}
 
 	/**
-	 * Get post terms as array of names.
+	 * Obter termos do post como array de nomes.
 	 *
-	 * @param int    $post_id  Post ID.
-	 * @param string $taxonomy Taxonomy name.
-	 * @return array Term names.
+	 * @param int    $post_id  ID do post.
+	 * @param string $taxonomy Nome da taxonomia.
+	 * @return array Nomes dos termos.
 	 */
 	private function get_post_terms(int $post_id, string $taxonomy): array
 	{
@@ -269,9 +293,52 @@ class Meilisearch_Indexer
 	}
 
 	/**
-	 * Create index for a new site.
+	 * Garantir que um índice existe para um blog.
+	 * Cria o índice se ele não existir.
 	 *
-	 * @param int $blog_id New site ID.
+	 * @param int $blog_id ID do blog.
+	 * @return bool True se o índice existe ou foi criado com sucesso.
+	 */
+	private function ensure_index_exists(int $blog_id): bool
+	{
+		$index_name = $this->client->get_index_name($blog_id);
+
+		try {
+			// Tentar obter estatísticas do índice para verificar se existe
+			$this->client
+				->get_client()
+				->index($index_name)
+				->stats();
+			
+			// Índice existe, garantir que as configurações estejam atualizadas
+			$this->update_index_settings($blog_id);
+			return true;
+		} catch (Exception $e) {
+			// Índice não existe, tentar criá-lo
+			try {
+				$this->client->create_index($blog_id);
+				if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
+					error_log("Meilisearch: Created missing index for blog {$blog_id}: {$index_name}");
+				}
+				
+				// Aplicar configurações ao novo índice
+				$this->update_index_settings($blog_id);
+				return true;
+			} catch (Exception $create_error) {
+				if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
+					error_log("Meilisearch: Failed to create index for blog {$blog_id}: " . $create_error->getMessage());
+				}
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * Criar índice para um novo site.
+	 *
+	 * @param int $blog_id ID do novo site.
 	 */
 	public function create_site_index(int $blog_id): void
 	{
@@ -279,12 +346,93 @@ class Meilisearch_Indexer
 	}
 
 	/**
-	 * Delete index for a deleted site.
+	 * Excluir índice de um site excluído.
 	 *
-	 * @param WP_Site $site Site object.
+	 * @param WP_Site $site Objeto do site.
 	 */
 	public function delete_site_index(WP_Site $site): void
 	{
-		$this->client->delete_index($site->blog_id);
+		$this->client->delete_index((int) $site->blog_id);
+	}
+
+	/**
+	 * Obter lista de tipos de post que devem ser indexados.
+	 *
+	 * @return array Lista de nomes de tipos de post.
+	 */
+	private function get_indexable_post_types(): array
+	{
+		$settings = get_site_option('meilisearch_settings', []);
+		$post_types = isset($settings['post_types']) && is_array($settings['post_types']) 
+			? $settings['post_types'] 
+			: ['post', 'page'];
+
+		// Garantir que temos pelo menos um tipo de post.
+		if (empty($post_types)) {
+			$post_types = ['post', 'page'];
+		}
+
+		return $post_types;
+	}
+
+	/**
+	 * Verificar se um tipo de post deve ser indexado.
+	 *
+	 * @param string $post_type Nome do tipo de post.
+	 * @return bool True se deve ser indexado.
+	 */
+	private function should_index_post_type(string $post_type): bool
+	{
+		$indexable_types = $this->get_indexable_post_types();
+		return in_array($post_type, $indexable_types, true);
+	}
+
+	/**
+	 * Atualizar configurações do índice (atributos filtráveis e ordenáveis).
+	 *
+	 * @param int $blog_id ID do blog.
+	 * @return bool True se as configurações foram atualizadas com sucesso.
+	 */
+	private function update_index_settings(int $blog_id): bool
+	{
+		$index_name = $this->client->get_index_name($blog_id);
+
+		// Verificar se a classe de configurações de pesquisa está disponível
+		if (!class_exists('Meilisearch_Search_Settings')) {
+			return false;
+		}
+
+		try {
+			// Obter atributos configurados
+			$sortable_attributes = Meilisearch_Search_Settings::get_sortable_attributes();
+			$filterable_attributes = Meilisearch_Search_Settings::get_filterable_attributes();
+
+			// Atualizar configurações do índice
+			$this->client
+				->get_client()
+				->index($index_name)
+				->updateSettings([
+					'sortableAttributes' => $sortable_attributes,
+					'filterableAttributes' => $filterable_attributes,
+				]);
+
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
+				error_log(sprintf(
+					'Meilisearch: Updated settings for index %s - Sortable: %s, Filterable: %s',
+					$index_name,
+					implode(', ', $sortable_attributes),
+					implode(', ', $filterable_attributes)
+				));
+			}
+
+			return true;
+		} catch (Exception $e) {
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
+				error_log("Meilisearch: Failed to update settings for index {$index_name}: " . $e->getMessage());
+			}
+			return false;
+		}
 	}
 }

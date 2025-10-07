@@ -3,46 +3,46 @@
 declare(strict_types=1);
 
 /**
- * Meilisearch Client Wrapper
+ * Wrapper do Cliente Meilisearch
  *
  * @package Meilisearch
  */
 
-use MeiliSearch\Client;
+use Meilisearch\Client;
 
 /**
- * Class Meilisearch_Client
+ * Classe Meilisearch_Client
  *
- * Wrapper for Meilisearch PHP SDK client.
+ * Wrapper para o cliente do SDK PHP do Meilisearch.
  */
 class Meilisearch_Client
 {
 	/**
-	 * Meilisearch client instance.
+	 * Instância do cliente Meilisearch.
 	 *
 	 * @var Client
 	 */
 	private Client $client;
 
 	/**
-	 * Meilisearch host URL.
+	 * URL do host Meilisearch.
 	 *
 	 * @var string
 	 */
 	private string $host;
 
 	/**
-	 * Meilisearch master key.
+	 * Chave mestra do Meilisearch.
 	 *
 	 * @var string
 	 */
 	private string $master_key;
 
 	/**
-	 * Constructor.
+	 * Construtor.
 	 *
-	 * @param string $host       Meilisearch host URL.
-	 * @param string $master_key Meilisearch master key.
+	 * @param string $host       URL do host Meilisearch.
+	 * @param string $master_key Chave mestra do Meilisearch.
 	 */
 	public function __construct(string $host, string $master_key = '')
 	{
@@ -52,7 +52,7 @@ class Meilisearch_Client
 	}
 
 	/**
-	 * Get the Meilisearch client instance.
+	 * Obter a instância do cliente Meilisearch.
 	 *
 	 * @return Client
 	 */
@@ -62,20 +62,32 @@ class Meilisearch_Client
 	}
 
 	/**
-	 * Get index name for a specific site.
+	 * Obter nome do índice para um site específico.
 	 *
-	 * @param int $blog_id Site ID.
-	 * @return string Index name.
+	 * @param int $blog_id ID do site.
+	 * @return string Nome do índice.
 	 */
 	public function get_index_name(int $blog_id): string
 	{
-		return "wp_{$blog_id}_posts";
+		$settings = get_site_option('meilisearch_settings', []);
+		$format = $settings['index_format'] ?? '{prefix}posts';
+
+		// Obter prefixo da tabela para o site
+		switch_to_blog($blog_id);
+		global $wpdb;
+		$prefix = $wpdb->prefix;
+		restore_current_blog();
+
+		// Substituir marcadores
+		$index_name = str_replace(['{prefix}', '{blog_id}', '{site_id}'], [$prefix, $blog_id, $blog_id], $format);
+
+		return $index_name;
 	}
 
 	/**
-	 * Get all index names for the network.
+	 * Obter todos os nomes de índices da rede.
 	 *
-	 * @return array Array of index names.
+	 * @return array Array de nomes de índices.
 	 */
 	public function get_all_index_names(): array
 	{
@@ -83,17 +95,17 @@ class Meilisearch_Client
 		$indexes = [];
 
 		foreach ($sites as $site) {
-			$indexes[] = $this->get_index_name($site->blog_id);
+			$indexes[] = $this->get_index_name((int) $site->blog_id);
 		}
 
 		return $indexes;
 	}
 
 	/**
-	 * Create index for a site.
+	 * Criar índice para um site.
 	 *
-	 * @param int $blog_id Site ID.
-	 * @return array|null Task info or null on failure.
+	 * @param int $blog_id ID do site.
+	 * @return array|null Informações da tarefa ou null em caso de falha.
 	 */
 	public function create_index(int $blog_id): null|array
 	{
@@ -101,31 +113,34 @@ class Meilisearch_Client
 			$index_name = $this->get_index_name($blog_id);
 			$task = $this->client->createIndex($index_name, ['primaryKey' => 'id']);
 
-			// Configure searchable attributes.
+			// Configurar atributos pesquisáveis.
 			$this->client
 				->index($index_name)
 				->updateSearchableAttributes(['title', 'content', 'excerpt', 'categories', 'tags', 'author']);
 
-			// Configure filterable attributes.
+			// Configurar atributos filtráveis.
 			$this->client
 				->index($index_name)
 				->updateFilterableAttributes(['post_type', 'post_status', 'blog_id', 'author_id', 'categories', 'tags']);
 
-			// Configure sortable attributes.
+			// Configurar atributos ordenáveis.
 			$this->client->index($index_name)->updateSortableAttributes(['date', 'modified']);
 
 			return $task;
 		} catch (Exception $e) {
-			error_log('Meilisearch create index error: ' . $e->getMessage());
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
+				error_log('Meilisearch create index error: ' . $e->getMessage());
+			}
 			return null;
 		}
 	}
 
 	/**
-	 * Delete index for a site.
+	 * Excluir índice de um site.
 	 *
-	 * @param int $blog_id Site ID.
-	 * @return bool True on success, false on failure.
+	 * @param int $blog_id ID do site.
+	 * @return bool True em caso de sucesso, false em caso de falha.
 	 */
 	public function delete_index(int $blog_id): bool
 	{
@@ -134,15 +149,18 @@ class Meilisearch_Client
 			$this->client->deleteIndex($index_name);
 			return true;
 		} catch (Exception $e) {
-			error_log('Meilisearch delete index error: ' . $e->getMessage());
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
+				error_log('Meilisearch delete index error: ' . $e->getMessage());
+			}
 			return false;
 		}
 	}
 
 	/**
-	 * Test connection to Meilisearch server.
+	 * Testar conexão com o servidor Meilisearch.
 	 *
-	 * @return bool True if connection is successful.
+	 * @return bool True se a conexão for bem-sucedida.
 	 */
 	public function test_connection(): bool
 	{
@@ -150,7 +168,10 @@ class Meilisearch_Client
 			$this->client->health();
 			return true;
 		} catch (Exception $e) {
-			error_log('Meilisearch connection error: ' . $e->getMessage());
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
+				error_log('Meilisearch connection error: ' . $e->getMessage());
+			}
 			return false;
 		}
 	}

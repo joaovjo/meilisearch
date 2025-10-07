@@ -1,0 +1,10 @@
+{
+    "label": "Tópicos Avançados",
+    "position": 4,
+    "link": {
+        "type": "generated-index",
+        "title": "Tópicos Avançados",
+        "description": "Documentação técnica avançada e referências"
+    },
+    "collapsed": false
+}

@@ -3,18 +3,18 @@
 declare(strict_types=1);
 
 /**
- * Class Meilisearch_Client_Test
+ * Classe Meilisearch_Client_Test
  *
  * @package Meilisearch
  */
 
 /**
- * Test case for Meilisearch_Client class.
+ * Caso de teste para a classe Meilisearch_Client.
  */
 class Meilisearch_Client_Test extends WP_UnitTestCase
 {
 	/**
-	 * Test client initialization.
+	 * Testar inicialização do cliente.
 	 */
 	public function test_client_initialization(): void
 	{
@@ -23,7 +23,7 @@ class Meilisearch_Client_Test extends WP_UnitTestCase
 	}
 
 	/**
-	 * Test index name generation.
+	 * Testar geração de nome de índice.
 	 */
 	public function test_get_index_name(): void
 	{
@@ -33,7 +33,7 @@ class Meilisearch_Client_Test extends WP_UnitTestCase
 	}
 
 	/**
-	 * Test getting all index names.
+	 * Testar obtenção de todos os nomes de índice.
 	 */
 	public function test_get_all_index_names(): void
 	{

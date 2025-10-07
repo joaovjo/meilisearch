@@ -10,3 +10,7 @@ vendor/
 *.zip
 
 .phpdoc
+composer.lock
+
+analyzer-baseline.toml
+linter-baseline.toml

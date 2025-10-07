@@ -1,0 +1,9 @@
+{
+    "label": "Plugin Meilisearch",
+    "position": 1,
+    "link": {
+        "type": "generated-index",
+        "description": "Documentação completa do plugin Meilisearch Network Search para WordPress Multisite"
+    },
+    "collapsed": false
+}

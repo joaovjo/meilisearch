@@ -3,22 +3,22 @@
 declare(strict_types=1);
 
 /**
- * Class SampleTest
+ * Classe SampleTest
  *
  * @package Meilisearch
  */
 
 /**
- * Sample test case.
+ * Caso de teste de exemplo.
  */
 class SampleTest extends WP_UnitTestCase
 {
 	/**
-	 * A single example test.
+	 * Um único teste de exemplo.
 	 */
 	public function test_sample(): void
 	{
-		// Replace this with some actual testing code.
+		// Substitua isso por algum código de teste real.
 		static::assertTrue(true);
 	}
 }

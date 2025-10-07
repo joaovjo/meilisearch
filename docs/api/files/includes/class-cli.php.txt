@@ -1,434 +1,437 @@
 <?php
+
+declare(strict_types=1);
+
 /**
- * WP-CLI commands for Meilisearch plugin.
+ * Comandos WP-CLI para o plugin Meilisearch.
  *
  * @package Meilisearch
  */
 
 /**
- * Meilisearch WP-CLI commands.
+ * Comandos WP-CLI do Meilisearch.
  */
-class Meilisearch_CLI {
-
+class Meilisearch_CLI
+{
 	/**
-	 * Meilisearch client instance.
+	 * Instância do cliente Meilisearch.
 	 *
 	 * @var Meilisearch_Client
 	 */
 	private Meilisearch_Client $client;
 
 	/**
-	 * Meilisearch indexer instance.
+	 * Instância do indexador Meilisearch.
 	 *
 	 * @var Meilisearch_Indexer
 	 */
 	private Meilisearch_Indexer $indexer;
 
 	/**
-	 * Constructor.
+	 * Construtor.
 	 *
-	 * @param Meilisearch_Client  $client  Meilisearch client instance.
-	 * @param Meilisearch_Indexer $indexer Meilisearch indexer instance.
+	 * @param Meilisearch_Client  $client  Instância do cliente Meilisearch.
+	 * @param Meilisearch_Indexer $indexer Instância do indexador Meilisearch.
 	 */
-	public function __construct( Meilisearch_Client $client, Meilisearch_Indexer $indexer ) {
-		$this->client  = $client;
+	public function __construct(Meilisearch_Client $client, Meilisearch_Indexer $indexer)
+	{
+		$this->client = $client;
 		$this->indexer = $indexer;
 	}
 
 	/**
-	 * Reindex all posts for a specific blog or all blogs in the network.
+	 * Reindexa todos os posts de um blog específico ou todos os blogs da rede.
 	 *
-	 * ## OPTIONS
+	 * ## OPÇÕES
 	 *
 	 * [--blog_id=<blog_id>]
-	 * : The blog ID to reindex. If not provided, reindexes all blogs in the network.
+	 * : O ID do blog a ser reindexado. Se não fornecido, reindexa todos os blogs da rede.
 	 *
 	 * [--url=<url>]
-	 * : The blog URL to reindex (alternative to blog_id).
+	 * : A URL do blog a ser reindexado (alternativa ao blog_id).
 	 *
-	 * ## EXAMPLES
+	 * ## EXEMPLOS
 	 *
-	 *     # Reindex a specific blog by ID
+	 *     # Reindexar um blog específico por ID
 	 *     wp meilisearch reindex --blog_id=2
 	 *
-	 *     # Reindex a specific blog by URL
+	 *     # Reindexar um blog específico por URL
 	 *     wp meilisearch reindex --url=http://example.com/labcom/
 	 *
-	 *     # Reindex all blogs in the network
+	 *     # Reindexar todos os blogs da rede
 	 *     wp meilisearch reindex
 	 *
-	 * @param array $args       Positional arguments.
-	 * @param array $assoc_args Associative arguments.
+	 * @param array $args       Argumentos posicionais.
+	 * @param array $assoc_args Argumentos associativos.
 	 */
-	public function reindex( $args, $assoc_args ) {
+	public function reindex($args, $assoc_args)
+	{
 		$blog_id = $assoc_args['blog_id'] ?? null;
-		$url     = $assoc_args['url'] ?? null;
+		$url = $assoc_args['url'] ?? null;
 
-		// If URL is provided, get blog_id from it.
-		if ( $url && ! $blog_id ) {
-			$blog_id = get_blog_id_from_url( $url );
-			if ( ! $blog_id ) {
-				WP_CLI::error( "Blog not found for URL: $url" );
+		// Se a URL for fornecida, obter blog_id dela.
+		if ($url && !$blog_id) {
+			$blog_id = get_blog_id_from_url($url);
+			if (!$blog_id) {
+				WP_CLI::error("Blog not found for URL: $url");
 			}
 		}
 
-		if ( $blog_id ) {
-			// Reindex single blog.
-			WP_CLI::log( "Reindexing blog $blog_id..." );
-			$results = $this->indexer->index_site_posts( (int) $blog_id );
+		if ($blog_id) {
+			// Reindexar um único blog.
+			WP_CLI::log("Reindexing blog $blog_id...");
+			$results = $this->indexer->index_site_posts((int) $blog_id);
 
-			if ( ! empty( $results['errors'] ) ) {
-				WP_CLI::warning( 'Reindexing completed with errors:' );
-				foreach ( $results['errors'] as $error ) {
-					WP_CLI::warning( $error );
+			if (isset($results['errors']) && is_array($results['errors']) && count($results['errors']) > 0) {
+				WP_CLI::warning('Reindexing completed with errors:');
+				foreach ($results['errors'] as $error) {
+					WP_CLI::warning($error);
 				}
 			}
 
-			WP_CLI::success( sprintf(
-				'Reindexed %d of %d posts for blog %d',
-				$results['indexed'],
-				$results['total'],
-				$blog_id
-			) );
+			WP_CLI::success(sprintf('Reindexed %d of %d posts for blog %d', $results['indexed'], $results['total'], $blog_id));
 		} else {
-			// Reindex all blogs in network.
-			if ( ! is_multisite() ) {
-				WP_CLI::error( 'This is not a multisite installation. Use --blog_id=1 or --url parameter.' );
+			// Reindexar todos os blogs da rede.
+			if (!is_multisite()) {
+				WP_CLI::error('This is not a multisite installation. Use --blog_id=1 or --url parameter.');
 			}
 
-			$sites = get_sites( [ 'number' => 999 ] );
-			WP_CLI::log( sprintf( 'Found %d sites to reindex...', count( $sites ) ) );
+			$sites = get_sites(['number' => 999]);
+			WP_CLI::log(sprintf('Found %d sites to reindex...', count($sites)));
 
-			$progress = \WP_CLI\Utils\make_progress_bar( 'Reindexing sites', count( $sites ) );
+			$progress = \WP_CLI\Utils\make_progress_bar('Reindexing sites', count($sites));
 
 			$total_indexed = 0;
-			$total_posts   = 0;
+			$total_posts = 0;
 
-			foreach ( $sites as $site ) {
-				$results = $this->indexer->index_site_posts( (int) $site->blog_id );
+			foreach ($sites as $site) {
+				$results = $this->indexer->index_site_posts((int) $site->blog_id);
 				$total_indexed += $results['indexed'];
-				$total_posts   += $results['total'];
+				$total_posts += $results['total'];
 				$progress->tick();
 			}
 
 			$progress->finish();
 
-			WP_CLI::success( sprintf(
-				'Reindexed %d of %d posts across %d sites',
-				$total_indexed,
-				$total_posts,
-				count( $sites )
-			) );
+			WP_CLI::success(sprintf('Reindexed %d of %d posts across %d sites', $total_indexed, $total_posts, count($sites)));
 		}
 	}
 
 	/**
-	 * List all Meilisearch indexes.
+	 * Lista todos os índices do Meilisearch.
 	 *
-	 * ## OPTIONS
+	 * ## OPÇÕES
 	 *
 	 * [--format=<format>]
-	 * : Output format. Options: table, json, csv, yaml, count. Default: table
+	 * : Formato de saída. Opções: table, json, csv, yaml, count. Padrão: table
 	 *
-	 * ## EXAMPLES
+	 * ## EXEMPLOS
 	 *
-	 *     # List all indexes as table
+	 *     # Listar todos os índices como tabela
 	 *     wp meilisearch list-indexes
 	 *
-	 *     # List all indexes as JSON
+	 *     # Listar todos os índices como JSON
 	 *     wp meilisearch list-indexes --format=json
 	 *
-	 * @param array $args       Positional arguments.
-	 * @param array $assoc_args Associative arguments.
+	 * @param array $args       Argumentos posicionais.
+	 * @param array $assoc_args Argumentos associativos.
 	 */
-	public function list_indexes( $args, $assoc_args ) {
+	public function list_indexes($args, $assoc_args)
+	{
 		$format = $assoc_args['format'] ?? 'table';
 
 		try {
 			$indexes = $this->client->get_all_index_names();
-			$data    = [];
+			$data = [];
 
-			foreach ( $indexes as $index ) {
-				// Extract blog_id from index name (wp_X_posts).
-				preg_match( '/wp_(\d+)_posts/', $index, $matches );
+			foreach ($indexes as $index) {
+				// Extrair blog_id do nome do índice (wp_X_posts).
+				preg_match('/wp_(\d+)_posts/', $index, $matches);
 				$blog_id = $matches[1] ?? 'unknown';
 
 				$blog_name = 'Unknown';
-				if ( is_numeric( $blog_id ) ) {
-					$blog_details = get_blog_details( (int) $blog_id );
-					$blog_name    = $blog_details ? $blog_details->blogname : 'Blog not found';
+				if (is_numeric($blog_id)) {
+					$blog_details = get_blog_details((int) $blog_id);
+					$blog_name = $blog_details ? $blog_details->blogname : 'Blog not found';
 				}
 
-				// Get index stats.
-				$stats = $this->client->get_client()->index( $index )->stats();
+				// Obter estatísticas do índice.
+				$stats = $this->client
+					->get_client()
+					->index($index)
+					->stats();
 
 				$data[] = [
-					'index'      => $index,
-					'blog_id'    => $blog_id,
-					'blog_name'  => $blog_name,
-					'documents'  => $stats['numberOfDocuments'] ?? 0,
-					'indexing'   => ( $stats['isIndexing'] ?? false ) ? 'Yes' : 'No',
+					'index' => $index,
+					'blog_id' => $blog_id,
+					'blog_name' => $blog_name,
+					'documents' => $stats['numberOfDocuments'] ?? 0,
+					'indexing' => $stats['isIndexing'] ?? false ? 'Yes' : 'No',
 				];
 			}
 
-			WP_CLI\Utils\format_items( $format, $data, [ 'index', 'blog_id', 'blog_name', 'documents', 'indexing' ] );
-		} catch ( Exception $e ) {
-			WP_CLI::error( 'Failed to list indexes: ' . $e->getMessage() );
+			WP_CLI\Utils\format_items($format, $data, ['index', 'blog_id', 'blog_name', 'documents', 'indexing']);
+		} catch (Exception $e) {
+			WP_CLI::error('Failed to list indexes: ' . $e->getMessage());
 		}
 	}
 
 	/**
-	 * Create index for a specific blog.
+	 * Cria índice para um blog específico.
 	 *
-	 * ## OPTIONS
+	 * ## OPÇÕES
 	 *
 	 * <blog_id>
-	 * : The blog ID to create index for.
+	 * : O ID do blog para criar o índice.
 	 *
-	 * ## EXAMPLES
+	 * ## EXEMPLOS
 	 *
-	 *     # Create index for blog 2
+	 *     # Criar índice para o blog 2
 	 *     wp meilisearch create-index 2
 	 *
-	 * @param array $args       Positional arguments.
-	 * @param array $assoc_args Associative arguments.
+	 * @param array $args       Argumentos posicionais.
+	 * @param array $assoc_args Argumentos associativos.
 	 */
-	public function create_index( $args, $assoc_args ) {
+	public function create_index($args, $assoc_args)
+	{
 		$blog_id = (int) $args[0];
 
-		if ( ! $blog_id ) {
-			WP_CLI::error( 'Invalid blog ID provided.' );
+		if (!$blog_id) {
+			WP_CLI::error('Invalid blog ID provided.');
 		}
 
-		WP_CLI::log( "Creating index for blog $blog_id..." );
+		WP_CLI::log("Creating index for blog $blog_id...");
 
 		try {
-			$result = $this->client->create_index( $blog_id );
+			$result = $this->client->create_index($blog_id);
 
-			if ( $result ) {
-				WP_CLI::success( "Index created for blog $blog_id: " . $this->client->get_index_name( $blog_id ) );
+			if ($result) {
+				WP_CLI::success("Index created for blog $blog_id: " . $this->client->get_index_name($blog_id));
 			} else {
-				WP_CLI::error( 'Failed to create index.' );
+				WP_CLI::error('Failed to create index.');
 			}
-		} catch ( Exception $e ) {
-			WP_CLI::error( 'Failed to create index: ' . $e->getMessage() );
+		} catch (Exception $e) {
+			WP_CLI::error('Failed to create index: ' . $e->getMessage());
 		}
 	}
 
 	/**
-	 * Delete index for a specific blog.
+	 * Remove índice de um blog específico.
 	 *
-	 * ## OPTIONS
+	 * ## OPÇÕES
 	 *
 	 * <blog_id>
-	 * : The blog ID to delete index for.
+	 * : O ID do blog para remover o índice.
 	 *
 	 * [--yes]
-	 * : Skip confirmation prompt.
+	 * : Pular prompt de confirmação.
 	 *
-	 * ## EXAMPLES
+	 * ## EXEMPLOS
 	 *
-	 *     # Delete index for blog 2
+	 *     # Remover índice do blog 2
 	 *     wp meilisearch delete-index 2 --yes
 	 *
-	 * @param array $args       Positional arguments.
-	 * @param array $assoc_args Associative arguments.
+	 * @param array $args       Argumentos posicionais.
+	 * @param array $assoc_args Argumentos associativos.
 	 */
-	public function delete_index( $args, $assoc_args ) {
+	public function delete_index($args, $assoc_args)
+	{
 		$blog_id = (int) $args[0];
 
-		if ( ! $blog_id ) {
-			WP_CLI::error( 'Invalid blog ID provided.' );
+		if (!$blog_id) {
+			WP_CLI::error('Invalid blog ID provided.');
 		}
 
-		$index_name = $this->client->get_index_name( $blog_id );
+		$index_name = $this->client->get_index_name($blog_id);
 
-		WP_CLI::confirm( "Are you sure you want to delete index '$index_name'?", $assoc_args );
+		WP_CLI::confirm("Are you sure you want to delete index '$index_name'?", $assoc_args);
 
-		WP_CLI::log( "Deleting index $index_name..." );
+		WP_CLI::log("Deleting index $index_name...");
 
 		try {
-			$result = $this->client->delete_index( $blog_id );
+			$result = $this->client->delete_index($blog_id);
 
-			if ( $result ) {
-				WP_CLI::success( "Index deleted: $index_name" );
+			if ($result) {
+				WP_CLI::success("Index deleted: $index_name");
 			} else {
-				WP_CLI::error( 'Failed to delete index.' );
+				WP_CLI::error('Failed to delete index.');
 			}
-		} catch ( Exception $e ) {
-			WP_CLI::error( 'Failed to delete index: ' . $e->getMessage() );
+		} catch (Exception $e) {
+			WP_CLI::error('Failed to delete index: ' . $e->getMessage());
 		}
 	}
 
 	/**
-	 * Search posts across the network.
+	 * Busca posts em toda a rede.
 	 *
-	 * ## OPTIONS
+	 * ## OPÇÕES
 	 *
 	 * <query>
-	 * : The search query.
+	 * : A consulta de busca.
 	 *
 	 * [--limit=<limit>]
-	 * : Maximum number of results. Default: 20
+	 * : Número máximo de resultados. Padrão: 20
 	 *
 	 * [--blog_id=<blog_id>]
-	 * : Search only in specific blog. If not provided, searches all blogs.
+	 * : Buscar apenas em um blog específico. Se não fornecido, busca em todos os blogs.
 	 *
 	 * [--format=<format>]
-	 * : Output format. Options: table, json, csv, yaml. Default: table
+	 * : Formato de saída. Opções: table, json, csv, yaml. Padrão: table
 	 *
-	 * ## EXAMPLES
+	 * ## EXEMPLOS
 	 *
-	 *     # Search for "mundo" across all blogs
+	 *     # Buscar por "mundo" em todos os blogs
 	 *     wp meilisearch search "mundo"
 	 *
-	 *     # Search in specific blog with limit
+	 *     # Buscar em blog específico com limite
 	 *     wp meilisearch search "inteligente" --blog_id=2 --limit=10
 	 *
-	 *     # Get results as JSON
+	 *     # Obter resultados como JSON
 	 *     wp meilisearch search "mundo" --format=json
 	 *
-	 * @param array $args       Positional arguments.
-	 * @param array $assoc_args Associative arguments.
+	 * @param array $args       Argumentos posicionais.
+	 * @param array $assoc_args Argumentos associativos.
 	 */
-	public function search( $args, $assoc_args ) {
-		$query   = $args[0] ?? '';
-		$limit   = (int) ( $assoc_args['limit'] ?? 20 );
-		$blog_id = isset( $assoc_args['blog_id'] ) ? (int) $assoc_args['blog_id'] : null;
-		$format  = $assoc_args['format'] ?? 'table';
+	public function search($args, $assoc_args)
+	{
+		$query = $args[0] ?? '';
+		$limit = (int) ($assoc_args['limit'] ?? 20);
+		$blog_id = isset($assoc_args['blog_id']) ? (int) $assoc_args['blog_id'] : null;
+		$format = $assoc_args['format'] ?? 'table';
 
-		if ( empty( $query ) ) {
-			WP_CLI::error( 'Search query is required.' );
+		if (null === $query || '' === $query) {
+			WP_CLI::error('Search query is required.');
 		}
 
-		$searcher = new Meilisearch_Searcher( $this->client );
+		$searcher = new Meilisearch_Searcher($this->client);
 
 		try {
-			if ( $blog_id ) {
-				$results = $searcher->search_site( $query, $blog_id, [ 'limit' => $limit ] );
-				$hits    = $results['hits'];
+			if ($blog_id) {
+				$results = $searcher->search_site($query, $blog_id, ['limit' => $limit]);
+				$hits = $results['hits'];
 			} else {
-				$results = $searcher->search_network( $query, [ 'limit' => $limit ] );
-				$hits    = $results['hits'];
+				$results = $searcher->search_network($query, ['limit' => $limit]);
+				$hits = $results['hits'];
 			}
 
-			if ( empty( $hits ) ) {
-				WP_CLI::warning( 'No results found.' );
+			if (!isset($hits) || !is_array($hits) || count($hits) === 0) {
+				WP_CLI::warning('No results found.');
 				return;
 			}
 
 			$data = [];
-			foreach ( $hits as $hit ) {
+			foreach ($hits as $hit) {
 				$data[] = [
-					'blog_id'     => $hit['blog_id'] ?? 'N/A',
-					'post_id'     => $hit['id'] ?? 'N/A',
-					'title'       => wp_trim_words( $hit['title'] ?? '', 10 ),
-					'post_type'   => $hit['post_type'] ?? 'N/A',
+					'blog_id' => $hit['blog_id'] ?? 'N/A',
+					'post_id' => $hit['id'] ?? 'N/A',
+					'title' => wp_trim_words($hit['title'] ?? '', 10),
+					'post_type' => $hit['post_type'] ?? 'N/A',
 					'post_status' => $hit['post_status'] ?? 'N/A',
-					'permalink'   => $hit['permalink'] ?? 'N/A',
+					'permalink' => $hit['permalink'] ?? 'N/A',
 				];
 			}
 
-			WP_CLI\Utils\format_items( $format, $data, [ 'blog_id', 'post_id', 'title', 'post_type', 'post_status', 'permalink' ] );
+			WP_CLI\Utils\format_items($format, $data, ['blog_id', 'post_id', 'title', 'post_type', 'post_status', 'permalink']);
 
-			WP_CLI::success( sprintf( 'Found %d results for "%s"', count( $hits ), $query ) );
-		} catch ( Exception $e ) {
-			WP_CLI::error( 'Search failed: ' . $e->getMessage() );
+			WP_CLI::success(sprintf('Found %d results for "%s"', count($hits), $query));
+		} catch (Exception $e) {
+			WP_CLI::error('Search failed: ' . $e->getMessage());
 		}
 	}
 
 	/**
-	 * Check Meilisearch server connection and health.
+	 * Verifica a conexão e saúde do servidor Meilisearch.
 	 *
-	 * ## EXAMPLES
+	 * ## EXEMPLOS
 	 *
-	 *     # Check server health
+	 *     # Verificar saúde do servidor
 	 *     wp meilisearch health
 	 *
-	 * @param array $args       Positional arguments.
-	 * @param array $assoc_args Associative arguments.
+	 * @param array $args       Argumentos posicionais.
+	 * @param array $assoc_args Argumentos associativos.
 	 */
-	public function health( $args, $assoc_args ) {
-		WP_CLI::log( 'Checking Meilisearch server health...' );
+	public function health($args, $assoc_args)
+	{
+		WP_CLI::log('Checking Meilisearch server health...');
 
 		try {
 			$health = $this->client->get_client()->health();
 
-			if ( isset( $health['status'] ) && $health['status'] === 'available' ) {
-				WP_CLI::success( 'Meilisearch server is healthy and available!' );
+			if (isset($health['status']) && 'available' === $health['status']) {
+				WP_CLI::success('Meilisearch server is healthy and available!');
 
-				// Get version info.
+				// Obter informações de versão.
 				$version = $this->client->get_client()->version();
-				WP_CLI::log( 'Version: ' . ( $version['pkgVersion'] ?? 'Unknown' ) );
+				WP_CLI::log('Version: ' . ($version['pkgVersion'] ?? 'Unknown'));
 			} else {
-				WP_CLI::warning( 'Meilisearch server status: ' . ( $health['status'] ?? 'Unknown' ) );
+				WP_CLI::warning('Meilisearch server status: ' . ($health['status'] ?? 'Unknown'));
 			}
-		} catch ( Exception $e ) {
-			WP_CLI::error( 'Failed to connect to Meilisearch server: ' . $e->getMessage() );
+		} catch (Exception $e) {
+			WP_CLI::error('Failed to connect to Meilisearch server: ' . $e->getMessage());
 		}
 	}
 
 	/**
-	 * Get statistics about indexed documents.
+	 * Obtém estatísticas sobre documentos indexados.
 	 *
-	 * ## OPTIONS
+	 * ## OPÇÕES
 	 *
 	 * [--blog_id=<blog_id>]
-	 * : Get stats for specific blog. If not provided, shows stats for all blogs.
+	 * : Obter estatísticas para um blog específico. Se não fornecido, mostra estatísticas de todos os blogs.
 	 *
-	 * ## EXAMPLES
+	 * ## EXEMPLOS
 	 *
-	 *     # Get stats for all blogs
+	 *     # Obter estatísticas de todos os blogs
 	 *     wp meilisearch stats
 	 *
-	 *     # Get stats for specific blog
+	 *     # Obter estatísticas de um blog específico
 	 *     wp meilisearch stats --blog_id=2
 	 *
-	 * @param array $args       Positional arguments.
-	 * @param array $assoc_args Associative arguments.
+	 * @param array $args       Argumentos posicionais.
+	 * @param array $assoc_args Argumentos associativos.
 	 */
-	public function stats( $args, $assoc_args ) {
-		$blog_id = isset( $assoc_args['blog_id'] ) ? (int) $assoc_args['blog_id'] : null;
+	public function stats($args, $assoc_args)
+	{
+		$blog_id = isset($assoc_args['blog_id']) ? (int) $assoc_args['blog_id'] : null;
 
 		try {
-			if ( $blog_id ) {
-				// Stats for specific blog.
-				$index_name = $this->client->get_index_name( $blog_id );
-				$stats      = $this->client->get_client()->index( $index_name )->stats();
+			if ($blog_id) {
+				// Estatísticas para um blog específico.
+				$index_name = $this->client->get_index_name($blog_id);
+				$stats = $this->client
+					->get_client()
+					->index($index_name)
+					->stats();
 
-				WP_CLI::log( "Statistics for blog $blog_id ($index_name):" );
-				WP_CLI::log( '  Documents: ' . ( $stats['numberOfDocuments'] ?? 0 ) );
-				WP_CLI::log( '  Indexing: ' . ( ( $stats['isIndexing'] ?? false ) ? 'Yes' : 'No' ) );
+				WP_CLI::log("Statistics for blog $blog_id ($index_name):");
+				WP_CLI::log('  Documents: ' . ($stats['numberOfDocuments'] ?? 0));
+				WP_CLI::log('  Indexing: ' . ($stats['isIndexing'] ?? false ? 'Yes' : 'No'));
 
-				if ( isset( $stats['fieldDistribution'] ) ) {
-					WP_CLI::log( "\n  Field Distribution:" );
-					foreach ( $stats['fieldDistribution'] as $field => $count ) {
-						WP_CLI::log( "    $field: $count" );
+				if (isset($stats['fieldDistribution'])) {
+					WP_CLI::log("\n  Field Distribution:");
+					foreach ($stats['fieldDistribution'] as $field => $count) {
+						WP_CLI::log("    $field: $count");
 					}
 				}
 			} else {
-				// Stats for all indexes.
+				// Estatísticas para todos os índices.
 				$all_stats = $this->client->get_client()->stats();
 
-				WP_CLI::log( 'Global Meilisearch Statistics:' );
-				WP_CLI::log( '  Database Size: ' . size_format( $all_stats['databaseSize'] ?? 0 ) );
-				WP_CLI::log( '  Total Indexes: ' . count( $all_stats['indexes'] ?? [] ) );
+				WP_CLI::log('Global Meilisearch Statistics:');
+				WP_CLI::log('  Database Size: ' . size_format($all_stats['databaseSize'] ?? 0));
+				WP_CLI::log('  Total Indexes: ' . count($all_stats['indexes'] ?? []));
 
-				if ( isset( $all_stats['indexes'] ) ) {
-					WP_CLI::log( "\n  Indexes:" );
-					foreach ( $all_stats['indexes'] as $index_name => $index_stats ) {
-						WP_CLI::log( sprintf(
-							'    %s: %d documents',
-							$index_name,
-							$index_stats['numberOfDocuments'] ?? 0
-						) );
+				if (isset($all_stats['indexes'])) {
+					WP_CLI::log("\n  Indexes:");
+					foreach ($all_stats['indexes'] as $index_name => $index_stats) {
+						WP_CLI::log(sprintf('    %s: %d documents', $index_name, $index_stats['numberOfDocuments'] ?? 0));
 					}
 				}
 			}
 
-			WP_CLI::success( 'Stats retrieved successfully.' );
-		} catch ( Exception $e ) {
-			WP_CLI::error( 'Failed to get stats: ' . $e->getMessage() );
+			WP_CLI::success('Stats retrieved successfully.');
+		} catch (Exception $e) {
+			WP_CLI::error('Failed to get stats: ' . $e->getMessage());
 		}
 	}
 }

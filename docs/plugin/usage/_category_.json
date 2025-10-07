@@ -1,0 +1,10 @@
+{
+    "label": "Guias de Uso",
+    "position": 3,
+    "link": {
+        "type": "generated-index",
+        "title": "Guias de Uso",
+        "description": "Guias detalhados para usuários, administradores e desenvolvedores"
+    },
+    "collapsed": false
+}

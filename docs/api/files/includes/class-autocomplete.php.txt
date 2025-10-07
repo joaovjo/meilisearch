@@ -1,115 +1,115 @@
 <?php
+
+declare(strict_types=1);
+
 /**
- * Meilisearch Autocomplete
+ * Autocompletar Meilisearch
  *
  * @package Meilisearch
  */
 
 /**
- * Class Meilisearch_Autocomplete
+ * Classe Meilisearch_Autocomplete
  *
- * Handles autocomplete functionality for search.
+ * Gerencia funcionalidade de autocompletar para busca.
  */
-class Meilisearch_Autocomplete {
-
+class Meilisearch_Autocomplete
+{
 	/**
-	 * Meilisearch client instance.
+	 * Instância do cliente Meilisearch.
 	 *
 	 * @var Meilisearch_Client
 	 */
 	private Meilisearch_Client $client;
 
 	/**
-	 * Constructor.
+	 * Construtor.
 	 *
-	 * @param Meilisearch_Client $client Meilisearch client instance.
+	 * @param Meilisearch_Client $client Instância do cliente Meilisearch.
 	 */
-	public function __construct( Meilisearch_Client $client ) {
+	public function __construct(Meilisearch_Client $client)
+	{
 		$this->client = $client;
 	}
 
 	/**
-	 * Initialize WordPress hooks.
+	 * Inicializar hooks do WordPress.
 	 */
-	public function init_hooks(): void {
-		add_action( 'rest_api_init', [ $this, 'register_rest_route' ] );
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+	public function init_hooks(): void
+	{
+		add_action('rest_api_init', [$this, 'register_rest_route']);
+		add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts']);
 	}
 
 	/**
-	 * Register REST API endpoint for autocomplete.
+	 * Registrar endpoint REST API para autocompletar.
 	 */
-	public function register_rest_route(): void {
-		register_rest_route(
-			'meilisearch/v1',
-			'/autocomplete',
-			[
-				'methods'             => 'GET',
-				'callback'            => [ $this, 'handle_autocomplete_request' ],
-				'permission_callback' => '__return_true',
-				'args'                => [
-					'q' => [
-						'required'          => true,
-						'type'              => 'string',
-						'sanitize_callback' => 'sanitize_text_field',
-					],
-					'limit' => [
-						'required'          => false,
-						'type'              => 'integer',
-						'default'           => 5,
-						'sanitize_callback' => 'absint',
-					],
+	public function register_rest_route(): void
+	{
+		register_rest_route('meilisearch/v1', '/autocomplete', [
+			'methods' => 'GET',
+			'callback' => [$this, 'handle_autocomplete_request'],
+			'permission_callback' => '__return_true',
+			'args' => [
+				'q' => [
+					'required' => true,
+					'type' => 'string',
+					'sanitize_callback' => 'sanitize_text_field',
 				],
-			]
-		);
+				'limit' => [
+					'required' => false,
+					'type' => 'integer',
+					'default' => 5,
+					'sanitize_callback' => 'absint',
+				],
+			],
+		]);
 	}
 
 	/**
-	 * Handle autocomplete REST API request.
+	 * Gerenciar requisição REST API de autocompletar.
 	 *
-	 * @param WP_REST_Request $request Request object.
-	 * @return WP_REST_Response Response object.
+	 * @param WP_REST_Request $request Objeto de requisição.
+	 * @return WP_REST_Response Objeto de resposta.
 	 */
-	public function handle_autocomplete_request( WP_REST_Request $request ): WP_REST_Response {
-		$query = $request->get_param( 'q' );
-		$limit = $request->get_param( 'limit' ) ?: 5;
+	public function handle_autocomplete_request(WP_REST_Request $request): WP_REST_Response
+	{
+		$query = $request->get_param('q');
+		$limit = $request->get_param('limit') ?? 5;
 
-		if ( empty( $query ) || strlen( $query ) < 2 ) {
-			return new WP_REST_Response( [], 200 );
+		if (null === $query || '' === $query || strlen($query) < 2) {
+			return new WP_REST_Response([], 200);
 		}
 
-		$searcher    = new Meilisearch_Searcher( $this->client );
-		$suggestions = $searcher->get_suggestions( $query, $limit );
+		$searcher = new Meilisearch_Searcher($this->client);
+		$suggestions = $searcher->get_suggestions($query, $limit);
 
-		return new WP_REST_Response( $suggestions, 200 );
+		return new WP_REST_Response($suggestions, 200);
 	}
 
 	/**
-	 * Enqueue autocomplete scripts and styles.
+	 * Enfileirar scripts e estilos de autocompletar.
 	 */
-	public function enqueue_scripts(): void {
+	public function enqueue_scripts(): void
+	{
 		wp_enqueue_script(
 			'meilisearch-autocomplete',
 			MEILISEARCH_PLUGIN_URL . 'assets/js/autocomplete.js',
-			[ 'jquery' ],
+			['jquery'],
 			MEILISEARCH_VERSION,
-			true
+			true,
 		);
 
 		wp_enqueue_style(
 			'meilisearch-autocomplete',
 			MEILISEARCH_PLUGIN_URL . 'assets/css/autocomplete.css',
 			[],
-			MEILISEARCH_VERSION
+			MEILISEARCH_VERSION,
 		);
 
-		wp_localize_script(
-			'meilisearch-autocomplete',
-			'meilisearchConfig',
-			[
-				'apiUrl' => rest_url( 'meilisearch/v1/autocomplete' ),
-				'nonce'  => wp_create_nonce( 'wp_rest' ),
-			]
-		);
+		wp_localize_script('meilisearch-autocomplete', 'meilisearchConfig', [
+			'apiUrl' => rest_url('meilisearch/v1/autocomplete'),
+			'nonce' => wp_create_nonce('wp_rest'),
+		]);
 	}
 }

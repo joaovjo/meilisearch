@@ -41,3 +41,9 @@ node_modules
 *.sql
 *.tar.gz
 *.zip
+.vscode
+tools
+phpdoc.xml
+analyzer-baseline.toml
+linter-baseline.toml
+mago.toml

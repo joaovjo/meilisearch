@@ -23,8 +23,9 @@
     "mago:lint": "vendor/bin/mago lint",
     "mago:lint:fix": "vendor/bin/mago lint --fix",
     "mago:lint:rules": "vendor/bin/mago lint --list-rules",
+    "mago:lint:baseline": "vendor/bin/mago lint --generate-baseline",
     "mago:analyze": "vendor/bin/mago analyze",
-    "mago:analyze:baseline": "vendor/bin/mago analyze --generate-baseline analyzer-baseline.toml",
+    "mago:analyze:baseline": "vendor/bin/mago analyze --generate-baseline",
     "mago:config": "vendor/bin/mago config",
     "mago:all": [
       "@mago:fmt",
