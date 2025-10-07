@@ -163,8 +163,8 @@ class Meilisearch_Search_API
 				'blog_id' => $hit['blog_id'] ?? 0,
 				'post_type' => $hit['post_type'] ?? 'post',
 				'post_status' => $hit['post_status'] ?? 'publish',
-				'post_date' => $hit['post_date'] ?? '',
-				'post_modified' => $hit['post_modified'] ?? '',
+				'post_date' => isset($hit['date']) ? date('Y-m-d H:i:s', $hit['date']) : '',
+				'post_modified' => isset($hit['modified']) ? date('Y-m-d H:i:s', $hit['modified']) : '',
 				'author_id' => $hit['author_id'] ?? 0,
 			];
 

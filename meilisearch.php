@@ -51,6 +51,9 @@ require_once MEILISEARCH_PLUGIN_DIR . 'includes/class-searcher.php';
 require_once MEILISEARCH_PLUGIN_DIR . 'includes/class-autocomplete.php';
 require_once MEILISEARCH_PLUGIN_DIR . 'includes/class-search-api.php';
 
+// Incluir classe de configurações de pesquisa (necessária no frontend e admin).
+require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-search-settings.php';
+
 // Incluir classes admin.
 if (is_admin() && is_multisite()) {
 	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-dashboard.php';
@@ -58,7 +61,6 @@ if (is_admin() && is_multisite()) {
 	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-index-analyzer.php';
 	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-multi-pattern-search.php';
 	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-network-settings.php';
-	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-search-settings.php';
 }
 
 // Incluir classes públicas.

@@ -66,13 +66,22 @@ Select which attributes should be sortable and filterable using the checkboxes.
 
 ### 2. Reindex Content
 
-After changing settings, you **must reindex** your content:
+⚠️ **IMPORTANTE:** Após alterar as configurações de atributos sortáveis ou filtráveis, você **DEVE reindexar** todo o conteúdo existente.
 
-```bash
-wp meilisearch index --network
-```
+**Por quê?** Os documentos que já foram indexados antes da mudança de configuração não terão o comportamento correto de ordenação/filtragem. Apenas novos documentos adicionados após a mudança funcionarão corretamente.
 
-This applies the new settings to all Meilisearch indexes in your network.
+**Como reindexar:**
+
+Existem várias formas de reindexar o conteúdo existente. Consulte a documentação completa em [Reindexação de Conteúdo](../../reindexing.md) para instruções detalhadas.
+
+**Forma rápida (via Admin):**
+
+1. Vá em **Posts** ou **Páginas** 
+2. Selecione todos os itens (checkbox no topo)
+3. Em **Ações em Massa**, escolha **Editar** → **Aplicar**
+4. **Não modifique nada**, apenas clique em **Atualizar**
+
+Isso força a reindexação de todos os items selecionados.
 
 ### 3. Use in Searches
 
