@@ -1,3 +1,21 @@
+---
+id: developer-guide
+title: Guia do Desenvolvedor
+sidebar_label: Guia do Dev
+sidebar_position: 3
+description: Guia para desenvolvedores que desejam contribuir ou estender o plugin
+keywords:
+  - desenvolvedor
+  - developer
+  - contribuição
+  - customização
+  - extensão
+tags:
+  - Usage
+  - Developer Guide
+  - Contributing
+---
+
 # 👨‍💻 Guia do Desenvolvedor
 
 Guia para desenvolvedores que desejam contribuir, customizar ou estender o plugin Meilisearch.

@@ -1,3 +1,19 @@
+---
+id: configuration
+title: Configuração
+sidebar_label: Configuração
+sidebar_position: 3
+description: Guia completo de todas as opções de configuração do plugin
+keywords:
+  - configuração
+  - settings
+  - opções
+  - master key
+tags:
+  - Configuration
+  - Settings
+---
+
 # ⚙️ Configuração
 
 Guia completo de todas as opções de configuração do plugin Meilisearch Network Search.

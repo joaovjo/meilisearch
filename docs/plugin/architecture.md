@@ -1,3 +1,20 @@
+---
+id: architecture
+title: Arquitetura do Sistema
+sidebar_label: Arquitetura
+sidebar_position: 4
+description: Arquitetura técnica do plugin incluindo componentes, fluxos de dados e padrões de design
+keywords:
+  - arquitetura
+  - design patterns
+  - componentes
+  - fluxo de dados
+tags:
+  - Architecture
+  - Technical
+  - Advanced
+---
+
 # 🏗️ Arquitetura do Sistema
 
 Este documento descreve a arquitetura técnica do plugin Meilisearch Network Search, incluindo sua estrutura de componentes, fluxos de dados e padrões de design.

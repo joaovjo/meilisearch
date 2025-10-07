@@ -1,3 +1,18 @@
+---
+id: intro
+title: Introdução
+sidebar_label: Início
+sidebar_position: 1
+slug: /
+description: Documentação completa do plugin Meilisearch Network Search para WordPress Multisite
+keywords:
+  - meilisearch
+  - wordpress
+  - multisite
+  - search
+  - busca
+---
+
 # Documentação do Plugin Meilisearch Network Search
 
 Bem-vindo à documentação completa do plugin **Meilisearch Network Search** para WordPress Multisite.

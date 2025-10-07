@@ -1,3 +1,21 @@
+---
+id: shortcode
+title: Shortcode de Busca
+sidebar_label: Shortcode
+sidebar_position: 8
+description: Documentação completa do shortcode [meilisearch_search]
+keywords:
+  - shortcode
+  - busca
+  - formulário
+  - resultados
+  - totalizador
+tags:
+  - Features
+  - Shortcode
+  - Frontend
+---
+
 # Shortcode de Busca Meilisearch
 
 ## Visão Geral

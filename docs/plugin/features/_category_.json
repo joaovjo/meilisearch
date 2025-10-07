@@ -1,0 +1,10 @@
+{
+    "label": "Recursos e Funcionalidades",
+    "position": 2,
+    "link": {
+        "type": "generated-index",
+        "title": "Recursos e Funcionalidades",
+        "description": "Documentação de todos os recursos e funcionalidades do plugin"
+    },
+    "collapsed": false
+}

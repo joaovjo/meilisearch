@@ -1,3 +1,21 @@
+---
+id: admin-guide
+title: Guia do Administrador
+sidebar_label: Guia do Admin
+sidebar_position: 2
+description: Guia completo para administradores de rede gerenciarem o plugin
+keywords:
+  - administrador
+  - admin
+  - gerenciamento
+  - indexação
+  - métricas
+tags:
+  - Usage
+  - Admin Guide
+  - Management
+---
+
 # 👨‍💼 Guia do Administrador
 
 Guia completo para administradores de rede gerenciarem o plugin Meilisearch Network Search.

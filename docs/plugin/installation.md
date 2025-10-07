@@ -1,3 +1,19 @@
+---
+id: installation
+title: Instalação
+sidebar_label: Instalação
+sidebar_position: 2
+description: Guia completo de instalação e configuração do plugin Meilisearch
+keywords:
+  - instalação
+  - setup
+  - configuração inicial
+  - docker
+tags:
+  - Getting Started
+  - Installation
+---
+
 # 🚀 Guia de Instalação
 
 Este guia irá ajudá-lo a instalar e configurar o plugin Meilisearch Network Search no seu WordPress Multisite.

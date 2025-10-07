@@ -1,3 +1,21 @@
+---
+id: search
+title: Sistema de Busca
+sidebar_label: Sistema de Busca
+sidebar_position: 1
+description: Documentação detalhada do sistema de busca do plugin
+keywords:
+  - busca
+  - search
+  - multi-index
+  - ranking
+  - relevância
+tags:
+  - Features
+  - Search
+  - Core
+---
+
 # 🔍 Sistema de Busca
 
 Documentação detalhada do sistema de busca do plugin Meilisearch.

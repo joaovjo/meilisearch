@@ -1,3 +1,20 @@
+---
+id: user-guide
+title: Guia do Usuário
+sidebar_label: Guia do Usuário
+sidebar_position: 1
+description: Guia para usuários finais utilizarem a busca melhorada
+keywords:
+  - usuário
+  - busca
+  - autocomplete
+  - tutorial
+tags:
+  - Usage
+  - User Guide
+  - Tutorial
+---
+
 # 👤 Guia do Usuário
 
 Guia para usuários finais utilizarem a busca melhorada do Meilisearch.

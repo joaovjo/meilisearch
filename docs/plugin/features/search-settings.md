@@ -1,3 +1,20 @@
+---
+id: search-settings
+title: Configurações de Busca
+sidebar_label: Configurações
+sidebar_position: 2
+description: Configuração de atributos sortáveis e filtráveis
+keywords:
+  - settings
+  - sortable
+  - filterable
+  - configuração
+tags:
+  - Features
+  - Configuration
+  - Search
+---
+
 # Search Settings
 
 ## Overview

@@ -1,3 +1,22 @@
+---
+id: api-reference
+title: Referência da API
+sidebar_label: API Reference
+sidebar_position: 5
+description: Documentação completa das APIs REST, WP-CLI e PHP
+keywords:
+  - api
+  - rest api
+  - wp-cli
+  - php api
+  - hooks
+  - filters
+tags:
+  - API
+  - Reference
+  - Development
+---
+
 # 📖 Referência da API
 
 Documentação completa das APIs REST, WP-CLI e PHP do plugin Meilisearch.

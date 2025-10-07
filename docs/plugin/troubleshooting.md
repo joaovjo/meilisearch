@@ -1,3 +1,21 @@
+---
+id: troubleshooting
+title: Solução de Problemas
+sidebar_label: Troubleshooting
+sidebar_position: 7
+description: Guia completo de solução de problemas comuns
+keywords:
+  - troubleshooting
+  - problemas
+  - erros
+  - debug
+  - solução
+tags:
+  - Troubleshooting
+  - Support
+  - Debug
+---
+
 # 🔧 Troubleshooting
 
 Guia de solução de problemas comuns do plugin Meilisearch Network Search.

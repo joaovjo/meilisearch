@@ -1,3 +1,19 @@
+---
+id: reindexing
+title: Reindexação de Conteúdo
+sidebar_label: Reindexação
+sidebar_position: 6
+description: Guia completo sobre quando e como reindexar o conteúdo
+keywords:
+  - reindexação
+  - reindex
+  - sincronização
+  - atualização
+tags:
+  - Maintenance
+  - Operations
+---
+
 # Reindexação de Conteúdo
 
 ## Por que reindexar?
