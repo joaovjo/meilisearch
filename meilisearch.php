@@ -66,6 +66,7 @@ if (is_admin() && is_multisite()) {
 // Incluir classes públicas.
 if (!is_admin()) {
 	require_once MEILISEARCH_PLUGIN_DIR . 'public/class-search-override.php';
+	require_once MEILISEARCH_PLUGIN_DIR . 'public/class-search-shortcode.php';
 }
 
 // Incluir comandos WP-CLI.
@@ -150,6 +151,10 @@ function meilisearch_init(): void
 			// Inicializar autocomplete.
 			$autocomplete = new Meilisearch_Autocomplete($client);
 			$autocomplete->init_hooks();
+
+			// Inicializar shortcode de busca.
+			$search_shortcode = new Meilisearch_Search_Shortcode($client);
+			$search_shortcode->init_hooks();
 		}
 
 		// Inicializar Search API (sempre disponível).
