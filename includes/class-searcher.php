@@ -49,6 +49,7 @@ class Meilisearch_Searcher
 		$default_args = [
 			'limit' => 20,
 			'offset' => 0,
+			'sort' => '',
 		];
 
 		$args = wp_parse_args($args, $default_args);
@@ -56,6 +57,14 @@ class Meilisearch_Searcher
 		// Ensure limit and offset are integers.
 		$args['limit'] = (int) $args['limit'];
 		$args['offset'] = (int) $args['offset'];
+
+		// Aplicar ordenação padrão se não fornecida
+		if (empty($args['sort']) && class_exists('Meilisearch_Search_Settings')) {
+			$default_sort = Meilisearch_Search_Settings::get_default_sort();
+			if (!empty($default_sort['attribute'])) {
+				$args['sort'] = $default_sort['attribute'] . ':' . $default_sort['direction'];
+			}
+		}
 
 		// Preparar consultas de multi-busca.
 		foreach ($indexes as $index) {
@@ -65,6 +74,11 @@ class Meilisearch_Searcher
 				->setLimit($args['limit'])
 				->setOffset($args['offset'])
 				->setFilter(['post_status = publish']);
+
+			// Adicionar ordenação se fornecida
+			if (!empty($args['sort'])) {
+				$search_query->setSort([$args['sort']]);
+			}
 
 			$queries[] = $search_query;
 		}
@@ -174,6 +188,7 @@ class Meilisearch_Searcher
 		$default_args = [
 			'limit' => 20,
 			'offset' => 0,
+			'sort' => '',
 		];
 
 		$args = wp_parse_args($args, $default_args);
@@ -182,15 +197,31 @@ class Meilisearch_Searcher
 		$args['limit'] = (int) $args['limit'];
 		$args['offset'] = (int) $args['offset'];
 
+		// Aplicar ordenação padrão se não fornecida
+		if (empty($args['sort']) && class_exists('Meilisearch_Search_Settings')) {
+			$default_sort = Meilisearch_Search_Settings::get_default_sort();
+			if (!empty($default_sort['attribute'])) {
+				$args['sort'] = $default_sort['attribute'] . ':' . $default_sort['direction'];
+			}
+		}
+
+		// Preparar parâmetros de busca
+		$search_params = [
+			'limit' => $args['limit'],
+			'offset' => $args['offset'],
+			'filter' => ['post_status = publish'],
+		];
+
+		// Adicionar ordenação se fornecida
+		if (!empty($args['sort'])) {
+			$search_params['sort'] = [$args['sort']];
+		}
+
 	try {
 			$results = $this->client
 				->get_client()
 				->index($index_name)
-				->search($query, [
-					'limit' => $args['limit'],
-					'offset' => $args['offset'],
-					'filter' => ['post_status = publish'],
-				]);
+				->search($query, $search_params);
 
 			return [
 				'hits' => $results->getHits(),

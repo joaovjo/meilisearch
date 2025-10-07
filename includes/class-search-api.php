@@ -53,39 +53,33 @@ class Meilisearch_Search_API
 				'q' => [
 					'required' => true,
 					'type' => 'string',
-					'sanitize_callback' => 'sanitize_text_field',
-					'description' => 'String de consulta de busca',
+					'description' => __('Search query string', 'meilisearch'),
 				],
 				'limit' => [
-					'required' => false,
 					'type' => 'integer',
 					'default' => 10,
-					'sanitize_callback' => 'absint',
 					'minimum' => 1,
 					'maximum' => 100,
-					'description' => 'Número de resultados a retornar',
-				],
-				'offset' => [
-					'required' => false,
-					'type' => 'integer',
-					'default' => 0,
-					'sanitize_callback' => 'absint',
-					'minimum' => 0,
-					'description' => 'Número de resultados a pular',
+					'description' => __('Number of results per page', 'meilisearch'),
 				],
 				'page' => [
-					'required' => false,
 					'type' => 'integer',
 					'default' => 1,
-					'sanitize_callback' => 'absint',
 					'minimum' => 1,
-					'description' => 'Número da página (alternativa ao offset)',
+					'description' => __('Page number', 'meilisearch'),
+				],
+				'offset' => [
+					'type' => 'integer',
+					'minimum' => 0,
+					'description' => __('Offset for results', 'meilisearch'),
+				],
+				'sort' => [
+					'type' => 'string',
+					'description' => __('Sort parameter in format "attribute:direction" (e.g., "date:desc")', 'meilisearch'),
 				],
 			],
 		]);
-	}
-
-	/**
+	}	/**
 	 * Gerenciar requisição REST API de busca.
 	 *
 	 * @param WP_REST_Request $request Objeto de requisição.
@@ -97,6 +91,7 @@ class Meilisearch_Search_API
 		$limit = $request->get_param('limit') ?? 10;
 		$page = $request->get_param('page') ?? 1;
 		$offset = $request->get_param('offset');
+		$sort = $request->get_param('sort') ?? '';
 
 		// Se offset não foi fornecido, calcular a partir da página.
 		if (null === $offset) {
@@ -111,14 +106,24 @@ class Meilisearch_Search_API
 				'limit' => $limit,
 				'offset' => $offset,
 				'page' => $page,
+				'sort' => $sort,
 			], 200);
 		}
 
 		$searcher = new Meilisearch_Searcher($this->client);
-		$results = $searcher->search_network($query, [
+		
+		// Preparar argumentos de busca
+		$search_args = [
 			'limit' => $limit,
 			'offset' => $offset,
-		]);
+		];
+		
+		// Adicionar ordenação se fornecida
+		if (!empty($sort)) {
+			$search_args['sort'] = $sort;
+		}
+		
+		$results = $searcher->search_network($query, $search_args);
 
 		// Formatar resultados com detalhes completos.
 		$formatted_results = $this->format_search_results($results['hits']);
@@ -134,6 +139,7 @@ class Meilisearch_Search_API
 			'offset' => $offset,
 			'page' => $page,
 			'total_pages' => $total_pages,
+			'sort' => $sort,
 		], 200);
 	}
 

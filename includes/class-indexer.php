@@ -309,6 +309,9 @@ class Meilisearch_Indexer
 				->get_client()
 				->index($index_name)
 				->stats();
+			
+			// Índice existe, garantir que as configurações estejam atualizadas
+			$this->update_index_settings($blog_id);
 			return true;
 		} catch (Exception $e) {
 			// Índice não existe, tentar criá-lo
@@ -318,6 +321,9 @@ class Meilisearch_Indexer
 					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
 					error_log("Meilisearch: Created missing index for blog {$blog_id}: {$index_name}");
 				}
+				
+				// Aplicar configurações ao novo índice
+				$this->update_index_settings($blog_id);
 				return true;
 			} catch (Exception $create_error) {
 				if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
@@ -379,5 +385,54 @@ class Meilisearch_Indexer
 	{
 		$indexable_types = $this->get_indexable_post_types();
 		return in_array($post_type, $indexable_types, true);
+	}
+
+	/**
+	 * Atualizar configurações do índice (atributos filtráveis e ordenáveis).
+	 *
+	 * @param int $blog_id ID do blog.
+	 * @return bool True se as configurações foram atualizadas com sucesso.
+	 */
+	private function update_index_settings(int $blog_id): bool
+	{
+		$index_name = $this->client->get_index_name($blog_id);
+
+		// Verificar se a classe de configurações de pesquisa está disponível
+		if (!class_exists('Meilisearch_Search_Settings')) {
+			return false;
+		}
+
+		try {
+			// Obter atributos configurados
+			$sortable_attributes = Meilisearch_Search_Settings::get_sortable_attributes();
+			$filterable_attributes = Meilisearch_Search_Settings::get_filterable_attributes();
+
+			// Atualizar configurações do índice
+			$this->client
+				->get_client()
+				->index($index_name)
+				->updateSettings([
+					'sortableAttributes' => $sortable_attributes,
+					'filterableAttributes' => $filterable_attributes,
+				]);
+
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
+				error_log(sprintf(
+					'Meilisearch: Updated settings for index %s - Sortable: %s, Filterable: %s',
+					$index_name,
+					implode(', ', $sortable_attributes),
+					implode(', ', $filterable_attributes)
+				));
+			}
+
+			return true;
+		} catch (Exception $e) {
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
+				error_log("Meilisearch: Failed to update settings for index {$index_name}: " . $e->getMessage());
+			}
+			return false;
+		}
 	}
 }

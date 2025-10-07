@@ -58,6 +58,7 @@ if (is_admin() && is_multisite()) {
 	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-index-analyzer.php';
 	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-multi-pattern-search.php';
 	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-network-settings.php';
+	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-search-settings.php';
 }
 
 // Incluir classes públicas.
@@ -175,6 +176,9 @@ function meilisearch_init(): void
 
 		$network_settings = new Meilisearch_Network_Settings();
 		$network_settings->init_hooks();
+
+		$search_settings = new Meilisearch_Search_Settings();
+		$search_settings->init_hooks();
 	}
 
 	// Carregar domínio de texto para traduções.
