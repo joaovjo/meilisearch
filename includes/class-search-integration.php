@@ -43,6 +43,10 @@ class Meilisearch_Search_Integration
 		// Modificar resultados para incluir ranking score
 		add_filter('the_title', [$this, 'add_relevance_badge_to_title'], 10, 2);
 		
+		// Adicionar URL após o excerpt
+		add_filter('the_excerpt', [$this, 'add_url_after_excerpt'], 10);
+		add_filter('the_content', [$this, 'add_url_after_content'], 10);
+		
 		// Enfileirar CSS nos resultados de busca
 		add_action('wp_enqueue_scripts', [$this, 'enqueue_search_styles']);
 	}
@@ -160,6 +164,50 @@ class Meilisearch_Search_Integration
 		);
 
 		return $title . ' ' . $badge;
+	}
+
+	/**
+	 * Adicionar URL após o excerpt nos resultados de busca.
+	 *
+	 * @param string $excerpt O excerpt do post.
+	 * @return string Excerpt com URL adicionada.
+	 */
+	public function add_url_after_excerpt(string $excerpt): string
+	{
+		// Apenas em páginas de busca e não no admin
+		if (!is_search() || is_admin()) {
+			return $excerpt;
+		}
+
+		$permalink = get_permalink();
+		
+		$url_display = '<div class="meilisearch-result-url" style="margin-top:0.5rem;font-size:0.85rem;color:#666;word-break:break-all;">' .
+			'<strong>URL:</strong> <a href="' . esc_url($permalink) . '" style="color:#0073aa;">' . esc_html($permalink) . '</a>' .
+			'</div>';
+
+		return $excerpt . $url_display;
+	}
+
+	/**
+	 * Adicionar URL após o content nos resultados de busca.
+	 *
+	 * @param string $content O conteúdo do post.
+	 * @return string Conteúdo com URL adicionada.
+	 */
+	public function add_url_after_content(string $content): string
+	{
+		// Apenas em páginas de busca e não no admin
+		if (!is_search() || is_admin() || !in_the_loop() || !is_main_query()) {
+			return $content;
+		}
+
+		$permalink = get_permalink();
+		
+		$url_display = '<div class="meilisearch-result-url" style="margin-top:0.5rem;font-size:0.85rem;color:#666;word-break:break-all;">' .
+			'<strong>URL:</strong> <a href="' . esc_url($permalink) . '" style="color:#0073aa;">' . esc_html($permalink) . '</a>' .
+			'</div>';
+
+		return $content . $url_display;
 	}
 
 	/**
