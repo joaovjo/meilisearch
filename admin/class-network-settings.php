@@ -30,6 +30,7 @@ class Meilisearch_Network_Settings
 		add_action('network_admin_menu', [$this, 'add_network_menu']);
 		add_action('network_admin_edit_meilisearch_settings', [$this, 'save_network_settings']);
 		add_action('meilisearch_auto_reindex', [$this, 'auto_reindex_network']);
+		add_action('wp_ajax_meilisearch_async_reindex', [$this, 'handle_async_reindex']);
 	}
 
 	/**
@@ -67,6 +68,7 @@ class Meilisearch_Network_Settings
 			'post_statuses' => ['publish', 'inherit'],
 			'batch_size' => 100,
 			'auto_reindex' => true,
+			'reindex_mode' => 'async',
 		];
 		$settings = wp_parse_args($settings, $defaults);
 
@@ -323,6 +325,30 @@ class Meilisearch_Network_Settings
 					</p>
 				</td>
 			</tr>
+
+			<tr>
+				<th scope="row">
+					<label for="meilisearch_reindex_mode">
+						<?php esc_html_e('Reindex Mode', 'meilisearch'); ?>
+					</label>
+				</th>
+				<td>
+					<select id="meilisearch_reindex_mode" name="meilisearch_settings[reindex_mode]">
+						<option value="async" <?php selected($settings['reindex_mode'], 'async'); ?>>
+							<?php esc_html_e('Asynchronous (Recommended)', 'meilisearch'); ?>
+						</option>
+						<option value="immediate" <?php selected($settings['reindex_mode'], 'immediate'); ?>>
+							<?php esc_html_e('Immediate (May cause timeout on large sites)', 'meilisearch'); ?>
+						</option>
+						<option value="cron" <?php selected($settings['reindex_mode'], 'cron'); ?>>
+							<?php esc_html_e('WP-Cron (Less reliable)', 'meilisearch'); ?>
+						</option>
+					</select>
+					<p class="description">
+						<?php esc_html_e('Choose how reindexing should run: Async uses background requests (recommended), Immediate runs synchronously (may timeout), WP-Cron schedules via cron (least reliable).', 'meilisearch'); ?>
+					</p>
+				</td>
+			</tr>
 		</table>				<h2><?php esc_html_e('Indexing Status', 'meilisearch'); ?></h2>
 				<?php $this->render_indexing_status(); ?>
 
@@ -396,6 +422,9 @@ class Meilisearch_Network_Settings
 			: ['publish', 'inherit'];
 		$batch_size = isset($settings['batch_size']) ? max(1, min(1000, (int) $settings['batch_size'])) : 100;
 		$auto_reindex = isset($settings['auto_reindex']) && '1' === $settings['auto_reindex'];
+		$reindex_mode = isset($settings['reindex_mode']) && in_array($settings['reindex_mode'], ['async', 'immediate', 'cron'], true) 
+			? sanitize_key($settings['reindex_mode']) 
+			: 'async';
 		
 		$sanitized = [
 			'host' => esc_url_raw($settings['host'] ?? ''),
@@ -406,15 +435,38 @@ class Meilisearch_Network_Settings
 			'post_statuses' => $post_statuses,
 			'batch_size' => $batch_size,
 			'auto_reindex' => $auto_reindex,
+			'reindex_mode' => $reindex_mode,
 		];
 
 		update_site_option($this->option_name, $sanitized);
 
-		// Agendar reindexação automática se habilitado
+		// Executar reindexação automática se habilitado
 		if ($auto_reindex && $sanitized['enabled']) {
-			// Agendar para execução imediata em background
-			if (!wp_next_scheduled('meilisearch_auto_reindex')) {
-				wp_schedule_single_event(time(), 'meilisearch_auto_reindex');
+			switch ($reindex_mode) {
+				case 'immediate':
+					// Reindexação imediata (síncrona)
+					$this->auto_reindex_network();
+					break;
+				
+				case 'cron':
+					// Apenas agendar via WP-Cron
+					if (!wp_next_scheduled('meilisearch_auto_reindex')) {
+						wp_schedule_single_event(time(), 'meilisearch_auto_reindex');
+					}
+					break;
+				
+				case 'async':
+				default:
+					// Tentar spawn assíncrono primeiro
+					$spawned = $this->spawn_async_reindex();
+					
+					// Se falhar, agendar via WP-Cron como fallback
+					if (!$spawned) {
+						if (!wp_next_scheduled('meilisearch_auto_reindex')) {
+							wp_schedule_single_event(time(), 'meilisearch_auto_reindex');
+						}
+					}
+					break;
 			}
 		}
 
@@ -424,6 +476,51 @@ class Meilisearch_Network_Settings
 			'reindexing' => $auto_reindex && $sanitized['enabled'] ? 'true' : 'false',
 		], network_admin_url('admin.php')));
 		exit();
+	}
+
+	/**
+	 * Handler para reindexação assíncrona via AJAX.
+	 */
+	public function handle_async_reindex(): void
+	{
+		// Verificar nonce
+		if (!isset($_REQUEST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_REQUEST['nonce'])), 'meilisearch_async_reindex')) {
+			wp_die('Invalid nonce');
+		}
+
+		// Ignorar requisições abortadas pelo usuário
+		ignore_user_abort(true);
+
+		// Aumentar tempo de execução
+		set_time_limit(300);
+
+		// Executar reindexação
+		$this->auto_reindex_network();
+
+		wp_die();
+	}
+
+	/**
+	 * Spawn reindexação assíncrona usando wp_remote_post.
+	 *
+	 * @return bool True se spawn foi bem-sucedido.
+	 */
+	private function spawn_async_reindex(): bool
+	{
+		$url = add_query_arg([
+			'action' => 'meilisearch_async_reindex',
+			'nonce' => wp_create_nonce('meilisearch_async_reindex'),
+		], admin_url('admin-ajax.php'));
+
+		$args = [
+			'timeout' => 0.01,
+			'blocking' => false,
+			'sslverify' => apply_filters('https_local_ssl_verify', false),
+		];
+
+		$response = wp_remote_post($url, $args);
+		
+		return !is_wp_error($response);
 	}
 
 	/**
