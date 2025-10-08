@@ -205,7 +205,7 @@ class Meilisearch_Indexer
 		$results['total'] = count($posts);
 
 		// Preparar documentos em lotes.
-		$batch_size = 100;
+		$batch_size = $this->get_batch_size();
 		$documents = [];
 
 		foreach ($posts as $post) {
@@ -394,6 +394,20 @@ class Meilisearch_Indexer
 		}
 
 		return $post_statuses;
+	}
+
+	/**
+	 * Obter tamanho do lote para indexação em massa.
+	 *
+	 * @return int Tamanho do lote.
+	 */
+	private function get_batch_size(): int
+	{
+		$settings = get_site_option('meilisearch_settings', []);
+		$batch_size = isset($settings['batch_size']) ? (int) $settings['batch_size'] : 100;
+
+		// Garantir que o batch_size está entre 1 e 1000.
+		return max(1, min(1000, $batch_size));
 	}
 
 	/**

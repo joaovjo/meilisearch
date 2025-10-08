@@ -64,6 +64,7 @@ class Meilisearch_Network_Settings
 			'index_format' => '{prefix}posts',
 			'post_types' => ['post', 'page'],
 			'post_statuses' => ['publish', 'inherit'],
+			'batch_size' => 100,
 		];
 		$settings = wp_parse_args($settings, $defaults);
 
@@ -281,6 +282,27 @@ class Meilisearch_Network_Settings
 					</p>
 				</td>
 			</tr>
+
+			<tr>
+				<th scope="row">
+					<label for="meilisearch_batch_size">
+						<?php esc_html_e('Batch Size for Indexing', 'meilisearch'); ?>
+					</label>
+				</th>
+				<td>
+					<input type="number"
+						   id="meilisearch_batch_size"
+						   name="meilisearch_settings[batch_size]"
+						   value="<?php echo esc_attr($settings['batch_size']); ?>"
+						   min="1"
+						   max="1000"
+						   step="1"
+						   class="small-text" />
+					<p class="description">
+						<?php esc_html_e('Number of documents to send to Meilisearch in each batch during bulk indexing. Higher values may be faster but consume more memory. Default: 100', 'meilisearch'); ?>
+					</p>
+				</td>
+			</tr>
 		</table>				<h2><?php esc_html_e('Indexing Status', 'meilisearch'); ?></h2>
 				<?php $this->render_indexing_status(); ?>
 
@@ -352,6 +374,7 @@ class Meilisearch_Network_Settings
 		$post_statuses = isset($settings['post_statuses']) && is_array($settings['post_statuses']) 
 			? array_map('sanitize_key', $settings['post_statuses']) 
 			: ['publish', 'inherit'];
+		$batch_size = isset($settings['batch_size']) ? max(1, min(1000, (int) $settings['batch_size'])) : 100;
 		$sanitized = [
 			'host' => esc_url_raw($settings['host'] ?? ''),
 			'master_key' => sanitize_text_field($settings['master_key'] ?? ''),
@@ -359,6 +382,7 @@ class Meilisearch_Network_Settings
 			'index_format' => sanitize_text_field($settings['index_format'] ?? '{prefix}posts'),
 			'post_types' => $post_types,
 			'post_statuses' => $post_statuses,
+			'batch_size' => $batch_size,
 		];
 
 		update_site_option($this->option_name, $sanitized);
