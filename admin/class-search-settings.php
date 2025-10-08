@@ -311,16 +311,14 @@ class Meilisearch_Search_Settings
 	private function get_settings(): array
 	{
 		$settings = get_site_option($this->option_name, []);
-		$defaults = [
-			'sortable_attributes' => ['date', 'modified', 'title'],
-			'filterable_attributes' => ['post_type', 'blog_id', 'author_id', 'categories', 'tags'],
-			'default_sort_attribute' => 'date',
-			'default_sort_direction' => 'desc',
-			'show_relevance_badges' => true,
-			'show_post_urls' => true,
-		];
-
-		return wp_parse_args($settings, $defaults);
+	$defaults = [
+		'sortable_attributes' => ['date', 'modified', 'title'],
+		'filterable_attributes' => ['post_type', 'blog_id', 'author_id', 'categories', 'tags'],
+		'default_sort_attribute' => 'date',
+		'default_sort_direction' => 'desc',
+		'show_relevance_badges' => false,
+		'show_post_urls' => false,
+	];		return wp_parse_args($settings, $defaults);
 	}
 
 	/**
