@@ -200,3 +200,51 @@ function meilisearch_init(): void
 }
 
 add_action('plugins_loaded', 'meilisearch_init');
+
+/**
+ * Obter o total de resultados encontrados pelo Meilisearch.
+ *
+ * Função helper para usar em templates.
+ *
+ * @return int Total de resultados encontrados, ou 0 se não houver.
+ */
+function meilisearch_get_total_results(): int
+{
+	global $meilisearch_total_results;
+	return $meilisearch_total_results ?? 0;
+}
+
+/**
+ * Exibir mensagem com o total de resultados encontrados.
+ *
+ * Função helper para usar em templates.
+ *
+ * @param string $format Formato da mensagem. Use %d para o número e %s para o termo de busca.
+ * @return void
+ */
+function meilisearch_display_total_results(string $format = ''): void
+{
+	if (!is_search()) {
+		return;
+	}
+
+	global $meilisearch_total_results, $meilisearch_search_term;
+	$total = $meilisearch_total_results ?? 0;
+	$term = $meilisearch_search_term ?? get_search_query();
+
+	if (empty($format)) {
+		if ($total === 0) {
+			$format = __('Nenhum resultado encontrado para "%s"', 'meilisearch');
+		} elseif ($total === 1) {
+			$format = __('1 resultado encontrado para "%s"', 'meilisearch');
+		} else {
+			$format = __('%d resultados encontrados para "%s"', 'meilisearch');
+		}
+	}
+
+	if ($total === 1) {
+		echo '<p class="meilisearch-total-results">' . esc_html(sprintf($format, esc_html($term))) . '</p>';
+	} else {
+		echo '<p class="meilisearch-total-results">' . esc_html(sprintf($format, $total, esc_html($term))) . '</p>';
+	}
+}

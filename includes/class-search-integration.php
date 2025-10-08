@@ -73,7 +73,7 @@ class Meilisearch_Search_Integration
 		}
 
 		// Armazenar termo de busca original em variável global para uso no tema
-		global $meilisearch_search_term;
+		global $meilisearch_search_term, $meilisearch_total_results;
 		$meilisearch_search_term = $search_term;
 
 		// Executar busca no Meilisearch
@@ -82,6 +82,9 @@ class Meilisearch_Search_Integration
 			'limit' => $query->get('posts_per_page') ?: 10,
 			'offset' => 0,
 		]);
+
+		// Armazenar total de resultados encontrados
+		$meilisearch_total_results = $results['estimatedTotalHits'] ?? count($results['hits'] ?? []);
 
 		// Armazenar resultados e ranking scores em variável global para uso posterior
 		global $meilisearch_results;
