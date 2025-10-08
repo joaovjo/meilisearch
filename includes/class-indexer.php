@@ -65,8 +65,8 @@ class Meilisearch_Indexer
 			return;
 		}
 
-		// Indexar posts publicados ou attachments (que têm status 'inherit').
-		if ('publish' !== $post->post_status && 'inherit' !== $post->post_status) {
+		// Verificar se o status do post deve ser indexado.
+		if (!$this->should_index_post_status($post->post_status)) {
 			return;
 		}
 
@@ -190,11 +190,12 @@ class Meilisearch_Indexer
 
 		// Obter tipos de post configurados para indexação.
 		$post_types = $this->get_indexable_post_types();
+		$post_statuses = $this->get_indexable_post_statuses();
 
-		// Obter todos os posts publicados e attachments (inherit).
+		// Obter todos os posts com os status configurados.
 		$args = [
 			'post_type' => $post_types,
-			'post_status' => ['publish', 'inherit'],
+			'post_status' => $post_statuses,
 			'posts_per_page' => -1,
 			'orderby' => 'ID',
 			'order' => 'ASC',
@@ -376,6 +377,26 @@ class Meilisearch_Indexer
 	}
 
 	/**
+	 * Obter lista de status de post que devem ser indexados.
+	 *
+	 * @return array Lista de status de post.
+	 */
+	private function get_indexable_post_statuses(): array
+	{
+		$settings = get_site_option('meilisearch_settings', []);
+		$post_statuses = isset($settings['post_statuses']) && is_array($settings['post_statuses']) 
+			? $settings['post_statuses'] 
+			: ['publish', 'inherit'];
+
+		// Garantir que temos pelo menos um status.
+		if (empty($post_statuses)) {
+			$post_statuses = ['publish', 'inherit'];
+		}
+
+		return $post_statuses;
+	}
+
+	/**
 	 * Verificar se um tipo de post deve ser indexado.
 	 *
 	 * @param string $post_type Nome do tipo de post.
@@ -385,6 +406,18 @@ class Meilisearch_Indexer
 	{
 		$indexable_types = $this->get_indexable_post_types();
 		return in_array($post_type, $indexable_types, true);
+	}
+
+	/**
+	 * Verificar se um status de post deve ser indexado.
+	 *
+	 * @param string $post_status Status do post.
+	 * @return bool True se deve ser indexado.
+	 */
+	private function should_index_post_status(string $post_status): bool
+	{
+		$indexable_statuses = $this->get_indexable_post_statuses();
+		return in_array($post_status, $indexable_statuses, true);
 	}
 
 	/**

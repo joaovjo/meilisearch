@@ -63,6 +63,7 @@ class Meilisearch_Network_Settings
 			'enabled' => false,
 			'index_format' => '{prefix}posts',
 			'post_types' => ['post', 'page'],
+			'post_statuses' => ['publish', 'inherit'],
 		];
 		$settings = wp_parse_args($settings, $defaults);
 
@@ -235,16 +236,52 @@ class Meilisearch_Network_Settings
 										<?php echo esc_html($post_type->label); ?>
 										<span style="color: #666; font-size: 0.9em;">(<?php echo esc_html($post_type->name); ?>)</span>
 									</label>
-								<?php endforeach; ?>
-							</fieldset>
-							<p class="description">
-								<?php esc_html_e('Select which post types should be indexed in Meilisearch. Only published content will be indexed.', 'meilisearch'); ?>
-							</p>
-						</td>
-					</tr>
-				</table>
+						<?php endforeach; ?>
+					</fieldset>
+					<p class="description">
+						<?php esc_html_e('Select which post types should be indexed in Meilisearch.', 'meilisearch'); ?>
+					</p>
+				</td>
+			</tr>
 
-				<h2><?php esc_html_e('Indexing Status', 'meilisearch'); ?></h2>
+			<tr>
+				<th scope="row">
+					<label for="meilisearch_post_statuses">
+						<?php esc_html_e('Post Statuses to Index', 'meilisearch'); ?>
+					</label>
+				</th>
+				<td>
+					<?php
+					$post_statuses = [
+						'publish' => __('Published', 'meilisearch'),
+						'inherit' => __('Inherit (for attachments/media)', 'meilisearch'),
+						'future' => __('Scheduled', 'meilisearch'),
+						'draft' => __('Draft', 'meilisearch'),
+						'pending' => __('Pending Review', 'meilisearch'),
+						'private' => __('Private', 'meilisearch'),
+					];
+					$selected_statuses = isset($settings['post_statuses']) && is_array($settings['post_statuses']) 
+						? $settings['post_statuses'] 
+						: ['publish', 'inherit'];
+					?>
+					<fieldset>
+						<?php foreach ($post_statuses as $status => $label): ?>
+							<label style="display: block; margin-bottom: 5px;">
+								<input type="checkbox"
+									   name="meilisearch_settings[post_statuses][]"
+									   value="<?php echo esc_attr($status); ?>"
+									   <?php checked(in_array($status, $selected_statuses, true)); ?> />
+								<?php echo esc_html($label); ?>
+								<span style="color: #666; font-size: 0.9em;">(<?php echo esc_html($status); ?>)</span>
+							</label>
+						<?php endforeach; ?>
+					</fieldset>
+					<p class="description">
+						<?php esc_html_e('Select which post statuses should be indexed. Note: "inherit" is required for attachments/media files.', 'meilisearch'); ?>
+					</p>
+				</td>
+			</tr>
+		</table>				<h2><?php esc_html_e('Indexing Status', 'meilisearch'); ?></h2>
 				<?php $this->render_indexing_status(); ?>
 
 				<?php submit_button(__('Save Settings', 'meilisearch')); ?>
@@ -312,12 +349,16 @@ class Meilisearch_Network_Settings
 		$post_types = isset($settings['post_types']) && is_array($settings['post_types']) 
 			? array_map('sanitize_key', $settings['post_types']) 
 			: ['post', 'page'];
+		$post_statuses = isset($settings['post_statuses']) && is_array($settings['post_statuses']) 
+			? array_map('sanitize_key', $settings['post_statuses']) 
+			: ['publish', 'inherit'];
 		$sanitized = [
 			'host' => esc_url_raw($settings['host'] ?? ''),
 			'master_key' => sanitize_text_field($settings['master_key'] ?? ''),
 			'enabled' => isset($settings['enabled']) && '1' === $settings['enabled'],
 			'index_format' => sanitize_text_field($settings['index_format'] ?? '{prefix}posts'),
 			'post_types' => $post_types,
+			'post_statuses' => $post_statuses,
 		];
 
 		update_site_option($this->option_name, $sanitized);

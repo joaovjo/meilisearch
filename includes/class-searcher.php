@@ -66,6 +66,9 @@ class Meilisearch_Searcher
 			}
 		}
 
+		// Obter filtro de status configurado
+		$status_filter = $this->get_status_filter();
+
 		// Preparar consultas de multi-busca.
 		foreach ($indexes as $index) {
 			$search_query = (new SearchQuery())
@@ -73,7 +76,7 @@ class Meilisearch_Searcher
 				->setQuery($query)
 				->setLimit($args['limit'])
 				->setOffset($args['offset'])
-				->setFilter(['post_status = publish OR post_status = inherit']);
+				->setFilter([$status_filter]);
 
 			// Adicionar ordenação se fornecida
 			if (!empty($args['sort'])) {
@@ -205,11 +208,14 @@ class Meilisearch_Searcher
 			}
 		}
 
+		// Obter filtro de status configurado
+		$status_filter = $this->get_status_filter();
+
 		// Preparar parâmetros de busca
 		$search_params = [
 			'limit' => $args['limit'],
 			'offset' => $args['offset'],
-			'filter' => ['post_status = publish OR post_status = inherit'],
+			'filter' => [$status_filter],
 		];
 
 		// Adicionar ordenação se fornecida
@@ -289,5 +295,31 @@ class Meilisearch_Searcher
 			'hits' => $hits,
 			'total' => $total,
 		];
+	}
+
+	/**
+	 * Obter filtro de status configurado para buscas.
+	 *
+	 * @return string Filtro de status no formato do Meilisearch.
+	 */
+	private function get_status_filter(): string
+	{
+		$settings = get_site_option('meilisearch_settings', []);
+		$post_statuses = isset($settings['post_statuses']) && is_array($settings['post_statuses']) 
+			? $settings['post_statuses'] 
+			: ['publish', 'inherit'];
+
+		// Garantir que temos pelo menos um status
+		if (empty($post_statuses)) {
+			$post_statuses = ['publish', 'inherit'];
+		}
+
+		// Construir filtro OR para os status configurados
+		$filters = [];
+		foreach ($post_statuses as $status) {
+			$filters[] = 'post_status = ' . $status;
+		}
+
+		return implode(' OR ', $filters);
 	}
 }
