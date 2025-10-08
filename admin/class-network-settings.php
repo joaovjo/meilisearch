@@ -29,6 +29,7 @@ class Meilisearch_Network_Settings
 	{
 		add_action('network_admin_menu', [$this, 'add_network_menu']);
 		add_action('network_admin_edit_meilisearch_settings', [$this, 'save_network_settings']);
+		add_action('meilisearch_auto_reindex', [$this, 'auto_reindex_network']);
 	}
 
 	/**
@@ -65,6 +66,7 @@ class Meilisearch_Network_Settings
 			'post_types' => ['post', 'page'],
 			'post_statuses' => ['publish', 'inherit'],
 			'batch_size' => 100,
+			'auto_reindex' => true,
 		];
 		$settings = wp_parse_args($settings, $defaults);
 
@@ -303,6 +305,24 @@ class Meilisearch_Network_Settings
 					</p>
 				</td>
 			</tr>
+
+			<tr>
+				<th scope="row">
+					<label for="meilisearch_auto_reindex">
+						<?php esc_html_e('Auto-Reindex on Save', 'meilisearch'); ?>
+					</label>
+				</th>
+				<td>
+					<input type="checkbox"
+						   id="meilisearch_auto_reindex"
+						   name="meilisearch_settings[auto_reindex]"
+						   value="1"
+						   <?php checked($settings['auto_reindex'], true); ?> />
+					<p class="description">
+						<?php esc_html_e('Automatically reindex all sites when settings are saved. The reindexing runs in the background. Disable this if you prefer to manually reindex using WP-CLI.', 'meilisearch'); ?>
+					</p>
+				</td>
+			</tr>
 		</table>				<h2><?php esc_html_e('Indexing Status', 'meilisearch'); ?></h2>
 				<?php $this->render_indexing_status(); ?>
 
@@ -375,6 +395,8 @@ class Meilisearch_Network_Settings
 			? array_map('sanitize_key', $settings['post_statuses']) 
 			: ['publish', 'inherit'];
 		$batch_size = isset($settings['batch_size']) ? max(1, min(1000, (int) $settings['batch_size'])) : 100;
+		$auto_reindex = isset($settings['auto_reindex']) && '1' === $settings['auto_reindex'];
+		
 		$sanitized = [
 			'host' => esc_url_raw($settings['host'] ?? ''),
 			'master_key' => sanitize_text_field($settings['master_key'] ?? ''),
@@ -383,14 +405,61 @@ class Meilisearch_Network_Settings
 			'post_types' => $post_types,
 			'post_statuses' => $post_statuses,
 			'batch_size' => $batch_size,
+			'auto_reindex' => $auto_reindex,
 		];
 
 		update_site_option($this->option_name, $sanitized);
 
+		// Agendar reindexação automática se habilitado
+		if ($auto_reindex && $sanitized['enabled']) {
+			// Agendar para execução imediata em background
+			if (!wp_next_scheduled('meilisearch_auto_reindex')) {
+				wp_schedule_single_event(time(), 'meilisearch_auto_reindex');
+			}
+		}
+
 		wp_redirect(add_query_arg([
 			'page' => 'meilisearch-settings',
 			'updated' => 'true',
+			'reindexing' => $auto_reindex && $sanitized['enabled'] ? 'true' : 'false',
 		], network_admin_url('admin.php')));
 		exit();
+	}
+
+	/**
+	 * Reindexar toda a rede automaticamente em background.
+	 */
+	public function auto_reindex_network(): void
+	{
+		// Verificar se o Meilisearch está habilitado
+		$settings = get_site_option($this->option_name, []);
+		if (empty($settings['enabled'])) {
+			return;
+		}
+
+		// Obter instâncias necessárias
+		$client = new Meilisearch_Client($settings['host'] ?? '', $settings['master_key'] ?? '');
+		$indexer = new Meilisearch_Indexer($client);
+
+		// Executar reindexação para todos os sites
+		$sites = get_sites(['number' => 9999]);
+		
+		foreach ($sites as $site) {
+			$blog_id = (int) $site->blog_id;
+			
+			try {
+				$indexer->index_site_posts($blog_id);
+				
+				if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
+					error_log("Meilisearch: Auto-reindexed blog {$blog_id}");
+				}
+			} catch (Exception $e) {
+				if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
+					error_log("Meilisearch: Auto-reindex failed for blog {$blog_id}: " . $e->getMessage());
+				}
+			}
+		}
 	}
 }
