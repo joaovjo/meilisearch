@@ -184,6 +184,11 @@ class Meilisearch_Search_Integration
 			return $excerpt;
 		}
 
+		// Verificar se as URLs estão habilitadas nas configurações
+		if (!Meilisearch_Search_Settings::should_show_post_urls()) {
+			return $excerpt;
+		}
+
 		$permalink = get_permalink();
 		
 		$url_display = '<div class="meilisearch-result-url" style="margin-top:0.5rem;font-size:0.85rem;color:#666;word-break:break-all;">' .
@@ -203,6 +208,11 @@ class Meilisearch_Search_Integration
 	{
 		// Apenas em páginas de busca e não no admin
 		if (!is_search() || is_admin() || !in_the_loop() || !is_main_query()) {
+			return $content;
+		}
+
+		// Verificar se as URLs estão habilitadas nas configurações
+		if (!Meilisearch_Search_Settings::should_show_post_urls()) {
 			return $content;
 		}
 

@@ -187,6 +187,23 @@ class Meilisearch_Search_Settings
 							</p>
 						</td>
 					</tr>
+					<tr>
+						<th scope="row">
+							<?php esc_html_e('Post URLs', 'meilisearch'); ?>
+						</th>
+						<td>
+							<label>
+								<input type="checkbox" 
+									   name="meilisearch_search_settings[show_post_urls]" 
+									   value="1"
+									   <?php checked($settings['show_post_urls'] ?? true, true); ?> />
+								<?php esc_html_e('Show post URLs after search results', 'meilisearch'); ?>
+							</label>
+							<p class="description">
+								<?php esc_html_e('Display the full permalink URL after each search result content. You can customize the URL display styles in your theme CSS.', 'meilisearch'); ?>
+							</p>
+						</td>
+					</tr>
 				</table>
 
 				<br>
@@ -300,6 +317,7 @@ class Meilisearch_Search_Settings
 			'default_sort_attribute' => 'date',
 			'default_sort_direction' => 'desc',
 			'show_relevance_badges' => true,
+			'show_post_urls' => true,
 		];
 
 		return wp_parse_args($settings, $defaults);
@@ -336,6 +354,7 @@ class Meilisearch_Search_Settings
 				? $settings['default_sort_direction']
 				: 'desc',
 			'show_relevance_badges' => isset($settings['show_relevance_badges']) && $settings['show_relevance_badges'] === '1',
+			'show_post_urls' => isset($settings['show_post_urls']) && $settings['show_post_urls'] === '1',
 		];
 
 		update_site_option($this->option_name, $sanitized);
@@ -396,5 +415,16 @@ class Meilisearch_Search_Settings
 	{
 		$settings = get_site_option('meilisearch_search_settings', []);
 		return isset($settings['show_relevance_badges']) ? (bool) $settings['show_relevance_badges'] : true;
+	}
+
+	/**
+	 * Verificar se as URLs dos posts devem ser exibidas.
+	 *
+	 * @return bool True se as URLs devem ser exibidas, false caso contrário.
+	 */
+	public static function should_show_post_urls(): bool
+	{
+		$settings = get_site_option('meilisearch_search_settings', []);
+		return isset($settings['show_post_urls']) ? (bool) $settings['show_post_urls'] : true;
 	}
 }
