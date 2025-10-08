@@ -43,9 +43,11 @@ class Meilisearch_Search_Integration
 		// Modificar resultados para incluir ranking score
 		add_filter('the_title', [$this, 'add_relevance_badge_to_title'], 10, 2);
 		
-		// Adicionar URL após o excerpt
-		add_filter('the_excerpt', [$this, 'add_url_after_excerpt'], 10);
-		add_filter('the_content', [$this, 'add_url_after_content'], 10);
+		// Adicionar URL após o excerpt apenas se habilitado nas configurações
+		if (Meilisearch_Search_Settings::should_show_post_urls()) {
+			add_filter('the_excerpt', [$this, 'add_url_after_excerpt'], 10);
+			// Não usar the_content para evitar duplicação, pois alguns temas processam ambos
+		}
 		
 		// Enfileirar CSS nos resultados de busca
 		add_action('wp_enqueue_scripts', [$this, 'enqueue_search_styles']);
