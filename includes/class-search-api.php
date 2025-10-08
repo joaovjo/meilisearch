@@ -168,6 +168,12 @@ class Meilisearch_Search_API
 				'author_id' => $hit['author_id'] ?? 0,
 			];
 
+			// Adicionar ranking score se disponível
+			if (isset($hit['_rankingScore'])) {
+				$result['_rankingScore'] = $hit['_rankingScore'];
+				$result['relevance'] = round($hit['_rankingScore'] * 100, 1);
+			}
+
 			// Adicionar informações do autor se disponível.
 			if (!empty($hit['author_id'])) {
 				$author = get_userdata((int) $hit['author_id']);
