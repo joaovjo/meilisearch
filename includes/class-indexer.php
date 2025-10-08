@@ -257,12 +257,16 @@ class Meilisearch_Indexer
 	{
 		$author = get_userdata((int) $post->post_author);
 
+		// Preparar excerpt removendo URLs
+		$excerpt_text = '' !== $post->post_excerpt ? $post->post_excerpt : wp_trim_words($post->post_content, 55);
+		$excerpt_text = $this->remove_urls_from_text($excerpt_text);
+
 		return [
 			'id' => $post->ID,
 			'blog_id' => get_current_blog_id(),
 			'title' => $post->post_title,
 			'content' => wp_strip_all_tags($post->post_content),
-			'excerpt' => '' !== $post->post_excerpt ? $post->post_excerpt : wp_trim_words($post->post_content, 55),
+			'excerpt' => $excerpt_text,
 			'post_type' => $post->post_type,
 			'post_status' => $post->post_status,
 			'date' => strtotime($post->post_date),
@@ -273,6 +277,26 @@ class Meilisearch_Indexer
 			'tags' => $this->get_post_terms($post->ID, 'post_tag'),
 			'permalink' => get_permalink($post->ID),
 		];
+	}
+
+	/**
+	 * Remover URLs de um texto.
+	 *
+	 * @param string $text Texto para processar.
+	 * @return string Texto sem URLs.
+	 */
+	private function remove_urls_from_text(string $text): string
+	{
+		// Remover padrões como "URL: http://..." ou "URL:http://..."
+		$text = preg_replace('/URL:\s*https?:\/\/[^\s]+/i', '', $text);
+		
+		// Remover URLs avulsas
+		$text = preg_replace('/https?:\/\/[^\s]+/i', '', $text);
+		
+		// Remover espaços extras
+		$text = preg_replace('/\s+/', ' ', $text);
+		
+		return trim($text);
 	}
 
 	/**
