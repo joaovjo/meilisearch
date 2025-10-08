@@ -389,3 +389,67 @@
         border-color: #2196f3;
     }
 }
+
+/* ==========================================================================
+   Badge de Relevância (Ranking Score)
+   ========================================================================== */
+
+.meilisearch-relevance-badge {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1;
+    border-radius: 3px;
+    vertical-align: middle;
+}
+
+.meilisearch-relevance-badge svg {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 0.25rem;
+}
+
+/* Badge Verde - Alta Relevância (≥80%) */
+.meilisearch-relevance-high {
+    color: #0d6832;
+    background-color: #d1f4dd;
+    border: 1px solid #9ae6b4;
+}
+
+/* Badge Amarelo - Média Relevância (50-79%) */
+.meilisearch-relevance-medium {
+    color: #805600;
+    background-color: #fef3c7;
+    border: 1px solid #fcd34d;
+}
+
+/* Badge Vermelho - Baixa Relevância (<50%) */
+.meilisearch-relevance-low {
+    color: #991b1b;
+    background-color: #fee2e2;
+    border: 1px solid #fca5a5;
+}
+
+/* Modo escuro - ajustes nos badges */
+@media (prefers-color-scheme: dark) {
+    .meilisearch-relevance-high {
+        color: #6ee7b7;
+        background-color: #064e3b;
+        border-color: #059669;
+    }
+
+    .meilisearch-relevance-medium {
+        color: #fbbf24;
+        background-color: #78350f;
+        border-color: #d97706;
+    }
+
+    .meilisearch-relevance-low {
+        color: #fca5a5;
+        background-color: #7f1d1d;
+        border-color: #dc2626;
+    }
+}

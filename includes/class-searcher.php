@@ -76,7 +76,8 @@ class Meilisearch_Searcher
 				->setQuery($query)
 				->setLimit($args['limit'])
 				->setOffset($args['offset'])
-				->setFilter([$status_filter]);
+				->setFilter([$status_filter])
+				->setShowRankingScore(true);
 
 			// Adicionar ordenação se fornecida
 			if (!empty($args['sort'])) {
@@ -216,6 +217,7 @@ class Meilisearch_Searcher
 			'limit' => $args['limit'],
 			'offset' => $args['offset'],
 			'filter' => [$status_filter],
+			'showRankingScore' => true,
 		];
 
 		// Adicionar ordenação se fornecida

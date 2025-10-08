@@ -245,6 +245,11 @@ class Meilisearch_Search_Shortcode
 		$post_type = $hit['post_type'] ?? 'post';
 		$blog_id = $hit['blog_id'] ?? get_current_blog_id();
 		
+		// Calcular ranking score e classe de relevância.
+		$ranking_score = isset($hit['_rankingScore']) ? $hit['_rankingScore'] : 0;
+		$relevance_percent = round($ranking_score * 100, 1);
+		$relevance_class = $ranking_score >= 0.8 ? 'high' : ($ranking_score >= 0.5 ? 'medium' : 'low');
+		
 		// Formatar data se disponível.
 		$post_date = '';
 		if (!empty($hit['date'])) {
@@ -270,6 +275,14 @@ class Meilisearch_Search_Shortcode
 					<a href="<?php echo esc_url($permalink); ?>">
 						<?php echo esc_html($title); ?>
 					</a>
+					<?php if ($ranking_score > 0) : ?>
+						<span class="meilisearch-relevance-badge meilisearch-relevance-<?php echo esc_attr($relevance_class); ?>" title="Relevância: <?php echo esc_attr($relevance_percent); ?>%">
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block;vertical-align:middle;margin-right:3px;">
+								<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+							</svg>
+							<?php echo esc_html($relevance_percent); ?>%
+						</span>
+					<?php endif; ?>
 				</h2>
 
 				<?php if (('yes' === $atts['show_date'] && !empty($post_date)) || ('yes' === $atts['show_author'] && !empty($author_name))) : ?>

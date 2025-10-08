@@ -321,17 +321,18 @@ class Meilisearch_CLI
 
 			$data = [];
 			foreach ($hits as $hit) {
+				$ranking_score = isset($hit['_rankingScore']) ? round($hit['_rankingScore'] * 100, 1) : 'N/A';
 				$data[] = [
 					'blog_id' => $hit['blog_id'] ?? 'N/A',
 					'post_id' => $hit['id'] ?? 'N/A',
 					'title' => wp_trim_words($hit['title'] ?? '', 10),
 					'post_type' => $hit['post_type'] ?? 'N/A',
-					'post_status' => $hit['post_status'] ?? 'N/A',
+					'relevance' => $ranking_score . '%',
 					'permalink' => $hit['permalink'] ?? 'N/A',
 				];
 			}
 
-			WP_CLI\Utils\format_items($format, $data, ['blog_id', 'post_id', 'title', 'post_type', 'post_status', 'permalink']);
+			WP_CLI\Utils\format_items($format, $data, ['blog_id', 'post_id', 'title', 'post_type', 'relevance', 'permalink']);
 
 			WP_CLI::success(sprintf('Found %d results for "%s"', count($hits), $query));
 		} catch (Exception $e) {
