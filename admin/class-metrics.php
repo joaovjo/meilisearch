@@ -107,14 +107,23 @@ class Meilisearch_Metrics
 
 				try {
 					$index = $client->get_client()->index($index_name);
+					
+					// Buscar informações atualizadas do índice
+					$index->fetchInfo();
+					
 					$index_stats = $index->stats();
+					
+					// Obter dados do índice
+					$primary_key = $index->getPrimaryKey();
+					$created_at = $index->getCreatedAt();
+					$updated_at = $index->getUpdatedAt();
 					
 					$stats[] = [
 						'uid' => $index->getUid(),
 						'blog_id' => $blog_id,
-						'primary_key' => $index->getPrimaryKey(),
-						'created_at' => $index->getCreatedAt()?->format('Y-m-d H:i:s'),
-						'updated_at' => $index->getUpdatedAt()?->format('Y-m-d H:i:s'),
+						'primary_key' => $primary_key ?? 'N/A',
+						'created_at' => $created_at ? $created_at->format('Y-m-d H:i:s') : 'N/A',
+						'updated_at' => $updated_at ? $updated_at->format('Y-m-d H:i:s') : 'N/A',
 						'stats' => $index_stats,
 					];
 				} catch (Exception $e) {
