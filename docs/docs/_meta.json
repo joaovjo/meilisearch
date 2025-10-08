@@ -1,0 +1,48 @@
+[
+  {
+    "text": "Início",
+    "link": "/"
+  },
+  {
+    "text": "Primeiros Passos",
+    "link": "/primeiros-passos/installation",
+    "activeMatch": "^/primeiros-passos/"
+  },
+  {
+    "text": "Recursos",
+    "link": "/features/search",
+    "activeMatch": "^/features/"
+  },
+  {
+    "text": "Guias de Uso",
+    "link": "/usage/user-guide",
+    "activeMatch": "^/usage/"
+  },
+  {
+    "text": "Tópicos Avançados",
+    "link": "/topicos-avancados/architecture",
+    "activeMatch": "^/topicos-avancados/",
+    "items": [
+      {
+        "text": "Arquitetura",
+        "link": "/topicos-avancados/architecture"
+      },
+      {
+        "text": "Referência da API",
+        "link": "/topicos-avancados/api-reference"
+      },
+      {
+        "text": "Reindexação",
+        "link": "/topicos-avancados/reindexing"
+      },
+      {
+        "text": "Troubleshooting",
+        "link": "/topicos-avancados/troubleshooting"
+      },
+      {
+        "text": "Shortcode de Busca",
+        "link": "/topicos-avancados/shortcode-busca"
+      }
+    ]
+  }
+]

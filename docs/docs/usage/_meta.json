@@ -1,0 +1,21 @@
+[
+  {
+    "type": "section-header",
+    "label": "Guias por Perfil"
+  },
+  {
+    "type": "file",
+    "name": "user-guide",
+    "label": "Guia do Usuário"
+  },
+  {
+    "type": "file",
+    "name": "admin-guide",
+    "label": "Guia do Administrador"
+  },
+  {
+    "type": "file",
+    "name": "developer-guide",
+    "label": "Guia do Desenvolvedor"
+  }
+]

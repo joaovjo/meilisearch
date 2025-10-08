@@ -1,0 +1,16 @@
+[
+  {
+    "type": "section-header",
+    "label": "Configuração Inicial"
+  },
+  {
+    "type": "file",
+    "name": "installation",
+    "label": "Instalação"
+  },
+  {
+    "type": "file",
+    "name": "configuration",
+    "label": "Configuração"
+  }
+]

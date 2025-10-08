@@ -1,0 +1,36 @@
+[
+  {
+    "type": "section-header",
+    "label": "Funcionalidades Principais"
+  },
+  {
+    "type": "file",
+    "name": "search",
+    "label": "Sistema de Busca"
+  },
+  {
+    "type": "file",
+    "name": "indexing",
+    "label": "Indexação"
+  },
+  {
+    "type": "file",
+    "name": "autocomplete",
+    "label": "Autocomplete"
+  },
+  {
+    "type": "file",
+    "name": "metrics",
+    "label": "Métricas"
+  },
+  {
+    "type": "file",
+    "name": "search-settings",
+    "label": "Configurações de Busca"
+  },
+  {
+    "type": "file",
+    "name": "multi-pattern-search",
+    "label": "Multi-Pattern Search"
+  }
+]
