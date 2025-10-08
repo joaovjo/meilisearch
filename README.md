@@ -74,6 +74,7 @@ The plugin is configured **only** in the Network Admin panel:
 - **Network Admin → Meilisearch → Metrics** - Real-time index statistics (no cache)
 - **Network Admin → Meilisearch → Index Analyzer** - Detect multiple WordPress networks and patterns
 - **Network Admin → Meilisearch → Multi-Pattern Search** - Configure cross-network search
+- **Network Admin → Meilisearch → Experimental** - Enable/disable experimental Meilisearch features
 
 Settings are stored network-wide using `get_site_option()`.
 
@@ -106,6 +107,20 @@ Use cases:
 - **Migration Support** - Include both old and new index patterns during transitions
 
 See [full Multi-Pattern Search documentation](docs/MULTI-PATTERN-SEARCH.md) for detailed usage.
+
+### Experimental Features
+
+The Experimental Features page allows you to enable advanced Meilisearch capabilities:
+
+- **Vector Store** - Enable vector search for semantic/AI-powered search
+- **Metrics** - Enable Prometheus-compatible metrics endpoint
+- **Logs Route** - API access to Meilisearch logs
+- **Edit Documents By Function** - Batch document transformations
+- **Contains Filter** - Partial string matching in filters
+
+⚠️ **Warning:** Experimental features are unstable and may change in future versions. Use at your own risk in production.
+
+See [full Experimental Features documentation](docs/docs/features/experimental-features.md) for detailed information.
 
 ## WP-CLI Commands
 

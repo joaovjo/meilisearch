@@ -32,5 +32,10 @@
     "type": "file",
     "name": "multi-pattern-search",
     "label": "Multi-Pattern Search"
+  },
+  {
+    "type": "file",
+    "name": "experimental-features",
+    "label": "Funcionalidades Experimentais"
   }
 ]

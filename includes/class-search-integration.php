@@ -200,6 +200,11 @@ class Meilisearch_Search_Integration
 
 		$permalink = get_permalink();
 		
+		// Se não conseguir obter o permalink, retornar apenas o excerpt
+		if (!$permalink || false === $permalink) {
+			return $excerpt;
+		}
+		
 		$url_display = '<div class="meilisearch-result-url" style="margin-top:0.5rem;font-size:0.85rem;color:#666;word-break:break-all;">' .
 			'<strong>URL:</strong> <a href="' . esc_url($permalink) . '" style="color:#0073aa;">' . esc_html($permalink) . '</a>' .
 			'</div>';
