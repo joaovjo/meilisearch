@@ -40,96 +40,96 @@ msgstr "Meilisearch"
 
 #: admin/class-dashboard.php:293
 #: admin/class-index-analyzer.php:311
-#: admin/class-metrics.php:155
-#: admin/class-network-settings.php:56
-#: admin/class-network-settings.php:305
+#: admin/class-metrics.php:164
+#: admin/class-network-settings.php:58
+#: admin/class-network-settings.php:410
 #: admin/class-search-settings.php:79
-#: admin/class-search-settings.php:292
+#: admin/class-search-settings.php:332
 msgid "You do not have permission to access this page."
 msgstr "Você não tem permissão para acessar esta página."
 
-#: admin/class-network-settings.php:78
+#: admin/class-network-settings.php:84
 msgid "Meilisearch Network Settings"
 msgstr "Configurações de Rede do Meilisearch"
 
-#: admin/class-network-settings.php:90
+#: admin/class-network-settings.php:96
 msgid "Settings saved successfully."
 msgstr "Configurações salvas com sucesso."
 
-#: admin/class-network-settings.php:97
+#: admin/class-network-settings.php:103
 msgid "Connection Status:"
 msgstr "Status da Conexão:"
 
-#: admin/class-network-settings.php:108
+#: admin/class-network-settings.php:114
 msgid "Connected successfully!"
 msgstr "Conectado com sucesso!"
 
-#: admin/class-network-settings.php:110
+#: admin/class-network-settings.php:116
 msgid "Connection failed. Please check your credentials."
 msgstr "Falha na conexão. Por favor, verifique suas credenciais."
 
-#: admin/class-network-settings.php:131
+#: admin/class-network-settings.php:137
 msgid "Enable Meilisearch"
 msgstr "Ativar Meilisearch"
 
-#: admin/class-network-settings.php:141
+#: admin/class-network-settings.php:147
 msgid "Enable Meilisearch search across the network."
 msgstr "Ativar busca Meilisearch em toda a rede."
 
-#: admin/class-network-settings.php:149
+#: admin/class-network-settings.php:155
 msgid "Meilisearch Host"
 msgstr "Host do Meilisearch"
 
-#: admin/class-network-settings.php:160
+#: admin/class-network-settings.php:166
 msgid "URL of your Meilisearch server (e.g., http://localhost:7700)"
 msgstr "URL do seu servidor Meilisearch (ex: http://localhost:7700)"
 
-#: admin/class-network-settings.php:168
+#: admin/class-network-settings.php:174
 msgid "Master Key"
 msgstr "Chave Mestre"
 
-#: admin/class-network-settings.php:179
+#: admin/class-network-settings.php:185
 msgid "Your Meilisearch master key (leave empty if not using authentication)."
 msgstr "Sua chave mestre do Meilisearch (deixe vazio se não estiver usando autenticação)."
 
-#: admin/class-network-settings.php:247
+#: admin/class-network-settings.php:352
 msgid "Indexing Status"
 msgstr "Status da Indexação"
 
 #: admin/class-multi-pattern-search.php:486
-#: admin/class-network-settings.php:250
+#: admin/class-network-settings.php:355
 msgid "Save Settings"
 msgstr "Salvar Configurações"
 
-#: admin/class-metrics.php:180
-#: admin/class-network-settings.php:268
+#: admin/class-metrics.php:189
+#: admin/class-network-settings.php:373
 msgid "Metric"
 msgstr "Métrica"
 
-#: admin/class-metrics.php:181
-#: admin/class-network-settings.php:269
+#: admin/class-metrics.php:190
+#: admin/class-network-settings.php:374
 msgid "Value"
 msgstr "Valor"
 
-#: admin/class-network-settings.php:274
+#: admin/class-network-settings.php:379
 msgid "Total Sites in Network"
 msgstr "Total de Sites na Rede"
 
 #. translators: %s: WP-CLI command
-#: admin/class-network-settings.php:283
+#: admin/class-network-settings.php:388
 #, php-format
 msgid "Use WP-CLI to index all sites: %s"
 msgstr "Use o WP-CLI para indexar todos os sites: %s"
 
-#: meilisearch.php:85
+#: meilisearch.php:86
 msgid "This plugin must be network activated."
 msgstr "Este plugin deve ser ativado na rede."
 
-#: meilisearch.php:86
+#: meilisearch.php:87
 msgid "Network Activation Required"
 msgstr "Ativação de Rede Necessária"
 
-#: meilisearch.php:128
+#: meilisearch.php:129
 msgid "Meilisearch plugin requires WordPress Multisite."
 msgstr "O plugin Meilisearch requer WordPress Multisite."
 
@@ -142,8 +142,8 @@ msgstr "Busca Meilisearch"
 msgid "Dashboard"
 msgstr "Painel"
 
-#: admin/class-network-settings.php:42
-#: admin/class-network-settings.php:43
+#: admin/class-network-settings.php:44
+#: admin/class-network-settings.php:45
 msgid "Settings"
 msgstr "Configurações"
 
@@ -246,11 +246,11 @@ msgstr "Ver estatísticas de indexação"
 msgid "Metrics"
 msgstr "Métricas"
 
-#: admin/class-metrics.php:163
+#: admin/class-metrics.php:172
 msgid "Meilisearch Metrics"
 msgstr "Métricas do Meilisearch"
 
-#: admin/class-metrics.php:164
+#: admin/class-metrics.php:173
 msgid "Real-time metrics from Meilisearch server (not cached)"
 msgstr "Métricas em tempo real do servidor Meilisearch (sem cache)"
 
@@ -259,91 +259,91 @@ msgstr "Métricas em tempo real do servidor Meilisearch (sem cache)"
 msgid "Meilisearch client not configured"
 msgstr "Cliente Meilisearch não configurado"
 
-#: admin/class-metrics.php:176
+#: admin/class-metrics.php:185
 msgid "Global Statistics"
 msgstr "Estatísticas Globais"
 
-#: admin/class-metrics.php:186
+#: admin/class-metrics.php:195
 msgid "Total Database Size"
 msgstr "Tamanho Total do Banco de Dados"
 
-#: admin/class-metrics.php:190
+#: admin/class-metrics.php:199
 msgid "Last Update"
 msgstr "Última Atualização"
 
 #: admin/class-index-analyzer.php:370
 #: admin/class-index-analyzer.php:455
-#: admin/class-metrics.php:194
+#: admin/class-metrics.php:203
 msgid "Total Indexes"
 msgstr "Total de Índices"
 
-#: admin/class-metrics.php:201
+#: admin/class-metrics.php:210
 msgid "Indexes Statistics"
 msgstr "Estatísticas dos Índices"
 
-#: admin/class-metrics.php:204
+#: admin/class-metrics.php:213
 msgid "No indexes found."
 msgstr "Nenhum índice encontrado."
 
-#: admin/class-metrics.php:222
+#: admin/class-metrics.php:231
 msgid "Primary Key"
 msgstr "Chave Primária"
 
-#: admin/class-metrics.php:226
+#: admin/class-metrics.php:235
 msgid "Created At"
 msgstr "Criado em"
 
-#: admin/class-metrics.php:230
+#: admin/class-metrics.php:239
 msgid "Updated At"
 msgstr "Atualizado em"
 
-#: admin/class-metrics.php:234
+#: admin/class-metrics.php:243
 msgid "Number of Documents"
 msgstr "Número de Documentos"
 
-#: admin/class-metrics.php:238
+#: admin/class-metrics.php:247
 msgid "Is Indexing"
 msgstr "Está Indexando"
 
-#: admin/class-metrics.php:241
+#: admin/class-metrics.php:250
 msgid "Yes"
 msgstr "Sim"
 
-#: admin/class-metrics.php:243
+#: admin/class-metrics.php:252
 msgid "No"
 msgstr "Não"
 
-#: admin/class-metrics.php:248
+#: admin/class-metrics.php:257
 msgid "Field Distribution"
 msgstr "Distribuição de Campos"
 
-#: admin/class-metrics.php:252
+#: admin/class-metrics.php:261
 msgid "View Details"
 msgstr "Ver Detalhes"
 
-#: admin/class-metrics.php:260
+#: admin/class-metrics.php:269
 msgid "No field distribution available"
 msgstr "Nenhuma distribuição de campos disponível"
 
-#: admin/class-metrics.php:274
+#: admin/class-metrics.php:283
 msgid "Refresh Metrics"
 msgstr "Atualizar Métricas"
 
 #. translators: %s: current time
-#: admin/class-metrics.php:280
+#: admin/class-metrics.php:289
 #, php-format
 msgid "Last updated: %s"
 msgstr "Última atualização: %s"
 
-#: admin/class-network-settings.php:187
+#: admin/class-network-settings.php:193
 msgid "Index Name Format"
 msgstr "Formato do Nome do Índice"
 
-#: admin/class-network-settings.php:198
+#: admin/class-network-settings.php:204
 msgid "Index naming format. Use {prefix} for table prefix (wp_, wp_2_, wp_3_), {blog_id} for site ID, {site_id} for site ID. Default: {prefix}posts"
 msgstr "Formato de nomenclatura do índice. Use {prefix} para prefixo da tabela (wp_, wp_2_, wp_3_), {blog_id} para ID do site, {site_id} para ID do site. Padrão: {prefix}posts"
 
-#: admin/class-network-settings.php:207
+#: admin/class-network-settings.php:213
 msgid "Examples:"
 msgstr "Exemplos:"
 
@@ -485,7 +485,7 @@ msgid "View %d sites"
 msgstr "Ver %d sites"
 
 #: admin/class-index-analyzer.php:321
-#: admin/class-metrics.php:169
+#: admin/class-metrics.php:178
 msgid "Error:"
 msgstr "Erro:"
 
@@ -512,7 +512,7 @@ msgid "Reindex Error"
 msgstr "Erro de Reindexação"
 
 #. translators: %d: site/blog ID
-#: admin/class-metrics.php:214
+#: admin/class-metrics.php:223
 #, php-format
 msgid "Site ID: %d"
 msgstr "ID do Site: %d"
@@ -589,13 +589,9 @@ msgstr "Inativo"
 msgid "Meilisearch is not configured. Please configure it in the Settings page first."
 msgstr "O Meilisearch não está configurado. Por favor, configure-o na página de Configurações primeiro."
 
-#: admin/class-network-settings.php:218
+#: admin/class-network-settings.php:224
 msgid "Post Types to Index"
 msgstr "Tipos de Posts para Indexar"
-
-#: admin/class-network-settings.php:241
-msgid "Select which post types should be indexed in Meilisearch. Only published content will be indexed."
-msgstr "Selecione quais tipos de posts devem ser indexados no Meilisearch. Apenas conteúdo publicado será indexado."
 
 #: admin/class-search-settings.php:65
 msgid "Search Configuration"
@@ -643,43 +639,43 @@ msgstr "Atributos Filtráveis"
 msgid "Select which attributes can be used to filter search results. For example, you can filter by post type, author, categories, or tags."
 msgstr "Selecione quais atributos podem ser usados para filtrar resultados de busca. Por exemplo, você pode filtrar por tipo de post, autor, categorias ou tags."
 
-#: admin/class-search-settings.php:171
+#: admin/class-search-settings.php:211
 msgid "Default Sort Order"
 msgstr "Ordem de Classificação Padrão"
 
-#: admin/class-search-settings.php:176
+#: admin/class-search-settings.php:216
 msgid "Sort By"
 msgstr "Ordenar Por"
 
-#: admin/class-search-settings.php:181
+#: admin/class-search-settings.php:221
 msgid "Relevance (Default)"
 msgstr "Relevância (Padrão)"
 
-#: admin/class-search-settings.php:196
+#: admin/class-search-settings.php:236
 msgid "Sort Direction"
 msgstr "Direção da Ordenação"
 
-#: admin/class-search-settings.php:202
+#: admin/class-search-settings.php:242
 msgid "Ascending (A-Z, 0-9, oldest first)"
 msgstr "Crescente (A-Z, 0-9, mais antigos primeiro)"
 
-#: admin/class-search-settings.php:205
+#: admin/class-search-settings.php:245
 msgid "Descending (Z-A, 9-0, newest first)"
 msgstr "Decrescente (Z-A, 9-0, mais recentes primeiro)"
 
-#: admin/class-search-settings.php:209
+#: admin/class-search-settings.php:249
 msgid "For date fields like \"date\" or \"modified\", descending order shows newest content first."
 msgstr "Para campos de data como \"date\" ou \"modified\", a ordem decrescente mostra o conteúdo mais recente primeiro."
 
-#: admin/class-search-settings.php:217
+#: admin/class-search-settings.php:257
 msgid "Important:"
 msgstr "Importante:"
 
-#: admin/class-search-settings.php:218
+#: admin/class-search-settings.php:258
 msgid "After changing these settings, you need to reindex your content for the changes to take effect. Use WP-CLI:"
 msgstr "Após alterar essas configurações, você precisa reindexar seu conteúdo para que as alterações tenham efeito. Use o WP-CLI:"
 
-#: admin/class-search-settings.php:223
+#: admin/class-search-settings.php:263
 msgid "Save Search Settings"
 msgstr "Salvar Configurações de Busca"
 
@@ -725,7 +721,7 @@ msgstr "Nenhum resultado encontrado para \"%s\"."
 msgid "Tente usar palavras-chave diferentes ou verifique a ortografia."
 msgstr "Tente usar palavras-chave diferentes ou verifique a ortografia."
 
-#. translators: 1: número inicial, 2: número final, 3: total de resultados, 4: termo de busca
+#. translators: 1: start number, 2: end number (only in plural), 3: total results, 4: search term
 #: public/class-search-shortcode.php:205
 #, php-format
 msgid "Exibindo %1$s de %3$s resultado para \"%4$s\""
@@ -733,7 +729,7 @@ msgid_plural "Exibindo %1$s - %2$s de %3$s resultados para \"%4$s\""
 msgstr[0] "Exibindo %1$s de %3$s resultado para \"%4$s\""
 msgstr[1] "Exibindo %1$s - %2$s de %3$s resultados para \"%4$s\""
 
-#. translators: %s: termo de busca
+#. translators: %s: search term
 #: public/class-search-shortcode.php:223
 #, php-format
 msgid "0 resultados encontrados para \"%s\""
@@ -744,23 +740,141 @@ msgid "Sem título"
 msgstr "Sem título"
 
 #. translators: %s: nome do autor
-#: public/class-search-shortcode.php:293
+#: public/class-search-shortcode.php:306
 #, php-format
 msgid "por %s"
 msgstr "por %s"
 
-#: public/class-search-shortcode.php:311
+#: public/class-search-shortcode.php:324
 msgid "Ler mais"
 msgstr "Ler mais"
 
-#: public/class-search-shortcode.php:337
+#: public/class-search-shortcode.php:350
 msgid "Paginação de resultados"
 msgstr "Paginação de resultados"
 
-#: public/class-search-shortcode.php:342
+#: public/class-search-shortcode.php:355
 msgid "Anterior"
 msgstr "Anterior"
 
-#: public/class-search-shortcode.php:396
+#: public/class-search-shortcode.php:409
 msgid "Próxima"
 msgstr "Próxima"
+
+#: admin/class-network-settings.php:247
+msgid "Select which post types should be indexed in Meilisearch."
+msgstr ""
+
+#: admin/class-network-settings.php:255
+msgid "Post Statuses to Index"
+msgstr ""
+
+#: admin/class-network-settings.php:261
+msgid "Published"
+msgstr ""
+
+#: admin/class-network-settings.php:262
+msgid "Inherit (for attachments/media)"
+msgstr ""
+
+#: admin/class-network-settings.php:263
+msgid "Scheduled"
+msgstr ""
+
+#: admin/class-network-settings.php:264
+msgid "Draft"
+msgstr ""
+
+#: admin/class-network-settings.php:265
+msgid "Pending Review"
+msgstr ""
+
+#: admin/class-network-settings.php:266
+msgid "Private"
+msgstr ""
+
+#: admin/class-network-settings.php:285
+msgid "Select which post statuses should be indexed. Note: \"inherit\" is required for attachments/media files."
+msgstr ""
+
+#: admin/class-network-settings.php:293
+msgid "Batch Size for Indexing"
+msgstr ""
+
+#: admin/class-network-settings.php:306
+msgid "Number of documents to send to Meilisearch in each batch during bulk indexing. Higher values may be faster but consume more memory. Default: 100"
+msgstr ""
+
+#: admin/class-network-settings.php:314
+msgid "Auto-Reindex on Save"
+msgstr ""
+
+#: admin/class-network-settings.php:324
+msgid "Automatically reindex all sites when settings are saved. The reindexing runs in the background. Disable this if you prefer to manually reindex using WP-CLI."
+msgstr ""
+
+#: admin/class-network-settings.php:332
+msgid "Reindex Mode"
+msgstr ""
+
+#: admin/class-network-settings.php:338
+msgid "Asynchronous (Recommended)"
+msgstr ""
+
+#: admin/class-network-settings.php:341
+msgid "Immediate (May cause timeout on large sites)"
+msgstr ""
+
+#: admin/class-network-settings.php:344
+msgid "WP-Cron (Less reliable)"
+msgstr ""
+
+#: admin/class-network-settings.php:348
+msgid "Choose how reindexing should run: Async uses background requests (recommended), Immediate runs synchronously (may timeout), WP-Cron schedules via cron (least reliable)."
+msgstr ""
+
+#: admin/class-search-settings.php:171
+msgid "Display Options"
+msgstr ""
+
+#: admin/class-search-settings.php:175
+msgid "Relevance Badges"
+msgstr ""
+
+#: admin/class-search-settings.php:183
+msgid "Show relevance score badges in search results"
+msgstr ""
+
+#: admin/class-search-settings.php:186
+msgid "Display colored badges showing the relevance percentage next to search result titles. You can customize the badge styles in your theme CSS."
+msgstr ""
+
+#: admin/class-search-settings.php:192
+msgid "Post URLs"
+msgstr ""
+
+#: admin/class-search-settings.php:200
+msgid "Show post URLs after search results"
+msgstr ""
+
+#: admin/class-search-settings.php:203
+msgid "Display the full permalink URL after each search result content. You can customize the URL display styles in your theme CSS."
+msgstr ""
+
+#. translators: %s: search term
+#: meilisearch.php:238
+#, php-format
+msgid "Nenhum resultado encontrado para \"%s\""
+msgstr ""
+
+#. translators: %s: search term
+#: meilisearch.php:241
+#, php-format
+msgid "1 resultado encontrado para \"%s\""
+msgstr ""
+
+#. translators: 1: number of results, 2: search term
+#: meilisearch.php:244
+#, php-format
+msgid "%1$d resultados encontrados para \"%2$s\""
+msgstr ""

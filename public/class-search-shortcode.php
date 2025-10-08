@@ -201,7 +201,7 @@ class Meilisearch_Search_Shortcode
 				<p class="meilisearch-results-info">
 					<?php
 					printf(
-						/* translators: 1: número inicial, 2: número final, 3: total de resultados, 4: termo de busca */
+						/* translators: 1: start number, 2: end number (only in plural), 3: total results, 4: search term */
 						esc_html(_n(
 							'Exibindo %1$s de %3$s resultado para "%4$s"',
 							'Exibindo %1$s - %2$s de %3$s resultados para "%4$s"',
@@ -219,7 +219,7 @@ class Meilisearch_Search_Shortcode
 				<p class="meilisearch-results-info meilisearch-no-results-info">
 					<?php
 					printf(
-						/* translators: %s: termo de busca */
+						/* translators: %s: search term */
 						esc_html__('0 resultados encontrados para "%s"', 'meilisearch'),
 						'<strong>' . esc_html($search_query) . '</strong>'
 					);

@@ -234,11 +234,14 @@ function meilisearch_display_total_results(string $format = ''): void
 
 	if (empty($format)) {
 		if ($total === 0) {
+			/* translators: %s: search term */
 			$format = __('Nenhum resultado encontrado para "%s"', 'meilisearch');
 		} elseif ($total === 1) {
+			/* translators: %s: search term */
 			$format = __('1 resultado encontrado para "%s"', 'meilisearch');
 		} else {
-			$format = __('%d resultados encontrados para "%s"', 'meilisearch');
+			/* translators: 1: number of results, 2: search term */
+			$format = __('%1$d resultados encontrados para "%2$s"', 'meilisearch');
 		}
 	}
 
