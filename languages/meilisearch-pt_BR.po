@@ -763,118 +763,118 @@ msgstr "Próxima"
 
 #: admin/class-network-settings.php:247
 msgid "Select which post types should be indexed in Meilisearch."
-msgstr ""
+msgstr "Selecione quais tipos de posts devem ser indexados no Meilisearch."
 
 #: admin/class-network-settings.php:255
 msgid "Post Statuses to Index"
-msgstr ""
+msgstr "Status de Posts para Indexar"
 
 #: admin/class-network-settings.php:261
 msgid "Published"
-msgstr ""
+msgstr "Publicado"
 
 #: admin/class-network-settings.php:262
 msgid "Inherit (for attachments/media)"
-msgstr ""
+msgstr "Herdado (para anexos/mídia)"
 
 #: admin/class-network-settings.php:263
 msgid "Scheduled"
-msgstr ""
+msgstr "Agendado"
 
 #: admin/class-network-settings.php:264
 msgid "Draft"
-msgstr ""
+msgstr "Rascunho"
 
 #: admin/class-network-settings.php:265
 msgid "Pending Review"
-msgstr ""
+msgstr "Aguardando Revisão"
 
 #: admin/class-network-settings.php:266
 msgid "Private"
-msgstr ""
+msgstr "Privado"
 
 #: admin/class-network-settings.php:285
 msgid "Select which post statuses should be indexed. Note: \"inherit\" is required for attachments/media files."
-msgstr ""
+msgstr "Selecione quais status de posts devem ser indexados. Nota: \"herdado\" é necessário para arquivos de anexos/mídia."
 
 #: admin/class-network-settings.php:293
 msgid "Batch Size for Indexing"
-msgstr ""
+msgstr "Tamanho do Lote para Indexação"
 
 #: admin/class-network-settings.php:306
 msgid "Number of documents to send to Meilisearch in each batch during bulk indexing. Higher values may be faster but consume more memory. Default: 100"
-msgstr ""
+msgstr "Número de documentos para enviar ao Meilisearch em cada lote durante a indexação em massa. Valores maiores podem ser mais rápidos, mas consomem mais memória. Padrão: 100"
 
 #: admin/class-network-settings.php:314
 msgid "Auto-Reindex on Save"
-msgstr ""
+msgstr "Reindexar Automaticamente ao Salvar"
 
 #: admin/class-network-settings.php:324
 msgid "Automatically reindex all sites when settings are saved. The reindexing runs in the background. Disable this if you prefer to manually reindex using WP-CLI."
-msgstr ""
+msgstr "Reindexar automaticamente todos os sites quando as configurações forem salvas. A reindexação é executada em segundo plano. Desabilite se preferir reindexar manualmente usando WP-CLI."
 
 #: admin/class-network-settings.php:332
 msgid "Reindex Mode"
-msgstr ""
+msgstr "Modo de Reindexação"
 
 #: admin/class-network-settings.php:338
 msgid "Asynchronous (Recommended)"
-msgstr ""
+msgstr "Assíncrono (Recomendado)"
 
 #: admin/class-network-settings.php:341
 msgid "Immediate (May cause timeout on large sites)"
-msgstr ""
+msgstr "Imediato (Pode causar timeout em sites grandes)"
 
 #: admin/class-network-settings.php:344
 msgid "WP-Cron (Less reliable)"
-msgstr ""
+msgstr "WP-Cron (Menos confiável)"
 
 #: admin/class-network-settings.php:348
 msgid "Choose how reindexing should run: Async uses background requests (recommended), Immediate runs synchronously (may timeout), WP-Cron schedules via cron (least reliable)."
-msgstr ""
+msgstr "Escolha como a reindexação deve ser executada: Assíncrono usa requisições em segundo plano (recomendado), Imediato executa sincronamente (pode dar timeout), WP-Cron agenda via cron (menos confiável)."
 
 #: admin/class-search-settings.php:171
 msgid "Display Options"
-msgstr ""
+msgstr "Opções de Exibição"
 
 #: admin/class-search-settings.php:175
 msgid "Relevance Badges"
-msgstr ""
+msgstr "Badges de Relevância"
 
 #: admin/class-search-settings.php:183
 msgid "Show relevance score badges in search results"
-msgstr ""
+msgstr "Mostrar badges de pontuação de relevância nos resultados de busca"
 
 #: admin/class-search-settings.php:186
 msgid "Display colored badges showing the relevance percentage next to search result titles. You can customize the badge styles in your theme CSS."
-msgstr ""
+msgstr "Exibir badges coloridos mostrando a porcentagem de relevância ao lado dos títulos dos resultados de busca. Você pode personalizar os estilos dos badges no CSS do seu tema."
 
 #: admin/class-search-settings.php:192
 msgid "Post URLs"
-msgstr ""
+msgstr "URLs dos Posts"
 
 #: admin/class-search-settings.php:200
 msgid "Show post URLs after search results"
-msgstr ""
+msgstr "Mostrar URLs dos posts após os resultados de busca"
 
 #: admin/class-search-settings.php:203
 msgid "Display the full permalink URL after each search result content. You can customize the URL display styles in your theme CSS."
-msgstr ""
+msgstr "Exibir a URL completa do permalink após cada conteúdo de resultado de busca. Você pode personalizar os estilos de exibição de URL no CSS do seu tema."
 
 #. translators: %s: search term
 #: meilisearch.php:238
 #, php-format
 msgid "Nenhum resultado encontrado para \"%s\""
-msgstr ""
+msgstr "Nenhum resultado encontrado para \"%s\""
 
 #. translators: %s: search term
 #: meilisearch.php:241
 #, php-format
 msgid "1 resultado encontrado para \"%s\""
-msgstr ""
+msgstr "1 resultado encontrado para \"%s\""
 
 #. translators: 1: number of results, 2: search term
 #: meilisearch.php:244
 #, php-format
 msgid "%1$d resultados encontrados para \"%2$s\""
-msgstr ""
+msgstr "%1$d resultados encontrados para \"%2$s\""
