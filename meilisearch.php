@@ -50,6 +50,7 @@ require_once MEILISEARCH_PLUGIN_DIR . 'includes/class-indexer.php';
 require_once MEILISEARCH_PLUGIN_DIR . 'includes/class-searcher.php';
 require_once MEILISEARCH_PLUGIN_DIR . 'includes/class-autocomplete.php';
 require_once MEILISEARCH_PLUGIN_DIR . 'includes/class-search-api.php';
+require_once MEILISEARCH_PLUGIN_DIR . 'includes/class-search-integration.php';
 
 // Incluir classe de configurações de pesquisa (necessária no frontend e admin).
 require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-search-settings.php';
@@ -155,6 +156,10 @@ function meilisearch_init(): void
 			// Inicializar shortcode de busca.
 			$search_shortcode = new Meilisearch_Search_Shortcode($client);
 			$search_shortcode->init_hooks();
+
+			// Inicializar integração com busca nativa (badges de relevância).
+			$search_integration = new Meilisearch_Search_Integration($client);
+			$search_integration->init_hooks();
 		}
 
 		// Inicializar Search API (sempre disponível).
