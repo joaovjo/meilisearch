@@ -65,8 +65,8 @@ class Meilisearch_Indexer
 			return;
 		}
 
-		// Indexar apenas posts publicados.
-		if ('publish' !== $post->post_status) {
+		// Indexar posts publicados ou attachments (que têm status 'inherit').
+		if ('publish' !== $post->post_status && 'inherit' !== $post->post_status) {
 			return;
 		}
 
@@ -191,10 +191,10 @@ class Meilisearch_Indexer
 		// Obter tipos de post configurados para indexação.
 		$post_types = $this->get_indexable_post_types();
 
-		// Obter todos os posts publicados.
+		// Obter todos os posts publicados e attachments (inherit).
 		$args = [
 			'post_type' => $post_types,
-			'post_status' => 'publish',
+			'post_status' => ['publish', 'inherit'],
 			'posts_per_page' => -1,
 			'orderby' => 'ID',
 			'order' => 'ASC',

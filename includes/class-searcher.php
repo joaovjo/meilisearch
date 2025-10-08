@@ -73,7 +73,7 @@ class Meilisearch_Searcher
 				->setQuery($query)
 				->setLimit($args['limit'])
 				->setOffset($args['offset'])
-				->setFilter(['post_status = publish']);
+				->setFilter(['post_status = publish OR post_status = inherit']);
 
 			// Adicionar ordenação se fornecida
 			if (!empty($args['sort'])) {
@@ -209,7 +209,7 @@ class Meilisearch_Searcher
 		$search_params = [
 			'limit' => $args['limit'],
 			'offset' => $args['offset'],
-			'filter' => ['post_status = publish'],
+			'filter' => ['post_status = publish OR post_status = inherit'],
 		];
 
 		// Adicionar ordenação se fornecida
