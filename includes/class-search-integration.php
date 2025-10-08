@@ -70,6 +70,10 @@ class Meilisearch_Search_Integration
 			return;
 		}
 
+		// Armazenar termo de busca original em variável global para uso no tema
+		global $meilisearch_search_term;
+		$meilisearch_search_term = $search_term;
+
 		// Executar busca no Meilisearch
 		$searcher = new Meilisearch_Searcher($this->client);
 		$results = $searcher->search_network($search_term, [
@@ -108,7 +112,7 @@ class Meilisearch_Search_Integration
 			if (!empty($post_ids)) {
 				$query->set('post__in', $post_ids);
 				$query->set('orderby', 'post__in'); // Manter ordem do Meilisearch
-				$query->set('s', ''); // Remover busca padrão do WordPress
+				// NÃO limpar 's' para que o tema possa exibir o termo de busca
 			}
 		}
 	}
