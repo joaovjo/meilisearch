@@ -127,6 +127,11 @@ class Meilisearch_Search_Integration
 			return $title;
 		}
 
+		// Verificar se os badges estão habilitados nas configurações
+		if (!Meilisearch_Search_Settings::should_show_relevance_badges()) {
+			return $title;
+		}
+
 		global $meilisearch_results;
 		
 		if (empty($meilisearch_results)) {
@@ -216,6 +221,11 @@ class Meilisearch_Search_Integration
 	public function enqueue_search_styles(): void
 	{
 		if (!is_search()) {
+			return;
+		}
+
+		// Apenas carregar CSS se os badges estiverem habilitados
+		if (!Meilisearch_Search_Settings::should_show_relevance_badges()) {
 			return;
 		}
 

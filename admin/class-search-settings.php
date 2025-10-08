@@ -168,6 +168,29 @@ class Meilisearch_Search_Settings
 
 				<br><br>
 
+				<h2><?php esc_html_e('Display Options', 'meilisearch'); ?></h2>
+				<table class="form-table">
+					<tr>
+						<th scope="row">
+							<?php esc_html_e('Relevance Badges', 'meilisearch'); ?>
+						</th>
+						<td>
+							<label>
+								<input type="checkbox" 
+									   name="meilisearch_search_settings[show_relevance_badges]" 
+									   value="1"
+									   <?php checked($settings['show_relevance_badges'] ?? true, true); ?> />
+								<?php esc_html_e('Show relevance score badges in search results', 'meilisearch'); ?>
+							</label>
+							<p class="description">
+								<?php esc_html_e('Display colored badges showing the relevance percentage next to search result titles. You can customize the badge styles in your theme CSS.', 'meilisearch'); ?>
+							</p>
+						</td>
+					</tr>
+				</table>
+
+				<br>
+
 				<h2><?php esc_html_e('Default Sort Order', 'meilisearch'); ?></h2>
 				<table class="form-table">
 					<tr>
@@ -276,6 +299,7 @@ class Meilisearch_Search_Settings
 			'filterable_attributes' => ['post_type', 'blog_id', 'author_id', 'categories', 'tags'],
 			'default_sort_attribute' => 'date',
 			'default_sort_direction' => 'desc',
+			'show_relevance_badges' => true,
 		];
 
 		return wp_parse_args($settings, $defaults);
@@ -311,6 +335,7 @@ class Meilisearch_Search_Settings
 			'default_sort_direction' => in_array($settings['default_sort_direction'] ?? 'desc', ['asc', 'desc'], true)
 				? $settings['default_sort_direction']
 				: 'desc',
+			'show_relevance_badges' => isset($settings['show_relevance_badges']) && $settings['show_relevance_badges'] === '1',
 		];
 
 		update_site_option($this->option_name, $sanitized);
@@ -360,5 +385,16 @@ class Meilisearch_Search_Settings
 			'attribute' => $settings['default_sort_attribute'] ?? 'date',
 			'direction' => $settings['default_sort_direction'] ?? 'desc',
 		];
+	}
+
+	/**
+	 * Verificar se os badges de relevância devem ser exibidos.
+	 *
+	 * @return bool True se os badges devem ser exibidos, false caso contrário.
+	 */
+	public static function should_show_relevance_badges(): bool
+	{
+		$settings = get_site_option('meilisearch_search_settings', []);
+		return isset($settings['show_relevance_badges']) ? (bool) $settings['show_relevance_badges'] : true;
 	}
 }
