@@ -39,9 +39,9 @@ class Meilisearch_Experimental_Features
 	{
 		if (empty($this->available_features)) {
 			$this->available_features = [
-				'vectorStore' => [
-					'name' => __('Vector Store', 'meilisearch'),
-					'description' => __('Enable vector search capabilities for semantic search and AI-powered features. Allows storing and searching vector embeddings.', 'meilisearch'),
+				'vectorStoreSetting' => [
+					'name' => __('Vector Store Setting', 'meilisearch'),
+					'description' => __('Enable vector store configuration for semantic search and AI-powered features. Allows configuring embedders and vector search settings.', 'meilisearch'),
 				],
 				'metrics' => [
 					'name' => __('Metrics', 'meilisearch'),
@@ -58,6 +58,26 @@ class Meilisearch_Experimental_Features
 				'containsFilter' => [
 					'name' => __('Contains Filter', 'meilisearch'),
 					'description' => __('Enable "contains" filter operator for partial string matching in search filters.', 'meilisearch'),
+				],
+				'network' => [
+					'name' => __('Network', 'meilisearch'),
+					'description' => __('Enable network-related features and configurations for distributed search.', 'meilisearch'),
+				],
+				'getTaskDocumentsRoute' => [
+					'name' => __('Get Task Documents Route', 'meilisearch'),
+					'description' => __('Enable API route to retrieve documents associated with specific tasks.', 'meilisearch'),
+				],
+				'compositeEmbedders' => [
+					'name' => __('Composite Embedders', 'meilisearch'),
+					'description' => __('Enable support for multiple embedders working together for advanced vector search.', 'meilisearch'),
+				],
+				'chatCompletions' => [
+					'name' => __('Chat Completions', 'meilisearch'),
+					'description' => __('Enable chat completion API for AI-powered conversational search experiences.', 'meilisearch'),
+				],
+				'multimodal' => [
+					'name' => __('Multimodal', 'meilisearch'),
+					'description' => __('Enable multimodal search capabilities for images, text, and other media types.', 'meilisearch'),
 				],
 			];
 		}

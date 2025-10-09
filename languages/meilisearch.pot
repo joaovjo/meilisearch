@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-10-09T18:36:51+00:00\n"
+"POT-Creation-Date: 2025-10-09T18:49:12+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: meilisearch\n"
@@ -79,8 +79,8 @@ msgid "Reindex Error"
 msgstr ""
 
 #: admin/class-dashboard.php:293
-#: admin/class-experimental-features.php:143
-#: admin/class-experimental-features.php:314
+#: admin/class-experimental-features.php:169
+#: admin/class-experimental-features.php:340
 #: admin/class-index-analyzer.php:311
 #: admin/class-metrics.php:164
 #: admin/class-network-settings.php:58
@@ -124,7 +124,7 @@ msgid "Host"
 msgstr ""
 
 #: admin/class-dashboard.php:367
-#: admin/class-experimental-features.php:251
+#: admin/class-experimental-features.php:277
 #: admin/class-multi-pattern-search.php:411
 msgid "Status"
 msgstr ""
@@ -201,142 +201,182 @@ msgstr ""
 msgid "View indexing statistics"
 msgstr ""
 
-#: admin/class-experimental-features.php:40
-msgid "Vector Store"
-msgstr ""
-
-#: admin/class-experimental-features.php:41
-msgid "Enable vector search capabilities for semantic search and AI-powered features. Allows storing and searching vector embeddings."
+#: admin/class-experimental-features.php:43
+msgid "Vector Store Setting"
 msgstr ""
 
 #: admin/class-experimental-features.php:44
+msgid "Enable vector store configuration for semantic search and AI-powered features. Allows configuring embedders and vector search settings."
+msgstr ""
+
+#: admin/class-experimental-features.php:47
 #: admin/class-metrics.php:40
 #: admin/class-metrics.php:41
 msgid "Metrics"
 msgstr ""
 
-#: admin/class-experimental-features.php:45
+#: admin/class-experimental-features.php:48
 msgid "Enable Prometheus-compatible metrics endpoint for monitoring search performance and resource usage."
 msgstr ""
 
-#: admin/class-experimental-features.php:48
+#: admin/class-experimental-features.php:51
 msgid "Logs Route"
 msgstr ""
 
-#: admin/class-experimental-features.php:49
+#: admin/class-experimental-features.php:52
 msgid "Enable API route to access Meilisearch logs directly through the API for debugging and monitoring."
 msgstr ""
 
-#: admin/class-experimental-features.php:52
+#: admin/class-experimental-features.php:55
 msgid "Edit Documents By Function"
 msgstr ""
 
-#: admin/class-experimental-features.php:53
+#: admin/class-experimental-features.php:56
 msgid "Enable document editing using custom functions for batch operations and transformations."
 msgstr ""
 
-#: admin/class-experimental-features.php:56
+#: admin/class-experimental-features.php:59
 msgid "Contains Filter"
 msgstr ""
 
-#: admin/class-experimental-features.php:57
+#: admin/class-experimental-features.php:60
 msgid "Enable \"contains\" filter operator for partial string matching in search filters."
 msgstr ""
 
-#: admin/class-experimental-features.php:78
-msgid "Experimental Features"
+#: admin/class-experimental-features.php:63
+msgid "Network"
+msgstr ""
+
+#: admin/class-experimental-features.php:64
+msgid "Enable network-related features and configurations for distributed search."
+msgstr ""
+
+#: admin/class-experimental-features.php:67
+msgid "Get Task Documents Route"
+msgstr ""
+
+#: admin/class-experimental-features.php:68
+msgid "Enable API route to retrieve documents associated with specific tasks."
+msgstr ""
+
+#: admin/class-experimental-features.php:71
+msgid "Composite Embedders"
+msgstr ""
+
+#: admin/class-experimental-features.php:72
+msgid "Enable support for multiple embedders working together for advanced vector search."
+msgstr ""
+
+#: admin/class-experimental-features.php:75
+msgid "Chat Completions"
+msgstr ""
+
+#: admin/class-experimental-features.php:76
+msgid "Enable chat completion API for AI-powered conversational search experiences."
 msgstr ""
 
 #: admin/class-experimental-features.php:79
+msgid "Multimodal"
+msgstr ""
+
+#: admin/class-experimental-features.php:80
+msgid "Enable multimodal search capabilities for images, text, and other media types."
+msgstr ""
+
+#: admin/class-experimental-features.php:104
+msgid "Experimental Features"
+msgstr ""
+
+#: admin/class-experimental-features.php:105
 msgid "Experimental"
 msgstr ""
 
-#: admin/class-experimental-features.php:150
+#: admin/class-experimental-features.php:176
 msgid "Meilisearch Experimental Features"
 msgstr ""
 
-#: admin/class-experimental-features.php:156
+#: admin/class-experimental-features.php:182
 msgid "Experimental features updated successfully."
 msgstr ""
 
-#: admin/class-experimental-features.php:164
+#: admin/class-experimental-features.php:190
 msgid "Error updating experimental features. Please check your connection and try again."
 msgstr ""
 
-#: admin/class-experimental-features.php:171
+#: admin/class-experimental-features.php:197
 #: admin/class-index-analyzer.php:321
 #: admin/class-metrics.php:178
 msgid "Error:"
 msgstr ""
 
-#: admin/class-experimental-features.php:172
+#: admin/class-experimental-features.php:198
 msgid "Unable to connect to Meilisearch server. Please check your settings."
 msgstr ""
 
-#: admin/class-experimental-features.php:179
+#: admin/class-experimental-features.php:205
 msgid "Warning:"
 msgstr ""
 
-#: admin/class-experimental-features.php:180
+#: admin/class-experimental-features.php:206
 msgid "Experimental features are unstable and may change in future versions. Use them at your own risk in production environments."
 msgstr ""
 
 #. translators: %s: link to Meilisearch documentation
-#: admin/class-experimental-features.php:188
+#: admin/class-experimental-features.php:214
 #, php-format
 msgid "Enable or disable experimental features in Meilisearch. For more information, visit the %s."
 msgstr ""
 
-#: admin/class-experimental-features.php:189
+#: admin/class-experimental-features.php:215
 msgid "Meilisearch documentation"
 msgstr ""
 
-#: admin/class-experimental-features.php:216
+#: admin/class-experimental-features.php:242
 msgid "Enable"
 msgstr ""
 
-#: admin/class-experimental-features.php:222
+#: admin/class-experimental-features.php:248
 msgid "Current status:"
 msgstr ""
 
-#: admin/class-experimental-features.php:224
+#: admin/class-experimental-features.php:250
 msgid "Enabled"
 msgstr ""
 
-#: admin/class-experimental-features.php:226
+#: admin/class-experimental-features.php:252
 msgid "Disabled"
 msgstr ""
 
-#: admin/class-experimental-features.php:237
+#: admin/class-experimental-features.php:263
 msgid "Save Experimental Features"
 msgstr ""
 
-#: admin/class-experimental-features.php:239
+#: admin/class-experimental-features.php:265
 msgid "Refresh Status"
 msgstr ""
 
-#: admin/class-experimental-features.php:246
+#: admin/class-experimental-features.php:272
 msgid "Current Configuration"
 msgstr ""
 
-#: admin/class-experimental-features.php:250
+#: admin/class-experimental-features.php:276
 msgid "Feature"
 msgstr ""
 
-#: admin/class-experimental-features.php:252
+#: admin/class-experimental-features.php:278
 msgid "API Key"
 msgstr ""
 
-#: admin/class-experimental-features.php:262
+#: admin/class-experimental-features.php:288
 msgid "ENABLED"
 msgstr ""
 
-#: admin/class-experimental-features.php:266
+#: admin/class-experimental-features.php:292
 msgid "DISABLED"
 msgstr ""
 
 #. translators: %s: current time
-#: admin/class-experimental-features.php:281
+#: admin/class-experimental-features.php:307
 #: admin/class-metrics.php:289
 #, php-format
 msgid "Last updated: %s"
@@ -1018,19 +1058,19 @@ msgid "Meilisearch plugin requires WordPress Multisite."
 msgstr ""
 
 #. translators: %s: search term
-#: meilisearch.php:242
+#: meilisearch.php:248
 #, php-format
 msgid "Nenhum resultado encontrado para \"%s\""
 msgstr ""
 
 #. translators: %s: search term
-#: meilisearch.php:245
+#: meilisearch.php:251
 #, php-format
 msgid "1 resultado encontrado para \"%s\""
 msgstr ""
 
 #. translators: 1: number of results, 2: search term
-#: meilisearch.php:248
+#: meilisearch.php:254
 #, php-format
 msgid "%1$d resultados encontrados para \"%2$s\""
 msgstr ""

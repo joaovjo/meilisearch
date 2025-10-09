@@ -245,12 +245,12 @@ msgid "View indexing statistics"
 msgstr "Ver estatísticas de indexação"
 
 #: admin/class-experimental-features.php:40
-msgid "Vector Store"
-msgstr "Armazenamento de Vetores"
+msgid "Vector Store Setting"
+msgstr "Configuração de Armazenamento de Vetores"
 
 #: admin/class-experimental-features.php:41
-msgid "Enable vector search capabilities for semantic search and AI-powered features. Allows storing and searching vector embeddings."
-msgstr "Ativar recursos de busca vetorial para busca semântica e funcionalidades com IA. Permite armazenar e buscar embeddings vetoriais."
+msgid "Enable vector store configuration for semantic search and AI-powered features. Allows configuring embedders and vector search settings."
+msgstr "Habilita a configuração de armazenamento de vetores para busca semântica e recursos com IA. Permite configurar embedders e configurações de busca vetorial."
 
 #: admin/class-experimental-features.php:44
 #: admin/class-metrics.php:40
@@ -285,6 +285,46 @@ msgstr "Filtro Contains"
 #: admin/class-experimental-features.php:57
 msgid "Enable \"contains\" filter operator for partial string matching in search filters."
 msgstr "Ativar operador de filtro \"contains\" para correspondência parcial de strings em filtros de busca."
+
+#: admin/class-experimental-features.php:60
+msgid "Network"
+msgstr "Rede"
+
+#: admin/class-experimental-features.php:61
+msgid "Enable network-related features and configurations for distributed search."
+msgstr "Habilita recursos e configurações relacionadas à rede para busca distribuída."
+
+#: admin/class-experimental-features.php:64
+msgid "Get Task Documents Route"
+msgstr "Rota Obter Documentos de Tarefa"
+
+#: admin/class-experimental-features.php:65
+msgid "Enable API route to retrieve documents associated with specific tasks."
+msgstr "Habilita rota de API para recuperar documentos associados a tarefas específicas."
+
+#: admin/class-experimental-features.php:68
+msgid "Composite Embedders"
+msgstr "Embedders Compostos"
+
+#: admin/class-experimental-features.php:69
+msgid "Enable support for multiple embedders working together for advanced vector search."
+msgstr "Habilita suporte para múltiplos embedders trabalhando juntos para busca vetorial avançada."
+
+#: admin/class-experimental-features.php:72
+msgid "Chat Completions"
+msgstr "Completações de Chat"
+
+#: admin/class-experimental-features.php:73
+msgid "Enable chat completion API for AI-powered conversational search experiences."
+msgstr "Habilita API de completação de chat para experiências de busca conversacional com IA."
+
+#: admin/class-experimental-features.php:76
+msgid "Multimodal"
+msgstr "Multimodal"
+
+#: admin/class-experimental-features.php:77
+msgid "Enable multimodal search capabilities for images, text, and other media types."
+msgstr "Habilita capacidades de busca multimodal para imagens, texto e outros tipos de mídia."
 
 #: admin/class-experimental-features.php:78
 msgid "Experimental Features"
