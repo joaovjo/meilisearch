@@ -63,6 +63,7 @@ if (is_admin() && is_multisite()) {
 	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-multi-pattern-search.php';
 	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-network-settings.php';
 	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-experimental-features.php';
+	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-tasks-monitor.php';
 }
 
 // Incluir classes públicas.
@@ -195,6 +196,9 @@ function meilisearch_init(): void
 
 		$experimental_features = new Meilisearch_Experimental_Features();
 		$experimental_features->init_hooks();
+
+		$tasks_monitor = new Meilisearch_Tasks_Monitor();
+		$tasks_monitor->init_hooks();
 	}
 }
 

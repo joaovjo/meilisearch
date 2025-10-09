@@ -57,22 +57,23 @@ class Meilisearch_Indexer
 	 *
 	 * @param int     $post_id ID do post.
 	 * @param WP_Post $post    Objeto do post.
+	 * @return bool True se indexado com sucesso, false caso contrário.
 	 */
-	public function index_post(int $post_id, WP_Post $post): void
+	public function index_post(int $post_id, WP_Post $post): bool
 	{
 		// Pular autoguardados e revisões.
 		if (wp_is_post_autosave($post_id) || wp_is_post_revision($post_id)) {
-			return;
+			return false;
 		}
 
 		// Verificar se o status do post deve ser indexado.
 		if (!$this->should_index_post_status($post->post_status)) {
-			return;
+			return false;
 		}
 
 		// Verificar se o tipo de post deve ser indexado.
 		if (!$this->should_index_post_type($post->post_type)) {
-			return;
+			return false;
 		}
 
 		$document = $this->prepare_document($post);
@@ -87,11 +88,127 @@ class Meilisearch_Indexer
 				->get_client()
 				->index($index_name)
 				->addDocuments([$document], 'id');
+			
+			return true;
 		} catch (Exception $e) {
 			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
 				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
 				error_log("Meilisearch index error for post {$post_id}: " . $e->getMessage());
 			}
+			return false;
+		}
+	}
+
+	/**
+	 * Indexar múltiplos posts em lote.
+	 *
+	 * @param array $post_ids   Array de IDs de posts.
+	 * @param int   $batch_size Tamanho do lote (padrão 1000).
+	 * @return array Resultado com estatísticas.
+	 */
+	public function bulk_index_posts(array $post_ids, int $batch_size = 1000): array
+	{
+		$blog_id = get_current_blog_id();
+		$results = [
+			'total' => count($post_ids),
+			'indexed' => 0,
+			'skipped' => 0,
+			'errors' => [],
+			'task_uids' => [],
+		];
+
+		// Garantir que o índice existe
+		if (!$this->ensure_index_exists($blog_id)) {
+			$results['errors'][] = 'Failed to ensure index exists';
+			return $results;
+		}
+
+		$documents = [];
+		$processed = 0;
+
+		foreach ($post_ids as $post_id) {
+			$post = get_post($post_id);
+			
+			if (!$post) {
+				$results['skipped']++;
+				continue;
+			}
+
+			// Verificar se deve indexar
+			if (!$this->should_index_post_status($post->post_status) || 
+			    !$this->should_index_post_type($post->post_type)) {
+				$results['skipped']++;
+				continue;
+			}
+
+			$documents[] = $this->prepare_document($post);
+			$processed++;
+
+			// Enviar lote quando atingir o tamanho máximo
+			if (count($documents) >= $batch_size) {
+				$batch_result = $this->send_batch($documents, $blog_id);
+				
+				if ($batch_result['success']) {
+					$results['indexed'] += count($documents);
+					if (isset($batch_result['task_uid'])) {
+						$results['task_uids'][] = $batch_result['task_uid'];
+					}
+				} else {
+					$results['errors'][] = $batch_result['error'];
+				}
+				
+				$documents = [];
+			}
+		}
+
+		// Enviar documentos restantes
+		if (!empty($documents)) {
+			$batch_result = $this->send_batch($documents, $blog_id);
+			
+			if ($batch_result['success']) {
+				$results['indexed'] += count($documents);
+				if (isset($batch_result['task_uid'])) {
+					$results['task_uids'][] = $batch_result['task_uid'];
+				}
+			} else {
+				$results['errors'][] = $batch_result['error'];
+			}
+		}
+
+		return $results;
+	}
+
+	/**
+	 * Enviar lote de documentos para o Meilisearch.
+	 *
+	 * @param array $documents Array de documentos.
+	 * @param int   $blog_id   ID do blog.
+	 * @return array Resultado com sucesso/erro e task_uid.
+	 */
+	private function send_batch(array $documents, int $blog_id): array
+	{
+		$index_name = $this->client->get_index_name($blog_id);
+		
+		try {
+			$task = $this->client
+				->get_client()
+				->index($index_name)
+				->addDocuments($documents, 'id');
+			
+			return [
+				'success' => true,
+				'task_uid' => $task['taskUid'] ?? null,
+			];
+		} catch (Exception $e) {
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
+				error_log('Meilisearch batch index error: ' . $e->getMessage());
+			}
+			
+			return [
+				'success' => false,
+				'error' => $e->getMessage(),
+			];
 		}
 	}
 

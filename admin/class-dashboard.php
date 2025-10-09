@@ -389,6 +389,68 @@ class Meilisearch_Dashboard
 					</div>
 				</div>
 
+				<!-- Index Statistics -->
+				<?php
+				$client = $this->get_client();
+				if (null !== $client):
+					$sites = get_sites(['number' => 10]); // Mostrar primeiros 10 sites
+					?>
+					<div class="postbox" style="margin-bottom: 20px;">
+						<div class="inside" style="padding: 12px;">
+							<h2 style="margin-top: 0;"><?php esc_html_e('Index Statistics', 'meilisearch'); ?></h2>
+							<table class="widefat striped">
+								<thead>
+									<tr>
+										<th><?php esc_html_e('Site', 'meilisearch'); ?></th>
+										<th><?php esc_html_e('Index Name', 'meilisearch'); ?></th>
+										<th><?php esc_html_e('Documents', 'meilisearch'); ?></th>
+										<th><?php esc_html_e('Indexing', 'meilisearch'); ?></th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php foreach ($sites as $site): ?>
+										<?php
+										$blog_id = (int) $site->blog_id;
+										$index_stats = $client->get_index_stats($blog_id);
+										$site_details = get_blog_details($blog_id);
+										?>
+										<tr>
+											<td>
+												<strong><?php echo esc_html($site_details->blogname ?? "Site #{$blog_id}"); ?></strong><br>
+												<small><?php echo esc_html($site_details->siteurl ?? ''); ?></small>
+											</td>
+											<td><code><?php echo esc_html($client->get_index_name($blog_id)); ?></code></td>
+											<td>
+												<?php if ($index_stats): ?>
+													<strong><?php echo esc_html(number_format_i18n($index_stats['numberOfDocuments'] ?? 0)); ?></strong>
+												<?php else: ?>
+													<span style="color: #d63638;">❌ <?php esc_html_e('Not found', 'meilisearch'); ?></span>
+												<?php endif; ?>
+											</td>
+											<td>
+												<?php if ($index_stats): ?>
+													<?php if ($index_stats['isIndexing'] ?? false): ?>
+														<span style="color: #f0b849;">⏳ <?php esc_html_e('Indexing...', 'meilisearch'); ?></span>
+													<?php else: ?>
+														<span style="color: #00a32a;">✓ <?php esc_html_e('Ready', 'meilisearch'); ?></span>
+													<?php endif; ?>
+												<?php else: ?>
+													-
+												<?php endif; ?>
+											</td>
+										</tr>
+									<?php endforeach; ?>
+								</tbody>
+							</table>
+							<?php if (count(get_sites(['number' => 9999])) > 10): ?>
+								<p style="margin-top: 10px; text-align: center;">
+									<em><?php esc_html_e('Showing first 10 sites only', 'meilisearch'); ?></em>
+								</p>
+							<?php endif; ?>
+						</div>
+					</div>
+				<?php endif; ?>
+
 				<!-- System Information -->
 				<div class="postbox" style="margin-bottom: 20px;">
 					<div class="inside" style="padding: 12px;">

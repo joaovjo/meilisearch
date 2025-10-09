@@ -343,4 +343,51 @@ class Meilisearch_Client
 			return null;
 		}
 	}
+
+	/**
+	 * Executar operação com retry automático em caso de rate limiting.
+	 *
+	 * @param callable $operation    Operação a executar.
+	 * @param int      $max_retries  Número máximo de tentativas (padrão 3).
+	 * @return mixed Resultado da operação.
+	 * @throws Exception Se todas as tentativas falharem.
+	 */
+	public function execute_with_retry(callable $operation, int $max_retries = 3)
+	{
+		$attempt = 0;
+		$last_exception = null;
+
+		while ($attempt < $max_retries) {
+			try {
+				return $operation();
+			} catch (Exception $e) {
+				$last_exception = $e;
+				$error_message = $e->getMessage();
+
+				// Verificar se é erro de rate limiting (429)
+				$is_rate_limit = strpos($error_message, '429') !== false 
+					|| strpos(strtolower($error_message), 'too many requests') !== false;
+
+				if ($is_rate_limit && $attempt < $max_retries - 1) {
+					// Backoff exponencial: 1s, 2s, 4s
+					$wait_seconds = (int) pow(2, $attempt);
+					
+					if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+						// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
+						error_log("Meilisearch rate limit hit, waiting {$wait_seconds}s before retry (attempt " . ($attempt + 1) . "/{$max_retries})");
+					}
+					
+					sleep($wait_seconds);
+					$attempt++;
+					continue;
+				}
+
+				// Outros erros ou última tentativa, propagar
+				throw $e;
+			}
+		}
+
+		// Se chegou aqui, todas as tentativas falharam
+		throw $last_exception ?? new Exception('Max retries exceeded');
+	}
 }

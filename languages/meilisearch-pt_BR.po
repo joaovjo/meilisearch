@@ -1356,3 +1356,127 @@ msgstr "ATIVADO"
 #: admin/class-experimental-features.php:277
 msgid "DISABLED"
 msgstr "DESATIVADO"
+
+#: admin/class-tasks-monitor.php:40
+msgid "Tasks Monitor"
+msgstr "Monitor de Tarefas"
+
+#: admin/class-tasks-monitor.php:41
+msgid "Tasks"
+msgstr "Tarefas"
+
+#: admin/class-tasks-monitor.php:82
+#: admin/class-tasks-monitor.php:116
+msgid "Meilisearch Tasks Monitor"
+msgstr "Monitor de Tarefas do Meilisearch"
+
+#: admin/class-tasks-monitor.php:84
+msgid "Meilisearch is not configured. Please configure the connection settings first."
+msgstr "O Meilisearch não está configurado. Por favor, configure as definições de conexão primeiro."
+
+#: admin/class-tasks-monitor.php:119
+msgid "Monitor the status and history of Meilisearch tasks. Tasks are asynchronous operations like indexing, updating settings, and more."
+msgstr "Monitore o status e histórico de tarefas do Meilisearch. Tarefas são operações assíncronas como indexação, atualização de configurações e mais."
+
+#: admin/class-tasks-monitor.php:125
+msgid "Task Statistics"
+msgstr "Estatísticas de Tarefas"
+
+#: admin/class-tasks-monitor.php:129
+msgid "Total Tasks"
+msgstr "Total de Tarefas"
+
+#: admin/class-tasks-monitor.php:133
+msgid "Succeeded"
+msgstr "Sucesso"
+
+#: admin/class-tasks-monitor.php:137
+msgid "Processing"
+msgstr "Processando"
+
+#: admin/class-tasks-monitor.php:141
+msgid "Enqueued"
+msgstr "Na Fila"
+
+#: admin/class-tasks-monitor.php:145
+msgid "Failed"
+msgstr "Falhou"
+
+#: admin/class-tasks-monitor.php:155
+msgid "Show:"
+msgstr "Mostrar:"
+
+#: admin/class-tasks-monitor.php:157
+#: admin/class-tasks-monitor.php:158
+#: admin/class-tasks-monitor.php:159
+msgid "tasks"
+msgstr "tarefas"
+
+#: admin/class-tasks-monitor.php:168
+msgid "UID"
+msgstr "UID"
+
+#: admin/class-tasks-monitor.php:170
+msgid "Type"
+msgstr "Tipo"
+
+#: admin/class-tasks-monitor.php:171
+msgid "Index"
+msgstr "Índice"
+
+#: admin/class-tasks-monitor.php:172
+msgid "Enqueued At"
+msgstr "Enfileirado em"
+
+#: admin/class-tasks-monitor.php:173
+msgid "Duration"
+msgstr "Duração"
+
+#: admin/class-tasks-monitor.php:174
+#: admin/class-tasks-monitor.php:234
+msgid "Details"
+msgstr "Detalhes"
+
+#: admin/class-tasks-monitor.php:180
+msgid "No tasks found."
+msgstr "Nenhuma tarefa encontrada."
+
+#: admin/class-tasks-monitor.php:229
+msgid "Error"
+msgstr "Erro"
+
+#: admin/class-dashboard.php:405
+msgid "Index Statistics"
+msgstr "Estatísticas de Índices"
+
+#: admin/class-dashboard.php:409
+msgid "Site"
+msgstr "Site"
+
+#: admin/class-dashboard.php:410
+msgid "Index Name"
+msgstr "Nome do Índice"
+
+#: admin/class-dashboard.php:411
+msgid "Documents"
+msgstr "Documentos"
+
+#: admin/class-dashboard.php:412
+msgid "Indexing"
+msgstr "Indexando"
+
+#: admin/class-dashboard.php:428
+msgid "Not found"
+msgstr "Não encontrado"
+
+#: admin/class-dashboard.php:434
+msgid "Indexing..."
+msgstr "Indexando..."
+
+#: admin/class-dashboard.php:436
+msgid "Ready"
+msgstr "Pronto"
+
+#: admin/class-dashboard.php:445
+msgid "Showing first 10 sites only"
+msgstr "Mostrando apenas os primeiros 10 sites"
