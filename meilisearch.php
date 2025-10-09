@@ -196,14 +196,20 @@ function meilisearch_init(): void
 		$experimental_features = new Meilisearch_Experimental_Features();
 		$experimental_features->init_hooks();
 	}
-
-	// Carregar domínio de texto para traduções.
-	// Nota: Isso é necessário para plugins não hospedados no WordPress.org.
-	// Para plugins do WordPress.org, as traduções são carregadas automaticamente.
-	load_plugin_textdomain('meilisearch', false, dirname(plugin_basename(__FILE__)) . '/languages');
 }
 
 add_action('plugins_loaded', 'meilisearch_init');
+
+/**
+ * Carregar traduções do plugin.
+ * Executado no hook 'init' conforme recomendação do WordPress 6.7+.
+ */
+function meilisearch_load_textdomain(): void
+{
+	load_plugin_textdomain('meilisearch', false, dirname(plugin_basename(__FILE__)) . '/languages');
+}
+
+add_action('init', 'meilisearch_load_textdomain');
 
 /**
  * Obter o total de resultados encontrados pelo Meilisearch.
