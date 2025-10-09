@@ -113,6 +113,9 @@ class Meilisearch_Client
 			$index_name = $this->get_index_name($blog_id);
 			$task = $this->client->createIndex($index_name, ['primaryKey' => 'id']);
 
+			// Aguardar conclusão da criação do índice antes de configurar.
+			$this->client->waitForTask($task['taskUid']);
+
 			// Configurar atributos pesquisáveis.
 			$this->client
 				->index($index_name)
@@ -239,6 +242,105 @@ class Meilisearch_Client
 				error_log('Meilisearch update experimental features error: ' . $e->getMessage());
 			}
 			return false;
+		}
+	}
+
+	/**
+	 * Obter versão do Meilisearch.
+	 *
+	 * @return string|null Versão ou null em caso de erro.
+	 */
+	public function get_version(): ?string
+	{
+		try {
+			$version = $this->client->version();
+			return $version['pkgVersion'] ?? null;
+		} catch (Exception $e) {
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
+				error_log('Meilisearch get version error: ' . $e->getMessage());
+			}
+			return null;
+		}
+	}
+
+	/**
+	 * Obter estatísticas de um índice.
+	 *
+	 * @param int $blog_id ID do site.
+	 * @return array|null Estatísticas ou null em caso de erro.
+	 */
+	public function get_index_stats(int $blog_id): ?array
+	{
+		try {
+			$index_name = $this->get_index_name($blog_id);
+			return $this->client->index($index_name)->stats();
+		} catch (Exception $e) {
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
+				error_log('Meilisearch get index stats error: ' . $e->getMessage());
+			}
+			return null;
+		}
+	}
+
+	/**
+	 * Obter tarefas recentes.
+	 *
+	 * @param int $limit Número máximo de tarefas.
+	 * @return array Array de tarefas.
+	 */
+	public function get_recent_tasks(int $limit = 20): array
+	{
+		try {
+			$tasks = $this->client->getTasks(['limit' => $limit]);
+			return $tasks->getResults();
+		} catch (Exception $e) {
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
+				error_log('Meilisearch get recent tasks error: ' . $e->getMessage());
+			}
+			return [];
+		}
+	}
+
+	/**
+	 * Obter status de uma tarefa.
+	 *
+	 * @param int $task_uid UID da tarefa.
+	 * @return array|null Status da tarefa ou null em caso de erro.
+	 */
+	public function get_task_status(int $task_uid): ?array
+	{
+		try {
+			return $this->client->getTask($task_uid);
+		} catch (Exception $e) {
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
+				error_log('Meilisearch get task status error: ' . $e->getMessage());
+			}
+			return null;
+		}
+	}
+
+	/**
+	 * Aguardar conclusão de uma tarefa.
+	 *
+	 * @param int $task_uid      UID da tarefa.
+	 * @param int $timeout_ms    Timeout em milissegundos.
+	 * @param int $interval_ms   Intervalo entre verificações em milissegundos.
+	 * @return array|null Status final da tarefa ou null em caso de timeout/erro.
+	 */
+	public function wait_for_task(int $task_uid, int $timeout_ms = 5000, int $interval_ms = 50): ?array
+	{
+		try {
+			return $this->client->waitForTask($task_uid, $timeout_ms, $interval_ms);
+		} catch (Exception $e) {
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
+				error_log('Meilisearch wait for task error: ' . $e->getMessage());
+			}
+			return null;
 		}
 	}
 }
