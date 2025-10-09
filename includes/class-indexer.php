@@ -257,6 +257,16 @@ class Meilisearch_Indexer
 	{
 		$author = get_userdata((int) $post->post_author);
 
+		// Para attachments, usar a URL direta do arquivo ao invés da página de attachment
+		$permalink = 'attachment' === $post->post_type 
+			? wp_get_attachment_url($post->ID) 
+			: get_permalink($post->ID);
+
+		// Se não conseguir obter o permalink, usar o GUID como fallback
+		if (!$permalink || false === $permalink) {
+			$permalink = $post->guid;
+		}
+
 		return [
 			'id' => $post->ID,
 			'blog_id' => get_current_blog_id(),
@@ -271,7 +281,7 @@ class Meilisearch_Indexer
 			'author_id' => $post->post_author,
 			'categories' => $this->get_post_terms($post->ID, 'category'),
 			'tags' => $this->get_post_terms($post->ID, 'post_tag'),
-			'permalink' => get_permalink($post->ID),
+			'permalink' => $permalink,
 		];
 	}
 

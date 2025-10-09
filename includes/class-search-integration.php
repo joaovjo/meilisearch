@@ -198,7 +198,11 @@ class Meilisearch_Search_Integration
 			return $excerpt;
 		}
 
-		$permalink = get_permalink();
+		// Para attachments, usar a URL direta do arquivo ao invés da página de attachment
+		$post_type = get_post_type();
+		$permalink = 'attachment' === $post_type 
+			? wp_get_attachment_url(get_the_ID()) 
+			: get_permalink();
 		
 		// Se não conseguir obter o permalink, retornar apenas o excerpt
 		if (!$permalink || false === $permalink) {
