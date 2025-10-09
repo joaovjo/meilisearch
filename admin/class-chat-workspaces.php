@@ -647,16 +647,24 @@ class Meilisearch_Chat_Workspaces
 	public function save_workspace(): void
 	{
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+		$is_new = isset($_POST['is_new']) && '1' === $_POST['is_new'];
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		$workspace_uid = isset($_POST['workspace_uid']) ? sanitize_text_field(wp_unslash($_POST['workspace_uid'])) : '';
 		
-		check_admin_referer('save_chat_workspace_' . $workspace_uid, 'meilisearch_workspace_nonce');
+		// Para novos workspaces, o nonce é 'save_chat_workspace_' (sem UID)
+		// Para edição, o nonce é 'save_chat_workspace_' + UID
+		$nonce_action = $is_new ? 'save_chat_workspace_' : 'save_chat_workspace_' . $workspace_uid;
+		check_admin_referer($nonce_action, 'meilisearch_workspace_nonce');
 
 		if (!current_user_can('manage_network_options')) {
 			wp_die(esc_html__('You do not have permission to access this page.', 'meilisearch'));
 		}
 
-		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
-		$is_new = isset($_POST['is_new']) && '1' === $_POST['is_new'];
+		// Validar workspace_uid
+		if (empty($workspace_uid)) {
+			wp_die(esc_html__('Workspace UID is required.', 'meilisearch'));
+		}
+
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		$provider = isset($_POST['provider']) ? sanitize_text_field(wp_unslash($_POST['provider'])) : '';
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.InputNotValidated

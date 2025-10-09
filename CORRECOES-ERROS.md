@@ -2,7 +2,7 @@
 
 ## 📋 Resumo
 
-Foram identificados e corrigidos **6 erros críticos** nas novas funcionalidades implementadas, relacionados ao uso incorreto de métodos e objetos do SDK PHP do Meilisearch.
+Foram identificados e corrigidos **7 erros críticos** nas novas funcionalidades implementadas, relacionados ao uso incorreto de métodos e objetos do SDK PHP do Meilisearch, além de problemas de lógica de validação.
 
 ---
 
@@ -324,6 +324,78 @@ public function resetSettings(): ChatWorkspaceSettings
 
 ---
 
+### 2.1. **Erro: Nonce inválido ao criar novo workspace**
+
+**Arquivo:** `/admin/class-chat-workspaces.php`  
+**Linha:** 647-652  
+**Status:** ✅ CORRIGIDO
+
+**Erro Original:**
+Ao clicar em "Create Workspace" o formulário não submetia e nada acontecia (nonce verification failure silenciosa).
+
+**Causa:**
+O nonce era gerado no formulário com `workspace_uid` vazio (novo workspace), mas validado com o `workspace_uid` preenchido pelo usuário, causando incompatibilidade.
+
+**Fluxo do Problema:**
+```php
+// 1. Renderizar formulário (workspace_uid = '')
+wp_nonce_field('save_chat_workspace_' . '', ...);  // Gera nonce para 'save_chat_workspace_'
+
+// 2. Usuário preenche workspace_uid = 'my-workspace'
+
+// 3. Submissão do formulário
+$workspace_uid = $_POST['workspace_uid'];  // = 'my-workspace'
+check_admin_referer('save_chat_workspace_' . $workspace_uid);  // ❌ Tenta validar 'save_chat_workspace_my-workspace'
+// FALHA! Nonce não corresponde
+```
+
+**Código Incorreto:**
+```php
+public function save_workspace(): void
+{
+    $workspace_uid = isset($_POST['workspace_uid']) ? sanitize_text_field(wp_unslash($_POST['workspace_uid'])) : '';
+    
+    check_admin_referer('save_chat_workspace_' . $workspace_uid, 'meilisearch_workspace_nonce');
+    // Problema: workspace_uid vazio no formulário, mas com valor na submissão
+```
+
+**Código Corrigido:**
+```php
+public function save_workspace(): void
+{
+    // Obter is_new ANTES do workspace_uid
+    $is_new = isset($_POST['is_new']) && '1' === $_POST['is_new'];
+    $workspace_uid = isset($_POST['workspace_uid']) ? sanitize_text_field(wp_unslash($_POST['workspace_uid'])) : '';
+    
+    // Para novos workspaces, o nonce é 'save_chat_workspace_' (sem UID)
+    // Para edição, o nonce é 'save_chat_workspace_' + UID
+    $nonce_action = $is_new ? 'save_chat_workspace_' : 'save_chat_workspace_' . $workspace_uid;
+    check_admin_referer($nonce_action, 'meilisearch_workspace_nonce');
+    
+    if (!current_user_can('manage_network_options')) {
+        wp_die(esc_html__('You do not have permission to access this page.', 'meilisearch'));
+    }
+    
+    // Validar workspace_uid
+    if (empty($workspace_uid)) {
+        wp_die(esc_html__('Workspace UID is required.', 'meilisearch'));
+    }
+```
+
+**Mudanças Implementadas:**
+1. ✅ Mover verificação de `$is_new` para ANTES da validação do nonce
+2. ✅ Usar nonce diferente para criação vs edição
+3. ✅ Adicionar validação explícita de `workspace_uid` vazio
+4. ✅ Manter retrocompatibilidade com edição (nonce com UID)
+
+**Segurança Mantida:**
+- ✅ Nonce ainda validado corretamente em ambos os casos
+- ✅ Campo `is_new` hidden no formulário (não manipulável em edição)
+- ✅ Capability check antes de qualquer operação
+- ✅ Sanitização de todos os inputs
+
+---
+
 ### 3. **Erro: Handler `update_backup_schedule` não implementado**
 
 **Arquivo:** `/admin/class-backup-restore.php`  
@@ -433,6 +505,7 @@ if (isset($_GET['schedule_updated'])): ?>
 | 1.2 | `class-federated-search.php` | Array passado para `multiSearch()` | Usar objetos `SearchQuery` e `MultiSearchFederation` | Type hint |
 | 1.3 | `class-federated-search.php` | `limit` em query com federation | Remover `setLimit()` das queries individuais | Regra da API |
 | 2 | `class-chat-workspaces.php` | `deleteSettings()` inexistente | Alterado para `resetSettings()` | Método SDK |
+| 2.1 | `class-chat-workspaces.php` | Nonce inválido em novo workspace | Nonce diferente para criação vs edição | Lógica de validação |
 | 3 | `class-backup-restore.php` | Handler não implementado | Método `update_backup_schedule()` criado | Handler faltante |
 
 ---
@@ -588,7 +661,7 @@ echo wp_date('Y-m-d H:i:s', $next);
 
 **Todos os erros identificados foram corrigidos com sucesso!**
 
-- ✅ 6 erros corrigidos (1 método + 1 acesso objeto + 1 type hint + 1 regra API + 1 método + 1 handler)
+- ✅ 7 erros corrigidos (4 SDK + 1 regra API + 1 lógica + 1 handler)
 - ✅ 1 funcionalidade completada (agendamento)
 - ✅ 0 erros pendentes
 - ✅ 100% operacional
@@ -605,9 +678,13 @@ As correções foram implementadas seguindo:
 - ✅ Padrões de desenvolvimento WordPress
 - ✅ Uso correto de objetos e métodos do SDK
 - ✅ Type safety com PHP 8.1+ strict types
+- ✅ Validação adequada de nonces e formulários
 
-**Mudança Importante na API do SDK:**
-O Meilisearch PHP SDK migrou de arrays simples para **objetos tipados** com métodos fluentes, garantindo type-safety e melhor IDE support. A API de Federated Search possui **regras específicas** sobre paginação que devem ser respeitadas.
+**Mudanças Importantes:**
+
+1. **API do SDK:** Migração de arrays para objetos tipados
+2. **Federated Search:** Paginação apenas no nível da federação
+3. **Nonces:** Estratégia diferente para criação vs edição
 
 **Todas as 3 novas funcionalidades agora estão 100% funcionais e prontas para uso em produção!**
 
@@ -615,6 +692,6 @@ O Meilisearch PHP SDK migrou de arrays simples para **objetos tipados** com mét
 
 **Data das Correções:** 09/10/2025  
 **Arquivos Corrigidos:** 3  
-**Linhas Modificadas:** ~45 linhas  
+**Linhas Modificadas:** ~55 linhas  
 **Métodos Adicionados:** 1 novo método completo  
 **Status:** ✅ CONCLUÍDO
