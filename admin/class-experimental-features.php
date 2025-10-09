@@ -28,28 +28,36 @@ class Meilisearch_Experimental_Features
 	 *
 	 * @var array<string, array<string, string>>
 	 */
-	private array $available_features = [
-		'vectorStore' => [
-			'name' => 'Vector Store',
-			'description' => 'Enable vector search capabilities for semantic search and AI-powered features. Allows storing and searching vector embeddings.',
-		],
-		'metrics' => [
-			'name' => 'Metrics',
-			'description' => 'Enable Prometheus-compatible metrics endpoint for monitoring search performance and resource usage.',
-		],
-		'logsRoute' => [
-			'name' => 'Logs Route',
-			'description' => 'Enable API route to access Meilisearch logs directly through the API for debugging and monitoring.',
-		],
-		'editDocumentsByFunction' => [
-			'name' => 'Edit Documents By Function',
-			'description' => 'Enable document editing using custom functions for batch operations and transformations.',
-		],
-		'containsFilter' => [
-			'name' => 'Contains Filter',
-			'description' => 'Enable "contains" filter operator for partial string matching in search filters.',
-		],
-	];
+	private array $available_features = [];
+
+	/**
+	 * Construtor da classe.
+	 */
+	public function __construct()
+	{
+		$this->available_features = [
+			'vectorStore' => [
+				'name' => __('Vector Store', 'meilisearch'),
+				'description' => __('Enable vector search capabilities for semantic search and AI-powered features. Allows storing and searching vector embeddings.', 'meilisearch'),
+			],
+			'metrics' => [
+				'name' => __('Metrics', 'meilisearch'),
+				'description' => __('Enable Prometheus-compatible metrics endpoint for monitoring search performance and resource usage.', 'meilisearch'),
+			],
+			'logsRoute' => [
+				'name' => __('Logs Route', 'meilisearch'),
+				'description' => __('Enable API route to access Meilisearch logs directly through the API for debugging and monitoring.', 'meilisearch'),
+			],
+			'editDocumentsByFunction' => [
+				'name' => __('Edit Documents By Function', 'meilisearch'),
+				'description' => __('Enable document editing using custom functions for batch operations and transformations.', 'meilisearch'),
+			],
+			'containsFilter' => [
+				'name' => __('Contains Filter', 'meilisearch'),
+				'description' => __('Enable "contains" filter operator for partial string matching in search filters.', 'meilisearch'),
+			],
+		];
+	}
 
 	/**
 	 * Inicializar hooks do WordPress.

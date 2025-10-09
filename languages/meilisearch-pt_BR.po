@@ -175,7 +175,7 @@ msgid "Host"
 msgstr "Host"
 
 #: admin/class-dashboard.php:367
-#: admin/class-experimental-features.php:243
+#: admin/class-experimental-features.php:251
 #: admin/class-multi-pattern-search.php:411
 msgid "Status"
 msgstr "Status"
@@ -244,10 +244,164 @@ msgstr "Verificar saúde do servidor"
 msgid "View indexing statistics"
 msgstr "Ver estatísticas de indexação"
 
+#: admin/class-experimental-features.php:40
+msgid "Vector Store"
+msgstr "Armazenamento de Vetores"
+
+#: admin/class-experimental-features.php:41
+msgid "Enable vector search capabilities for semantic search and AI-powered features. Allows storing and searching vector embeddings."
+msgstr "Ativar recursos de busca vetorial para busca semântica e funcionalidades com IA. Permite armazenar e buscar embeddings vetoriais."
+
+#: admin/class-experimental-features.php:44
 #: admin/class-metrics.php:40
 #: admin/class-metrics.php:41
 msgid "Metrics"
 msgstr "Métricas"
+
+#: admin/class-experimental-features.php:45
+msgid "Enable Prometheus-compatible metrics endpoint for monitoring search performance and resource usage."
+msgstr "Ativar endpoint de métricas compatível com Prometheus para monitorar desempenho de busca e uso de recursos."
+
+#: admin/class-experimental-features.php:48
+msgid "Logs Route"
+msgstr "Rota de Logs"
+
+#: admin/class-experimental-features.php:49
+msgid "Enable API route to access Meilisearch logs directly through the API for debugging and monitoring."
+msgstr "Ativar rota da API para acessar logs do Meilisearch diretamente através da API para depuração e monitoramento."
+
+#: admin/class-experimental-features.php:52
+msgid "Edit Documents By Function"
+msgstr "Editar Documentos por Função"
+
+#: admin/class-experimental-features.php:53
+msgid "Enable document editing using custom functions for batch operations and transformations."
+msgstr "Ativar edição de documentos usando funções personalizadas para operações em lote e transformações."
+
+#: admin/class-experimental-features.php:56
+msgid "Contains Filter"
+msgstr "Filtro Contains"
+
+#: admin/class-experimental-features.php:57
+msgid "Enable \"contains\" filter operator for partial string matching in search filters."
+msgstr "Ativar operador de filtro \"contains\" para correspondência parcial de strings em filtros de busca."
+
+#: admin/class-experimental-features.php:78
+msgid "Experimental Features"
+msgstr "Funcionalidades Experimentais"
+
+#: admin/class-experimental-features.php:79
+msgid "Experimental"
+msgstr "Experimental"
+
+#: admin/class-experimental-features.php:143
+#: admin/class-experimental-features.php:314
+#: admin/class-index-analyzer.php:311
+#: admin/class-metrics.php:164
+#: admin/class-network-settings.php:58
+#: admin/class-network-settings.php:410
+#: admin/class-search-settings.php:96
+#: admin/class-search-settings.php:671
+#: admin/class-dashboard.php:293
+msgid "You do not have permission to access this page."
+msgstr "Você não tem permissão para acessar esta página."
+
+#: admin/class-experimental-features.php:150
+msgid "Meilisearch Experimental Features"
+msgstr "Funcionalidades Experimentais do Meilisearch"
+
+#: admin/class-experimental-features.php:156
+msgid "Experimental features updated successfully."
+msgstr "Funcionalidades experimentais atualizadas com sucesso."
+
+#: admin/class-experimental-features.php:164
+msgid "Error updating experimental features. Please check your connection and try again."
+msgstr "Erro ao atualizar funcionalidades experimentais. Verifique sua conexão e tente novamente."
+
+#: admin/class-experimental-features.php:171
+#: admin/class-index-analyzer.php:321
+#: admin/class-metrics.php:178
+msgid "Error:"
+msgstr "Erro:"
+
+#: admin/class-experimental-features.php:172
+msgid "Unable to connect to Meilisearch server. Please check your settings."
+msgstr "Não foi possível conectar ao servidor Meilisearch. Verifique suas configurações."
+
+#: admin/class-experimental-features.php:179
+msgid "Warning:"
+msgstr "Aviso:"
+
+#: admin/class-experimental-features.php:180
+msgid "Experimental features are unstable and may change in future versions. Use them at your own risk in production environments."
+msgstr "As funcionalidades experimentais são instáveis e podem mudar em versões futuras. Use-as por sua conta e risco em ambientes de produção."
+
+#. translators: %s: link to Meilisearch documentation
+#: admin/class-experimental-features.php:188
+#, php-format
+msgid "Enable or disable experimental features in Meilisearch. For more information, visit the %s."
+msgstr "Ative ou desative funcionalidades experimentais no Meilisearch. Para mais informações, visite a %s."
+
+#: admin/class-experimental-features.php:189
+msgid "Meilisearch documentation"
+msgstr "documentação do Meilisearch"
+
+#: admin/class-experimental-features.php:216
+msgid "Enable"
+msgstr "Ativar"
+
+#: admin/class-experimental-features.php:222
+msgid "Current status:"
+msgstr "Status atual:"
+
+#: admin/class-experimental-features.php:224
+msgid "Enabled"
+msgstr "Ativado"
+
+#: admin/class-experimental-features.php:226
+msgid "Disabled"
+msgstr "Desativado"
+
+#: admin/class-experimental-features.php:237
+msgid "Save Experimental Features"
+msgstr "Salvar Funcionalidades Experimentais"
+
+#: admin/class-experimental-features.php:239
+msgid "Refresh Status"
+msgstr "Atualizar Status"
+
+#: admin/class-experimental-features.php:246
+msgid "Current Configuration"
+msgstr "Configuração Atual"
+
+#: admin/class-experimental-features.php:250
+msgid "Feature"
+msgstr "Funcionalidade"
+
+#: admin/class-experimental-features.php:251
+#: admin/class-dashboard.php:367
+#: admin/class-multi-pattern-search.php:411
+msgid "Status"
+msgstr "Status"
+
+#: admin/class-experimental-features.php:252
+msgid "API Key"
+msgstr "Chave da API"
+
+#: admin/class-experimental-features.php:262
+msgid "ENABLED"
+msgstr "ATIVADO"
+
+#: admin/class-experimental-features.php:266
+msgid "DISABLED"
+msgstr "DESATIVADO"
+
+#. translators: %s: current time
+#: admin/class-experimental-features.php:281
+#: admin/class-metrics.php:289
+#, php-format
+msgid "Last updated: %s"
+msgstr "Última atualização: %s"
 
 #: admin/class-metrics.php:172
 msgid "Meilisearch Metrics"
