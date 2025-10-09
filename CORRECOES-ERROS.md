@@ -2,7 +2,7 @@
 
 ## 📋 Resumo
 
-Foram identificados e corrigidos **5 erros críticos** nas novas funcionalidades implementadas, relacionados ao uso incorreto de métodos e objetos do SDK PHP do Meilisearch.
+Foram identificados e corrigidos **6 erros críticos** nas novas funcionalidades implementadas, relacionados ao uso incorreto de métodos e objetos do SDK PHP do Meilisearch.
 
 ---
 
@@ -199,6 +199,89 @@ class MultiSearchFederation
 
 ---
 
+### 1.3. **Erro: Uso de `limit` em queries com federação ativa**
+
+**Arquivo:** `/admin/class-federated-search.php`  
+**Linha:** 537-540  
+**Status:** ✅ CORRIGIDO
+
+**Erro Original:**
+```
+Error: Inside `.queries[0]`: Using pagination options is not allowed in federated queries.
+- Hint: remove `limit` from query #0 or remove `federation` from the request
+- Hint: pass `federation.limit` and `federation.offset` for pagination in federated search
+```
+
+**Causa:**
+O Meilisearch não permite usar opções de paginação (`limit`, `offset`) nas queries individuais quando há um objeto `federation` configurado. A paginação deve ser controlada apenas no nível da federação.
+
+**Código Incorreto:**
+```php
+foreach ($indexes as $index_uid) {
+    $search_query = new \Meilisearch\Contracts\SearchQuery();
+    $search_query->setIndexUid($index_uid)
+        ->setQuery($query)
+        ->setLimit($limit);  // ❌ ERRO: não permitido com federation
+    
+    $queries[] = $search_query;
+}
+
+$federation = new \Meilisearch\Contracts\MultiSearchFederation();
+$federation->setLimit($federation_limit);
+```
+
+**Código Corrigido:**
+```php
+// Não usar setLimit() ou setOffset() nas queries individuais quando há federação
+foreach ($indexes as $index_uid) {
+    $search_query = new \Meilisearch\Contracts\SearchQuery();
+    $search_query->setIndexUid($index_uid)
+        ->setQuery($query);  // ✅ Sem limit/offset
+    
+    $queries[] = $search_query;
+}
+
+// Paginação controlada apenas pela federação
+$federation = new \Meilisearch\Contracts\MultiSearchFederation();
+$federation->setLimit($federation_limit);  // ✅ Limit no nível federado
+// Opcionalmente: $federation->setOffset($offset); para paginação
+```
+
+**Regras da API de Federação:**
+```
+✅ PERMITIDO em queries individuais:
+- setIndexUid()
+- setQuery() 
+- setFilter()
+- setSort()
+- setAttributesToRetrieve()
+- setAttributesToHighlight()
+- setHighlightPreTag()
+- setHighlightPostTag()
+- setShowMatchesPosition()
+- setShowRankingScore()
+
+❌ NÃO PERMITIDO em queries individuais (com federation):
+- setLimit()      → Use federation.setLimit()
+- setOffset()     → Use federation.setOffset()
+- setPage()       → Não suportado em federation
+- setHitsPerPage()→ Não suportado em federation
+```
+
+**Referência Oficial:**
+```
+Federation Pagination:
+- federation.limit: Total de hits a retornar (padrão: 20)
+- federation.offset: Número de hits a pular (padrão: 0)
+
+Exemplo com paginação:
+$federation = new MultiSearchFederation();
+$federation->setLimit(50);   // Retornar 50 resultados
+$federation->setOffset(50);  // Pular os primeiros 50 (página 2)
+```
+
+---
+
 ### 2. **Erro: `deleteSettings()` método inexistente**
 
 **Arquivo:** `/admin/class-chat-workspaces.php`  
@@ -348,6 +431,7 @@ if (isset($_GET['schedule_updated'])): ?>
 | 1 | `class-federated-search.php` | `getAllIndexes()` inexistente | Alterado para `getIndexes()` | Método SDK |
 | 1.1 | `class-federated-search.php` | Objeto Index acessado como array | Usar métodos getters (`getUid()`, etc) | Acesso a objeto |
 | 1.2 | `class-federated-search.php` | Array passado para `multiSearch()` | Usar objetos `SearchQuery` e `MultiSearchFederation` | Type hint |
+| 1.3 | `class-federated-search.php` | `limit` em query com federation | Remover `setLimit()` das queries individuais | Regra da API |
 | 2 | `class-chat-workspaces.php` | `deleteSettings()` inexistente | Alterado para `resetSettings()` | Método SDK |
 | 3 | `class-backup-restore.php` | Handler não implementado | Método `update_backup_schedule()` criado | Handler faltante |
 
@@ -504,7 +588,7 @@ echo wp_date('Y-m-d H:i:s', $next);
 
 **Todos os erros identificados foram corrigidos com sucesso!**
 
-- ✅ 5 erros corrigidos (1 método + 1 acesso objeto + 1 type hint + 1 método + 1 handler)
+- ✅ 6 erros corrigidos (1 método + 1 acesso objeto + 1 type hint + 1 regra API + 1 método + 1 handler)
 - ✅ 1 funcionalidade completada (agendamento)
 - ✅ 0 erros pendentes
 - ✅ 100% operacional
@@ -515,6 +599,7 @@ echo wp_date('Y-m-d H:i:s', $next);
 
 As correções foram implementadas seguindo:
 - ✅ Documentação oficial do Meilisearch PHP SDK
+- ✅ Regras da API de Federated Search
 - ✅ WordPress Coding Standards
 - ✅ Melhores práticas de segurança
 - ✅ Padrões de desenvolvimento WordPress
@@ -522,7 +607,7 @@ As correções foram implementadas seguindo:
 - ✅ Type safety com PHP 8.1+ strict types
 
 **Mudança Importante na API do SDK:**
-O Meilisearch PHP SDK migrou de arrays simples para **objetos tipados** com métodos fluentes, garantindo type-safety e melhor IDE support. Todas as implementações foram atualizadas para refletir essa mudança.
+O Meilisearch PHP SDK migrou de arrays simples para **objetos tipados** com métodos fluentes, garantindo type-safety e melhor IDE support. A API de Federated Search possui **regras específicas** sobre paginação que devem ser respeitadas.
 
 **Todas as 3 novas funcionalidades agora estão 100% funcionais e prontas para uso em produção!**
 
@@ -530,6 +615,6 @@ O Meilisearch PHP SDK migrou de arrays simples para **objetos tipados** com mét
 
 **Data das Correções:** 09/10/2025  
 **Arquivos Corrigidos:** 3  
-**Linhas Modificadas:** ~40 linhas  
+**Linhas Modificadas:** ~45 linhas  
 **Métodos Adicionados:** 1 novo método completo  
 **Status:** ✅ CONCLUÍDO

@@ -520,7 +520,7 @@ class Meilisearch_Federated_Search
 	 *
 	 * @param array  $indexes Lista de índices.
 	 * @param string $query Query de busca.
-	 * @param int    $limit Limite por índice.
+	 * @param int    $limit Limite por índice (não usado em federação - mantido por compatibilidade).
 	 * @param int    $federation_limit Limite total federado.
 	 * @return array
 	 */
@@ -532,17 +532,18 @@ class Meilisearch_Federated_Search
 		}
 
 		// Construir queries para cada índice usando SearchQuery objects
+		// Nota: Não usar setLimit() nas queries individuais quando há federação
 		$queries = [];
 		foreach ($indexes as $index_uid) {
 			$search_query = new \Meilisearch\Contracts\SearchQuery();
 			$search_query->setIndexUid($index_uid)
-				->setQuery($query)
-				->setLimit($limit);
+				->setQuery($query);
 			
 			$queries[] = $search_query;
 		}
 
 		// Configuração da federação usando MultiSearchFederation object
+		// O limit é aplicado ao resultado federado total, não por índice
 		$federation = new \Meilisearch\Contracts\MultiSearchFederation();
 		$federation->setLimit($federation_limit);
 
