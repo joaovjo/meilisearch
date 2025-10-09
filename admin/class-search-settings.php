@@ -307,7 +307,7 @@ class Meilisearch_Search_Settings
 								$parts = explode(':', $custom_rule);
 								if (count($parts) === 2):
 						?>
-							<li class="custom-rule-item">
+							<li class="custom-rule-item" data-rule="<?php echo esc_attr($custom_rule); ?>">
 								<span class="rule-badge"><?php echo esc_html($custom_rule); ?></span>
 								<button type="button" class="button-link remove-custom-rule" data-rule="<?php echo esc_attr($custom_rule); ?>">
 									<span class="dashicons dashicons-no-alt"></span>
@@ -480,6 +480,7 @@ class Meilisearch_Search_Settings
 
 				// Add the rule
 				const $item = $('<li class="custom-rule-item">')
+					.attr('data-rule', customRule)
 					.append($('<span class="rule-badge">').text(customRule))
 					.append(
 						$('<button type="button" class="button-link remove-custom-rule">')
@@ -597,6 +598,10 @@ class Meilisearch_Search_Settings
 			color: white;
 			padding: 6px 10px;
 			border-radius: 3px;
+			transition: all 0.2s;
+		}
+		.custom-rule-item:hover {
+			background: #135e96;
 		}
 		.rule-badge {
 			font-family: monospace;
@@ -610,14 +615,25 @@ class Meilisearch_Search_Settings
 			border: none;
 			cursor: pointer;
 			opacity: 0.8;
+			transition: all 0.2s;
+			display: flex;
+			align-items: center;
 		}
 		.remove-custom-rule:hover {
 			opacity: 1;
+			transform: scale(1.2);
+			color: #ff6b6b;
 		}
 		.remove-custom-rule .dashicons {
 			font-size: 16px;
 			width: 16px;
 			height: 16px;
+			color: white;
+			text-decoration: none;
+			border: none;
+		}
+		.remove-custom-rule .dashicons:hover {
+			color: #000000;
 		}
 		</style>
 		<?php
