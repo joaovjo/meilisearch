@@ -9,6 +9,7 @@ declare(strict_types=1);
  */
 
 use Meilisearch\Client;
+use Meilisearch\Contracts\TasksQuery;
 
 /**
  * Classe Meilisearch_Client
@@ -293,7 +294,9 @@ class Meilisearch_Client
 	public function get_recent_tasks(int $limit = 20): array
 	{
 		try {
-			$tasks = $this->client->getTasks(['limit' => $limit]);
+			$query = new TasksQuery();
+			$query->setLimit($limit);
+			$tasks = $this->client->getTasks($query);
 			return $tasks->getResults();
 		} catch (Exception $e) {
 			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
@@ -302,17 +305,16 @@ class Meilisearch_Client
 			}
 			return [];
 		}
-	}
-
-	/**
-	 * Obter status de uma tarefa.
+	}	/**
+	 * Obter status de uma tarefa específica.
 	 *
 	 * @param int $task_uid UID da tarefa.
-	 * @return array|null Status da tarefa ou null em caso de erro.
+	 * @return array|null Dados da tarefa ou null em caso de erro.
 	 */
 	public function get_task_status(int $task_uid): ?array
 	{
 		try {
+			// getTask() aceita int ou string
 			return $this->client->getTask($task_uid);
 		} catch (Exception $e) {
 			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
