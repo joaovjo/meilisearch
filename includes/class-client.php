@@ -119,12 +119,27 @@ class Meilisearch_Client
 				->updateSearchableAttributes(['title', 'content', 'excerpt', 'categories', 'tags', 'author']);
 
 			// Configurar atributos filtráveis.
+			$filterable_attributes = class_exists('Meilisearch_Search_Settings')
+				? Meilisearch_Search_Settings::get_filterable_attributes()
+				: ['post_type', 'post_status', 'blog_id', 'author_id', 'categories', 'tags'];
+
 			$this->client
 				->index($index_name)
-				->updateFilterableAttributes(['post_type', 'post_status', 'blog_id', 'author_id', 'categories', 'tags']);
+				->updateFilterableAttributes($filterable_attributes);
 
 			// Configurar atributos ordenáveis.
-			$this->client->index($index_name)->updateSortableAttributes(['date', 'modified']);
+			$sortable_attributes = class_exists('Meilisearch_Search_Settings')
+				? Meilisearch_Search_Settings::get_sortable_attributes()
+				: ['date', 'modified'];
+
+			$this->client->index($index_name)->updateSortableAttributes($sortable_attributes);
+
+			// Configurar regras de ranqueamento.
+			$ranking_rules = class_exists('Meilisearch_Search_Settings')
+				? Meilisearch_Search_Settings::get_ranking_rules()
+				: ['words', 'typo', 'proximity', 'attribute', 'sort', 'exactness'];
+
+			$this->client->index($index_name)->updateRankingRules($ranking_rules);
 
 			return $task;
 		} catch (Exception $e) {

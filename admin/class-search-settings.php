@@ -52,6 +52,23 @@ class Meilisearch_Search_Settings
 	{
 		add_action('network_admin_menu', [$this, 'add_network_menu']);
 		add_action('network_admin_edit_meilisearch_search_settings', [$this, 'save_search_settings']);
+		add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_scripts']);
+	}
+
+	/**
+	 * Enfileirar scripts e estilos do admin.
+	 *
+	 * @param string $hook_suffix O sufixo da página atual.
+	 */
+	public function enqueue_admin_scripts(string $hook_suffix): void
+	{
+		// Apenas carregar na página de configurações de pesquisa
+		if ($hook_suffix !== 'meilisearch_page_meilisearch-search-settings') {
+			return;
+		}
+
+		// Enfileirar jQuery UI Sortable
+		wp_enqueue_script('jquery-ui-sortable');
 	}
 
 	/**
@@ -206,7 +223,106 @@ class Meilisearch_Search_Settings
 					</tr>
 				</table>
 
+				<br><br>
+
+				<h2><?php esc_html_e('Ranking Rules', 'meilisearch'); ?></h2>
+				<p class="description">
+					<?php
+					printf(
+						/* translators: 1: link to Meilisearch ranking rules documentation, 2: link to custom ranking rules documentation */
+						esc_html__('Configure the order and priority of ranking rules that determine search results relevancy. Learn more about %1$s and %2$s.', 'meilisearch'),
+						'<a href="https://www.meilisearch.com/docs/learn/relevancy/ranking_rules" target="_blank">' . esc_html__('ranking rules', 'meilisearch') . '</a>',
+						'<a href="https://www.meilisearch.com/docs/learn/relevancy/custom_ranking_rules" target="_blank">' . esc_html__('custom ranking rules', 'meilisearch') . '</a>'
+					);
+					?>
+				</p>
+
+				<h3><?php esc_html_e('Built-in Ranking Rules', 'meilisearch'); ?></h3>
+				<p class="description">
+					<?php esc_html_e('Drag and drop to reorder the built-in ranking rules. Higher rules have more priority in determining search relevancy.', 'meilisearch'); ?>
+				</p>
+
+				<div class="ranking-rules-container">
+					<ul id="ranking-rules-list" class="ranking-rules-list">
+						<?php
+						$built_in_rules = [
+							'words' => __('Words - Match query terms count', 'meilisearch'),
+							'typo' => __('Typo - Typo tolerance (fewer typos first)', 'meilisearch'),
+							'proximity' => __('Proximity - Distance between matched terms', 'meilisearch'),
+							'attribute' => __('Attribute - Importance of the attribute', 'meilisearch'),
+							'sort' => __('Sort - Custom sorting at query time', 'meilisearch'),
+							'exactness' => __('Exactness - Similarity with query terms', 'meilisearch'),
+						];
+
+						$current_rules = $settings['ranking_rules'];
+						foreach ($current_rules as $index => $rule):
+							if (isset($built_in_rules[$rule])):
+						?>
+							<li class="ranking-rule-item" data-rule="<?php echo esc_attr($rule); ?>">
+								<span class="dashicons dashicons-menu drag-handle"></span>
+								<span class="rule-order"><?php echo esc_html($index + 1); ?>.</span>
+								<strong><?php echo esc_html(ucfirst($rule)); ?></strong>
+								<span class="rule-description"> - <?php echo esc_html($built_in_rules[$rule]); ?></span>
+								<input type="hidden" name="meilisearch_search_settings[ranking_rules][]" value="<?php echo esc_attr($rule); ?>" />
+							</li>
+						<?php
+							endif;
+						endforeach;
+						?>
+					</ul>
+					<button type="button" id="reset-ranking-rules" class="button button-secondary">
+						<?php esc_html_e('Reset to Default Order', 'meilisearch'); ?>
+					</button>
+				</div>
+
 				<br>
+
+				<h3><?php esc_html_e('Custom Ranking Rules', 'meilisearch'); ?></h3>
+				<p class="description">
+					<?php esc_html_e('Add custom ranking rules to promote certain documents. Format: attribute_name:asc or attribute_name:desc', 'meilisearch'); ?>
+				</p>
+
+				<div class="custom-ranking-rules">
+					<div class="add-custom-rule">
+						<select id="custom-rule-attribute">
+							<option value=""><?php esc_html_e('Select attribute...', 'meilisearch'); ?></option>
+							<?php foreach ($this->available_attributes as $key => $label): ?>
+								<option value="<?php echo esc_attr($key); ?>"><?php echo esc_html($label); ?> (<?php echo esc_html($key); ?>)</option>
+							<?php endforeach; ?>
+						</select>
+						<select id="custom-rule-direction">
+							<option value="asc"><?php esc_html_e('Ascending (↑)', 'meilisearch'); ?></option>
+							<option value="desc"><?php esc_html_e('Descending (↓)', 'meilisearch'); ?></option>
+						</select>
+						<button type="button" id="add-custom-rule" class="button button-secondary">
+							<?php esc_html_e('Add Rule', 'meilisearch'); ?>
+						</button>
+					</div>
+
+					<ul id="custom-rules-list" class="custom-rules-list">
+						<?php
+						$custom_rules = $settings['custom_ranking_rules'];
+						if (!empty($custom_rules)):
+							foreach ($custom_rules as $custom_rule):
+								$parts = explode(':', $custom_rule);
+								if (count($parts) === 2):
+						?>
+							<li class="custom-rule-item">
+								<span class="rule-badge"><?php echo esc_html($custom_rule); ?></span>
+								<button type="button" class="button-link remove-custom-rule" data-rule="<?php echo esc_attr($custom_rule); ?>">
+									<span class="dashicons dashicons-no-alt"></span>
+								</button>
+								<input type="hidden" name="meilisearch_search_settings[custom_ranking_rules][]" value="<?php echo esc_attr($custom_rule); ?>" />
+							</li>
+						<?php
+								endif;
+							endforeach;
+						endif;
+						?>
+					</ul>
+				</div>
+
+				<br><br>
 
 				<h2><?php esc_html_e('Default Sort Order', 'meilisearch'); ?></h2>
 				<table class="form-table">
@@ -288,6 +404,104 @@ class Meilisearch_Search_Settings
 					$('#select-all-filterable').prop('checked', false);
 				}
 			});
+
+			// ===== RANKING RULES =====
+
+			// Make ranking rules sortable
+			if (typeof $.fn.sortable !== 'undefined') {
+				$('#ranking-rules-list').sortable({
+					handle: '.drag-handle',
+					placeholder: 'ranking-rule-placeholder',
+					cursor: 'move',
+					update: function(event, ui) {
+						updateRankingOrder();
+					}
+				});
+				console.log('Ranking rules sortable initialized');
+			} else {
+				console.error('jQuery UI Sortable not available');
+			}
+
+			// Update ranking order numbers
+			function updateRankingOrder() {
+				$('#ranking-rules-list .ranking-rule-item').each(function(index) {
+					$(this).find('.rule-order').text((index + 1) + '.');
+				});
+			}
+
+			// Reset ranking rules to default
+			$('#reset-ranking-rules').on('click', function() {
+				if (!confirm('<?php echo esc_js(__('Reset ranking rules to Meilisearch default order?', 'meilisearch')); ?>')) {
+					return;
+				}
+
+				const defaultOrder = ['words', 'typo', 'proximity', 'attribute', 'sort', 'exactness'];
+				const $list = $('#ranking-rules-list');
+				const items = [];
+
+				// Collect all items
+				$list.find('.ranking-rule-item').each(function() {
+					const rule = $(this).data('rule');
+					items.push({
+						rule: rule,
+						element: $(this).clone()
+					});
+				});
+
+				// Clear and re-add in default order
+				$list.empty();
+				defaultOrder.forEach(function(rule) {
+					const item = items.find(function(i) { return i.rule === rule; });
+					if (item) {
+						$list.append(item.element);
+					}
+				});
+
+				updateRankingOrder();
+			});
+
+			// Add custom ranking rule
+			$('#add-custom-rule').on('click', function() {
+				const attribute = $('#custom-rule-attribute').val();
+				const direction = $('#custom-rule-direction').val();
+
+				if (!attribute) {
+					alert('<?php echo esc_js(__('Please select an attribute.', 'meilisearch')); ?>');
+					return;
+				}
+
+				const customRule = attribute + ':' + direction;
+
+				// Check if rule already exists
+				if ($('.custom-rule-item[data-rule="' + customRule + '"]').length > 0) {
+					alert('<?php echo esc_js(__('This custom rule already exists.', 'meilisearch')); ?>');
+					return;
+				}
+
+				// Add the rule
+				const $item = $('<li class="custom-rule-item">')
+					.append($('<span class="rule-badge">').text(customRule))
+					.append(
+						$('<button type="button" class="button-link remove-custom-rule">')
+							.attr('data-rule', customRule)
+							.append($('<span class="dashicons dashicons-no-alt">'))
+					)
+					.append(
+						$('<input type="hidden">')
+							.attr('name', 'meilisearch_search_settings[custom_ranking_rules][]')
+							.val(customRule)
+					);
+
+				$('#custom-rules-list').append($item);
+
+				// Reset form
+				$('#custom-rule-attribute').val('');
+			});
+
+			// Remove custom ranking rule
+			$(document).on('click', '.remove-custom-rule', function() {
+				$(this).closest('.custom-rule-item').remove();
+			});
 		});
 		</script>
 
@@ -298,6 +512,112 @@ class Meilisearch_Search_Settings
 		.notice.inline {
 			padding: 12px;
 			margin: 20px 0;
+		}
+		.ranking-rules-container {
+			background: #f9f9f9;
+			padding: 20px;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			margin: 15px 0;
+		}
+		.ranking-rules-list {
+			list-style: none;
+			margin: 0 0 15px 0;
+			padding: 0;
+		}
+		.ranking-rule-item {
+			background: white;
+			padding: 12px 15px;
+			margin-bottom: 8px;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			cursor: move;
+			display: flex;
+			align-items: center;
+			transition: all 0.2s;
+		}
+		.ranking-rule-item:hover {
+			background: #f0f0f0;
+			border-color: #2271b1;
+		}
+		.ranking-rule-item.ui-sortable-helper {
+			box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+			opacity: 0.8;
+		}
+		.ranking-rule-placeholder {
+			background: #e8f4f8;
+			border: 2px dashed #2271b1;
+			border-radius: 4px;
+			height: 45px;
+			margin-bottom: 8px;
+		}
+		.drag-handle {
+			color: #999;
+			margin-right: 10px;
+			cursor: grab;
+		}
+		.drag-handle:active {
+			cursor: grabbing;
+		}
+		.rule-order {
+			font-weight: bold;
+			color: #2271b1;
+			margin-right: 10px;
+			min-width: 25px;
+		}
+		.rule-description {
+			color: #666;
+			font-size: 13px;
+		}
+		.custom-ranking-rules {
+			margin: 15px 0;
+		}
+		.add-custom-rule {
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			margin-bottom: 15px;
+		}
+		.add-custom-rule select {
+			min-width: 200px;
+		}
+		.custom-rules-list {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+		}
+		.custom-rule-item {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+			background: #2271b1;
+			color: white;
+			padding: 6px 10px;
+			border-radius: 3px;
+		}
+		.rule-badge {
+			font-family: monospace;
+			font-size: 13px;
+		}
+		.remove-custom-rule {
+			color: white;
+			padding: 0;
+			margin: 0;
+			background: transparent;
+			border: none;
+			cursor: pointer;
+			opacity: 0.8;
+		}
+		.remove-custom-rule:hover {
+			opacity: 1;
+		}
+		.remove-custom-rule .dashicons {
+			font-size: 16px;
+			width: 16px;
+			height: 16px;
 		}
 		</style>
 		<?php
@@ -311,14 +631,17 @@ class Meilisearch_Search_Settings
 	private function get_settings(): array
 	{
 		$settings = get_site_option($this->option_name, []);
-	$defaults = [
-		'sortable_attributes' => ['date', 'modified', 'title'],
-		'filterable_attributes' => ['post_type', 'blog_id', 'author_id', 'categories', 'tags'],
-		'default_sort_attribute' => 'date',
-		'default_sort_direction' => 'desc',
-		'show_relevance_badges' => false,
-		'show_post_urls' => false,
-	];		return wp_parse_args($settings, $defaults);
+		$defaults = [
+			'sortable_attributes' => ['date', 'modified', 'title'],
+			'filterable_attributes' => ['post_type', 'blog_id', 'author_id', 'categories', 'tags'],
+			'default_sort_attribute' => 'date',
+			'default_sort_direction' => 'desc',
+			'show_relevance_badges' => false,
+			'show_post_urls' => false,
+			'ranking_rules' => ['words', 'typo', 'proximity', 'attribute', 'sort', 'exactness'],
+			'custom_ranking_rules' => [],
+		];
+		return wp_parse_args($settings, $defaults);
 	}
 
 	/**
@@ -344,6 +667,21 @@ class Meilisearch_Search_Settings
 			? array_map('sanitize_key', $settings['filterable_attributes'])
 			: [];
 
+		// Sanitizar ranking rules
+		$ranking_rules = isset($settings['ranking_rules']) && is_array($settings['ranking_rules'])
+			? array_map('sanitize_key', $settings['ranking_rules'])
+			: ['words', 'typo', 'proximity', 'attribute', 'sort', 'exactness'];
+
+		$custom_ranking_rules = isset($settings['custom_ranking_rules']) && is_array($settings['custom_ranking_rules'])
+			? array_filter(array_map(function($rule) {
+				// Validar formato: attribute:asc ou attribute:desc
+				if (preg_match('/^[a-z_]+:(asc|desc)$/i', $rule)) {
+					return sanitize_text_field($rule);
+				}
+				return null;
+			}, $settings['custom_ranking_rules']))
+			: [];
+
 		$sanitized = [
 			'sortable_attributes' => $sortable_attributes,
 			'filterable_attributes' => $filterable_attributes,
@@ -353,6 +691,8 @@ class Meilisearch_Search_Settings
 				: 'desc',
 			'show_relevance_badges' => isset($settings['show_relevance_badges']) && $settings['show_relevance_badges'] === '1',
 			'show_post_urls' => isset($settings['show_post_urls']) && $settings['show_post_urls'] === '1',
+			'ranking_rules' => $ranking_rules,
+			'custom_ranking_rules' => array_values($custom_ranking_rules),
 		];
 
 		update_site_option($this->option_name, $sanitized);
@@ -424,5 +764,24 @@ class Meilisearch_Search_Settings
 	{
 		$settings = get_site_option('meilisearch_search_settings', []);
 		return isset($settings['show_post_urls']) ? (bool) $settings['show_post_urls'] : true;
+	}
+
+	/**
+	 * Obter regras de ranqueamento configuradas (built-in + custom).
+	 *
+	 * @return array Lista completa de regras de ranqueamento.
+	 */
+	public static function get_ranking_rules(): array
+	{
+		$settings = get_site_option('meilisearch_search_settings', []);
+		$built_in_rules = isset($settings['ranking_rules']) && is_array($settings['ranking_rules'])
+			? $settings['ranking_rules']
+			: ['words', 'typo', 'proximity', 'attribute', 'sort', 'exactness'];
+
+		$custom_rules = isset($settings['custom_ranking_rules']) && is_array($settings['custom_ranking_rules'])
+			? $settings['custom_ranking_rules']
+			: [];
+
+		return array_merge($built_in_rules, $custom_rules);
 	}
 }
