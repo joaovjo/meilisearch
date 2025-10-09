@@ -7,8 +7,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-10-02T18:53:44+00:00\n"
-"PO-Revision-Date: 2025-10-03 00:00+0000\n"
+"POT-Creation-Date: 2025-10-09T18:28:33+00:00\n"
+"PO-Revision-Date: 2025-10-09 00:00+0000\n"
 "Language: pt_BR\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: meilisearch\n"
@@ -39,14 +39,14 @@ msgid "Meilisearch"
 msgstr "Meilisearch"
 
 #: admin/class-dashboard.php:293
-#: admin/class-experimental-features.php:154
-#: admin/class-experimental-features.php:325
+#: admin/class-experimental-features.php:135
+#: admin/class-experimental-features.php:306
 #: admin/class-index-analyzer.php:311
 #: admin/class-metrics.php:164
 #: admin/class-network-settings.php:58
 #: admin/class-network-settings.php:410
-#: admin/class-search-settings.php:79
-#: admin/class-search-settings.php:332
+#: admin/class-search-settings.php:96
+#: admin/class-search-settings.php:671
 msgid "You do not have permission to access this page."
 msgstr "Você não tem permissão para acessar esta página."
 
@@ -175,7 +175,7 @@ msgid "Host"
 msgstr "Host"
 
 #: admin/class-dashboard.php:367
-#: admin/class-experimental-features.php:262
+#: admin/class-experimental-features.php:243
 #: admin/class-multi-pattern-search.php:411
 msgid "Status"
 msgstr "Status"
@@ -599,8 +599,67 @@ msgid "Post Types to Index"
 msgstr "Tipos de Posts para Indexar"
 
 #: admin/class-search-settings.php:65
+#: admin/class-search-settings.php:82
 msgid "Search Configuration"
 msgstr "Configuração de Busca"
+
+#: admin/class-search-settings.php:83
+msgid "Search"
+msgstr "Busca"
+
+#: admin/class-search-settings.php:103
+msgid "Meilisearch Search Configuration"
+msgstr "Configuração de Busca do Meilisearch"
+
+#: admin/class-search-settings.php:109
+msgid "Search settings saved successfully. Remember to reindex your content for changes to take effect."
+msgstr "Configurações de busca salvas com sucesso. Lembre-se de reindexar seu conteúdo para que as alterações tenham efeito."
+
+#: admin/class-search-settings.php:114
+msgid "Configure which attributes can be used for filtering and sorting search results. These settings apply to all sites in the network."
+msgstr "Configure quais atributos podem ser usados para filtrar e ordenar resultados de busca. Essas configurações se aplicam a todos os sites da rede."
+
+#: admin/class-search-settings.php:120
+msgid "Sortable Attributes"
+msgstr "Atributos Ordenáveis"
+
+#: admin/class-search-settings.php:122
+msgid "Select which attributes can be used to sort search results. For example, you can sort by publication date (descending) to show newest content first."
+msgstr "Selecione quais atributos podem ser usados para ordenar resultados de busca. Por exemplo, você pode ordenar por data de publicação (decrescente) para mostrar o conteúdo mais recente primeiro."
+
+#: admin/class-search-settings.php:131
+#: admin/class-search-settings.php:165
+msgid "Attribute"
+msgstr "Atributo"
+
+#: admin/class-search-settings.php:132
+#: admin/class-search-settings.php:166
+msgid "Description"
+msgstr "Descrição"
+
+#: admin/class-search-settings.php:154
+msgid "Filterable Attributes"
+msgstr "Atributos Filtráveis"
+
+#: admin/class-search-settings.php:156
+msgid "Select which attributes can be used to filter search results. For example, you can filter by post type, author, categories, or tags."
+msgstr "Selecione quais atributos podem ser usados para filtrar resultados de busca. Por exemplo, você pode filtrar por tipo de post, autor, categorias ou tags."
+
+#: admin/class-search-settings.php:188
+msgid "Display Options"
+msgstr "Opções de Exibição"
+
+#: admin/class-search-settings.php:192
+msgid "Relevance Badges"
+msgstr "Badges de Relevância"
+
+#: admin/class-search-settings.php:200
+msgid "Show relevance score badges in search results"
+msgstr "Mostrar badges de pontuação de relevância nos resultados de busca"
+
+#: admin/class-search-settings.php:203
+msgid "Display colored badges showing the relevance percentage next to search result titles. You can customize the badge styles in your theme CSS."
+msgstr "Exibir badges coloridos mostrando a porcentagem de relevância ao lado dos títulos dos resultados de busca. Você pode personalizar os estilos dos badges no CSS do seu tema."
 
 #: admin/class-search-settings.php:66
 msgid "Search"
@@ -726,26 +785,30 @@ msgstr "Nenhum resultado encontrado para \"%s\"."
 msgid "Tente usar palavras-chave diferentes ou verifique a ortografia."
 msgstr "Tente usar palavras-chave diferentes ou verifique a ortografia."
 
-#. translators: 1: start number, 2: end number (only in plural), 3: total results, 4: search term
-#: public/class-search-shortcode.php:205
+#. translators: 1: total results, 2: search term
+#: public/class-search-shortcode.php:206
 #, php-format
-msgid "Exibindo %1$s de %3$s resultado para \"%4$s\""
-msgid_plural "Exibindo %1$s - %2$s de %3$s resultados para \"%4$s\""
-msgstr[0] "Exibindo %1$s de %3$s resultado para \"%4$s\""
-msgstr[1] "Exibindo %1$s - %2$s de %3$s resultados para \"%4$s\""
+msgid "Exibindo %1$s resultado para \"%2$s\""
+msgstr "Exibindo %1$s resultado para \"%2$s\""
+
+#. translators: 1: start number, 2: end number, 3: total results, 4: search term
+#: public/class-search-shortcode.php:213
+#, php-format
+msgid "Exibindo %1$s - %2$s de %3$s resultados para \"%4$s\""
+msgstr "Exibindo %1$s - %2$s de %3$s resultados para \"%4$s\""
 
 #. translators: %s: search term
-#: public/class-search-shortcode.php:223
+#: public/class-search-shortcode.php:227
 #, php-format
 msgid "0 resultados encontrados para \"%s\""
 msgstr "0 resultados encontrados para \"%s\""
 
-#: public/class-search-shortcode.php:241
+#: public/class-search-shortcode.php:245
 msgid "Sem título"
 msgstr "Sem título"
 
 #. translators: %s: nome do autor
-#: public/class-search-shortcode.php:306
+#: public/class-search-shortcode.php:310
 #, php-format
 msgid "por %s"
 msgstr "por %s"
@@ -854,17 +917,147 @@ msgstr "Mostrar badges de pontuação de relevância nos resultados de busca"
 msgid "Display colored badges showing the relevance percentage next to search result titles. You can customize the badge styles in your theme CSS."
 msgstr "Exibir badges coloridos mostrando a porcentagem de relevância ao lado dos títulos dos resultados de busca. Você pode personalizar os estilos dos badges no CSS do seu tema."
 
-#: admin/class-search-settings.php:192
+#: admin/class-search-settings.php:209
 msgid "Post URLs"
 msgstr "URLs dos Posts"
 
-#: admin/class-search-settings.php:200
+#: admin/class-search-settings.php:217
 msgid "Show post URLs after search results"
 msgstr "Mostrar URLs dos posts após os resultados de busca"
 
-#: admin/class-search-settings.php:203
+#: admin/class-search-settings.php:220
 msgid "Display the full permalink URL after each search result content. You can customize the URL display styles in your theme CSS."
 msgstr "Exibir a URL completa do permalink após cada conteúdo de resultado de busca. Você pode personalizar os estilos de exibição de URL no CSS do seu tema."
+
+#: admin/class-search-settings.php:228
+msgid "Ranking Rules"
+msgstr "Regras de Classificação"
+
+#. translators: 1: link to Meilisearch ranking rules documentation, 2: link to custom ranking rules documentation
+#: admin/class-search-settings.php:233
+#, php-format
+msgid "Configure the order and priority of ranking rules that determine search results relevancy. Learn more about %1$s and %2$s."
+msgstr "Configure a ordem e prioridade das regras de classificação que determinam a relevância dos resultados de busca. Saiba mais sobre %1$s e %2$s."
+
+#: admin/class-search-settings.php:234
+msgid "ranking rules"
+msgstr "regras de classificação"
+
+#: admin/class-search-settings.php:235
+msgid "custom ranking rules"
+msgstr "regras de classificação customizadas"
+
+#: admin/class-search-settings.php:240
+msgid "Built-in Ranking Rules"
+msgstr "Regras de Classificação Integradas"
+
+#: admin/class-search-settings.php:242
+msgid "Drag and drop to reorder the built-in ranking rules. Higher rules have more priority in determining search relevancy."
+msgstr "Arraste e solte para reordenar as regras de classificação integradas. Regras mais altas têm maior prioridade na determinação da relevância da busca."
+
+#: admin/class-search-settings.php:249
+msgid "Words - Match query terms count"
+msgstr "Palavras - Contagem de termos de busca correspondentes"
+
+#: admin/class-search-settings.php:250
+msgid "Typo - Typo tolerance (fewer typos first)"
+msgstr "Erro de Digitação - Tolerância a erros (menos erros primeiro)"
+
+#: admin/class-search-settings.php:251
+msgid "Proximity - Distance between matched terms"
+msgstr "Proximidade - Distância entre termos correspondentes"
+
+#: admin/class-search-settings.php:252
+msgid "Attribute - Importance of the attribute"
+msgstr "Atributo - Importância do atributo"
+
+#: admin/class-search-settings.php:253
+msgid "Sort - Custom sorting at query time"
+msgstr "Ordenação - Ordenação customizada no momento da consulta"
+
+#: admin/class-search-settings.php:254
+msgid "Exactness - Similarity with query terms"
+msgstr "Exatidão - Similaridade com termos da consulta"
+
+#: admin/class-search-settings.php:274
+msgid "Reset to Default Order"
+msgstr "Redefinir para Ordem Padrão"
+
+#: admin/class-search-settings.php:280
+msgid "Custom Ranking Rules"
+msgstr "Regras de Classificação Customizadas"
+
+#: admin/class-search-settings.php:282
+msgid "Add custom ranking rules to promote certain documents. Format: attribute_name:asc or attribute_name:desc"
+msgstr "Adicione regras de classificação customizadas para promover certos documentos. Formato: nome_do_atributo:asc ou nome_do_atributo:desc"
+
+#: admin/class-search-settings.php:288
+msgid "Select attribute..."
+msgstr "Selecione um atributo..."
+
+#: admin/class-search-settings.php:294
+msgid "Ascending (↑)"
+msgstr "Crescente (↑)"
+
+#: admin/class-search-settings.php:295
+msgid "Descending (↓)"
+msgstr "Decrescente (↓)"
+
+#: admin/class-search-settings.php:298
+msgid "Add Rule"
+msgstr "Adicionar Regra"
+
+#: admin/class-search-settings.php:327
+msgid "Default Sort Order"
+msgstr "Ordem de Classificação Padrão"
+
+#: admin/class-search-settings.php:332
+msgid "Sort By"
+msgstr "Ordenar Por"
+
+#: admin/class-search-settings.php:337
+msgid "Relevance (Default)"
+msgstr "Relevância (Padrão)"
+
+#: admin/class-search-settings.php:352
+msgid "Sort Direction"
+msgstr "Direção da Ordenação"
+
+#: admin/class-search-settings.php:358
+msgid "Ascending (A-Z, 0-9, oldest first)"
+msgstr "Crescente (A-Z, 0-9, mais antigos primeiro)"
+
+#: admin/class-search-settings.php:361
+msgid "Descending (Z-A, 9-0, newest first)"
+msgstr "Decrescente (Z-A, 9-0, mais recentes primeiro)"
+
+#: admin/class-search-settings.php:365
+msgid "For date fields like \"date\" or \"modified\", descending order shows newest content first."
+msgstr "Para campos de data como \"date\" ou \"modified\", a ordem decrescente mostra o conteúdo mais recente primeiro."
+
+#: admin/class-search-settings.php:373
+msgid "Important:"
+msgstr "Importante:"
+
+#: admin/class-search-settings.php:374
+msgid "After changing these settings, you need to reindex your content for the changes to take effect. Use WP-CLI:"
+msgstr "Após alterar essas configurações, você precisa reindexar seu conteúdo para que as alterações tenham efeito. Use o WP-CLI:"
+
+#: admin/class-search-settings.php:379
+msgid "Save Search Settings"
+msgstr "Salvar Configurações de Busca"
+
+#: admin/class-search-settings.php:434
+msgid "Reset ranking rules to Meilisearch default order?"
+msgstr "Redefinir regras de classificação para a ordem padrão do Meilisearch?"
+
+#: admin/class-search-settings.php:469
+msgid "Please select an attribute."
+msgstr "Por favor, selecione um atributo."
+
+#: admin/class-search-settings.php:477
+msgid "This custom rule already exists."
+msgstr "Esta regra customizada já existe."
 
 #. translators: %s: search term
 #: meilisearch.php:242

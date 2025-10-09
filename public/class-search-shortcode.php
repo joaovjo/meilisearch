@@ -200,19 +200,23 @@ class Meilisearch_Search_Shortcode
 			<?php if ($total_results > 0) : ?>
 				<p class="meilisearch-results-info">
 					<?php
+				if ($total_results === 1) {
 					printf(
-						/* translators: 1: start number, 2: end number (only in plural), 3: total results, 4: search term */
-						esc_html(_n(
-							'Exibindo %1$s de %3$s resultado para "%4$s"',
-							'Exibindo %1$s - %2$s de %3$s resultados para "%4$s"',
-							$total_results,
-							'meilisearch'
-						)),
+						/* translators: 1: total results, 2: search term */
+						esc_html__('Exibindo %1$s resultado para "%2$s"', 'meilisearch'),
+						'<strong>' . number_format_i18n($total_results) . '</strong>',
+						'<strong>' . esc_html($search_query) . '</strong>'
+					);
+				} else {
+					printf(
+						/* translators: 1: start number, 2: end number, 3: total results, 4: search term */
+						esc_html__('Exibindo %1$s - %2$s de %3$s resultados para "%4$s"', 'meilisearch'),
 						'<strong>' . number_format_i18n($start) . '</strong>',
 						'<strong>' . number_format_i18n($end) . '</strong>',
 						'<strong>' . number_format_i18n($total_results) . '</strong>',
 						'<strong>' . esc_html($search_query) . '</strong>'
 					);
+				}
 					?>
 				</p>
 			<?php else : ?>

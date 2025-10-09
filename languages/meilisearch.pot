@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-10-09T18:28:33+00:00\n"
+"POT-Creation-Date: 2025-10-09T18:33:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: meilisearch\n"
@@ -1020,42 +1020,46 @@ msgstr ""
 msgid "Tente usar palavras-chave diferentes ou verifique a ortografia."
 msgstr ""
 
-#. translators: 1: start number, 2: end number (only in plural), 3: total results, 4: search term
-#: public/class-search-shortcode.php:205
+#. translators: 1: total results, 2: search term
+#: public/class-search-shortcode.php:206
 #, php-format
-msgid "Exibindo %1$s de %3$s resultado para \"%4$s\""
-msgid_plural "Exibindo %1$s - %2$s de %3$s resultados para \"%4$s\""
-msgstr[0] ""
-msgstr[1] ""
+msgid "Exibindo %1$s resultado para \"%2$s\""
+msgstr ""
+
+#. translators: 1: start number, 2: end number, 3: total results, 4: search term
+#: public/class-search-shortcode.php:213
+#, php-format
+msgid "Exibindo %1$s - %2$s de %3$s resultados para \"%4$s\""
+msgstr ""
 
 #. translators: %s: search term
-#: public/class-search-shortcode.php:223
+#: public/class-search-shortcode.php:227
 #, php-format
 msgid "0 resultados encontrados para \"%s\""
 msgstr ""
 
-#: public/class-search-shortcode.php:241
+#: public/class-search-shortcode.php:245
 msgid "Sem título"
 msgstr ""
 
 #. translators: %s: nome do autor
-#: public/class-search-shortcode.php:306
+#: public/class-search-shortcode.php:310
 #, php-format
 msgid "por %s"
 msgstr ""
 
-#: public/class-search-shortcode.php:324
+#: public/class-search-shortcode.php:328
 msgid "Ler mais"
 msgstr ""
 
-#: public/class-search-shortcode.php:350
+#: public/class-search-shortcode.php:354
 msgid "Paginação de resultados"
 msgstr ""
 
-#: public/class-search-shortcode.php:355
+#: public/class-search-shortcode.php:359
 msgid "Anterior"
 msgstr ""
 
-#: public/class-search-shortcode.php:409
+#: public/class-search-shortcode.php:413
 msgid "Próxima"
 msgstr ""
