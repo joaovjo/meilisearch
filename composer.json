@@ -14,7 +14,7 @@
     "carthage-software/mago": "^1.0.0-beta.25"
   },
   "scripts": {
-    "makepot": "wp i18n make-pot .",
+    "makepot": "wp --allow-root i18n make-pot .",
     "docs": "phpdoc",
     "docs:phar": "php tools/phpDocumentor.phar",
     "mago:fmt": "vendor/bin/mago fmt",

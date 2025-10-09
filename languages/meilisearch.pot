@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-10-08T20:12:36+00:00\n"
+"POT-Creation-Date: 2025-10-09T18:28:33+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: meilisearch\n"
@@ -79,14 +79,14 @@ msgid "Reindex Error"
 msgstr ""
 
 #: admin/class-dashboard.php:293
-#: admin/class-experimental-features.php:154
-#: admin/class-experimental-features.php:325
+#: admin/class-experimental-features.php:135
+#: admin/class-experimental-features.php:306
 #: admin/class-index-analyzer.php:311
 #: admin/class-metrics.php:164
 #: admin/class-network-settings.php:58
 #: admin/class-network-settings.php:410
-#: admin/class-search-settings.php:79
-#: admin/class-search-settings.php:332
+#: admin/class-search-settings.php:96
+#: admin/class-search-settings.php:671
 msgid "You do not have permission to access this page."
 msgstr ""
 
@@ -124,7 +124,7 @@ msgid "Host"
 msgstr ""
 
 #: admin/class-dashboard.php:367
-#: admin/class-experimental-features.php:262
+#: admin/class-experimental-features.php:243
 #: admin/class-multi-pattern-search.php:411
 msgid "Status"
 msgstr ""
@@ -209,92 +209,92 @@ msgstr ""
 msgid "Experimental"
 msgstr ""
 
-#: admin/class-experimental-features.php:161
+#: admin/class-experimental-features.php:142
 msgid "Meilisearch Experimental Features"
 msgstr ""
 
-#: admin/class-experimental-features.php:167
+#: admin/class-experimental-features.php:148
 msgid "Experimental features updated successfully."
 msgstr ""
 
-#: admin/class-experimental-features.php:175
+#: admin/class-experimental-features.php:156
 msgid "Error updating experimental features. Please check your connection and try again."
 msgstr ""
 
-#: admin/class-experimental-features.php:182
+#: admin/class-experimental-features.php:163
 #: admin/class-index-analyzer.php:321
 #: admin/class-metrics.php:178
 msgid "Error:"
 msgstr ""
 
-#: admin/class-experimental-features.php:183
+#: admin/class-experimental-features.php:164
 msgid "Unable to connect to Meilisearch server. Please check your settings."
 msgstr ""
 
-#: admin/class-experimental-features.php:190
+#: admin/class-experimental-features.php:171
 msgid "Warning:"
 msgstr ""
 
-#: admin/class-experimental-features.php:191
+#: admin/class-experimental-features.php:172
 msgid "Experimental features are unstable and may change in future versions. Use them at your own risk in production environments."
 msgstr ""
 
 #. translators: %s: link to Meilisearch documentation
-#: admin/class-experimental-features.php:199
+#: admin/class-experimental-features.php:180
 #, php-format
 msgid "Enable or disable experimental features in Meilisearch. For more information, visit the %s."
 msgstr ""
 
-#: admin/class-experimental-features.php:200
+#: admin/class-experimental-features.php:181
 msgid "Meilisearch documentation"
 msgstr ""
 
-#: admin/class-experimental-features.php:227
+#: admin/class-experimental-features.php:208
 msgid "Enable"
 msgstr ""
 
-#: admin/class-experimental-features.php:233
+#: admin/class-experimental-features.php:214
 msgid "Current status:"
 msgstr ""
 
-#: admin/class-experimental-features.php:235
+#: admin/class-experimental-features.php:216
 msgid "Enabled"
 msgstr ""
 
-#: admin/class-experimental-features.php:237
+#: admin/class-experimental-features.php:218
 msgid "Disabled"
 msgstr ""
 
-#: admin/class-experimental-features.php:248
+#: admin/class-experimental-features.php:229
 msgid "Save Experimental Features"
 msgstr ""
 
-#: admin/class-experimental-features.php:250
+#: admin/class-experimental-features.php:231
 msgid "Refresh Status"
 msgstr ""
 
-#: admin/class-experimental-features.php:257
+#: admin/class-experimental-features.php:238
 msgid "Current Configuration"
 msgstr ""
 
-#: admin/class-experimental-features.php:261
+#: admin/class-experimental-features.php:242
 msgid "Feature"
 msgstr ""
 
-#: admin/class-experimental-features.php:263
+#: admin/class-experimental-features.php:244
 msgid "API Key"
 msgstr ""
 
-#: admin/class-experimental-features.php:273
+#: admin/class-experimental-features.php:254
 msgid "ENABLED"
 msgstr ""
 
-#: admin/class-experimental-features.php:277
+#: admin/class-experimental-features.php:258
 msgid "DISABLED"
 msgstr ""
 
 #. translators: %s: current time
-#: admin/class-experimental-features.php:292
+#: admin/class-experimental-features.php:273
 #: admin/class-metrics.php:289
 #, php-format
 msgid "Last updated: %s"
@@ -744,118 +744,208 @@ msgstr ""
 msgid "Use WP-CLI to index all sites: %s"
 msgstr ""
 
-#: admin/class-search-settings.php:65
+#: admin/class-search-settings.php:82
 msgid "Search Configuration"
 msgstr ""
 
-#: admin/class-search-settings.php:66
+#: admin/class-search-settings.php:83
 msgid "Search"
 msgstr ""
 
-#: admin/class-search-settings.php:86
+#: admin/class-search-settings.php:103
 msgid "Meilisearch Search Configuration"
 msgstr ""
 
-#: admin/class-search-settings.php:92
+#: admin/class-search-settings.php:109
 msgid "Search settings saved successfully. Remember to reindex your content for changes to take effect."
 msgstr ""
 
-#: admin/class-search-settings.php:97
+#: admin/class-search-settings.php:114
 msgid "Configure which attributes can be used for filtering and sorting search results. These settings apply to all sites in the network."
 msgstr ""
 
-#: admin/class-search-settings.php:103
+#: admin/class-search-settings.php:120
 msgid "Sortable Attributes"
 msgstr ""
 
-#: admin/class-search-settings.php:105
+#: admin/class-search-settings.php:122
 msgid "Select which attributes can be used to sort search results. For example, you can sort by publication date (descending) to show newest content first."
 msgstr ""
 
-#: admin/class-search-settings.php:114
-#: admin/class-search-settings.php:148
+#: admin/class-search-settings.php:131
+#: admin/class-search-settings.php:165
 msgid "Attribute"
 msgstr ""
 
-#: admin/class-search-settings.php:115
-#: admin/class-search-settings.php:149
+#: admin/class-search-settings.php:132
+#: admin/class-search-settings.php:166
 msgid "Description"
 msgstr ""
 
-#: admin/class-search-settings.php:137
+#: admin/class-search-settings.php:154
 msgid "Filterable Attributes"
 msgstr ""
 
-#: admin/class-search-settings.php:139
+#: admin/class-search-settings.php:156
 msgid "Select which attributes can be used to filter search results. For example, you can filter by post type, author, categories, or tags."
 msgstr ""
 
-#: admin/class-search-settings.php:171
+#: admin/class-search-settings.php:188
 msgid "Display Options"
 msgstr ""
 
-#: admin/class-search-settings.php:175
+#: admin/class-search-settings.php:192
 msgid "Relevance Badges"
 msgstr ""
 
-#: admin/class-search-settings.php:183
+#: admin/class-search-settings.php:200
 msgid "Show relevance score badges in search results"
 msgstr ""
 
-#: admin/class-search-settings.php:186
+#: admin/class-search-settings.php:203
 msgid "Display colored badges showing the relevance percentage next to search result titles. You can customize the badge styles in your theme CSS."
 msgstr ""
 
-#: admin/class-search-settings.php:192
+#: admin/class-search-settings.php:209
 msgid "Post URLs"
 msgstr ""
 
-#: admin/class-search-settings.php:200
+#: admin/class-search-settings.php:217
 msgid "Show post URLs after search results"
 msgstr ""
 
-#: admin/class-search-settings.php:203
+#: admin/class-search-settings.php:220
 msgid "Display the full permalink URL after each search result content. You can customize the URL display styles in your theme CSS."
 msgstr ""
 
-#: admin/class-search-settings.php:211
-msgid "Default Sort Order"
+#: admin/class-search-settings.php:228
+msgid "Ranking Rules"
 msgstr ""
 
-#: admin/class-search-settings.php:216
-msgid "Sort By"
+#. translators: 1: link to Meilisearch ranking rules documentation, 2: link to custom ranking rules documentation
+#: admin/class-search-settings.php:233
+#, php-format
+msgid "Configure the order and priority of ranking rules that determine search results relevancy. Learn more about %1$s and %2$s."
 msgstr ""
 
-#: admin/class-search-settings.php:221
-msgid "Relevance (Default)"
+#: admin/class-search-settings.php:234
+msgid "ranking rules"
 msgstr ""
 
-#: admin/class-search-settings.php:236
-msgid "Sort Direction"
+#: admin/class-search-settings.php:235
+msgid "custom ranking rules"
+msgstr ""
+
+#: admin/class-search-settings.php:240
+msgid "Built-in Ranking Rules"
 msgstr ""
 
 #: admin/class-search-settings.php:242
-msgid "Ascending (A-Z, 0-9, oldest first)"
-msgstr ""
-
-#: admin/class-search-settings.php:245
-msgid "Descending (Z-A, 9-0, newest first)"
+msgid "Drag and drop to reorder the built-in ranking rules. Higher rules have more priority in determining search relevancy."
 msgstr ""
 
 #: admin/class-search-settings.php:249
+msgid "Words - Match query terms count"
+msgstr ""
+
+#: admin/class-search-settings.php:250
+msgid "Typo - Typo tolerance (fewer typos first)"
+msgstr ""
+
+#: admin/class-search-settings.php:251
+msgid "Proximity - Distance between matched terms"
+msgstr ""
+
+#: admin/class-search-settings.php:252
+msgid "Attribute - Importance of the attribute"
+msgstr ""
+
+#: admin/class-search-settings.php:253
+msgid "Sort - Custom sorting at query time"
+msgstr ""
+
+#: admin/class-search-settings.php:254
+msgid "Exactness - Similarity with query terms"
+msgstr ""
+
+#: admin/class-search-settings.php:274
+msgid "Reset to Default Order"
+msgstr ""
+
+#: admin/class-search-settings.php:280
+msgid "Custom Ranking Rules"
+msgstr ""
+
+#: admin/class-search-settings.php:282
+msgid "Add custom ranking rules to promote certain documents. Format: attribute_name:asc or attribute_name:desc"
+msgstr ""
+
+#: admin/class-search-settings.php:288
+msgid "Select attribute..."
+msgstr ""
+
+#: admin/class-search-settings.php:294
+msgid "Ascending (↑)"
+msgstr ""
+
+#: admin/class-search-settings.php:295
+msgid "Descending (↓)"
+msgstr ""
+
+#: admin/class-search-settings.php:298
+msgid "Add Rule"
+msgstr ""
+
+#: admin/class-search-settings.php:327
+msgid "Default Sort Order"
+msgstr ""
+
+#: admin/class-search-settings.php:332
+msgid "Sort By"
+msgstr ""
+
+#: admin/class-search-settings.php:337
+msgid "Relevance (Default)"
+msgstr ""
+
+#: admin/class-search-settings.php:352
+msgid "Sort Direction"
+msgstr ""
+
+#: admin/class-search-settings.php:358
+msgid "Ascending (A-Z, 0-9, oldest first)"
+msgstr ""
+
+#: admin/class-search-settings.php:361
+msgid "Descending (Z-A, 9-0, newest first)"
+msgstr ""
+
+#: admin/class-search-settings.php:365
 msgid "For date fields like \"date\" or \"modified\", descending order shows newest content first."
 msgstr ""
 
-#: admin/class-search-settings.php:257
+#: admin/class-search-settings.php:373
 msgid "Important:"
 msgstr ""
 
-#: admin/class-search-settings.php:258
+#: admin/class-search-settings.php:374
 msgid "After changing these settings, you need to reindex your content for the changes to take effect. Use WP-CLI:"
 msgstr ""
 
-#: admin/class-search-settings.php:263
+#: admin/class-search-settings.php:379
 msgid "Save Search Settings"
+msgstr ""
+
+#: admin/class-search-settings.php:434
+msgid "Reset ranking rules to Meilisearch default order?"
+msgstr ""
+
+#: admin/class-search-settings.php:469
+msgid "Please select an attribute."
+msgstr ""
+
+#: admin/class-search-settings.php:477
+msgid "This custom rule already exists."
 msgstr ""
 
 #: includes/class-search-api.php:56
