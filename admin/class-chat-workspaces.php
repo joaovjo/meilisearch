@@ -483,7 +483,7 @@ class Meilisearch_Chat_Workspaces
 					</th>
 					<td>
 						<input type="text" name="workspace_uid" id="workspace_uid" class="regular-text" required 
-							   pattern="[a-zA-Z0-9_-]+" 
+							   pattern="[a-zA-Z0-9_\-]+" 
 							   title="<?php esc_attr_e('Only letters, numbers, hyphens and underscores', 'meilisearch'); ?>">
 						<p class="description"><?php esc_html_e('Unique identifier for this workspace. Only letters, numbers, hyphens and underscores.', 'meilisearch'); ?></p>
 					</td>
@@ -525,12 +525,12 @@ class Meilisearch_Chat_Workspaces
 							</label>
 						</th>
 						<td>
-							<input type="password" 
-								   name="api_key" 
-								   id="api_key_<?php echo esc_attr($provider_key); ?>" 
-								   class="regular-text"
-								   value="<?php echo isset($settings['apiKey']) ? esc_attr('••••••••') : ''; ?>"
-								   <?php echo $provider_info['requires_api_key'] ? 'required' : ''; ?>>
+						<input type="password" 
+							   name="api_key" 
+							   id="api_key_<?php echo esc_attr($provider_key); ?>" 
+							   class="regular-text"
+							   value="<?php echo isset($settings['apiKey']) ? esc_attr('••••••••') : ''; ?>"
+							   <?php echo $provider_info['requires_api_key'] ? 'data-required="true"' : ''; ?>>
 							<p class="description">
 								<?php esc_html_e('Your API key for this provider.', 'meilisearch'); ?>
 								<?php if (!$is_new): ?>
@@ -551,12 +551,12 @@ class Meilisearch_Chat_Workspaces
 							</label>
 						</th>
 						<td>
-							<input type="url" 
-								   name="base_url" 
-								   id="base_url_<?php echo esc_attr($provider_key); ?>" 
-								   class="regular-text"
-								   value="<?php echo esc_attr($settings['baseUrl'] ?? $provider_info['default_base_url'] ?? ''); ?>"
-								   <?php echo $provider_info['requires_base_url'] ? 'required' : ''; ?>>
+						<input type="url" 
+							   name="base_url" 
+							   id="base_url_<?php echo esc_attr($provider_key); ?>" 
+							   class="regular-text"
+							   value="<?php echo esc_attr($settings['baseUrl'] ?? $provider_info['default_base_url'] ?? ''); ?>"
+							   <?php echo $provider_info['requires_base_url'] ? 'data-required="true"' : ''; ?>>
 							<p class="description"><?php esc_html_e('API endpoint URL.', 'meilisearch'); ?></p>
 						</td>
 					</tr>
@@ -618,24 +618,43 @@ class Meilisearch_Chat_Workspaces
 			</p>
 		</form>
 
+		<style>
+		.provider-fields {
+			display: none;
+		}
+		.provider-fields.active {
+			display: table-row;
+		}
+		</style>
+
 		<script>
 		jQuery(document).ready(function($) {
 			var currentProvider = '<?php echo esc_js($current_provider); ?>';
 			
 			function updateProviderFields() {
 				var selectedProvider = $('#provider').val();
+				
+				// Esconder todos e remover required
 				$('.provider-fields').removeClass('active').hide();
+				$('.provider-fields input, .provider-fields select, .provider-fields textarea').prop('required', false);
 				
 				if (selectedProvider) {
+					// Mostrar campos do provider selecionado
 					$('.provider-' + selectedProvider).addClass('active').show();
+					
+					// Adicionar required apenas nos campos visíveis que precisam
+					$('.provider-' + selectedProvider + ' input[data-required="true"]').prop('required', true);
+					$('.provider-' + selectedProvider + ' select[data-required="true"]').prop('required', true);
 				}
 			}
 			
 			$('#provider').on('change', updateProviderFields);
 			
+			// Inicializar com provider atual (se houver)
 			if (currentProvider) {
-				updateProviderFields();
+				$('#provider').val(currentProvider);
 			}
+			updateProviderFields();
 		});
 		</script>
 		<?php

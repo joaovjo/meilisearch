@@ -11,14 +11,18 @@
         // Alternar campos de provider
         $('#provider').on('change', function () {
             var selectedProvider = $(this).val();
+
+            // Esconder todos os campos e remover required
             $('.provider-fields').removeClass('active').hide();
+            $('.provider-fields input, .provider-fields select, .provider-fields textarea').prop('required', false);
 
             if (selectedProvider) {
+                // Mostrar apenas os campos do provider selecionado
                 $('.provider-' + selectedProvider).addClass('active').show();
 
-                // Atualizar campos required
-                $('.provider-fields input[required]').prop('required', false);
-                $('.provider-' + selectedProvider + ' input[required]').prop('required', true);
+                // Atualizar campos required apenas nos campos visíveis do provider selecionado
+                $('.provider-' + selectedProvider + ' input[data-required="true"]').prop('required', true);
+                $('.provider-' + selectedProvider + ' select[data-required="true"]').prop('required', true);
             }
         }).trigger('change');
 
