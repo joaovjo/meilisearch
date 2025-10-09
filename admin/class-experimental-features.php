@@ -107,13 +107,7 @@ class Meilisearch_Experimental_Features
 			return null;
 		}
 
-		try {
-			$response = $client->get_client()->getHttpClient()->get('/experimental-features');
-			$data = json_decode($response->getBody()->getContents(), true);
-			return $data ?? [];
-		} catch (Exception $e) {
-			return null;
-		}
+		return $client->get_experimental_features();
 	}
 
 	/**
@@ -129,20 +123,7 @@ class Meilisearch_Experimental_Features
 			return false;
 		}
 
-		try {
-			$client->get_client()->getHttpClient()->patch(
-				'/experimental-features',
-				[
-					'json' => $features,
-					'headers' => [
-						'Content-Type' => 'application/json',
-					],
-				]
-			);
-			return true;
-		} catch (Exception $e) {
-			return false;
-		}
+		return $client->update_experimental_features($features);
 	}
 
 	/**

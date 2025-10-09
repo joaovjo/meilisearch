@@ -175,4 +175,55 @@ class Meilisearch_Client
 			return false;
 		}
 	}
+
+	/**
+	 * Obter cliente HTTP interno para requisições diretas.
+	 *
+	 * @return \Meilisearch\Http\Client
+	 */
+	private function get_http_client(): \Meilisearch\Http\Client
+	{
+		return new \Meilisearch\Http\Client($this->host, $this->master_key);
+	}
+
+	/**
+	 * Obter funcionalidades experimentais atuais do Meilisearch.
+	 *
+	 * @return array<string, bool>|null Array de funcionalidades ou null em caso de erro.
+	 */
+	public function get_experimental_features(): ?array
+	{
+		try {
+			$http_client = $this->get_http_client();
+			$response = $http_client->get('/experimental-features');
+			return $response ?? [];
+		} catch (Exception $e) {
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
+				error_log('Meilisearch get experimental features error: ' . $e->getMessage());
+			}
+			return null;
+		}
+	}
+
+	/**
+	 * Atualizar funcionalidades experimentais no Meilisearch.
+	 *
+	 * @param array<string, bool> $features Funcionalidades para atualizar.
+	 * @return bool True se atualizado com sucesso.
+	 */
+	public function update_experimental_features(array $features): bool
+	{
+		try {
+			$http_client = $this->get_http_client();
+			$http_client->patch('/experimental-features', $features);
+			return true;
+		} catch (Exception $e) {
+			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
+				error_log('Meilisearch update experimental features error: ' . $e->getMessage());
+			}
+			return false;
+		}
+	}
 }
