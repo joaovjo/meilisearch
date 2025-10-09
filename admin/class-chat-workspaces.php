@@ -51,12 +51,6 @@ class Meilisearch_Chat_Workspaces
 					'requires_base_url' => true,
 					'fields' => ['orgId', 'apiVersion', 'deploymentId', 'apiKey', 'baseUrl'],
 				],
-				'gemini' => [
-					'name' => __('Google Gemini', 'meilisearch'),
-					'requires_api_key' => true,
-					'requires_base_url' => false,
-					'fields' => ['apiKey'],
-				],
 				'mistral' => [
 					'name' => __('Mistral AI', 'meilisearch'),
 					'requires_api_key' => true,
@@ -109,7 +103,15 @@ class Meilisearch_Chat_Workspaces
 	 */
 	public function enqueue_scripts(string $hook): void
 	{
-		if ('admin_page_meilisearch-chat-workspaces' !== $hook) {
+		// Para páginas de submenu em network admin, o formato é: toplevel_page_{menu_slug}-network
+		// ou {parent_slug}_page_{menu_slug}-network
+		$valid_hooks = [
+			'admin_page_meilisearch-chat-workspaces-network',
+			'meilisearch-dashboard_page_meilisearch-chat-workspaces-network',
+			'admin_page_meilisearch-chat-workspaces',
+		];
+		
+		if (!in_array($hook, $valid_hooks, true)) {
 			return;
 		}
 
@@ -172,7 +174,39 @@ class Meilisearch_Chat_Workspaces
 
 		try {
 			$result = $client->get_client()->getChatWorkspaces();
-			return $result->getResults();
+			$workspaces = $result->getResults();
+			
+			// Converter objetos ChatWorkspace para arrays
+			if (is_array($workspaces)) {
+				$workspaces_array = [];
+				foreach ($workspaces as $workspace) {
+					if (is_object($workspace)) {
+						// Se o objeto tem método toArray, usar
+						if (method_exists($workspace, 'toArray')) {
+							$workspaces_array[] = $workspace->toArray();
+						} elseif (method_exists($workspace, 'getUid')) {
+							// Converter manualmente usando getters
+							$workspaces_array[] = [
+								'uid' => $workspace->getUid(),
+							];
+						} else {
+							// Fallback: converter usando reflection
+							$reflection = new ReflectionClass($workspace);
+							$data = [];
+							foreach ($reflection->getProperties() as $property) {
+								$property->setAccessible(true);
+								$data[$property->getName()] = $property->getValue($workspace);
+							}
+							$workspaces_array[] = $data;
+						}
+					} else {
+						$workspaces_array[] = $workspace;
+					}
+				}
+				return $workspaces_array;
+			}
+			
+			return $workspaces;
 		} catch (Exception $e) {
 			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
 				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
@@ -197,7 +231,62 @@ class Meilisearch_Chat_Workspaces
 
 		try {
 			$workspace = $client->get_client()->chatWorkspace($workspace_uid);
-			return $workspace->getSettings();
+			$settings = $workspace->getSettings();
+			
+			// Se já for array, retornar direto
+			if (is_array($settings)) {
+				return $settings;
+			}
+			
+			// Se não for objeto, retornar null
+			if (!is_object($settings)) {
+				return null;
+			}
+			
+			// Converter objeto ChatWorkspaceSettings para array
+			$result = [];
+			
+			// Método 1: Tentar usar toArray() se disponível
+			if (method_exists($settings, 'toArray')) {
+				try {
+					$array = $settings->toArray();
+					if (is_array($array)) {
+						return $array;
+					}
+				} catch (Exception $e) {
+					// Continuar para o próximo método
+				}
+			}
+			
+			// Método 2: Tentar usar get_object_vars()
+			try {
+				$vars = get_object_vars($settings);
+				if (!empty($vars)) {
+					return $vars;
+				}
+			} catch (Exception $e) {
+				// Continuar para o próximo método
+			}
+			
+			// Método 3: Usar reflection como último recurso
+			try {
+				$reflection = new ReflectionClass($settings);
+				foreach ($reflection->getProperties() as $property) {
+					$property->setAccessible(true);
+					$name = $property->getName();
+					$value = $property->getValue($settings);
+					$result[$name] = $value;
+				}
+				
+				return !empty($result) ? $result : null;
+			} catch (Exception $e) {
+				if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+					error_log('Meilisearch reflection error: ' . $e->getMessage());
+				}
+				return null;
+			}
+			
 		} catch (Exception $e) {
 			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
 				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
@@ -234,7 +323,7 @@ class Meilisearch_Chat_Workspaces
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			if (isset($_GET['deleted']) && 'true' === $_GET['deleted']): ?>
 				<div class="notice notice-success is-dismissible">
-					<p><?php esc_html_e('Chat workspace deleted successfully.', 'meilisearch'); ?></p>
+					<p><?php esc_html_e('Chat workspace reset successfully.', 'meilisearch'); ?></p>
 				</div>
 			<?php endif; ?>
 
@@ -271,7 +360,16 @@ class Meilisearch_Chat_Workspaces
 				<div class="notice notice-info" style="margin-top: 20px;">
 					<p>
 						<strong><?php esc_html_e('What are Chat Workspaces?', 'meilisearch'); ?></strong><br>
-						<?php esc_html_e('Chat workspaces allow you to configure AI-powered conversational search using various LLM providers like OpenAI, Azure OpenAI, Google Gemini, Mistral AI, or local vLLM instances.', 'meilisearch'); ?>
+						<?php esc_html_e('Chat workspaces allow you to configure AI-powered conversational search using various LLM providers like OpenAI, Azure OpenAI, Mistral AI, or local vLLM instances.', 'meilisearch'); ?>
+					</p>
+					<p>
+						<strong><?php esc_html_e('Supported Providers:', 'meilisearch'); ?></strong>
+						<ul style="list-style: disc; margin-left: 20px;">
+							<li><strong>OpenAI:</strong> GPT models (GPT-4, GPT-3.5, etc.)</li>
+							<li><strong>Azure OpenAI:</strong> Enterprise-grade OpenAI models hosted on Azure</li>
+							<li><strong>Mistral AI:</strong> Open-source models with strong performance</li>
+							<li><strong>vLLM:</strong> Self-hosted local models for complete data privacy</li>
+						</ul>
 					</p>
 				</div>
 
@@ -341,8 +439,63 @@ class Meilisearch_Chat_Workspaces
 			return;
 		}
 
-		if (empty($workspaces)) {
+		// Filtrar workspaces com configurações válidas
+		$valid_workspaces = [];
+		$invalid_workspaces = [];
+		$providers = $this->get_providers();
+		
+		foreach ($workspaces as $workspace) {
+			$settings = $this->get_workspace_settings($workspace['uid']);
+			if (null !== $settings && isset($settings['source'])) {
+				// Verificar se o provider é suportado
+				if (isset($providers[$settings['source']])) {
+					$valid_workspaces[] = $workspace;
+				} else {
+					$invalid_workspaces[] = $workspace;
+				}
+			}
+		}
+
+		if (empty($valid_workspaces) && empty($invalid_workspaces)) {
 			echo '<div class="notice notice-info"><p>' . esc_html__('No chat workspaces found. Create your first workspace to get started.', 'meilisearch') . '</p></div>';
+			return;
+		}
+
+		// Mostrar aviso sobre workspaces inválidos
+		if (!empty($invalid_workspaces)) {
+			?>
+			<div class="notice notice-warning is-dismissible">
+				<p>
+					<strong><?php esc_html_e('Unsupported Workspaces Detected', 'meilisearch'); ?></strong><br>
+					<?php
+					echo esc_html(
+						sprintf(
+							/* translators: %d: number of invalid workspaces */
+							_n(
+								'%d workspace uses an unsupported provider and has been hidden from the list.',
+								'%d workspaces use unsupported providers and have been hidden from the list.',
+								count($invalid_workspaces),
+								'meilisearch'
+							),
+							count($invalid_workspaces)
+						)
+					);
+					?>
+					<?php esc_html_e('These workspaces will not function until they are reconfigured with a supported provider.', 'meilisearch'); ?>
+				</p>
+				<p>
+					<strong><?php esc_html_e('Hidden workspaces:', 'meilisearch'); ?></strong>
+					<?php
+					$uids = array_map(function($ws) { return $ws['uid']; }, $invalid_workspaces);
+					echo '<code>' . esc_html(implode(', ', $uids)) . '</code>';
+					?>
+				</p>
+			</div>
+			<?php
+		}
+
+		if (empty($valid_workspaces)) {
+			echo '<div class="notice notice-info"><p>' . esc_html__('No valid chat workspaces found. Create your first workspace to get started.', 'meilisearch') . '</p></div>';
 			return;
 		}
 
@@ -358,7 +511,7 @@ class Meilisearch_Chat_Workspaces
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach ($workspaces as $workspace): ?>
+				<?php foreach ($valid_workspaces as $workspace): ?>
 				<tr>
 					<td><code><?php echo esc_html($workspace['uid']); ?></code></td>
 					<td><?php $this->render_workspace_provider($workspace['uid']); ?></td>
@@ -369,8 +522,8 @@ class Meilisearch_Chat_Workspaces
 						</a>
 						|
 						<a href="<?php echo esc_url(wp_nonce_url(add_query_arg(['page' => 'meilisearch-chat-workspaces', 'action' => 'meilisearch_delete_chat_workspace', 'workspace' => $workspace['uid']], network_admin_url('edit.php')), 'delete_workspace_' . $workspace['uid'])); ?>" 
-						   onclick="return confirm('<?php echo esc_js(__('Are you sure you want to delete this workspace?', 'meilisearch')); ?>');">
-							<?php esc_html_e('Delete', 'meilisearch'); ?>
+						   onclick="return confirm('<?php echo esc_js(__('Are you sure you want to reset this workspace?', 'meilisearch')); ?>');">
+							<?php esc_html_e('Reset', 'meilisearch'); ?>
 						</a>
 					</td>
 				</tr>
@@ -390,8 +543,17 @@ class Meilisearch_Chat_Workspaces
 		$settings = $this->get_workspace_settings($workspace_uid);
 		if (null !== $settings && isset($settings['source'])) {
 			$providers = $this->get_providers();
-			$provider_name = $providers[$settings['source']]['name'] ?? $settings['source'];
-			echo '<span class="provider-badge">' . esc_html($provider_name) . '</span>';
+			
+			// Verificar se o provider existe na lista de providers suportados
+			if (isset($providers[$settings['source']])) {
+				$provider_name = $providers[$settings['source']]['name'];
+				echo '<span class="provider-badge">' . esc_html($provider_name) . '</span>';
+			} else {
+				// Provider desconhecido ou não mais suportado
+				echo '<span class="status-inactive" style="color: #dc3232;">' 
+					. esc_html($settings['source']) 
+					. ' (' . esc_html__('Unsupported', 'meilisearch') . ')</span>';
+			}
 		} else {
 			echo '<span class="status-inactive">' . esc_html__('Not configured', 'meilisearch') . '</span>';
 		}
