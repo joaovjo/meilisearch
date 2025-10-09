@@ -64,6 +64,9 @@ if (is_admin() && is_multisite()) {
 	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-network-settings.php';
 	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-experimental-features.php';
 	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-tasks-monitor.php';
+	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-chat-workspaces.php';
+	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-backup-restore.php';
+	require_once MEILISEARCH_PLUGIN_DIR . 'admin/class-federated-search.php';
 }
 
 // Incluir classes públicas.
@@ -199,6 +202,15 @@ function meilisearch_init(): void
 
 		$tasks_monitor = new Meilisearch_Tasks_Monitor();
 		$tasks_monitor->init_hooks();
+
+		$chat_workspaces = new Meilisearch_Chat_Workspaces();
+		$chat_workspaces->init_hooks();
+
+		$backup_restore = new Meilisearch_Backup_Restore();
+		$backup_restore->init_hooks();
+
+		$federated_search = new Meilisearch_Federated_Search();
+		$federated_search->init_hooks();
 	}
 }
 
