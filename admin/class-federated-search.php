@@ -113,15 +113,18 @@ class Meilisearch_Federated_Search
 		}
 
 		try {
-			$indexes = $client->get_client()->getAllIndexes();
+			$indexes = $client->get_client()->getIndexes();
 			$result = [];
 			
 			foreach ($indexes->getResults() as $index) {
+				$created_at = $index->getCreatedAt();
+				$updated_at = $index->getUpdatedAt();
+				
 				$result[] = [
-					'uid' => $index['uid'],
-					'primaryKey' => $index['primaryKey'] ?? null,
-					'createdAt' => $index['createdAt'],
-					'updatedAt' => $index['updatedAt'],
+					'uid' => $index->getUid(),
+					'primaryKey' => $index->getPrimaryKey(),
+					'createdAt' => $created_at ? $created_at->format('Y-m-d H:i:s') : null,
+					'updatedAt' => $updated_at ? $updated_at->format('Y-m-d H:i:s') : null,
 				];
 			}
 			
@@ -528,20 +531,20 @@ class Meilisearch_Federated_Search
 			throw new Exception(__('Unable to connect to Meilisearch.', 'meilisearch'));
 		}
 
-		// Construir queries para cada índice
+		// Construir queries para cada índice usando SearchQuery objects
 		$queries = [];
 		foreach ($indexes as $index_uid) {
-			$queries[] = [
-				'indexUid' => $index_uid,
-				'q' => $query,
-				'limit' => $limit,
-			];
+			$search_query = new \Meilisearch\Contracts\SearchQuery();
+			$search_query->setIndexUid($index_uid)
+				->setQuery($query)
+				->setLimit($limit);
+			
+			$queries[] = $search_query;
 		}
 
-		// Configuração da federação
-		$federation = [
-			'limit' => $federation_limit,
-		];
+		// Configuração da federação usando MultiSearchFederation object
+		$federation = new \Meilisearch\Contracts\MultiSearchFederation();
+		$federation->setLimit($federation_limit);
 
 		// Executar multi-search com federation
 		$results = $client->get_client()->multiSearch($queries, $federation);

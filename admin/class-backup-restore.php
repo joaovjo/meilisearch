@@ -30,6 +30,7 @@ class Meilisearch_Backup_Restore
 		add_action('network_admin_menu', [$this, 'add_network_menu']);
 		add_action('network_admin_edit_meilisearch_create_dump', [$this, 'create_dump']);
 		add_action('network_admin_edit_meilisearch_create_snapshot', [$this, 'create_snapshot']);
+		add_action('network_admin_edit_meilisearch_update_backup_schedule', [$this, 'update_backup_schedule']);
 		add_action('meilisearch_scheduled_backup', [$this, 'run_scheduled_backup']);
 	}
 
@@ -122,6 +123,14 @@ class Meilisearch_Backup_Restore
 						endif;
 						?>
 					</p>
+				</div>
+			<?php endif; ?>
+
+			<?php
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			if (isset($_GET['schedule_updated'])): ?>
+				<div class="notice notice-success is-dismissible">
+					<p><?php esc_html_e('Backup schedule settings saved successfully.', 'meilisearch'); ?></p>
 				</div>
 			<?php endif; ?>
 
@@ -475,6 +484,55 @@ class Meilisearch_Backup_Restore
 		}
 
 		update_site_option('meilisearch_backup_log', $backups);
+	}
+
+	/**
+	 * Atualizar configurações de agendamento de backup.
+	 */
+	public function update_backup_schedule(): void
+	{
+		check_admin_referer('update_backup_schedule', 'meilisearch_schedule_nonce');
+
+		if (!current_user_can('manage_network_options')) {
+			wp_die(esc_html__('You do not have permission to access this page.', 'meilisearch'));
+		}
+
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+		$schedule_enabled = isset($_POST['schedule_enabled']) && '1' === $_POST['schedule_enabled'];
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+		$schedule_frequency = isset($_POST['schedule_frequency']) ? sanitize_text_field(wp_unslash($_POST['schedule_frequency'])) : 'daily';
+
+		// Validar frequência
+		if (!in_array($schedule_frequency, ['hourly', 'twicedaily', 'daily', 'weekly'], true)) {
+			$schedule_frequency = 'daily';
+		}
+
+		// Atualizar opções
+		update_site_option('meilisearch_backup_schedule_enabled', $schedule_enabled);
+		update_site_option('meilisearch_backup_schedule_frequency', $schedule_frequency);
+
+		// Limpar agendamento existente
+		$timestamp = wp_next_scheduled('meilisearch_scheduled_backup');
+		if ($timestamp) {
+			wp_unschedule_event($timestamp, 'meilisearch_scheduled_backup');
+		}
+
+		// Criar novo agendamento se habilitado
+		if ($schedule_enabled) {
+			wp_schedule_event(time(), $schedule_frequency, 'meilisearch_scheduled_backup');
+		}
+
+		wp_redirect(
+			add_query_arg(
+				[
+					'page' => 'meilisearch-backup',
+					'schedule_updated' => 'true',
+				],
+				network_admin_url('admin.php')
+			)
+		);
+
+		exit;
 	}
 
 	/**

@@ -753,7 +753,7 @@ class Meilisearch_Chat_Workspaces
 			}
 
 			$workspace = $client->get_client()->chatWorkspace($workspace_uid);
-			$workspace->deleteSettings();
+			$workspace->resetSettings();
 
 			wp_redirect(
 				add_query_arg(
