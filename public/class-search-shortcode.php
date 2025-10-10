@@ -210,7 +210,7 @@ class Meilisearch_Search_Shortcode
 				<p class="meilisearch-results-info">
 					<?php
 
-					if ($total_results === 1) {
+					if (1 === $total_results) {
 						printf(
 							/* translators: 1: total results, 2: search term */
 							esc_html__('Exibindo %1$s resultado para "%2$s"', 'meilisearch'),

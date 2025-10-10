@@ -277,7 +277,7 @@ class Meilisearch_Index_Analyzer
 								$site_name = $parsed['host'];
 
 								// Adicionar caminho se for um site de subdiretório
-								if (isset($parsed['path']) && $parsed['path'] !== '/') {
+								if (isset($parsed['path']) && '/' !== $parsed['path']) {
 									$path_parts = explode('/', trim($parsed['path'], '/'));
 									if (!empty($path_parts[0])) {
 										$site_name .= '/' . $path_parts[0];

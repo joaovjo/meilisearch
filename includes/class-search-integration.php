@@ -108,7 +108,7 @@ class Meilisearch_Search_Integration
 					];
 
 					// Adicionar apenas posts do site atual
-					if ($blog_id == get_current_blog_id()) {
+					if (get_current_blog_id() == $blog_id) {
 						$post_ids[] = $post_id;
 					}
 				}

@@ -348,9 +348,11 @@ class Meilisearch_Backup_Restore
 		$tasks = $client->get_recent_tasks(20);
 
 		// Filtrar apenas tarefas de dump e snapshot
-		$backup_tasks = array_filter($tasks, function ($task) {
-			return in_array($task['type'], ['dumpCreation', 'snapshotCreation'], true);
-		});
+		$backup_tasks = array_filter($tasks, fn($task) => in_array(
+			$task['type'],
+			['dumpCreation', 'snapshotCreation'],
+			true,
+		));
 
 		if (empty($backup_tasks)) {
 			echo '<p>' . esc_html__('No recent backup tasks found.', 'meilisearch') . '</p>';

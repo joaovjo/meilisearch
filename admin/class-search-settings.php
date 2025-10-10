@@ -63,7 +63,7 @@ class Meilisearch_Search_Settings
 	public function enqueue_admin_scripts(string $hook_suffix): void
 	{
 		// Apenas carregar na página de configurações de pesquisa
-		if ($hook_suffix !== 'meilisearch_page_meilisearch-search-settings') {
+		if ('meilisearch_page_meilisearch-search-settings' !== $hook_suffix) {
 			return;
 		}
 
@@ -747,8 +747,8 @@ class Meilisearch_Search_Settings
 			'default_sort_direction' => in_array($settings['default_sort_direction'] ?? 'desc', ['asc', 'desc'], true)
 				? $settings['default_sort_direction']
 				: 'desc',
-			'show_relevance_badges' => isset($settings['show_relevance_badges']) && $settings['show_relevance_badges'] === '1',
-			'show_post_urls' => isset($settings['show_post_urls']) && $settings['show_post_urls'] === '1',
+			'show_relevance_badges' => isset($settings['show_relevance_badges']) && '1' === $settings['show_relevance_badges'],
+			'show_post_urls' => isset($settings['show_post_urls']) && '1' === $settings['show_post_urls'],
 			'ranking_rules' => $ranking_rules,
 			'custom_ranking_rules' => array_values($custom_ranking_rules),
 		];

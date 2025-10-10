@@ -369,7 +369,7 @@ class Meilisearch_Client
 
 				// Verificar se é erro de rate limiting (429)
 				$is_rate_limit =
-					strpos($error_message, '429') !== false || strpos(strtolower($error_message), 'too many requests') !== false;
+					str_contains($error_message, '429') || str_contains(strtolower($error_message), 'too many requests');
 
 				if ($is_rate_limit && $attempt < ($max_retries - 1)) {
 					// Backoff exponencial: 1s, 2s, 4s
