@@ -208,6 +208,7 @@ class Meilisearch_Client
 	/**
 	 * Obter funcionalidades experimentais atuais do Meilisearch.
 	 *
+	 * @deprecated Método não mais utilizado após remoção da página de Experimental Features
 	 * @return array<string, bool>|null Array de funcionalidades ou null em caso de erro.
 	 */
 	public function get_experimental_features(): ?array
@@ -228,6 +229,7 @@ class Meilisearch_Client
 	/**
 	 * Atualizar funcionalidades experimentais no Meilisearch.
 	 *
+	 * @deprecated Método não mais utilizado após remoção da página de Experimental Features
 	 * @param array<string, bool> $features Funcionalidades para atualizar.
 	 * @return bool True se atualizado com sucesso.
 	 */

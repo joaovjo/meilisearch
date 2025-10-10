@@ -108,20 +108,6 @@ Use cases:
 
 See [full Multi-Pattern Search documentation](docs/MULTI-PATTERN-SEARCH.md) for detailed usage.
 
-### Experimental Features
-
-The Experimental Features page allows you to enable advanced Meilisearch capabilities:
-
-- **Vector Store** - Enable vector search for semantic/AI-powered search
-- **Metrics** - Enable Prometheus-compatible metrics endpoint
-- **Logs Route** - API access to Meilisearch logs
-- **Edit Documents By Function** - Batch document transformations
-- **Contains Filter** - Partial string matching in filters
-
-⚠️ **Warning:** Experimental features are unstable and may change in future versions. Use at your own risk in production.
-
-See [full Experimental Features documentation](docs/docs/features/experimental-features.md) for detailed information.
-
 ## WP-CLI Commands
 
 O plugin inclui comandos WP-CLI completos para gerenciamento. Veja a [documentação completa](docs/WP-CLI.md).
