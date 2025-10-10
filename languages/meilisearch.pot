@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-10-09T19:07:39+00:00\n"
+"POT-Creation-Date: 2025-10-10T17:32:42+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: meilisearch\n"
@@ -37,6 +37,209 @@ msgstr ""
 #. Author URI of the plugin
 #: meilisearch.php
 msgid "https://github.com/joaovjo"
+msgstr ""
+
+#: admin/class-backup-restore.php:44
+#: admin/class-backup-restore.php:45
+msgid "Backup & Restore"
+msgstr ""
+
+#: admin/class-backup-restore.php:78
+#: admin/class-backup-restore.php:415
+#: admin/class-backup-restore.php:452
+#: admin/class-backup-restore.php:514
+#: admin/class-dashboard.php:293
+#: admin/class-federated-search.php:143
+#: admin/class-index-analyzer.php:307
+#: admin/class-metrics.php:164
+#: admin/class-network-settings.php:58
+#: admin/class-network-settings.php:407
+#: admin/class-search-settings.php:96
+#: admin/class-search-settings.php:710
+#: admin/class-tasks-monitor.php:75
+msgid "You do not have permission to access this page."
+msgstr ""
+
+#: admin/class-backup-restore.php:85
+msgid "Meilisearch Backup & Restore"
+msgstr ""
+
+#: admin/class-backup-restore.php:93
+msgid "Dump created successfully!"
+msgstr ""
+
+#. translators: %d: task UID
+#: admin/class-backup-restore.php:101
+#: admin/class-backup-restore.php:124
+#, php-format
+msgid "Task UID: %d"
+msgstr ""
+
+#: admin/class-backup-restore.php:116
+msgid "Snapshot created successfully!"
+msgstr ""
+
+#: admin/class-backup-restore.php:138
+msgid "Backup schedule settings saved successfully."
+msgstr ""
+
+#: admin/class-backup-restore.php:154
+#: admin/class-federated-search.php:156
+#: admin/class-federated-search.php:401
+#: admin/class-index-analyzer.php:317
+#: admin/class-metrics.php:178
+msgid "Error:"
+msgstr ""
+
+#: admin/class-backup-restore.php:155
+#: admin/class-federated-search.php:157
+msgid "Unable to connect to Meilisearch server. Please check your settings."
+msgstr ""
+
+#: admin/class-backup-restore.php:162
+msgid "About Backups"
+msgstr ""
+
+#: admin/class-backup-restore.php:163
+msgid "Dumps create a complete backup of your Meilisearch data that can be imported later. Snapshots are lightweight copies of the current state (self-hosted only)."
+msgstr ""
+
+#: admin/class-backup-restore.php:172
+msgid "Database Dumps"
+msgstr ""
+
+#: admin/class-backup-restore.php:173
+msgid "Create a complete backup of all indexes and settings."
+msgstr ""
+
+#: admin/class-backup-restore.php:180
+msgid "Dump Type"
+msgstr ""
+
+#: admin/class-backup-restore.php:184
+msgid "Manual Backup"
+msgstr ""
+
+#: admin/class-backup-restore.php:186
+msgid "Create a backup now."
+msgstr ""
+
+#: admin/class-backup-restore.php:191
+msgid "Create Dump Now"
+msgstr ""
+
+#: admin/class-backup-restore.php:194
+msgid "This will create a backup of all your Meilisearch data. Continue?"
+msgstr ""
+
+#: admin/class-backup-restore.php:201
+msgid "Automatic Backups"
+msgstr ""
+
+#: admin/class-backup-restore.php:209
+msgid "Snapshots"
+msgstr ""
+
+#: admin/class-backup-restore.php:211
+msgid "Create a snapshot of the current database state (self-hosted instances only)."
+msgstr ""
+
+#: admin/class-backup-restore.php:213
+msgid "Note: Snapshots are not available on Meilisearch Cloud."
+msgstr ""
+
+#: admin/class-backup-restore.php:219
+msgid "Create Snapshot Now"
+msgstr ""
+
+#: admin/class-backup-restore.php:222
+msgid "This will create a snapshot of your Meilisearch database. Continue?"
+msgstr ""
+
+#: admin/class-backup-restore.php:232
+msgid "Recent Backup Tasks"
+msgstr ""
+
+#: admin/class-backup-restore.php:289
+msgid "Enable Automatic Backups"
+msgstr ""
+
+#: admin/class-backup-restore.php:293
+msgid "Enable scheduled backups"
+msgstr ""
+
+#: admin/class-backup-restore.php:298
+msgid "Frequency"
+msgstr ""
+
+#: admin/class-backup-restore.php:301
+msgid "Hourly"
+msgstr ""
+
+#: admin/class-backup-restore.php:305
+msgid "Twice Daily"
+msgstr ""
+
+#: admin/class-backup-restore.php:309
+msgid "Daily"
+msgstr ""
+
+#: admin/class-backup-restore.php:310
+msgid "Weekly"
+msgstr ""
+
+#: admin/class-backup-restore.php:319
+msgid "Save Schedule Settings"
+msgstr ""
+
+#. translators: %s: formatted date and time
+#: admin/class-backup-restore.php:330
+#, php-format
+msgid "Next scheduled backup: %s"
+msgstr ""
+
+#: admin/class-backup-restore.php:358
+msgid "No recent backup tasks found."
+msgstr ""
+
+#: admin/class-backup-restore.php:366
+msgid "Task UID"
+msgstr ""
+
+#: admin/class-backup-restore.php:367
+#: admin/class-tasks-monitor.php:181
+msgid "Type"
+msgstr ""
+
+#: admin/class-backup-restore.php:368
+#: admin/class-dashboard.php:367
+#: admin/class-multi-pattern-search.php:422
+#: admin/class-tasks-monitor.php:180
+msgid "Status"
+msgstr ""
+
+#: admin/class-backup-restore.php:369
+#: admin/class-tasks-monitor.php:183
+msgid "Enqueued At"
+msgstr ""
+
+#: admin/class-backup-restore.php:370
+#: admin/class-tasks-monitor.php:184
+msgid "Duration"
+msgstr ""
+
+#: admin/class-backup-restore.php:380
+msgid "Dump"
+msgstr ""
+
+#: admin/class-backup-restore.php:380
+msgid "Snapshot"
+msgstr ""
+
+#: admin/class-backup-restore.php:421
+#: admin/class-backup-restore.php:458
+#: admin/class-federated-search.php:537
+msgid "Unable to connect to Meilisearch."
 msgstr ""
 
 #: admin/class-dashboard.php:41
@@ -78,19 +281,6 @@ msgstr ""
 msgid "Reindex Error"
 msgstr ""
 
-#: admin/class-dashboard.php:293
-#: admin/class-experimental-features.php:169
-#: admin/class-experimental-features.php:340
-#: admin/class-index-analyzer.php:311
-#: admin/class-metrics.php:164
-#: admin/class-network-settings.php:58
-#: admin/class-network-settings.php:410
-#: admin/class-search-settings.php:96
-#: admin/class-search-settings.php:671
-#: admin/class-tasks-monitor.php:75
-msgid "You do not have permission to access this page."
-msgstr ""
-
 #: admin/class-dashboard.php:300
 msgid "Network reindexing started successfully!"
 msgstr ""
@@ -122,13 +312,6 @@ msgstr ""
 
 #: admin/class-dashboard.php:363
 msgid "Host"
-msgstr ""
-
-#: admin/class-dashboard.php:367
-#: admin/class-experimental-features.php:277
-#: admin/class-multi-pattern-search.php:411
-#: admin/class-tasks-monitor.php:169
-msgid "Status"
 msgstr ""
 
 #: admin/class-dashboard.php:374
@@ -163,262 +346,284 @@ msgstr ""
 msgid "Indexing"
 msgstr ""
 
-#: admin/class-dashboard.php:427
+#: admin/class-dashboard.php:428
 msgid "Not found"
 msgstr ""
 
-#: admin/class-dashboard.php:433
+#: admin/class-dashboard.php:434
 msgid "Indexing..."
 msgstr ""
 
-#: admin/class-dashboard.php:435
+#: admin/class-dashboard.php:436
 msgid "Ready"
 msgstr ""
 
-#: admin/class-dashboard.php:447
+#: admin/class-dashboard.php:448
 msgid "Showing first 10 sites only"
 msgstr ""
 
-#: admin/class-dashboard.php:457
+#: admin/class-dashboard.php:458
 msgid "System Information"
 msgstr ""
 
-#: admin/class-dashboard.php:462
+#: admin/class-dashboard.php:463
 msgid "Plugin Version"
 msgstr ""
 
-#: admin/class-dashboard.php:467
+#: admin/class-dashboard.php:468
 msgid "WordPress Version"
 msgstr ""
 
-#: admin/class-dashboard.php:471
+#: admin/class-dashboard.php:472
 msgid "PHP Version"
 msgstr ""
 
-#: admin/class-dashboard.php:475
+#: admin/class-dashboard.php:476
 msgid "Meilisearch PHP SDK"
 msgstr ""
 
-#: admin/class-dashboard.php:479
+#: admin/class-dashboard.php:480
 msgid "Guzzle HTTP"
 msgstr ""
 
-#: admin/class-dashboard.php:483
+#: admin/class-dashboard.php:484
 msgid "PHP Fiber Support"
 msgstr ""
 
-#: admin/class-dashboard.php:505
+#: admin/class-dashboard.php:506
 msgid "Quick Actions"
 msgstr ""
 
-#: admin/class-dashboard.php:509
+#: admin/class-dashboard.php:510
 msgid "Configure Settings"
 msgstr ""
 
-#: admin/class-dashboard.php:514
+#: admin/class-dashboard.php:515
 msgid "Are you sure you want to reindex all sites? This may take several minutes."
 msgstr ""
 
-#: admin/class-dashboard.php:517
+#: admin/class-dashboard.php:518
 msgid "Reindex Network"
 msgstr ""
 
-#: admin/class-dashboard.php:521
+#: admin/class-dashboard.php:522
 msgid "WP-CLI Commands:"
 msgstr ""
 
-#: admin/class-dashboard.php:522
+#: admin/class-dashboard.php:523
 msgid "Reindex all sites"
 msgstr ""
 
-#: admin/class-dashboard.php:523
+#: admin/class-dashboard.php:524
 msgid "Check server health"
 msgstr ""
 
-#: admin/class-dashboard.php:524
+#: admin/class-dashboard.php:525
 msgid "View indexing statistics"
 msgstr ""
 
-#: admin/class-experimental-features.php:43
-msgid "Vector Store Setting"
+#: admin/class-federated-search.php:46
+#: admin/class-federated-search.php:47
+msgid "Federated Search"
 msgstr ""
 
-#: admin/class-experimental-features.php:44
-msgid "Enable vector store configuration for semantic search and AI-powered features. Allows configuring embedders and vector search settings."
+#: admin/class-federated-search.php:151
+msgid "Meilisearch Federated Search"
 msgstr ""
 
-#: admin/class-experimental-features.php:47
-#: admin/class-metrics.php:40
-#: admin/class-metrics.php:41
-msgid "Metrics"
+#: admin/class-federated-search.php:164
+msgid "What is Federated Search?"
 msgstr ""
 
-#: admin/class-experimental-features.php:48
-msgid "Enable Prometheus-compatible metrics endpoint for monitoring search performance and resource usage."
+#: admin/class-federated-search.php:165
+msgid "Federated search allows you to search across multiple indexes simultaneously and merge results into a unified view. Perfect for searching posts, pages, products, and custom content types all at once."
 msgstr ""
 
-#: admin/class-experimental-features.php:51
-msgid "Logs Route"
+#: admin/class-federated-search.php:174
+msgid "Test Federated Search"
 msgstr ""
 
-#: admin/class-experimental-features.php:52
-msgid "Enable API route to access Meilisearch logs directly through the API for debugging and monitoring."
+#: admin/class-federated-search.php:177
+msgid "Select Indexes to Search"
 msgstr ""
 
-#: admin/class-experimental-features.php:55
-msgid "Edit Documents By Function"
+#: admin/class-federated-search.php:180
+msgid "No indexes found. Create indexes first."
 msgstr ""
 
-#: admin/class-experimental-features.php:56
-msgid "Enable document editing using custom functions for batch operations and transformations."
+#: admin/class-federated-search.php:198
+#: admin/class-search-settings.php:82
+msgid "Search Configuration"
 msgstr ""
 
-#: admin/class-experimental-features.php:59
-msgid "Contains Filter"
+#: admin/class-federated-search.php:203
+msgid "Search Query"
 msgstr ""
 
-#: admin/class-experimental-features.php:60
-msgid "Enable \"contains\" filter operator for partial string matching in search filters."
+#: admin/class-federated-search.php:210
+msgid "Enter search terms..."
 msgstr ""
 
-#: admin/class-experimental-features.php:63
-msgid "Network"
+#: admin/class-federated-search.php:215
+msgid "Results Limit"
 msgstr ""
 
-#: admin/class-experimental-features.php:64
-msgid "Enable network-related features and configurations for distributed search."
+#: admin/class-federated-search.php:225
+msgid "Maximum number of results per index."
 msgstr ""
 
-#: admin/class-experimental-features.php:67
-msgid "Get Task Documents Route"
+#: admin/class-federated-search.php:230
+msgid "Federation Limit"
 msgstr ""
 
-#: admin/class-experimental-features.php:68
-msgid "Enable API route to retrieve documents associated with specific tasks."
+#: admin/class-federated-search.php:240
+msgid "Maximum total results in unified view."
 msgstr ""
 
-#: admin/class-experimental-features.php:71
-msgid "Composite Embedders"
+#: admin/class-federated-search.php:244
+msgid "Merge Strategy"
 msgstr ""
 
-#: admin/class-experimental-features.php:72
-msgid "Enable support for multiple embedders working together for advanced vector search."
+#: admin/class-federated-search.php:248
+msgid "Merge Results"
 msgstr ""
 
-#: admin/class-experimental-features.php:75
-msgid "Chat Completions"
+#: admin/class-federated-search.php:250
+msgid "Combine results from all indexes into a single list."
 msgstr ""
 
-#: admin/class-experimental-features.php:76
-msgid "Enable chat completion API for AI-powered conversational search experiences."
+#: admin/class-federated-search.php:260
+#: admin/class-federated-search.php:603
+#: admin/class-search-settings.php:83
+msgid "Search"
 msgstr ""
 
-#: admin/class-experimental-features.php:79
-msgid "Multimodal"
+#: admin/class-federated-search.php:268
+msgid "Search Results"
 msgstr ""
 
-#: admin/class-experimental-features.php:80
-msgid "Enable multimodal search capabilities for images, text, and other media types."
+#: admin/class-federated-search.php:279
+msgid "Saved Federated Queries"
 msgstr ""
 
-#: admin/class-experimental-features.php:104
-msgid "Experimental Features"
+#: admin/class-federated-search.php:287
+msgid "Frontend Implementation"
 msgstr ""
 
-#: admin/class-experimental-features.php:105
-msgid "Experimental"
+#: admin/class-federated-search.php:288
+msgid "Use the shortcode below to add federated search to any page or post:"
 msgstr ""
 
-#: admin/class-experimental-features.php:176
-msgid "Meilisearch Experimental Features"
+#: admin/class-federated-search.php:292
+msgid "Shortcode Parameters"
 msgstr ""
 
-#: admin/class-experimental-features.php:182
-msgid "Experimental features updated successfully."
+#: admin/class-federated-search.php:294
+msgid "Comma-separated list of index UIDs to search (required)"
 msgstr ""
 
-#: admin/class-experimental-features.php:190
-msgid "Error updating experimental features. Please check your connection and try again."
+#: admin/class-federated-search.php:298
+msgid "Results limit per index (default: 20)"
 msgstr ""
 
-#: admin/class-experimental-features.php:197
-#: admin/class-index-analyzer.php:321
-#: admin/class-metrics.php:178
-msgid "Error:"
+#: admin/class-federated-search.php:299
+msgid "Total results limit (default: 50)"
 msgstr ""
 
-#: admin/class-experimental-features.php:198
-msgid "Unable to connect to Meilisearch server. Please check your settings."
+#: admin/class-federated-search.php:300
+msgid "Search box placeholder text"
 msgstr ""
 
-#: admin/class-experimental-features.php:205
-msgid "Warning:"
+#: admin/class-federated-search.php:371
+msgid "Please select at least one index."
 msgstr ""
 
-#: admin/class-experimental-features.php:206
-msgid "Experimental features are unstable and may change in future versions. Use them at your own risk in production environments."
+#: admin/class-federated-search.php:377
+msgid "Please enter a search query."
 msgstr ""
 
-#. translators: %s: link to Meilisearch documentation
-#: admin/class-experimental-features.php:214
+#: admin/class-federated-search.php:406
+msgid "Request failed. Please try again."
+msgstr ""
+
+#: admin/class-federated-search.php:413
+msgid "Total results:"
+msgstr ""
+
+#: admin/class-federated-search.php:414
+msgid "Processing time:"
+msgstr ""
+
+#: admin/class-federated-search.php:418
+msgid "No results found."
+msgstr ""
+
+#: admin/class-federated-search.php:425
+msgid "Score:"
+msgstr ""
+
+#: admin/class-federated-search.php:429
+#: admin/class-federated-search.php:642
+msgid "Untitled"
+msgstr ""
+
+#: admin/class-federated-search.php:454
+msgid "No saved federated queries yet."
+msgstr ""
+
+#: admin/class-federated-search.php:462
+msgid "Name"
+msgstr ""
+
+#: admin/class-federated-search.php:463
+#: admin/class-multi-pattern-search.php:421
+msgid "Indexes"
+msgstr ""
+
+#: admin/class-federated-search.php:464
+msgid "Configuration"
+msgstr ""
+
+#: admin/class-federated-search.php:465
+msgid "Actions"
+msgstr ""
+
+#. translators: 1: limit, 2: federation limit
+#: admin/class-federated-search.php:478
 #, php-format
-msgid "Enable or disable experimental features in Meilisearch. For more information, visit the %s."
+msgid "Limit: %1$d, Federation limit: %2$d"
 msgstr ""
 
-#: admin/class-experimental-features.php:215
-msgid "Meilisearch documentation"
+#: admin/class-federated-search.php:485
+msgid "Load"
 msgstr ""
 
-#: admin/class-experimental-features.php:242
-msgid "Enable"
+#: admin/class-federated-search.php:487
+msgid "Delete"
 msgstr ""
 
-#: admin/class-experimental-features.php:248
-msgid "Current status:"
+#: admin/class-federated-search.php:513
+msgid "Missing required parameters."
 msgstr ""
 
-#: admin/class-experimental-features.php:250
-msgid "Enabled"
+#: admin/class-federated-search.php:579
+msgid "Search..."
 msgstr ""
 
-#: admin/class-experimental-features.php:252
-msgid "Disabled"
+#: admin/class-federated-search.php:586
+msgid "Error: No indexes specified."
 msgstr ""
 
-#: admin/class-experimental-features.php:263
-msgid "Save Experimental Features"
+#: admin/class-federated-search.php:636
+msgid "Found"
 msgstr ""
 
-#: admin/class-experimental-features.php:265
-msgid "Refresh Status"
+#: admin/class-federated-search.php:637
+msgid "results"
 msgstr ""
 
-#: admin/class-experimental-features.php:272
-msgid "Current Configuration"
-msgstr ""
-
-#: admin/class-experimental-features.php:276
-msgid "Feature"
-msgstr ""
-
-#: admin/class-experimental-features.php:278
-msgid "API Key"
-msgstr ""
-
-#: admin/class-experimental-features.php:288
-msgid "ENABLED"
-msgstr ""
-
-#: admin/class-experimental-features.php:292
-msgid "DISABLED"
-msgstr ""
-
-#. translators: %s: current time
-#: admin/class-experimental-features.php:307
-#: admin/class-metrics.php:289
-#: admin/class-tasks-monitor.php:251
-#, php-format
-msgid "Last updated: %s"
+#: admin/class-federated-search.php:646
+msgid "From:"
 msgstr ""
 
 #: admin/class-index-analyzer.php:40
@@ -426,17 +631,17 @@ msgstr ""
 msgid "Index Analyzer"
 msgstr ""
 
-#: admin/class-index-analyzer.php:318
-#: admin/class-index-analyzer.php:354
+#: admin/class-index-analyzer.php:314
+#: admin/class-index-analyzer.php:351
 msgid "Meilisearch Index Analyzer"
 msgstr ""
 
-#: admin/class-index-analyzer.php:322
+#: admin/class-index-analyzer.php:318
 #: admin/class-metrics.php:77
 msgid "Meilisearch client not configured"
 msgstr ""
 
-#: admin/class-index-analyzer.php:355
+#: admin/class-index-analyzer.php:352
 msgid "Analysis of all indexes in Meilisearch server to identify WordPress networks and their naming patterns (not cached)"
 msgstr ""
 
@@ -453,8 +658,8 @@ msgid "Index Name Pattern"
 msgstr ""
 
 #: admin/class-index-analyzer.php:368
-#: admin/class-index-analyzer.php:439
-#: admin/class-multi-pattern-search.php:409
+#: admin/class-index-analyzer.php:445
+#: admin/class-multi-pattern-search.php:420
 msgid "Network URL"
 msgstr ""
 
@@ -463,85 +668,90 @@ msgid "Sites Count"
 msgstr ""
 
 #: admin/class-index-analyzer.php:370
-#: admin/class-index-analyzer.php:455
+#: admin/class-index-analyzer.php:461
 #: admin/class-metrics.php:203
 msgid "Total Indexes"
 msgstr ""
 
-#: admin/class-index-analyzer.php:383
-#: admin/class-index-analyzer.php:428
-#: admin/class-multi-pattern-search.php:438
+#: admin/class-index-analyzer.php:384
+#: admin/class-index-analyzer.php:431
+#: admin/class-multi-pattern-search.php:450
 msgid "Current Network"
 msgstr ""
 
-#: admin/class-index-analyzer.php:394
+#: admin/class-index-analyzer.php:395
 msgid "Network URL not detected"
 msgstr ""
 
-#: admin/class-index-analyzer.php:410
+#: admin/class-index-analyzer.php:411
 msgid "Index Details by Pattern"
 msgstr ""
 
 #. translators: %d: number of indexes
-#: admin/class-index-analyzer.php:424
+#: admin/class-index-analyzer.php:427
 #, php-format
 msgid "%d indexes"
 msgstr ""
 
-#: admin/class-index-analyzer.php:435
+#: admin/class-index-analyzer.php:441
 msgid "Pattern Format"
 msgstr ""
 
-#: admin/class-index-analyzer.php:446
+#: admin/class-index-analyzer.php:452
 msgid "Not detected"
 msgstr ""
 
-#: admin/class-index-analyzer.php:451
+#: admin/class-index-analyzer.php:457
 msgid "Unique Sites"
 msgstr ""
 
-#: admin/class-index-analyzer.php:460
+#: admin/class-index-analyzer.php:466
 msgid "Sites"
 msgstr ""
 
 #. translators: %d: number of sites
-#: admin/class-index-analyzer.php:466
+#: admin/class-index-analyzer.php:473
 #, php-format
 msgid "View %d sites"
 msgstr ""
 
-#: admin/class-index-analyzer.php:482
+#: admin/class-index-analyzer.php:489
 msgid "Index Names"
 msgstr ""
 
-#: admin/class-index-analyzer.php:486
+#: admin/class-index-analyzer.php:493
 msgid "View all index names"
 msgstr ""
 
-#: admin/class-index-analyzer.php:504
+#: admin/class-index-analyzer.php:511
 msgid "Summary Statistics"
 msgstr ""
 
-#: admin/class-index-analyzer.php:509
+#: admin/class-index-analyzer.php:516
 msgid "Total Detected Networks"
 msgstr ""
 
-#: admin/class-index-analyzer.php:513
+#: admin/class-index-analyzer.php:520
 msgid "Total Indexes in Meilisearch"
 msgstr ""
 
-#: admin/class-index-analyzer.php:517
+#: admin/class-index-analyzer.php:524
 msgid "Current WordPress Network"
 msgstr ""
 
-#: admin/class-index-analyzer.php:533
+#: admin/class-index-analyzer.php:541
 msgid "Refresh Analysis"
 msgstr ""
 
 #. translators: %s: current time
-#: admin/class-index-analyzer.php:539
+#: admin/class-index-analyzer.php:548
 #, php-format
 msgid "Last analyzed: %s"
+msgstr ""
+
+#: admin/class-metrics.php:40
+#: admin/class-metrics.php:41
+msgid "Metrics"
 msgstr ""
 
 #: admin/class-metrics.php:172
@@ -557,12 +767,12 @@ msgid "Global Statistics"
 msgstr ""
 
 #: admin/class-metrics.php:189
-#: admin/class-network-settings.php:373
+#: admin/class-network-settings.php:369
 msgid "Metric"
 msgstr ""
 
 #: admin/class-metrics.php:190
-#: admin/class-network-settings.php:374
+#: admin/class-network-settings.php:370
 msgid "Value"
 msgstr ""
 
@@ -583,129 +793,132 @@ msgid "No indexes found."
 msgstr ""
 
 #. translators: %d: site/blog ID
-#: admin/class-metrics.php:223
+#: admin/class-metrics.php:224
 #, php-format
 msgid "Site ID: %d"
 msgstr ""
 
-#: admin/class-metrics.php:231
+#: admin/class-metrics.php:232
 msgid "Primary Key"
 msgstr ""
 
-#: admin/class-metrics.php:235
+#: admin/class-metrics.php:236
 msgid "Created At"
 msgstr ""
 
-#: admin/class-metrics.php:239
+#: admin/class-metrics.php:240
 msgid "Updated At"
 msgstr ""
 
-#: admin/class-metrics.php:243
+#: admin/class-metrics.php:244
 msgid "Number of Documents"
 msgstr ""
 
-#: admin/class-metrics.php:247
+#: admin/class-metrics.php:248
 msgid "Is Indexing"
 msgstr ""
 
-#: admin/class-metrics.php:250
+#: admin/class-metrics.php:251
 msgid "Yes"
 msgstr ""
 
-#: admin/class-metrics.php:252
+#: admin/class-metrics.php:253
 msgid "No"
 msgstr ""
 
-#: admin/class-metrics.php:257
+#: admin/class-metrics.php:258
 msgid "Field Distribution"
 msgstr ""
 
-#: admin/class-metrics.php:261
+#: admin/class-metrics.php:262
 msgid "View Details"
 msgstr ""
 
-#: admin/class-metrics.php:269
+#: admin/class-metrics.php:270
 msgid "No field distribution available"
 msgstr ""
 
-#: admin/class-metrics.php:283
+#: admin/class-metrics.php:284
 msgid "Refresh Metrics"
 msgstr ""
 
-#: admin/class-multi-pattern-search.php:81
-#: admin/class-multi-pattern-search.php:82
-#: admin/class-multi-pattern-search.php:362
+#. translators: %s: current time
+#: admin/class-metrics.php:291
+#: admin/class-tasks-monitor.php:266
+#, php-format
+msgid "Last updated: %s"
+msgstr ""
+
+#: admin/class-multi-pattern-search.php:87
+#: admin/class-multi-pattern-search.php:88
+#: admin/class-multi-pattern-search.php:368
 msgid "Multi-Pattern Search"
 msgstr ""
 
-#: admin/class-multi-pattern-search.php:317
+#: admin/class-multi-pattern-search.php:323
 msgid "Security check failed"
 msgstr ""
 
-#: admin/class-multi-pattern-search.php:323
+#: admin/class-multi-pattern-search.php:329
 msgid "You do not have permission to perform this action"
 msgstr ""
 
-#: admin/class-multi-pattern-search.php:368
+#: admin/class-multi-pattern-search.php:375
 msgid "Meilisearch is not configured. Please configure it in the Settings page first."
 msgstr ""
 
-#: admin/class-multi-pattern-search.php:384
+#: admin/class-multi-pattern-search.php:392
 msgid "Settings saved successfully!"
 msgstr ""
 
-#: admin/class-multi-pattern-search.php:389
+#: admin/class-multi-pattern-search.php:397
 msgid "About Multi-Pattern Search"
 msgstr ""
 
-#: admin/class-multi-pattern-search.php:390
+#: admin/class-multi-pattern-search.php:398
 msgid "This feature allows you to search across multiple WordPress networks that share the same Meilisearch server. Select additional index patterns below to include their content in your search results."
 msgstr ""
 
-#: admin/class-multi-pattern-search.php:397
+#: admin/class-multi-pattern-search.php:408
 msgid "Available Index Patterns"
 msgstr ""
 
-#: admin/class-multi-pattern-search.php:401
+#: admin/class-multi-pattern-search.php:412
 msgid "No index patterns found in Meilisearch."
 msgstr ""
 
-#: admin/class-multi-pattern-search.php:407
+#: admin/class-multi-pattern-search.php:418
 msgid "Select"
 msgstr ""
 
-#: admin/class-multi-pattern-search.php:408
+#: admin/class-multi-pattern-search.php:419
 msgid "Pattern"
 msgstr ""
 
-#: admin/class-multi-pattern-search.php:410
-msgid "Indexes"
-msgstr ""
-
-#: admin/class-multi-pattern-search.php:449
+#: admin/class-multi-pattern-search.php:461
 msgid "Unknown"
 msgstr ""
 
-#: admin/class-multi-pattern-search.php:458
+#: admin/class-multi-pattern-search.php:469
 msgid "index"
 msgid_plural "indexes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/class-multi-pattern-search.php:467
+#: admin/class-multi-pattern-search.php:475
 msgid "Current"
 msgstr ""
 
-#: admin/class-multi-pattern-search.php:471
+#: admin/class-multi-pattern-search.php:479
 msgid "Active"
 msgstr ""
 
-#: admin/class-multi-pattern-search.php:475
+#: admin/class-multi-pattern-search.php:483
 msgid "Inactive"
 msgstr ""
 
-#: admin/class-multi-pattern-search.php:486
-#: admin/class-network-settings.php:355
+#: admin/class-multi-pattern-search.php:494
+#: admin/class-network-settings.php:351
 msgid "Save Settings"
 msgstr ""
 
@@ -718,349 +931,341 @@ msgstr ""
 msgid "Meilisearch Network Settings"
 msgstr ""
 
-#: admin/class-network-settings.php:96
+#: admin/class-network-settings.php:92
 msgid "Settings saved successfully."
 msgstr ""
 
-#: admin/class-network-settings.php:103
+#: admin/class-network-settings.php:99
 msgid "Connection Status:"
 msgstr ""
 
-#: admin/class-network-settings.php:114
+#: admin/class-network-settings.php:105
 msgid "Connected successfully!"
 msgstr ""
 
-#: admin/class-network-settings.php:116
+#: admin/class-network-settings.php:106
 msgid "Connection failed. Please check your credentials."
 msgstr ""
 
-#: admin/class-network-settings.php:137
+#: admin/class-network-settings.php:123
 msgid "Enable Meilisearch"
 msgstr ""
 
-#: admin/class-network-settings.php:147
+#: admin/class-network-settings.php:133
 msgid "Enable Meilisearch search across the network."
 msgstr ""
 
-#: admin/class-network-settings.php:155
+#: admin/class-network-settings.php:141
 msgid "Meilisearch Host"
 msgstr ""
 
-#: admin/class-network-settings.php:166
+#: admin/class-network-settings.php:152
 msgid "URL of your Meilisearch server (e.g., http://localhost:7700)"
 msgstr ""
 
-#: admin/class-network-settings.php:174
+#: admin/class-network-settings.php:160
 msgid "Master Key"
 msgstr ""
 
-#: admin/class-network-settings.php:185
+#: admin/class-network-settings.php:171
 msgid "Your Meilisearch master key (leave empty if not using authentication)."
 msgstr ""
 
-#: admin/class-network-settings.php:193
+#: admin/class-network-settings.php:179
 msgid "Index Name Format"
 msgstr ""
 
-#: admin/class-network-settings.php:204
+#: admin/class-network-settings.php:190
 msgid "Index naming format. Use {prefix} for table prefix (wp_, wp_2_, wp_3_), {blog_id} for site ID, {site_id} for site ID. Default: {prefix}posts"
 msgstr ""
 
-#: admin/class-network-settings.php:213
+#: admin/class-network-settings.php:195
 msgid "Examples:"
 msgstr ""
 
-#: admin/class-network-settings.php:224
+#: admin/class-network-settings.php:206
 msgid "Post Types to Index"
 msgstr ""
 
-#: admin/class-network-settings.php:247
+#: admin/class-network-settings.php:230
 msgid "Select which post types should be indexed in Meilisearch."
 msgstr ""
 
-#: admin/class-network-settings.php:255
+#: admin/class-network-settings.php:238
 msgid "Post Statuses to Index"
 msgstr ""
 
-#: admin/class-network-settings.php:261
+#: admin/class-network-settings.php:245
 msgid "Published"
 msgstr ""
 
-#: admin/class-network-settings.php:262
+#: admin/class-network-settings.php:246
 msgid "Inherit (for attachments/media)"
 msgstr ""
 
-#: admin/class-network-settings.php:263
+#: admin/class-network-settings.php:247
 msgid "Scheduled"
 msgstr ""
 
-#: admin/class-network-settings.php:264
+#: admin/class-network-settings.php:248
 msgid "Draft"
 msgstr ""
 
-#: admin/class-network-settings.php:265
+#: admin/class-network-settings.php:249
 msgid "Pending Review"
 msgstr ""
 
-#: admin/class-network-settings.php:266
+#: admin/class-network-settings.php:250
 msgid "Private"
 msgstr ""
 
-#: admin/class-network-settings.php:285
+#: admin/class-network-settings.php:269
 msgid "Select which post statuses should be indexed. Note: \"inherit\" is required for attachments/media files."
 msgstr ""
 
-#: admin/class-network-settings.php:293
+#: admin/class-network-settings.php:280
 msgid "Batch Size for Indexing"
 msgstr ""
 
-#: admin/class-network-settings.php:306
+#: admin/class-network-settings.php:293
 msgid "Number of documents to send to Meilisearch in each batch during bulk indexing. Higher values may be faster but consume more memory. Default: 100"
 msgstr ""
 
-#: admin/class-network-settings.php:314
+#: admin/class-network-settings.php:304
 msgid "Auto-Reindex on Save"
 msgstr ""
 
-#: admin/class-network-settings.php:324
+#: admin/class-network-settings.php:314
 msgid "Automatically reindex all sites when settings are saved. The reindexing runs in the background. Disable this if you prefer to manually reindex using WP-CLI."
 msgstr ""
 
-#: admin/class-network-settings.php:332
+#: admin/class-network-settings.php:325
 msgid "Reindex Mode"
 msgstr ""
 
-#: admin/class-network-settings.php:338
+#: admin/class-network-settings.php:331
 msgid "Asynchronous (Recommended)"
 msgstr ""
 
-#: admin/class-network-settings.php:341
+#: admin/class-network-settings.php:334
 msgid "Immediate (May cause timeout on large sites)"
 msgstr ""
 
-#: admin/class-network-settings.php:344
+#: admin/class-network-settings.php:337
 msgid "WP-Cron (Less reliable)"
 msgstr ""
 
-#: admin/class-network-settings.php:348
+#: admin/class-network-settings.php:341
 msgid "Choose how reindexing should run: Async uses background requests (recommended), Immediate runs synchronously (may timeout), WP-Cron schedules via cron (least reliable)."
 msgstr ""
 
-#: admin/class-network-settings.php:352
+#: admin/class-network-settings.php:348
 msgid "Indexing Status"
 msgstr ""
 
-#: admin/class-network-settings.php:379
+#: admin/class-network-settings.php:375
 msgid "Total Sites in Network"
 msgstr ""
 
 #. translators: %s: WP-CLI command
-#: admin/class-network-settings.php:388
+#: admin/class-network-settings.php:385
 #, php-format
 msgid "Use WP-CLI to index all sites: %s"
-msgstr ""
-
-#: admin/class-search-settings.php:82
-msgid "Search Configuration"
-msgstr ""
-
-#: admin/class-search-settings.php:83
-msgid "Search"
 msgstr ""
 
 #: admin/class-search-settings.php:103
 msgid "Meilisearch Search Configuration"
 msgstr ""
 
-#: admin/class-search-settings.php:109
+#: admin/class-search-settings.php:110
 msgid "Search settings saved successfully. Remember to reindex your content for changes to take effect."
 msgstr ""
 
-#: admin/class-search-settings.php:114
+#: admin/class-search-settings.php:118
 msgid "Configure which attributes can be used for filtering and sorting search results. These settings apply to all sites in the network."
 msgstr ""
 
-#: admin/class-search-settings.php:120
+#: admin/class-search-settings.php:127
 msgid "Sortable Attributes"
 msgstr ""
 
-#: admin/class-search-settings.php:122
+#: admin/class-search-settings.php:129
 msgid "Select which attributes can be used to sort search results. For example, you can sort by publication date (descending) to show newest content first."
 msgstr ""
 
-#: admin/class-search-settings.php:131
-#: admin/class-search-settings.php:165
+#: admin/class-search-settings.php:141
+#: admin/class-search-settings.php:178
 msgid "Attribute"
 msgstr ""
 
-#: admin/class-search-settings.php:132
-#: admin/class-search-settings.php:166
+#: admin/class-search-settings.php:142
+#: admin/class-search-settings.php:179
 msgid "Description"
 msgstr ""
 
-#: admin/class-search-settings.php:154
+#: admin/class-search-settings.php:164
 msgid "Filterable Attributes"
 msgstr ""
 
-#: admin/class-search-settings.php:156
+#: admin/class-search-settings.php:166
 msgid "Select which attributes can be used to filter search results. For example, you can filter by post type, author, categories, or tags."
 msgstr ""
 
-#: admin/class-search-settings.php:188
+#: admin/class-search-settings.php:201
 msgid "Display Options"
 msgstr ""
 
-#: admin/class-search-settings.php:192
+#: admin/class-search-settings.php:205
 msgid "Relevance Badges"
 msgstr ""
 
-#: admin/class-search-settings.php:200
+#: admin/class-search-settings.php:213
 msgid "Show relevance score badges in search results"
 msgstr ""
 
-#: admin/class-search-settings.php:203
+#: admin/class-search-settings.php:216
 msgid "Display colored badges showing the relevance percentage next to search result titles. You can customize the badge styles in your theme CSS."
 msgstr ""
 
-#: admin/class-search-settings.php:209
+#: admin/class-search-settings.php:225
 msgid "Post URLs"
 msgstr ""
 
-#: admin/class-search-settings.php:217
+#: admin/class-search-settings.php:233
 msgid "Show post URLs after search results"
 msgstr ""
 
-#: admin/class-search-settings.php:220
+#: admin/class-search-settings.php:236
 msgid "Display the full permalink URL after each search result content. You can customize the URL display styles in your theme CSS."
 msgstr ""
 
-#: admin/class-search-settings.php:228
+#: admin/class-search-settings.php:247
 msgid "Ranking Rules"
 msgstr ""
 
 #. translators: 1: link to Meilisearch ranking rules documentation, 2: link to custom ranking rules documentation
-#: admin/class-search-settings.php:233
+#: admin/class-search-settings.php:253
 #, php-format
 msgid "Configure the order and priority of ranking rules that determine search results relevancy. Learn more about %1$s and %2$s."
 msgstr ""
 
-#: admin/class-search-settings.php:234
+#: admin/class-search-settings.php:258
 msgid "ranking rules"
 msgstr ""
 
-#: admin/class-search-settings.php:235
+#: admin/class-search-settings.php:261
 msgid "custom ranking rules"
 msgstr ""
 
-#: admin/class-search-settings.php:240
+#: admin/class-search-settings.php:267
 msgid "Built-in Ranking Rules"
 msgstr ""
 
-#: admin/class-search-settings.php:242
+#: admin/class-search-settings.php:269
 msgid "Drag and drop to reorder the built-in ranking rules. Higher rules have more priority in determining search relevancy."
 msgstr ""
 
-#: admin/class-search-settings.php:249
+#: admin/class-search-settings.php:280
 msgid "Words - Match query terms count"
 msgstr ""
 
-#: admin/class-search-settings.php:250
+#: admin/class-search-settings.php:281
 msgid "Typo - Typo tolerance (fewer typos first)"
 msgstr ""
 
-#: admin/class-search-settings.php:251
+#: admin/class-search-settings.php:282
 msgid "Proximity - Distance between matched terms"
 msgstr ""
 
-#: admin/class-search-settings.php:252
+#: admin/class-search-settings.php:283
 msgid "Attribute - Importance of the attribute"
 msgstr ""
 
-#: admin/class-search-settings.php:253
+#: admin/class-search-settings.php:284
 msgid "Sort - Custom sorting at query time"
 msgstr ""
 
-#: admin/class-search-settings.php:254
+#: admin/class-search-settings.php:285
 msgid "Exactness - Similarity with query terms"
 msgstr ""
 
-#: admin/class-search-settings.php:274
+#: admin/class-search-settings.php:303
 msgid "Reset to Default Order"
 msgstr ""
 
-#: admin/class-search-settings.php:280
+#: admin/class-search-settings.php:309
 msgid "Custom Ranking Rules"
 msgstr ""
 
-#: admin/class-search-settings.php:282
+#: admin/class-search-settings.php:311
 msgid "Add custom ranking rules to promote certain documents. Format: attribute_name:asc or attribute_name:desc"
 msgstr ""
 
-#: admin/class-search-settings.php:288
+#: admin/class-search-settings.php:320
 msgid "Select attribute..."
 msgstr ""
 
-#: admin/class-search-settings.php:294
+#: admin/class-search-settings.php:326
 msgid "Ascending (↑)"
 msgstr ""
 
-#: admin/class-search-settings.php:295
+#: admin/class-search-settings.php:327
 msgid "Descending (↓)"
 msgstr ""
 
-#: admin/class-search-settings.php:298
+#: admin/class-search-settings.php:330
 msgid "Add Rule"
 msgstr ""
 
-#: admin/class-search-settings.php:327
+#: admin/class-search-settings.php:360
 msgid "Default Sort Order"
 msgstr ""
 
-#: admin/class-search-settings.php:332
+#: admin/class-search-settings.php:365
 msgid "Sort By"
 msgstr ""
 
-#: admin/class-search-settings.php:337
+#: admin/class-search-settings.php:370
 msgid "Relevance (Default)"
 msgstr ""
 
-#: admin/class-search-settings.php:352
+#: admin/class-search-settings.php:385
 msgid "Sort Direction"
 msgstr ""
 
-#: admin/class-search-settings.php:358
+#: admin/class-search-settings.php:391
 msgid "Ascending (A-Z, 0-9, oldest first)"
 msgstr ""
 
-#: admin/class-search-settings.php:361
+#: admin/class-search-settings.php:394
 msgid "Descending (Z-A, 9-0, newest first)"
 msgstr ""
 
-#: admin/class-search-settings.php:365
+#: admin/class-search-settings.php:398
 msgid "For date fields like \"date\" or \"modified\", descending order shows newest content first."
 msgstr ""
 
-#: admin/class-search-settings.php:373
+#: admin/class-search-settings.php:409
 msgid "Important:"
 msgstr ""
 
-#: admin/class-search-settings.php:374
+#: admin/class-search-settings.php:410
 msgid "After changing these settings, you need to reindex your content for the changes to take effect. Use WP-CLI:"
 msgstr ""
 
-#: admin/class-search-settings.php:379
+#: admin/class-search-settings.php:418
 msgid "Save Search Settings"
 msgstr ""
 
-#: admin/class-search-settings.php:434
+#: admin/class-search-settings.php:473
 msgid "Reset ranking rules to Meilisearch default order?"
 msgstr ""
 
-#: admin/class-search-settings.php:469
+#: admin/class-search-settings.php:508
 msgid "Please select an attribute."
 msgstr ""
 
-#: admin/class-search-settings.php:477
+#: admin/class-search-settings.php:516
 msgid "This custom rule already exists."
 msgstr ""
 
@@ -1073,7 +1278,7 @@ msgid "Tasks"
 msgstr ""
 
 #: admin/class-tasks-monitor.php:82
-#: admin/class-tasks-monitor.php:116
+#: admin/class-tasks-monitor.php:120
 msgid "Meilisearch Tasks Monitor"
 msgstr ""
 
@@ -1081,74 +1286,62 @@ msgstr ""
 msgid "Meilisearch is not configured. Please configure the connection settings first."
 msgstr ""
 
-#: admin/class-tasks-monitor.php:119
+#: admin/class-tasks-monitor.php:123
 msgid "Monitor the status and history of Meilisearch tasks. Tasks are asynchronous operations like indexing, updating settings, and more."
 msgstr ""
 
-#: admin/class-tasks-monitor.php:125
+#: admin/class-tasks-monitor.php:132
 msgid "Task Statistics"
 msgstr ""
 
-#: admin/class-tasks-monitor.php:129
+#: admin/class-tasks-monitor.php:136
 msgid "Total Tasks"
 msgstr ""
 
-#: admin/class-tasks-monitor.php:133
+#: admin/class-tasks-monitor.php:142
 msgid "Succeeded"
 msgstr ""
 
-#: admin/class-tasks-monitor.php:137
+#: admin/class-tasks-monitor.php:148
 msgid "Processing"
 msgstr ""
 
-#: admin/class-tasks-monitor.php:141
+#: admin/class-tasks-monitor.php:152
 msgid "Enqueued"
 msgstr ""
 
-#: admin/class-tasks-monitor.php:145
+#: admin/class-tasks-monitor.php:156
 msgid "Failed"
 msgstr ""
 
-#: admin/class-tasks-monitor.php:155
+#: admin/class-tasks-monitor.php:166
 msgid "Show:"
 msgstr ""
 
-#: admin/class-tasks-monitor.php:157
-#: admin/class-tasks-monitor.php:158
-#: admin/class-tasks-monitor.php:159
+#: admin/class-tasks-monitor.php:168
+#: admin/class-tasks-monitor.php:169
+#: admin/class-tasks-monitor.php:170
 msgid "tasks"
 msgstr ""
 
-#: admin/class-tasks-monitor.php:168
+#: admin/class-tasks-monitor.php:179
 msgid "UID"
 msgstr ""
 
-#: admin/class-tasks-monitor.php:170
-msgid "Type"
-msgstr ""
-
-#: admin/class-tasks-monitor.php:171
+#: admin/class-tasks-monitor.php:182
 msgid "Index"
 msgstr ""
 
-#: admin/class-tasks-monitor.php:172
-msgid "Enqueued At"
-msgstr ""
-
-#: admin/class-tasks-monitor.php:173
-msgid "Duration"
-msgstr ""
-
-#: admin/class-tasks-monitor.php:174
-#: admin/class-tasks-monitor.php:234
+#: admin/class-tasks-monitor.php:185
+#: admin/class-tasks-monitor.php:248
 msgid "Details"
 msgstr ""
 
-#: admin/class-tasks-monitor.php:181
+#: admin/class-tasks-monitor.php:192
 msgid "No tasks found."
 msgstr ""
 
-#: admin/class-tasks-monitor.php:230
+#: admin/class-tasks-monitor.php:242
 msgid "Error"
 msgstr ""
 
@@ -1172,98 +1365,98 @@ msgstr ""
 msgid "Sort parameter in format \"attribute:direction\" (e.g., \"date:desc\")"
 msgstr ""
 
-#: meilisearch.php:88
+#: meilisearch.php:89
 msgid "This plugin must be network activated."
 msgstr ""
 
-#: meilisearch.php:89
+#: meilisearch.php:90
 msgid "Network Activation Required"
 msgstr ""
 
-#: meilisearch.php:131
+#: meilisearch.php:132
 msgid "Meilisearch plugin requires WordPress Multisite."
 msgstr ""
 
 #. translators: %s: search term
-#: meilisearch.php:252
+#: meilisearch.php:256
 #, php-format
 msgid "Nenhum resultado encontrado para \"%s\""
 msgstr ""
 
 #. translators: %s: search term
-#: meilisearch.php:255
+#: meilisearch.php:259
 #, php-format
 msgid "1 resultado encontrado para \"%s\""
 msgstr ""
 
 #. translators: 1: number of results, 2: search term
-#: meilisearch.php:258
+#: meilisearch.php:262
 #, php-format
 msgid "%1$d resultados encontrados para \"%2$s\""
 msgstr ""
 
-#: public/class-search-shortcode.php:75
+#: public/class-search-shortcode.php:76
 msgid "Digite sua busca..."
 msgstr ""
 
-#: public/class-search-shortcode.php:76
+#: public/class-search-shortcode.php:77
 msgid "Buscar"
 msgstr ""
 
-#: public/class-search-shortcode.php:115
+#: public/class-search-shortcode.php:119
 msgid "Buscar:"
 msgstr ""
 
 #. translators: %s: termo de busca
-#: public/class-search-shortcode.php:166
+#: public/class-search-shortcode.php:171
 #, php-format
 msgid "Nenhum resultado encontrado para \"%s\"."
 msgstr ""
 
-#: public/class-search-shortcode.php:170
+#: public/class-search-shortcode.php:175
 msgid "Tente usar palavras-chave diferentes ou verifique a ortografia."
 msgstr ""
 
 #. translators: 1: total results, 2: search term
-#: public/class-search-shortcode.php:206
+#: public/class-search-shortcode.php:216
 #, php-format
 msgid "Exibindo %1$s resultado para \"%2$s\""
 msgstr ""
 
 #. translators: 1: start number, 2: end number, 3: total results, 4: search term
-#: public/class-search-shortcode.php:213
+#: public/class-search-shortcode.php:223
 #, php-format
 msgid "Exibindo %1$s - %2$s de %3$s resultados para \"%4$s\""
 msgstr ""
 
 #. translators: %s: search term
-#: public/class-search-shortcode.php:227
+#: public/class-search-shortcode.php:238
 #, php-format
 msgid "0 resultados encontrados para \"%s\""
 msgstr ""
 
-#: public/class-search-shortcode.php:245
+#: public/class-search-shortcode.php:256
 msgid "Sem título"
 msgstr ""
 
 #. translators: %s: nome do autor
-#: public/class-search-shortcode.php:310
+#: public/class-search-shortcode.php:329
 #, php-format
 msgid "por %s"
 msgstr ""
 
-#: public/class-search-shortcode.php:328
+#: public/class-search-shortcode.php:347
 msgid "Ler mais"
 msgstr ""
 
-#: public/class-search-shortcode.php:354
+#: public/class-search-shortcode.php:373
 msgid "Paginação de resultados"
 msgstr ""
 
-#: public/class-search-shortcode.php:359
+#: public/class-search-shortcode.php:381
 msgid "Anterior"
 msgstr ""
 
-#: public/class-search-shortcode.php:413
+#: public/class-search-shortcode.php:437
 msgid "Próxima"
 msgstr ""
