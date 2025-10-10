@@ -31,7 +31,7 @@ class Meilisearch_Federated_Search
 		add_action('admin_enqueue_scripts', [$this, 'enqueue_scripts']);
 		add_action('wp_ajax_meilisearch_federated_search', [$this, 'ajax_federated_search']);
 		add_action('wp_ajax_nopriv_meilisearch_federated_search', [$this, 'ajax_federated_search']);
-		
+
 		// Shortcode para busca federada no frontend
 		add_shortcode('meilisearch_federated', [$this, 'render_search_shortcode']);
 	}
@@ -67,17 +67,13 @@ class Meilisearch_Federated_Search
 			plugins_url('assets/js/federated-search.js', dirname(__FILE__)),
 			['jquery'],
 			'1.0.0',
-			true
+			true,
 		);
 
-		wp_localize_script(
-			'meilisearch-federated',
-			'meilisearchFederated',
-			[
-				'ajax_url' => admin_url('admin-ajax.php'),
-				'nonce' => wp_create_nonce('meilisearch_federated_search'),
-			]
-		);
+		wp_localize_script('meilisearch-federated', 'meilisearchFederated', [
+			'ajax_url' => admin_url('admin-ajax.php'),
+			'nonce' => wp_create_nonce('meilisearch_federated_search'),
+		]);
 	}
 
 	/**
@@ -115,11 +111,11 @@ class Meilisearch_Federated_Search
 		try {
 			$indexes = $client->get_client()->getIndexes();
 			$result = [];
-			
+
 			foreach ($indexes->getResults() as $index) {
 				$created_at = $index->getCreatedAt();
 				$updated_at = $index->getUpdatedAt();
-				
+
 				$result[] = [
 					'uid' => $index->getUid(),
 					'primaryKey' => $index->getPrimaryKey(),
@@ -127,7 +123,7 @@ class Meilisearch_Federated_Search
 					'updatedAt' => $updated_at ? $updated_at->format('Y-m-d H:i:s') : null,
 				];
 			}
-			
+
 			return $result;
 		} catch (Exception $e) {
 			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
@@ -166,7 +162,10 @@ class Meilisearch_Federated_Search
 				<div class="notice notice-info" style="margin-top: 20px;">
 					<p>
 						<strong><?php esc_html_e('What is Federated Search?', 'meilisearch'); ?></strong><br>
-						<?php esc_html_e('Federated search allows you to search across multiple indexes simultaneously and merge results into a unified view. Perfect for searching posts, pages, products, and custom content types all at once.', 'meilisearch'); ?>
+						<?php esc_html_e(
+							'Federated search allows you to search across multiple indexes simultaneously and merge results into a unified view. Perfect for searching posts, pages, products, and custom content types all at once.',
+							'meilisearch',
+						); ?>
 					</p>
 				</div>
 
@@ -248,7 +247,10 @@ class Meilisearch_Federated_Search
 												<input type="radio" name="merge_strategy" value="merge" checked>
 												<?php esc_html_e('Merge Results', 'meilisearch'); ?>
 											</label>
-											<p class="description"><?php esc_html_e('Combine results from all indexes into a single list.', 'meilisearch'); ?></p>
+											<p class="description"><?php esc_html_e(
+												'Combine results from all indexes into a single list.',
+												'meilisearch',
+											); ?></p>
 										</td>
 									</tr>
 								</table>
@@ -289,7 +291,10 @@ class Meilisearch_Federated_Search
 					
 					<h3><?php esc_html_e('Shortcode Parameters', 'meilisearch'); ?></h3>
 					<ul>
-						<li><code>indexes</code> - <?php esc_html_e('Comma-separated list of index UIDs to search (required)', 'meilisearch'); ?></li>
+						<li><code>indexes</code> - <?php esc_html_e(
+							'Comma-separated list of index UIDs to search (required)',
+							'meilisearch',
+						); ?></li>
 						<li><code>limit</code> - <?php esc_html_e('Results limit per index (default: 20)', 'meilisearch'); ?></li>
 						<li><code>federation_limit</code> - <?php esc_html_e('Total results limit (default: 50)', 'meilisearch'); ?></li>
 						<li><code>placeholder</code> - <?php esc_html_e('Search box placeholder text', 'meilisearch'); ?></li>
@@ -467,11 +472,12 @@ class Meilisearch_Federated_Search
 					<td><?php echo esc_html(implode(', ', $query['indexes'])); ?></td>
 					<td>
 						<?php
+
 						printf(
 							/* translators: 1: limit, 2: federation limit */
 							esc_html__('Limit: %1$d, Federation limit: %2$d', 'meilisearch'),
 							$query['limit'],
-							$query['federation_limit']
+							$query['federation_limit'],
 						);
 						?>
 					</td>
@@ -536,9 +542,8 @@ class Meilisearch_Federated_Search
 		$queries = [];
 		foreach ($indexes as $index_uid) {
 			$search_query = new \Meilisearch\Contracts\SearchQuery();
-			$search_query->setIndexUid($index_uid)
-				->setQuery($query);
-			
+			$search_query->setIndexUid($index_uid)->setQuery($query);
+
 			$queries[] = $search_query;
 		}
 
@@ -574,7 +579,7 @@ class Meilisearch_Federated_Search
 				'placeholder' => __('Search...', 'meilisearch'),
 			],
 			$atts,
-			'meilisearch_federated'
+			'meilisearch_federated',
 		);
 
 		if (empty($atts['indexes'])) {
@@ -628,7 +633,9 @@ class Meilisearch_Federated_Search
 						container.find('.meilisearch-spinner').hide();
 						
 						if (response.success && response.data.hits) {
-							var html = '<div class="results-count"><?php echo esc_js(__('Found', 'meilisearch')); ?> ' + response.data.hits.length + ' <?php echo esc_js(__('results', 'meilisearch')); ?></div>';
+							var html = '<div class="results-count"><?php echo esc_js(__('Found', 'meilisearch')); ?> ' + response.data.hits.length + ' <?php echo
+								esc_js(__('results', 'meilisearch'))
+							; ?></div>';
 							
 							response.data.hits.forEach(function(hit) {
 								html += '<div class="result-item">';
@@ -700,6 +707,7 @@ class Meilisearch_Federated_Search
 		}
 		</style>
 		<?php
+
 		return ob_get_clean();
 	}
 }

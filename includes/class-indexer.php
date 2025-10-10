@@ -88,7 +88,7 @@ class Meilisearch_Indexer
 				->get_client()
 				->index($index_name)
 				->addDocuments([$document], 'id');
-			
+
 			return true;
 		} catch (Exception $e) {
 			if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
@@ -128,15 +128,14 @@ class Meilisearch_Indexer
 
 		foreach ($post_ids as $post_id) {
 			$post = get_post($post_id);
-			
+
 			if (!$post) {
 				$results['skipped']++;
 				continue;
 			}
 
 			// Verificar se deve indexar
-			if (!$this->should_index_post_status($post->post_status) || 
-			    !$this->should_index_post_type($post->post_type)) {
+			if (!$this->should_index_post_status($post->post_status) || !$this->should_index_post_type($post->post_type)) {
 				$results['skipped']++;
 				continue;
 			}
@@ -147,7 +146,7 @@ class Meilisearch_Indexer
 			// Enviar lote quando atingir o tamanho máximo
 			if (count($documents) >= $batch_size) {
 				$batch_result = $this->send_batch($documents, $blog_id);
-				
+
 				if ($batch_result['success']) {
 					$results['indexed'] += count($documents);
 					if (isset($batch_result['task_uid'])) {
@@ -156,7 +155,7 @@ class Meilisearch_Indexer
 				} else {
 					$results['errors'][] = $batch_result['error'];
 				}
-				
+
 				$documents = [];
 			}
 		}
@@ -164,7 +163,7 @@ class Meilisearch_Indexer
 		// Enviar documentos restantes
 		if (!empty($documents)) {
 			$batch_result = $this->send_batch($documents, $blog_id);
-			
+
 			if ($batch_result['success']) {
 				$results['indexed'] += count($documents);
 				if (isset($batch_result['task_uid'])) {
@@ -188,13 +187,13 @@ class Meilisearch_Indexer
 	private function send_batch(array $documents, int $blog_id): array
 	{
 		$index_name = $this->client->get_index_name($blog_id);
-		
+
 		try {
 			$task = $this->client
 				->get_client()
 				->index($index_name)
 				->addDocuments($documents, 'id');
-			
+
 			return [
 				'success' => true,
 				'task_uid' => $task['taskUid'] ?? null,
@@ -204,7 +203,7 @@ class Meilisearch_Indexer
 				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
 				error_log('Meilisearch batch index error: ' . $e->getMessage());
 			}
-			
+
 			return [
 				'success' => false,
 				'error' => $e->getMessage(),
@@ -375,9 +374,7 @@ class Meilisearch_Indexer
 		$author = get_userdata((int) $post->post_author);
 
 		// Para attachments, usar a URL direta do arquivo ao invés da página de attachment
-		$permalink = 'attachment' === $post->post_type 
-			? wp_get_attachment_url($post->ID) 
-			: get_permalink($post->ID);
+		$permalink = 'attachment' === $post->post_type ? wp_get_attachment_url($post->ID) : get_permalink($post->ID);
 
 		// Se não conseguir obter o permalink, usar o GUID como fallback
 		if (!$permalink || false === $permalink) {
@@ -437,7 +434,7 @@ class Meilisearch_Indexer
 				->get_client()
 				->index($index_name)
 				->stats();
-			
+
 			// Índice existe, garantir que as configurações estejam atualizadas
 			$this->update_index_settings($blog_id);
 			return true;
@@ -449,7 +446,7 @@ class Meilisearch_Indexer
 					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
 					error_log("Meilisearch: Created missing index for blog {$blog_id}: {$index_name}");
 				}
-				
+
 				// Aplicar configurações ao novo índice
 				$this->update_index_settings($blog_id);
 				return true;
@@ -491,8 +488,8 @@ class Meilisearch_Indexer
 	private function get_indexable_post_types(): array
 	{
 		$settings = get_site_option('meilisearch_settings', []);
-		$post_types = isset($settings['post_types']) && is_array($settings['post_types']) 
-			? $settings['post_types'] 
+		$post_types = isset($settings['post_types']) && is_array($settings['post_types'])
+			? $settings['post_types']
 			: ['post', 'page'];
 
 		// Garantir que temos pelo menos um tipo de post.
@@ -511,8 +508,8 @@ class Meilisearch_Indexer
 	private function get_indexable_post_statuses(): array
 	{
 		$settings = get_site_option('meilisearch_settings', []);
-		$post_statuses = isset($settings['post_statuses']) && is_array($settings['post_statuses']) 
-			? $settings['post_statuses'] 
+		$post_statuses = isset($settings['post_statuses']) && is_array($settings['post_statuses'])
+			? $settings['post_statuses']
 			: ['publish', 'inherit'];
 
 		// Garantir que temos pelo menos um status.
@@ -596,7 +593,7 @@ class Meilisearch_Indexer
 					'Meilisearch: Updated settings for index %s - Sortable: %s, Filterable: %s',
 					$index_name,
 					implode(', ', $sortable_attributes),
-					implode(', ', $filterable_attributes)
+					implode(', ', $filterable_attributes),
 				));
 			}
 

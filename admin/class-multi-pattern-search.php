@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Configurações de Busca Multi-Padrão
  *
@@ -25,8 +26,8 @@
  *
  * @since 1.0.0
  */
-class Meilisearch_Multi_Pattern_Search {
-
+class Meilisearch_Multi_Pattern_Search
+{
 	/**
 	 * Instância do cliente Meilisearch
 	 *
@@ -48,10 +49,11 @@ class Meilisearch_Multi_Pattern_Search {
 	 *
 	 * @since 1.0.0
 	 */
-	public function __construct() {
-		$settings = get_site_option( 'meilisearch_settings', array() );
-		if ( ! empty( $settings['host'] ) ) {
-			$this->client = new Meilisearch_Client( $settings['host'], $settings['master_key'] ?? '' );
+	public function __construct()
+	{
+		$settings = get_site_option('meilisearch_settings', array());
+		if (!empty($settings['host'])) {
+			$this->client = new Meilisearch_Client($settings['host'], $settings['master_key'] ?? '');
 		}
 	}
 
@@ -63,10 +65,11 @@ class Meilisearch_Multi_Pattern_Search {
 	 * @since 1.0.0
 	 * @return void
 	 */
-	public function init_hooks(): void {
-		add_action( 'network_admin_menu', array( $this, 'add_menu_page' ) );
-		add_action( 'admin_menu', array( $this, 'add_menu_page' ) );
-		add_action( 'admin_post_save_additional_patterns', array( $this, 'save_settings' ) );
+	public function init_hooks(): void
+	{
+		add_action('network_admin_menu', array($this, 'add_menu_page'));
+		add_action('admin_menu', array($this, 'add_menu_page'));
+		add_action('admin_post_save_additional_patterns', array($this, 'save_settings'));
 	}
 
 	/**
@@ -77,21 +80,15 @@ class Meilisearch_Multi_Pattern_Search {
 	 * @since 1.0.0
 	 * @return void
 	 */
-	public function add_menu_page(): void {
-		$page_title = __( 'Multi-Pattern Search', 'meilisearch' );
-		$menu_title = __( 'Multi-Pattern Search', 'meilisearch' );
+	public function add_menu_page(): void
+	{
+		$page_title = __('Multi-Pattern Search', 'meilisearch');
+		$menu_title = __('Multi-Pattern Search', 'meilisearch');
 		$capability = is_multisite() ? 'manage_network_options' : 'manage_options';
-		$menu_slug  = 'meilisearch-multi-pattern';
-		$callback   = array( $this, 'render_page' );
+		$menu_slug = 'meilisearch-multi-pattern';
+		$callback = array($this, 'render_page');
 
-		add_submenu_page(
-			'meilisearch-dashboard',
-			$page_title,
-			$menu_title,
-			$capability,
-			$menu_slug,
-			$callback
-		);
+		add_submenu_page('meilisearch-dashboard', $page_title, $menu_title, $capability, $menu_slug, $callback);
 	}
 
 	/**
@@ -103,28 +100,29 @@ class Meilisearch_Multi_Pattern_Search {
 	 * @since 1.0.0
 	 * @return array Array de objetos de índice com uid, primaryKey e outros metadados
 	 */
-	private function get_all_indexes(): array {
-		if ( ! $this->client ) {
+	private function get_all_indexes(): array
+	{
+		if (!$this->client) {
 			return array();
 		}
 
 		try {
 			$sdk_client = $this->client->get_client();
 			$indexes_result = $sdk_client->getIndexes();
-			
+
 			$indexes = array();
-			foreach ( $indexes_result->getResults() as $index ) {
+			foreach ($indexes_result->getResults() as $index) {
 				$indexes[] = array(
-					'uid'        => $index->getUid(),
+					'uid' => $index->getUid(),
 					'primaryKey' => $index->getPrimaryKey(),
-					'createdAt'  => $index->getCreatedAt(),
-					'updatedAt'  => $index->getUpdatedAt(),
+					'createdAt' => $index->getCreatedAt(),
+					'updatedAt' => $index->getUpdatedAt(),
 				);
 			}
-			
+
 			return $indexes;
-		} catch ( Exception $e ) {
-			error_log( 'Meilisearch Multi-Pattern: Error fetching indexes - ' . $e->getMessage() );
+		} catch (Exception $e) {
+			error_log('Meilisearch Multi-Pattern: Error fetching indexes - ' . $e->getMessage());
 			return array();
 		}
 	}
@@ -144,22 +142,23 @@ class Meilisearch_Multi_Pattern_Search {
 	 * @param string $index_name O nome do índice para analisar.
 	 * @return array{prefix: string, blog_id: string|null, suffix: string}|null Componentes do padrão ou null se não houver correspondência
 	 */
-	private function parse_index_name( string $index_name ): ?array {
+	private function parse_index_name(string $index_name): null|array
+	{
 		// Padrão 1: prefix_blogid_suffix (ex: setur_1_posts, setur_2_posts)
-		if ( preg_match( '/^([a-zA-Z0-9_]+)_(\d+)_([a-zA-Z0-9_]+)$/', $index_name, $matches ) ) {
+		if (preg_match('/^([a-zA-Z0-9_]+)_(\d+)_([a-zA-Z0-9_]+)$/', $index_name, $matches)) {
 			return array(
-				'prefix'  => $matches[1] . '_',
+				'prefix' => $matches[1] . '_',
 				'blog_id' => $matches[2],
-				'suffix'  => $matches[3],
+				'suffix' => $matches[3],
 			);
 		}
 
 		// Padrão 2: prefix_suffix (ex: wp_posts, mysite_posts)
-		if ( preg_match( '/^([a-zA-Z0-9_]+)_([a-zA-Z0-9_]+)$/', $index_name, $matches ) ) {
+		if (preg_match('/^([a-zA-Z0-9_]+)_([a-zA-Z0-9_]+)$/', $index_name, $matches)) {
 			return array(
-				'prefix'  => $matches[1] . '_',
+				'prefix' => $matches[1] . '_',
 				'blog_id' => null,
-				'suffix'  => $matches[2],
+				'suffix' => $matches[2],
 			);
 		}
 
@@ -174,42 +173,43 @@ class Meilisearch_Multi_Pattern_Search {
 	 * @since 1.0.0
 	 * @return array Array de padrões com metadados (format, count, network_url, indexes)
 	 */
-	private function analyze_index_patterns(): array {
+	private function analyze_index_patterns(): array
+	{
 		$indexes = $this->get_all_indexes();
 		$patterns = array();
 
-		foreach ( $indexes as $index ) {
-			$parsed = $this->parse_index_name( $index['uid'] );
+		foreach ($indexes as $index) {
+			$parsed = $this->parse_index_name($index['uid']);
 
-			if ( ! $parsed ) {
+			if (!$parsed) {
 				continue;
 			}
 
 			// Criar chave de padrão
-			if ( $parsed['blog_id'] !== null ) {
+			if ($parsed['blog_id'] !== null) {
 				$pattern_key = $parsed['prefix'] . '{blog_id}_' . $parsed['suffix'];
 			} else {
 				$pattern_key = $parsed['prefix'] . $parsed['suffix'];
 			}
 
-			if ( ! isset( $patterns[ $pattern_key ] ) ) {
-				$patterns[ $pattern_key ] = array(
-					'format'      => $pattern_key,
-					'prefix'      => $parsed['prefix'],
-					'suffix'      => $parsed['suffix'],
+			if (!isset($patterns[$pattern_key])) {
+				$patterns[$pattern_key] = array(
+					'format' => $pattern_key,
+					'prefix' => $parsed['prefix'],
+					'suffix' => $parsed['suffix'],
 					'has_blog_id' => $parsed['blog_id'] !== null,
-					'count'       => 0,
-					'indexes'     => array(),
+					'count' => 0,
+					'indexes' => array(),
 				);
 			}
 
-			$patterns[ $pattern_key ]['count']++;
-			$patterns[ $pattern_key ]['indexes'][] = $index['uid'];
+			$patterns[$pattern_key]['count']++;
+			$patterns[$pattern_key]['indexes'][] = $index['uid'];
 		}
 
 		// Obter URL da rede para cada padrão
-		foreach ( $patterns as $key => $data ) {
-			$patterns[ $key ]['network_url'] = $this->get_network_url_for_pattern( $data['indexes'] );
+		foreach ($patterns as $key => $data) {
+			$patterns[$key]['network_url'] = $this->get_network_url_for_pattern($data['indexes']);
 		}
 
 		return $patterns;
@@ -225,31 +225,32 @@ class Meilisearch_Multi_Pattern_Search {
 	 * @param array $index_names Array de nomes de índice pertencentes a este padrão.
 	 * @return string|null URL da rede ou null se não encontrado
 	 */
-	private function get_network_url_for_pattern( array $index_names ): ?string {
-		if ( ! $this->client ) {
+	private function get_network_url_for_pattern(array $index_names): null|string
+	{
+		if (!$this->client) {
 			return null;
 		}
 
-		foreach ( $index_names as $index_name ) {
+		foreach ($index_names as $index_name) {
 			try {
 				$sdk_client = $this->client->get_client();
-				$index = $sdk_client->index( $index_name );
-				$results = $index->search( '', array( 'limit' => 1 ) );
+				$index = $sdk_client->index($index_name);
+				$results = $index->search('', array('limit' => 1));
 				$hits = $results->getHits();
 
-				if ( ! empty( $hits ) && isset( $hits[0]['permalink'] ) ) {
+				if (!empty($hits) && isset($hits[0]['permalink'])) {
 					$permalink = $hits[0]['permalink'];
-					$parsed = parse_url( $permalink );
+					$parsed = parse_url($permalink);
 
-					if ( isset( $parsed['scheme'], $parsed['host'] ) ) {
+					if (isset($parsed['scheme'], $parsed['host'])) {
 						$url = $parsed['scheme'] . '://' . $parsed['host'];
-						if ( isset( $parsed['port'] ) ) {
+						if (isset($parsed['port'])) {
 							$url .= ':' . $parsed['port'];
 						}
 						return $url;
 					}
 				}
-			} catch ( Exception $e ) {
+			} catch (Exception $e) {
 				continue;
 			}
 		}
@@ -265,22 +266,23 @@ class Meilisearch_Multi_Pattern_Search {
 	 * @since 1.0.0
 	 * @return string O padrão de índice da rede atual
 	 */
-	private function get_current_pattern(): string {
-		$settings = get_site_option( 'meilisearch_settings', array() );
+	private function get_current_pattern(): string
+	{
+		$settings = get_site_option('meilisearch_settings', array());
 		$format = $settings['index_format'] ?? '{prefix}posts';
 
 		// Converter o template de formato para uma representação de padrão
 		// Mantemos {blog_id} e {site_id} como está para correspondência de padrão
 		// Mas substituir {prefix} com o valor de prefixo real
-		
+
 		// Obter o prefixo real para o site principal
-		switch_to_blog( 1 );
+		switch_to_blog(1);
 		global $wpdb;
 		$prefix = $wpdb->prefix;
 		restore_current_blog();
 
 		// Substituir apenas o marcador {prefix}, manter {blog_id} e {site_id} para correspondência de padrão
-		$pattern = str_replace( '{prefix}', $prefix, $format );
+		$pattern = str_replace('{prefix}', $prefix, $format);
 
 		return $pattern;
 	}
@@ -293,14 +295,15 @@ class Meilisearch_Multi_Pattern_Search {
 	 * @since 1.0.0
 	 * @return array Array de chaves de padrão selecionadas
 	 */
-	public function get_additional_patterns(): array {
-		if ( is_multisite() ) {
-			$patterns = get_site_option( self::OPTION_NAME, array() );
+	public function get_additional_patterns(): array
+	{
+		if (is_multisite()) {
+			$patterns = get_site_option(self::OPTION_NAME, array());
 		} else {
-			$patterns = get_option( self::OPTION_NAME, array() );
+			$patterns = get_option(self::OPTION_NAME, array());
 		}
 
-		return is_array( $patterns ) ? $patterns : array();
+		return is_array($patterns) ? $patterns : array();
 	}
 
 	/**
@@ -311,41 +314,42 @@ class Meilisearch_Multi_Pattern_Search {
 	 * @since 1.0.0
 	 * @return void
 	 */
-	public function save_settings(): void {
+	public function save_settings(): void
+	{
 		// Verificar nonce
-		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'save_additional_patterns' ) ) {
-			wp_die( __( 'Security check failed', 'meilisearch' ) );
+		if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'], 'save_additional_patterns')) {
+			wp_die(__('Security check failed', 'meilisearch'));
 		}
 
 		// Verificar permissões
 		$capability = is_multisite() ? 'manage_network_options' : 'manage_options';
-		if ( ! current_user_can( $capability ) ) {
-			wp_die( __( 'You do not have permission to perform this action', 'meilisearch' ) );
+		if (!current_user_can($capability)) {
+			wp_die(__('You do not have permission to perform this action', 'meilisearch'));
 		}
 
 		// Obter padrões selecionados
-		$selected_patterns = isset( $_POST['additional_patterns'] ) && is_array( $_POST['additional_patterns'] )
-			? array_map( 'sanitize_text_field', $_POST['additional_patterns'] )
+		$selected_patterns = isset($_POST['additional_patterns']) && is_array($_POST['additional_patterns'])
+			? array_map('sanitize_text_field', $_POST['additional_patterns'])
 			: array();
 
 		// Salvar no banco de dados
-		if ( is_multisite() ) {
-			update_site_option( self::OPTION_NAME, $selected_patterns );
+		if (is_multisite()) {
+			update_site_option(self::OPTION_NAME, $selected_patterns);
 		} else {
-			update_option( self::OPTION_NAME, $selected_patterns );
+			update_option(self::OPTION_NAME, $selected_patterns);
 		}
 
 		// Redirecionar de volta com mensagem de sucesso
 		$redirect_url = add_query_arg(
 			array(
-				'page'    => 'meilisearch-multi-pattern',
+				'page' => 'meilisearch-multi-pattern',
 				'updated' => 'true',
 			),
-			is_multisite() ? network_admin_url( 'admin.php' ) : admin_url( 'admin.php' )
+			is_multisite() ? network_admin_url('admin.php') : admin_url('admin.php'),
 		);
 
-		wp_safe_redirect( $redirect_url );
-		exit;
+		wp_safe_redirect($redirect_url);
+		exit();
 	}
 
 	/**
@@ -356,16 +360,17 @@ class Meilisearch_Multi_Pattern_Search {
 	 * @since 1.0.0
 	 * @return void
 	 */
-	public function render_page(): void {
-		?>
+	public function render_page(): void
+	{ ?>
 		<div class="wrap">
-			<h1><?php echo esc_html( __( 'Multi-Pattern Search', 'meilisearch' ) ); ?></h1>
+			<h1><?php echo esc_html(__('Multi-Pattern Search', 'meilisearch')); ?></h1>
 
-			<?php if ( ! $this->client ) : ?>
+			<?php if (!$this->client): ?>
 				<div class="notice notice-error">
 					<p>
 						<?php
-						esc_html_e( 'Meilisearch is not configured. Please configure it in the Settings page first.', 'meilisearch' );
+
+						esc_html_e('Meilisearch is not configured. Please configure it in the Settings page first.', 'meilisearch');
 						?>
 					</p>
 				</div>
@@ -373,106 +378,107 @@ class Meilisearch_Multi_Pattern_Search {
 			<?php endif; ?>
 
 			<?php
+
 			$patterns = $this->analyze_index_patterns();
 			$current_pattern = $this->get_current_pattern();
 			$selected_patterns = $this->get_additional_patterns();
-			$updated = isset( $_GET['updated'] ) && $_GET['updated'] === 'true';
+			$updated = isset($_GET['updated']) && $_GET['updated'] === 'true';
 			?>
 
-			<?php if ( $updated ) : ?>
+			<?php if ($updated): ?>
 				<div class="notice notice-success is-dismissible">
-					<p><?php esc_html_e( 'Settings saved successfully!', 'meilisearch' ); ?></p>
+					<p><?php esc_html_e('Settings saved successfully!', 'meilisearch'); ?></p>
 				</div>
 			<?php endif; ?>
 
 			<div class="card">
-				<h2><?php esc_html_e( 'About Multi-Pattern Search', 'meilisearch' ); ?></h2>
-				<p><?php esc_html_e( 'This feature allows you to search across multiple WordPress networks that share the same Meilisearch server. Select additional index patterns below to include their content in your search results.', 'meilisearch' ); ?></p>
+				<h2><?php esc_html_e('About Multi-Pattern Search', 'meilisearch'); ?></h2>
+				<p><?php esc_html_e(
+					'This feature allows you to search across multiple WordPress networks that share the same Meilisearch server. Select additional index patterns below to include their content in your search results.',
+					'meilisearch',
+				); ?></p>
 			</div>
 
-			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
-				<?php wp_nonce_field( 'save_additional_patterns' ); ?>
+			<form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+				<?php wp_nonce_field('save_additional_patterns'); ?>
 				<input type="hidden" name="action" value="save_additional_patterns">
 
-				<h2><?php esc_html_e( 'Available Index Patterns', 'meilisearch' ); ?></h2>
+				<h2><?php esc_html_e('Available Index Patterns', 'meilisearch'); ?></h2>
 
-				<?php if ( empty( $patterns ) ) : ?>
+				<?php if (empty($patterns)): ?>
 					<div class="notice notice-warning">
-						<p><?php esc_html_e( 'No index patterns found in Meilisearch.', 'meilisearch' ); ?></p>
+						<p><?php esc_html_e('No index patterns found in Meilisearch.', 'meilisearch'); ?></p>
 					</div>
-				<?php else : ?>
+				<?php else: ?>
 					<table class="wp-list-table widefat fixed striped">
 						<thead>
 							<tr>
-								<th style="width: 50px;"><?php esc_html_e( 'Select', 'meilisearch' ); ?></th>
-								<th><?php esc_html_e( 'Pattern', 'meilisearch' ); ?></th>
-								<th><?php esc_html_e( 'Network URL', 'meilisearch' ); ?></th>
-								<th><?php esc_html_e( 'Indexes', 'meilisearch' ); ?></th>
-								<th><?php esc_html_e( 'Status', 'meilisearch' ); ?></th>
+								<th style="width: 50px;"><?php esc_html_e('Select', 'meilisearch'); ?></th>
+								<th><?php esc_html_e('Pattern', 'meilisearch'); ?></th>
+								<th><?php esc_html_e('Network URL', 'meilisearch'); ?></th>
+								<th><?php esc_html_e('Indexes', 'meilisearch'); ?></th>
+								<th><?php esc_html_e('Status', 'meilisearch'); ?></th>
 							</tr>
 						</thead>
 						<tbody>
-							<?php foreach ( $patterns as $pattern_key => $data ) : ?>
+							<?php foreach ($patterns as $pattern_key => $data): ?>
 								<?php
-								$is_current = ( $pattern_key === $current_pattern );
+
+								$is_current = $pattern_key === $current_pattern;
 								$row_class = $is_current ? 'style="background-color: #e8f4f8;"' : '';
 								?>
 								<tr <?php echo $row_class; ?>>
 									<td>
-										<?php if ( $is_current ) : ?>
+										<?php if ($is_current): ?>
 											<span style="color: #888;">—</span>
-										<?php else : ?>
+										<?php else: ?>
 											<input 
 												type="checkbox" 
 												name="additional_patterns[]" 
-												value="<?php echo esc_attr( $pattern_key ); ?>"
-												<?php checked( in_array( $pattern_key, $selected_patterns, true ) ); ?>
+												value="<?php echo esc_attr($pattern_key); ?>"
+												<?php checked(in_array($pattern_key, $selected_patterns, true)); ?>
 											>
 										<?php endif; ?>
 									</td>
 									<td>
-										<strong><code><?php echo esc_html( $data['format'] ); ?></code></strong>
-										<?php if ( $is_current ) : ?>
+										<strong><code><?php echo esc_html($data['format']); ?></code></strong>
+										<?php if ($is_current): ?>
 											<span class="dashicons dashicons-admin-site" style="color: #2271b1;"></span>
 											<span style="color: #2271b1; font-weight: bold;">
-												<?php esc_html_e( 'Current Network', 'meilisearch' ); ?>
+												<?php esc_html_e('Current Network', 'meilisearch'); ?>
 											</span>
 										<?php endif; ?>
 									</td>
 									<td>
-										<?php if ( $data['network_url'] ) : ?>
-											<a href="<?php echo esc_url( $data['network_url'] ); ?>" target="_blank">
-												<?php echo esc_html( $data['network_url'] ); ?>
+										<?php if ($data['network_url']): ?>
+											<a href="<?php echo esc_url($data['network_url']); ?>" target="_blank">
+												<?php echo esc_html($data['network_url']); ?>
 											</a>
-										<?php else : ?>
+										<?php else: ?>
 											<span style="color: #999;">
-												<?php esc_html_e( 'Unknown', 'meilisearch' ); ?>
+												<?php esc_html_e('Unknown', 'meilisearch'); ?>
 											</span>
 										<?php endif; ?>
 									</td>
 									<td>
-										<strong><?php echo esc_html( $data['count'] ); ?></strong> 
-										<?php 
-										echo esc_html( 
-											sprintf( 
-												_n( 'index', 'indexes', $data['count'], 'meilisearch' ), 
-												$data['count'] 
-											) 
-										); 
+										<strong><?php echo esc_html($data['count']); ?></strong> 
+										<?php
+
+										echo esc_html(sprintf(_n('index', 'indexes', $data['count'], 'meilisearch'), $data['count']));
 										?>
 									</td>
 									<td>
-										<?php if ( $is_current ) : ?>
+										<?php if ($is_current): ?>
 											<span style="color: #2271b1;">
-												<strong><?php esc_html_e( 'Current', 'meilisearch' ); ?></strong>
+												<strong><?php esc_html_e('Current', 'meilisearch'); ?></strong>
 											</span>
-										<?php elseif ( in_array( $pattern_key, $selected_patterns, true ) ) : ?>
+										<?php elseif (in_array($pattern_key, $selected_patterns, true)): ?>
 											<span style="color: #46b450;">
-												<?php esc_html_e( 'Active', 'meilisearch' ); ?>
+												<?php esc_html_e('Active', 'meilisearch'); ?>
 											</span>
-										<?php else : ?>
+										<?php else: ?>
 											<span style="color: #999;">
-												<?php esc_html_e( 'Inactive', 'meilisearch' ); ?>
+												<?php esc_html_e('Inactive', 'meilisearch'); ?>
 											</span>
 										<?php endif; ?>
 									</td>
@@ -483,7 +489,7 @@ class Meilisearch_Multi_Pattern_Search {
 
 					<p class="submit">
 						<button type="submit" class="button button-primary">
-							<?php esc_html_e( 'Save Settings', 'meilisearch' ); ?>
+							<?php esc_html_e('Save Settings', 'meilisearch'); ?>
 						</button>
 					</p>
 				<?php endif; ?>
@@ -501,6 +507,5 @@ class Meilisearch_Multi_Pattern_Search {
 				}
 			</style>
 		</div>
-		<?php
-	}
+		<?php }
 }

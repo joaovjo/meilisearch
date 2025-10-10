@@ -85,11 +85,7 @@ class Meilisearch_Network_Settings
 
 			<?php
 
-
-
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Exibição somente leitura da mensagem de sucesso.
-
-
 
 			if (isset($_GET['updated'])): ?>
 				<div class="notice notice-success is-dismissible">
@@ -103,23 +99,13 @@ class Meilisearch_Network_Settings
 						<strong><?php esc_html_e('Connection Status:', 'meilisearch'); ?></strong>
 				<?php
 
-
-
 				echo
-	
-				esc_html(
-		
-				$connection_status
-			
-				? __('Connected successfully!', 'meilisearch')
-			
-				: __('Connection failed. Please check your credentials.', 'meilisearch'),
-	
-				)
-
+					esc_html(
+						$connection_status
+							? __('Connected successfully!', 'meilisearch')
+							: __('Connection failed. Please check your credentials.', 'meilisearch'),
+					)
 				;
-
-
 
 				?>
 						
@@ -202,13 +188,9 @@ class Meilisearch_Network_Settings
 								   placeholder="{prefix}posts" />
 							<p class="description">
 								<?php esc_html_e(
-	
-								'Index naming format. Use {prefix} for table prefix (wp_, wp_2_, wp_3_), {blog_id} for site ID, {site_id} for site ID. Default: {prefix}posts',
-	
+									'Index naming format. Use {prefix} for table prefix (wp_, wp_2_, wp_3_), {blog_id} for site ID, {site_id} for site ID. Default: {prefix}posts',
 
-	
-								'meilisearch',
-
+									'meilisearch',
 								); ?><br>
 								<strong><?php esc_html_e('Examples:', 'meilisearch'); ?></strong><br>
 								• <code>{prefix}posts</code> → wp_posts, wp_2_posts, wp_3_posts<br>
@@ -226,9 +208,10 @@ class Meilisearch_Network_Settings
 						</th>
 						<td>
 							<?php
+
 							$post_types = get_post_types(['public' => true], 'objects');
-							$selected_post_types = isset($settings['post_types']) && is_array($settings['post_types']) 
-								? $settings['post_types'] 
+							$selected_post_types = isset($settings['post_types']) && is_array($settings['post_types'])
+								? $settings['post_types']
 								: ['post', 'page'];
 							?>
 							<fieldset>
@@ -257,6 +240,7 @@ class Meilisearch_Network_Settings
 				</th>
 				<td>
 					<?php
+
 					$post_statuses = [
 						'publish' => __('Published', 'meilisearch'),
 						'inherit' => __('Inherit (for attachments/media)', 'meilisearch'),
@@ -265,8 +249,8 @@ class Meilisearch_Network_Settings
 						'pending' => __('Pending Review', 'meilisearch'),
 						'private' => __('Private', 'meilisearch'),
 					];
-					$selected_statuses = isset($settings['post_statuses']) && is_array($settings['post_statuses']) 
-						? $settings['post_statuses'] 
+					$selected_statuses = isset($settings['post_statuses']) && is_array($settings['post_statuses'])
+						? $settings['post_statuses']
 						: ['publish', 'inherit'];
 					?>
 					<fieldset>
@@ -282,7 +266,10 @@ class Meilisearch_Network_Settings
 						<?php endforeach; ?>
 					</fieldset>
 					<p class="description">
-						<?php esc_html_e('Select which post statuses should be indexed. Note: "inherit" is required for attachments/media files.', 'meilisearch'); ?>
+						<?php esc_html_e(
+							'Select which post statuses should be indexed. Note: "inherit" is required for attachments/media files.',
+							'meilisearch',
+						); ?>
 					</p>
 				</td>
 			</tr>
@@ -303,7 +290,10 @@ class Meilisearch_Network_Settings
 						   step="1"
 						   class="small-text" />
 					<p class="description">
-						<?php esc_html_e('Number of documents to send to Meilisearch in each batch during bulk indexing. Higher values may be faster but consume more memory. Default: 100', 'meilisearch'); ?>
+						<?php esc_html_e(
+							'Number of documents to send to Meilisearch in each batch during bulk indexing. Higher values may be faster but consume more memory. Default: 100',
+							'meilisearch',
+						); ?>
 					</p>
 				</td>
 			</tr>
@@ -321,7 +311,10 @@ class Meilisearch_Network_Settings
 						   value="1"
 						   <?php checked($settings['auto_reindex'], true); ?> />
 					<p class="description">
-						<?php esc_html_e('Automatically reindex all sites when settings are saved. The reindexing runs in the background. Disable this if you prefer to manually reindex using WP-CLI.', 'meilisearch'); ?>
+						<?php esc_html_e(
+							'Automatically reindex all sites when settings are saved. The reindexing runs in the background. Disable this if you prefer to manually reindex using WP-CLI.',
+							'meilisearch',
+						); ?>
 					</p>
 				</td>
 			</tr>
@@ -345,7 +338,10 @@ class Meilisearch_Network_Settings
 						</option>
 					</select>
 					<p class="description">
-						<?php esc_html_e('Choose how reindexing should run: Async uses background requests (recommended), Immediate runs synchronously (may timeout), WP-Cron schedules via cron (least reliable).', 'meilisearch'); ?>
+						<?php esc_html_e(
+							'Choose how reindexing should run: Async uses background requests (recommended), Immediate runs synchronously (may timeout), WP-Cron schedules via cron (least reliable).',
+							'meilisearch',
+						); ?>
 					</p>
 				</td>
 			</tr>
@@ -383,10 +379,11 @@ class Meilisearch_Network_Settings
 				<td colspan="2">
 					<p class="description">
 						<?php
+
 						printf(
 							/* translators: %s: WP-CLI command */
 							esc_html__('Use WP-CLI to index all sites: %s', 'meilisearch'),
-							'<code>wp meilisearch index --network</code>'
+							'<code>wp meilisearch index --network</code>',
 						);
 						?>
 
@@ -414,18 +411,19 @@ class Meilisearch_Network_Settings
 		$settings = isset($_POST['meilisearch_settings']) ? wp_unslash($_POST['meilisearch_settings']) : [];
 
 		// Sanitizar configurações.
-		$post_types = isset($settings['post_types']) && is_array($settings['post_types']) 
-			? array_map('sanitize_key', $settings['post_types']) 
+		$post_types = isset($settings['post_types']) && is_array($settings['post_types'])
+			? array_map('sanitize_key', $settings['post_types'])
 			: ['post', 'page'];
-		$post_statuses = isset($settings['post_statuses']) && is_array($settings['post_statuses']) 
-			? array_map('sanitize_key', $settings['post_statuses']) 
+		$post_statuses = isset($settings['post_statuses']) && is_array($settings['post_statuses'])
+			? array_map('sanitize_key', $settings['post_statuses'])
 			: ['publish', 'inherit'];
 		$batch_size = isset($settings['batch_size']) ? max(1, min(1000, (int) $settings['batch_size'])) : 100;
 		$auto_reindex = isset($settings['auto_reindex']) && '1' === $settings['auto_reindex'];
-		$reindex_mode = isset($settings['reindex_mode']) && in_array($settings['reindex_mode'], ['async', 'immediate', 'cron'], true) 
-			? sanitize_key($settings['reindex_mode']) 
+		$reindex_mode = isset($settings['reindex_mode'])
+		&& in_array($settings['reindex_mode'], ['async', 'immediate', 'cron'], true)
+			? sanitize_key($settings['reindex_mode'])
 			: 'async';
-		
+
 		$sanitized = [
 			'host' => esc_url_raw($settings['host'] ?? ''),
 			'master_key' => sanitize_text_field($settings['master_key'] ?? ''),
@@ -447,19 +445,19 @@ class Meilisearch_Network_Settings
 					// Reindexação imediata (síncrona)
 					$this->auto_reindex_network();
 					break;
-				
+
 				case 'cron':
 					// Apenas agendar via WP-Cron
 					if (!wp_next_scheduled('meilisearch_auto_reindex')) {
 						wp_schedule_single_event(time(), 'meilisearch_auto_reindex');
 					}
 					break;
-				
+
 				case 'async':
 				default:
 					// Tentar spawn assíncrono primeiro
 					$spawned = $this->spawn_async_reindex();
-					
+
 					// Se falhar, agendar via WP-Cron como fallback
 					if (!$spawned) {
 						if (!wp_next_scheduled('meilisearch_auto_reindex')) {
@@ -484,7 +482,10 @@ class Meilisearch_Network_Settings
 	public function handle_async_reindex(): void
 	{
 		// Verificar nonce
-		if (!isset($_REQUEST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_REQUEST['nonce'])), 'meilisearch_async_reindex')) {
+		if (
+			!isset($_REQUEST['nonce'])
+			|| !wp_verify_nonce(sanitize_text_field(wp_unslash($_REQUEST['nonce'])), 'meilisearch_async_reindex')
+		) {
 			wp_die('Invalid nonce');
 		}
 
@@ -519,7 +520,7 @@ class Meilisearch_Network_Settings
 		];
 
 		$response = wp_remote_post($url, $args);
-		
+
 		return !is_wp_error($response);
 	}
 
@@ -540,13 +541,13 @@ class Meilisearch_Network_Settings
 
 		// Executar reindexação para todos os sites
 		$sites = get_sites(['number' => 9999]);
-		
+
 		foreach ($sites as $site) {
 			$blog_id = (int) $site->blog_id;
-			
+
 			try {
 				$indexer->index_site_posts($blog_id);
-				
+
 				if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
 					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
 					error_log("Meilisearch: Auto-reindexed blog {$blog_id}");

@@ -85,19 +85,21 @@ class Meilisearch_Backup_Restore
 			<h1><?php esc_html_e('Meilisearch Backup & Restore', 'meilisearch'); ?></h1>
 
 			<?php
+
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			if (isset($_GET['dump_created'])): ?>
 				<div class="notice notice-success is-dismissible">
 					<p>
 						<?php esc_html_e('Dump created successfully!', 'meilisearch'); ?>
 						<?php
+
 						// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 						$task_uid = isset($_GET['task_uid']) ? intval($_GET['task_uid']) : 0;
 						if ($task_uid > 0):
 							printf(
 								/* translators: %d: task UID */
 								esc_html__('Task UID: %d', 'meilisearch'),
-								$task_uid
+								$task_uid,
 							);
 						endif;
 						?>
@@ -106,19 +108,21 @@ class Meilisearch_Backup_Restore
 			<?php endif; ?>
 
 			<?php
+
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			if (isset($_GET['snapshot_created'])): ?>
 				<div class="notice notice-success is-dismissible">
 					<p>
 						<?php esc_html_e('Snapshot created successfully!', 'meilisearch'); ?>
 						<?php
+
 						// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 						$task_uid = isset($_GET['task_uid']) ? intval($_GET['task_uid']) : 0;
 						if ($task_uid > 0):
 							printf(
 								/* translators: %d: task UID */
 								esc_html__('Task UID: %d', 'meilisearch'),
-								$task_uid
+								$task_uid,
 							);
 						endif;
 						?>
@@ -127,6 +131,7 @@ class Meilisearch_Backup_Restore
 			<?php endif; ?>
 
 			<?php
+
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			if (isset($_GET['schedule_updated'])): ?>
 				<div class="notice notice-success is-dismissible">
@@ -135,6 +140,7 @@ class Meilisearch_Backup_Restore
 			<?php endif; ?>
 
 			<?php
+
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			if (isset($_GET['error'])): ?>
 				<div class="notice notice-error is-dismissible">
@@ -154,7 +160,10 @@ class Meilisearch_Backup_Restore
 				<div class="notice notice-info" style="margin-top: 20px;">
 					<p>
 						<strong><?php esc_html_e('About Backups', 'meilisearch'); ?></strong><br>
-						<?php esc_html_e('Dumps create a complete backup of your Meilisearch data that can be imported later. Snapshots are lightweight copies of the current state (self-hosted only).', 'meilisearch'); ?>
+						<?php esc_html_e(
+							'Dumps create a complete backup of your Meilisearch data that can be imported later. Snapshots are lightweight copies of the current state (self-hosted only).',
+							'meilisearch',
+						); ?>
 					</p>
 				</div>
 
@@ -179,7 +188,12 @@ class Meilisearch_Backup_Restore
 							</tr>
 						</table>
 
-						<?php submit_button(__('Create Dump Now', 'meilisearch'), 'primary', 'submit', true, ['onclick' => 'return confirm("' . esc_js(__('This will create a backup of all your Meilisearch data. Continue?', 'meilisearch')) . '");']); ?>
+						<?php submit_button(__('Create Dump Now', 'meilisearch'), 'primary', 'submit', true, [
+							'onclick' =>
+								'return confirm("'
+								. esc_js(__('This will create a backup of all your Meilisearch data. Continue?', 'meilisearch'))
+								. '");',
+						]); ?>
 					</form>
 
 					<hr style="margin: 30px 0;">
@@ -202,7 +216,12 @@ class Meilisearch_Backup_Restore
 					<form method="post" action="<?php echo esc_url(network_admin_url('edit.php?action=meilisearch_create_snapshot')); ?>" style="margin-top: 20px;">
 						<?php wp_nonce_field('create_snapshot', 'meilisearch_snapshot_nonce'); ?>
 						
-						<?php submit_button(__('Create Snapshot Now', 'meilisearch'), 'secondary', 'submit', true, ['onclick' => 'return confirm("' . esc_js(__('This will create a snapshot of your Meilisearch database. Continue?', 'meilisearch')) . '");']); ?>
+						<?php submit_button(__('Create Snapshot Now', 'meilisearch'), 'secondary', 'submit', true, [
+							'onclick' =>
+								'return confirm("'
+								. esc_js(__('This will create a snapshot of your Meilisearch database. Continue?', 'meilisearch'))
+								. '");',
+						]); ?>
 					</form>
 				</div>
 
@@ -260,7 +279,9 @@ class Meilisearch_Backup_Restore
 		$schedule_frequency = get_site_option('meilisearch_backup_schedule_frequency', 'daily');
 
 		?>
-		<form method="post" action="<?php echo esc_url(network_admin_url('edit.php?action=meilisearch_update_backup_schedule')); ?>">
+		<form method="post" action="<?php echo
+			esc_url(network_admin_url('edit.php?action=meilisearch_update_backup_schedule'))
+		; ?>">
 			<?php wp_nonce_field('update_backup_schedule', 'meilisearch_schedule_nonce'); ?>
 			
 			<table class="form-table">
@@ -277,10 +298,19 @@ class Meilisearch_Backup_Restore
 					<th scope="row"><?php esc_html_e('Frequency', 'meilisearch'); ?></th>
 					<td>
 						<select name="schedule_frequency">
-							<option value="hourly" <?php selected($schedule_frequency, 'hourly'); ?>><?php esc_html_e('Hourly', 'meilisearch'); ?></option>
-							<option value="twicedaily" <?php selected($schedule_frequency, 'twicedaily'); ?>><?php esc_html_e('Twice Daily', 'meilisearch'); ?></option>
+							<option value="hourly" <?php selected($schedule_frequency, 'hourly'); ?>><?php esc_html_e(
+								'Hourly',
+								'meilisearch',
+							); ?></option>
+							<option value="twicedaily" <?php selected($schedule_frequency, 'twicedaily'); ?>><?php esc_html_e(
+								'Twice Daily',
+								'meilisearch',
+							); ?></option>
 							<option value="daily" <?php selected($schedule_frequency, 'daily'); ?>><?php esc_html_e('Daily', 'meilisearch'); ?></option>
-							<option value="weekly" <?php selected($schedule_frequency, 'weekly'); ?>><?php esc_html_e('Weekly', 'meilisearch'); ?></option>
+							<option value="weekly" <?php selected($schedule_frequency, 'weekly'); ?>><?php esc_html_e(
+								'Weekly',
+								'meilisearch',
+							); ?></option>
 						</select>
 					</td>
 				</tr>
@@ -290,6 +320,7 @@ class Meilisearch_Backup_Restore
 		</form>
 
 		<?php
+
 		if ($schedule_enabled) {
 			$next_scheduled = wp_next_scheduled('meilisearch_scheduled_backup');
 			if ($next_scheduled) {
@@ -297,7 +328,7 @@ class Meilisearch_Backup_Restore
 				printf(
 					/* translators: %s: formatted date and time */
 					esc_html__('Next scheduled backup: %s', 'meilisearch'),
-					esc_html(wp_date(get_option('date_format') . ' ' . get_option('time_format'), $next_scheduled))
+					esc_html(wp_date(get_option('date_format') . ' ' . get_option('time_format'), $next_scheduled)),
 				);
 				echo '</p>';
 			}
@@ -315,9 +346,9 @@ class Meilisearch_Backup_Restore
 		}
 
 		$tasks = $client->get_recent_tasks(20);
-		
+
 		// Filtrar apenas tarefas de dump e snapshot
-		$backup_tasks = array_filter($tasks, function($task) {
+		$backup_tasks = array_filter($tasks, function ($task) {
 			return in_array($task['type'], ['dumpCreation', 'snapshotCreation'], true);
 		});
 
@@ -343,6 +374,7 @@ class Meilisearch_Backup_Restore
 					<td><code><?php echo esc_html($task['uid']); ?></code></td>
 					<td>
 						<?php
+
 						$type_label = 'dumpCreation' === $task['type'] ? __('Dump', 'meilisearch') : __('Snapshot', 'meilisearch');
 						echo esc_html($type_label);
 						?>
@@ -350,9 +382,12 @@ class Meilisearch_Backup_Restore
 					<td class="task-status-<?php echo esc_attr(strtolower($task['status'])); ?>">
 						<?php echo esc_html(ucfirst($task['status'])); ?>
 					</td>
-					<td><?php echo esc_html(wp_date(get_option('date_format') . ' ' . get_option('time_format'), strtotime($task['enqueuedAt']))); ?></td>
+					<td><?php echo
+						esc_html(wp_date(get_option('date_format') . ' ' . get_option('time_format'), strtotime($task['enqueuedAt'])))
+					; ?></td>
 					<td>
 						<?php
+
 						if (isset($task['duration'])) {
 							echo esc_html($task['duration']);
 						} else {
@@ -385,33 +420,23 @@ class Meilisearch_Backup_Restore
 			}
 
 			$task = $client->get_client()->createDump();
-			
+
 			// Registrar backup no WordPress
 			$this->log_backup('dump', $task['taskUid']);
 
-			wp_redirect(
-				add_query_arg(
-					[
-						'page' => 'meilisearch-backup',
-						'dump_created' => 'true',
-						'task_uid' => $task['taskUid'],
-					],
-					network_admin_url('admin.php')
-				)
-			);
+			wp_redirect(add_query_arg([
+				'page' => 'meilisearch-backup',
+				'dump_created' => 'true',
+				'task_uid' => $task['taskUid'],
+			], network_admin_url('admin.php')));
 		} catch (Exception $e) {
-			wp_redirect(
-				add_query_arg(
-					[
-						'page' => 'meilisearch-backup',
-						'error' => urlencode($e->getMessage()),
-					],
-					network_admin_url('admin.php')
-				)
-			);
+			wp_redirect(add_query_arg([
+				'page' => 'meilisearch-backup',
+				'error' => urlencode($e->getMessage()),
+			], network_admin_url('admin.php')));
 		}
 
-		exit;
+		exit();
 	}
 
 	/**
@@ -432,33 +457,23 @@ class Meilisearch_Backup_Restore
 			}
 
 			$task = $client->get_client()->createSnapshot();
-			
+
 			// Registrar backup no WordPress
 			$this->log_backup('snapshot', $task['taskUid']);
 
-			wp_redirect(
-				add_query_arg(
-					[
-						'page' => 'meilisearch-backup',
-						'snapshot_created' => 'true',
-						'task_uid' => $task['taskUid'],
-					],
-					network_admin_url('admin.php')
-				)
-			);
+			wp_redirect(add_query_arg([
+				'page' => 'meilisearch-backup',
+				'snapshot_created' => 'true',
+				'task_uid' => $task['taskUid'],
+			], network_admin_url('admin.php')));
 		} catch (Exception $e) {
-			wp_redirect(
-				add_query_arg(
-					[
-						'page' => 'meilisearch-backup',
-						'error' => urlencode($e->getMessage()),
-					],
-					network_admin_url('admin.php')
-				)
-			);
+			wp_redirect(add_query_arg([
+				'page' => 'meilisearch-backup',
+				'error' => urlencode($e->getMessage()),
+			], network_admin_url('admin.php')));
 		}
 
-		exit;
+		exit();
 	}
 
 	/**
@@ -470,7 +485,7 @@ class Meilisearch_Backup_Restore
 	private function log_backup(string $type, int $task_uid): void
 	{
 		$backups = get_site_option('meilisearch_backup_log', []);
-		
+
 		$backups[] = [
 			'type' => $type,
 			'task_uid' => $task_uid,
@@ -500,7 +515,9 @@ class Meilisearch_Backup_Restore
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		$schedule_enabled = isset($_POST['schedule_enabled']) && '1' === $_POST['schedule_enabled'];
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
-		$schedule_frequency = isset($_POST['schedule_frequency']) ? sanitize_text_field(wp_unslash($_POST['schedule_frequency'])) : 'daily';
+		$schedule_frequency = isset($_POST['schedule_frequency'])
+			? sanitize_text_field(wp_unslash($_POST['schedule_frequency']))
+			: 'daily';
 
 		// Validar frequência
 		if (!in_array($schedule_frequency, ['hourly', 'twicedaily', 'daily', 'weekly'], true)) {
@@ -522,17 +539,12 @@ class Meilisearch_Backup_Restore
 			wp_schedule_event(time(), $schedule_frequency, 'meilisearch_scheduled_backup');
 		}
 
-		wp_redirect(
-			add_query_arg(
-				[
-					'page' => 'meilisearch-backup',
-					'schedule_updated' => 'true',
-				],
-				network_admin_url('admin.php')
-			)
-		);
+		wp_redirect(add_query_arg([
+			'page' => 'meilisearch-backup',
+			'schedule_updated' => 'true',
+		], network_admin_url('admin.php')));
 
-		exit;
+		exit();
 	}
 
 	/**
@@ -541,7 +553,7 @@ class Meilisearch_Backup_Restore
 	public function run_scheduled_backup(): void
 	{
 		$schedule_enabled = get_site_option('meilisearch_backup_schedule_enabled', false);
-		
+
 		if (!$schedule_enabled) {
 			return;
 		}

@@ -81,10 +81,14 @@ class Meilisearch_Tasks_Monitor
 			<div class="wrap">
 				<h1><?php esc_html_e('Meilisearch Tasks Monitor', 'meilisearch'); ?></h1>
 				<div class="notice notice-error">
-					<p><?php esc_html_e('Meilisearch is not configured. Please configure the connection settings first.', 'meilisearch'); ?></p>
+					<p><?php esc_html_e(
+						'Meilisearch is not configured. Please configure the connection settings first.',
+						'meilisearch',
+					); ?></p>
 				</div>
 			</div>
 			<?php
+
 			return;
 		}
 
@@ -116,7 +120,10 @@ class Meilisearch_Tasks_Monitor
 			<h1><?php esc_html_e('Meilisearch Tasks Monitor', 'meilisearch'); ?></h1>
 
 			<p class="description">
-				<?php esc_html_e('Monitor the status and history of Meilisearch tasks. Tasks are asynchronous operations like indexing, updating settings, and more.', 'meilisearch'); ?>
+				<?php esc_html_e(
+					'Monitor the status and history of Meilisearch tasks. Tasks are asynchronous operations like indexing, updating settings, and more.',
+					'meilisearch',
+				); ?>
 			</p>
 
 			<!-- Estatísticas -->
@@ -129,11 +136,15 @@ class Meilisearch_Tasks_Monitor
 							<div style="color: #666;"><?php esc_html_e('Total Tasks', 'meilisearch'); ?></div>
 						</div>
 						<div style="flex: 1; min-width: 150px; padding: 15px; background: #d7f0d7; border-radius: 4px;">
-							<div style="font-size: 32px; font-weight: bold; color: #00a32a;"><?php echo esc_html((string) $stats['succeeded']); ?></div>
+							<div style="font-size: 32px; font-weight: bold; color: #00a32a;"><?php echo
+								esc_html((string) $stats['succeeded'])
+							; ?></div>
 							<div style="color: #666;"><?php esc_html_e('Succeeded', 'meilisearch'); ?></div>
 						</div>
 						<div style="flex: 1; min-width: 150px; padding: 15px; background: #fff8e5; border-radius: 4px;">
-							<div style="font-size: 32px; font-weight: bold; color: #f0b849;"><?php echo esc_html((string) $stats['processing']); ?></div>
+							<div style="font-size: 32px; font-weight: bold; color: #f0b849;"><?php echo
+								esc_html((string) $stats['processing'])
+							; ?></div>
 							<div style="color: #666;"><?php esc_html_e('Processing', 'meilisearch'); ?></div>
 						</div>
 						<div style="flex: 1; min-width: 150px; padding: 15px; background: #f0f0f1; border-radius: 4px;">
@@ -184,6 +195,7 @@ class Meilisearch_Tasks_Monitor
 					<?php else: ?>
 						<?php foreach ($tasks as $task): ?>
 							<?php
+
 							$status = $task['status'] ?? 'unknown';
 							$status_colors = [
 								'succeeded' => '#00a32a',
@@ -209,9 +221,7 @@ class Meilisearch_Tasks_Monitor
 							}
 
 							// Formatar data
-							$enqueued = isset($task['enqueuedAt']) 
-								? wp_date('Y-m-d H:i:s', strtotime($task['enqueuedAt'])) 
-								: '-';
+							$enqueued = isset($task['enqueuedAt']) ? wp_date('Y-m-d H:i:s', strtotime($task['enqueuedAt'])) : '-';
 							?>
 							<tr>
 								<td><code><?php echo esc_html((string) ($task['uid'] ?? '-')); ?></code></td>
@@ -226,11 +236,15 @@ class Meilisearch_Tasks_Monitor
 								<td><?php echo esc_html($duration); ?></td>
 								<td>
 									<?php if ('failed' === $status && isset($task['error'])): ?>
-										<button type="button" class="button button-small" onclick="alert('<?php echo esc_js(wp_json_encode($task['error'], JSON_PRETTY_PRINT)); ?>')">
+										<button type="button" class="button button-small" onclick="alert('<?php echo
+											esc_js(wp_json_encode($task['error'], JSON_PRETTY_PRINT))
+										; ?>')">
 											<?php esc_html_e('Error', 'meilisearch'); ?>
 										</button>
 									<?php elseif (isset($task['details'])): ?>
-										<button type="button" class="button button-small" onclick="alert('<?php echo esc_js(wp_json_encode($task['details'], JSON_PRETTY_PRINT)); ?>')">
+										<button type="button" class="button button-small" onclick="alert('<?php echo
+											esc_js(wp_json_encode($task['details'], JSON_PRETTY_PRINT))
+										; ?>')">
 											<?php esc_html_e('Details', 'meilisearch'); ?>
 										</button>
 									<?php else: ?>
@@ -246,10 +260,11 @@ class Meilisearch_Tasks_Monitor
 			<p style="margin-top: 20px; color: #666;">
 				<em>
 					<?php
+
 					printf(
 						/* translators: %s: current time */
 						esc_html__('Last updated: %s', 'meilisearch'),
-						esc_html(current_time('Y-m-d H:i:s'))
+						esc_html(current_time('Y-m-d H:i:s')),
 					);
 					?>
 				</em>

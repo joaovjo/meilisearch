@@ -116,7 +116,7 @@ class Meilisearch_Searcher
 		$indexes = $this->client->get_all_index_names();
 
 		// Obter configuração de padrões adicionais
-		$additional_patterns = is_multisite() 
+		$additional_patterns = is_multisite()
 			? get_site_option('meilisearch_additional_patterns', [])
 			: get_option('meilisearch_additional_patterns', []);
 
@@ -225,7 +225,7 @@ class Meilisearch_Searcher
 			$search_params['sort'] = [$args['sort']];
 		}
 
-	try {
+		try {
 			$results = $this->client
 				->get_client()
 				->index($index_name)
@@ -307,8 +307,8 @@ class Meilisearch_Searcher
 	private function get_status_filter(): string
 	{
 		$settings = get_site_option('meilisearch_settings', []);
-		$post_statuses = isset($settings['post_statuses']) && is_array($settings['post_statuses']) 
-			? $settings['post_statuses'] 
+		$post_statuses = isset($settings['post_statuses']) && is_array($settings['post_statuses'])
+			? $settings['post_statuses']
 			: ['publish', 'inherit'];
 
 		// Garantir que temos pelo menos um status

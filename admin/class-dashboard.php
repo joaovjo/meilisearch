@@ -391,10 +391,10 @@ class Meilisearch_Dashboard
 
 				<!-- Index Statistics -->
 				<?php
+
 				$client = $this->get_client();
 				if (null !== $client):
-					$sites = get_sites(['number' => 10]); // Mostrar primeiros 10 sites
-					?>
+					$sites = get_sites(['number' => 10]); // Mostrar primeiros 10 sites ?>
 					<div class="postbox" style="margin-bottom: 20px;">
 						<div class="inside" style="padding: 12px;">
 							<h2 style="margin-top: 0;"><?php esc_html_e('Index Statistics', 'meilisearch'); ?></h2>
@@ -410,6 +410,7 @@ class Meilisearch_Dashboard
 								<tbody>
 									<?php foreach ($sites as $site): ?>
 										<?php
+
 										$blog_id = (int) $site->blog_id;
 										$index_stats = $client->get_index_stats($blog_id);
 										$site_details = get_blog_details($blog_id);

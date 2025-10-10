@@ -127,9 +127,7 @@ class Meilisearch_Client
 				? Meilisearch_Search_Settings::get_filterable_attributes()
 				: ['post_type', 'post_status', 'blog_id', 'author_id', 'categories', 'tags'];
 
-			$this->client
-				->index($index_name)
-				->updateFilterableAttributes($filterable_attributes);
+			$this->client->index($index_name)->updateFilterableAttributes($filterable_attributes);
 
 			// Configurar atributos ordenáveis.
 			$sortable_attributes = class_exists('Meilisearch_Search_Settings')
@@ -211,7 +209,7 @@ class Meilisearch_Client
 	 * @deprecated Método não mais utilizado após remoção da página de Experimental Features
 	 * @return array<string, bool>|null Array de funcionalidades ou null em caso de erro.
 	 */
-	public function get_experimental_features(): ?array
+	public function get_experimental_features(): null|array
 	{
 		try {
 			$http_client = $this->get_http_client();
@@ -253,7 +251,7 @@ class Meilisearch_Client
 	 *
 	 * @return string|null Versão ou null em caso de erro.
 	 */
-	public function get_version(): ?string
+	public function get_version(): null|string
 	{
 		try {
 			$version = $this->client->version();
@@ -273,7 +271,7 @@ class Meilisearch_Client
 	 * @param int $blog_id ID do site.
 	 * @return array|null Estatísticas ou null em caso de erro.
 	 */
-	public function get_index_stats(int $blog_id): ?array
+	public function get_index_stats(int $blog_id): null|array
 	{
 		try {
 			$index_name = $this->get_index_name($blog_id);
@@ -307,13 +305,14 @@ class Meilisearch_Client
 			}
 			return [];
 		}
-	}	/**
+	} /**
 	 * Obter status de uma tarefa específica.
 	 *
 	 * @param int $task_uid UID da tarefa.
 	 * @return array|null Dados da tarefa ou null em caso de erro.
 	 */
-	public function get_task_status(int $task_uid): ?array
+
+	public function get_task_status(int $task_uid): null|array
 	{
 		try {
 			// getTask() aceita int ou string
@@ -335,7 +334,7 @@ class Meilisearch_Client
 	 * @param int $interval_ms   Intervalo entre verificações em milissegundos.
 	 * @return array|null Status final da tarefa ou null em caso de timeout/erro.
 	 */
-	public function wait_for_task(int $task_uid, int $timeout_ms = 5000, int $interval_ms = 50): ?array
+	public function wait_for_task(int $task_uid, int $timeout_ms = 5000, int $interval_ms = 50): null|array
 	{
 		try {
 			return $this->client->waitForTask($task_uid, $timeout_ms, $interval_ms);
@@ -369,18 +368,22 @@ class Meilisearch_Client
 				$error_message = $e->getMessage();
 
 				// Verificar se é erro de rate limiting (429)
-				$is_rate_limit = strpos($error_message, '429') !== false 
-					|| strpos(strtolower($error_message), 'too many requests') !== false;
+				$is_rate_limit =
+					strpos($error_message, '429') !== false || strpos(strtolower($error_message), 'too many requests') !== false;
 
-				if ($is_rate_limit && $attempt < $max_retries - 1) {
+				if ($is_rate_limit && $attempt < ($max_retries - 1)) {
 					// Backoff exponencial: 1s, 2s, 4s
 					$wait_seconds = (int) pow(2, $attempt);
-					
+
 					if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
 						// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Apenas log de debug.
-						error_log("Meilisearch rate limit hit, waiting {$wait_seconds}s before retry (attempt " . ($attempt + 1) . "/{$max_retries})");
+						error_log(
+							"Meilisearch rate limit hit, waiting {$wait_seconds}s before retry (attempt "
+							. ($attempt + 1)
+							. "/{$max_retries})",
+						);
 					}
-					
+
 					sleep($wait_seconds);
 					$attempt++;
 					continue;
