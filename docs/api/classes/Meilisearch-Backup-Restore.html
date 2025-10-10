@@ -89,7 +89,7 @@
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    Meilisearch_Index_Analyzer
+    Meilisearch_Backup_Restore
 
     
             <div class="phpdocumentor-element__package">
@@ -108,17 +108,17 @@
 </div>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-index-analyzer.php"><a href="files/admin-class-index-analyzer.html"><abbr title="admin/class-index-analyzer.php">class-index-analyzer.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-backup-restore.php"><a href="files/admin-class-backup-restore.html"><abbr title="admin/class-backup-restore.php">class-backup-restore.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">16</span>
 
-            <a href="classes/Meilisearch-Index-Analyzer.html#source-view.16" class="phpdocumentor-element-found-in__source" data-line="16" data-modal="source-view" data-src="files/admin/class-index-analyzer.php.txt"></a>
+            <a href="classes/Meilisearch-Backup-Restore.html#source-view.16" class="phpdocumentor-element-found-in__source" data-line="16" data-modal="source-view" data-src="files/admin/class-backup-restore.php.txt"></a>
     </aside>
 
-            <p class="phpdocumentor-summary">Classe Meilisearch_Index_Analyzer</p>
+            <p class="phpdocumentor-summary">Classe Meilisearch_Backup_Restore</p>
 
 
-    <section class="phpdocumentor-description"><p>Analisa todos os índices do Meilisearch para identificar redes WordPress e seus padrões de nomenclatura de índices.</p>
+    <section class="phpdocumentor-description"><p>Gerencia backups (dumps) e snapshots do Meilisearch.</p>
 </section>
 
 
@@ -129,7 +129,7 @@
 
 <h3 id="toc">
     Table of Contents
-    <a href="classes/Meilisearch-Index-Analyzer.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/Meilisearch-Backup-Restore.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h3>
 
@@ -143,12 +143,12 @@
 
 <h4 id="toc-properties">
     Properties
-    <a href="classes/Meilisearch-Index-Analyzer.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/Meilisearch-Backup-Restore.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a class="" href="classes/Meilisearch-Index-Analyzer.html#property_client">$client</a>
+    <a class="" href="classes/Meilisearch-Backup-Restore.html#property_client">$client</a>
     <span>
                         &nbsp;: <a href="classes/Meilisearch-Client.html"><abbr title="\Meilisearch_Client">Meilisearch_Client</abbr></a>|null            </span>
 </dt>
@@ -158,72 +158,86 @@
 
 <h4 id="toc-methods">
     Methods
-    <a href="classes/Meilisearch-Index-Analyzer.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/Meilisearch-Backup-Restore.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Meilisearch-Index-Analyzer.html#method_add_network_menu">add_network_menu()</a>
+    <a class="" href="classes/Meilisearch-Backup-Restore.html#method_add_network_menu">add_network_menu()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
 <dd>Adicionar item de menu da administração de rede.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Meilisearch-Index-Analyzer.html#method_init_hooks">init_hooks()</a>
+    <a class="" href="classes/Meilisearch-Backup-Restore.html#method_create_dump">create_dump()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Criar dump.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Meilisearch-Backup-Restore.html#method_create_snapshot">create_snapshot()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Criar snapshot.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Meilisearch-Backup-Restore.html#method_init_hooks">init_hooks()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
 <dd>Inicializar hooks do WordPress.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Meilisearch-Index-Analyzer.html#method_render_analyzer_page">render_analyzer_page()</a>
+    <a class="" href="classes/Meilisearch-Backup-Restore.html#method_render_page">render_page()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Renderizar página do analisador.</dd>
+<dd>Renderizar página de backup e restore.</dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a class="" href="classes/Meilisearch-Index-Analyzer.html#method_analyze_index_patterns">analyze_index_patterns()</a>
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Meilisearch-Backup-Restore.html#method_run_scheduled_backup">run_scheduled_backup()</a>
     <span>
-                                &nbsp;: array&lt;string, array&lt;string, mixed&gt;&gt;    </span>
+                                &nbsp;: void    </span>
 </dt>
-<dd>Analisar índices e agrupar por padrão de rede.</dd>
+<dd>Executar backup agendado.</dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a class="" href="classes/Meilisearch-Index-Analyzer.html#method_get_all_indexes">get_all_indexes()</a>
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Meilisearch-Backup-Restore.html#method_update_backup_schedule">update_backup_schedule()</a>
     <span>
-                                &nbsp;: array&lt;int, array&lt;string, mixed&gt;&gt;    </span>
+                                &nbsp;: void    </span>
 </dt>
-<dd>Obter todos os índices do servidor Meilisearch.</dd>
+<dd>Atualizar configurações de agendamento de backup.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a class="" href="classes/Meilisearch-Index-Analyzer.html#method_get_client">get_client()</a>
+    <a class="" href="classes/Meilisearch-Backup-Restore.html#method_get_client">get_client()</a>
     <span>
                                 &nbsp;: <a href="classes/Meilisearch-Client.html"><abbr title="\Meilisearch_Client">Meilisearch_Client</abbr></a>|null    </span>
 </dt>
 <dd>Obter instância do cliente Meilisearch.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a class="" href="classes/Meilisearch-Index-Analyzer.html#method_get_network_url_for_pattern">get_network_url_for_pattern()</a>
+    <a class="" href="classes/Meilisearch-Backup-Restore.html#method_log_backup">log_backup()</a>
     <span>
-                                &nbsp;: string|null    </span>
+                                &nbsp;: void    </span>
 </dt>
-<dd>Obter URL da rede para um conjunto de IDs de blog e nomes de índice.</dd>
+<dd>Registrar backup no log do WordPress.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a class="" href="classes/Meilisearch-Index-Analyzer.html#method_get_site_names_from_indexes">get_site_names_from_indexes()</a>
+    <a class="" href="classes/Meilisearch-Backup-Restore.html#method_render_recent_backup_tasks">render_recent_backup_tasks()</a>
     <span>
-                                &nbsp;: array&lt;int, string&gt;    </span>
+                                &nbsp;: void    </span>
 </dt>
-<dd>Obter nomes de sites para IDs de blog usando dados do Meilisearch.</dd>
+<dd>Renderizar tarefas recentes de backup.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a class="" href="classes/Meilisearch-Index-Analyzer.html#method_parse_index_name">parse_index_name()</a>
+    <a class="" href="classes/Meilisearch-Backup-Restore.html#method_render_scheduled_backups_section">render_scheduled_backups_section()</a>
     <span>
-                                &nbsp;: array&lt;string, mixed&gt;    </span>
+                                &nbsp;: void    </span>
 </dt>
-<dd>Analisar nome do índice para extrair componentes do padrão.</dd>
+<dd>Renderizar seção de backups agendados.</dd>
 
     </dl>
 
@@ -235,7 +249,7 @@
     <section class="phpdocumentor-properties">
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
-            <a href="classes/Meilisearch-Index-Analyzer.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/Meilisearch-Backup-Restore.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
@@ -247,17 +261,17 @@
 >
     <h4 class="phpdocumentor-element__name" id="property_client">
         $client
-        <a href="classes/Meilisearch-Index-Analyzer.html#property_client" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/Meilisearch-Backup-Restore.html#property_client" class="headerlink"><i class="fas fa-link"></i></a>
 
         <span class="phpdocumentor-element__modifiers">
                                             </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-index-analyzer.php"><a href="files/admin-class-index-analyzer.html"><abbr title="admin/class-index-analyzer.php">class-index-analyzer.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-backup-restore.php"><a href="files/admin-class-backup-restore.html"><abbr title="admin/class-backup-restore.php">class-backup-restore.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">23</span>
 
-            <a href="classes/Meilisearch-Index-Analyzer.html#source-view.23" class="phpdocumentor-element-found-in__source" data-line="23" data-modal="source-view" data-src="files/admin/class-index-analyzer.php.txt"></a>
+            <a href="classes/Meilisearch-Backup-Restore.html#source-view.23" class="phpdocumentor-element-found-in__source" data-line="23" data-modal="source-view" data-src="files/admin/class-backup-restore.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Instância do cliente Meilisearch.</p>
@@ -283,7 +297,7 @@
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a href="classes/Meilisearch-Index-Analyzer.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/Meilisearch-Backup-Restore.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
@@ -294,15 +308,15 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_add_network_menu">
         add_network_menu()
-        <a href="classes/Meilisearch-Index-Analyzer.html#method_add_network_menu" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/Meilisearch-Backup-Restore.html#method_add_network_menu" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-index-analyzer.php"><a href="files/admin-class-index-analyzer.html"><abbr title="admin/class-index-analyzer.php">class-index-analyzer.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-backup-restore.php"><a href="files/admin-class-backup-restore.html"><abbr title="admin/class-backup-restore.php">class-backup-restore.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">36</span>
+    <span class="phpdocumentor-element-found-in__line">40</span>
 
-            <a href="classes/Meilisearch-Index-Analyzer.html#source-view.36" class="phpdocumentor-element-found-in__source" data-line="36" data-modal="source-view" data-src="files/admin/class-index-analyzer.php.txt"></a>
+            <a href="classes/Meilisearch-Backup-Restore.html#source-view.40" class="phpdocumentor-element-found-in__source" data-line="40" data-modal="source-view" data-src="files/admin/class-backup-restore.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Adicionar item de menu da administração de rede.</p>
@@ -328,17 +342,89 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_init_hooks">
-        init_hooks()
-        <a href="classes/Meilisearch-Index-Analyzer.html#method_init_hooks" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_create_dump">
+        create_dump()
+        <a href="classes/Meilisearch-Backup-Restore.html#method_create_dump" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-index-analyzer.php"><a href="files/admin-class-index-analyzer.html"><abbr title="admin/class-index-analyzer.php">class-index-analyzer.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-backup-restore.php"><a href="files/admin-class-backup-restore.html"><abbr title="admin/class-backup-restore.php">class-backup-restore.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">410</span>
+
+            <a href="classes/Meilisearch-Backup-Restore.html#source-view.410" class="phpdocumentor-element-found-in__source" data-line="410" data-modal="source-view" data-src="files/admin/class-backup-restore.php.txt"></a>
+    </aside>
+
+        <p class="phpdocumentor-summary">Criar dump.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">create_dump</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+    
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_create_snapshot">
+        create_snapshot()
+        <a href="classes/Meilisearch-Backup-Restore.html#method_create_snapshot" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-backup-restore.php"><a href="files/admin-class-backup-restore.html"><abbr title="admin/class-backup-restore.php">class-backup-restore.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">447</span>
+
+            <a href="classes/Meilisearch-Backup-Restore.html#source-view.447" class="phpdocumentor-element-found-in__source" data-line="447" data-modal="source-view" data-src="files/admin/class-backup-restore.php.txt"></a>
+    </aside>
+
+        <p class="phpdocumentor-summary">Criar snapshot.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">create_snapshot</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+    
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_init_hooks">
+        init_hooks()
+        <a href="classes/Meilisearch-Backup-Restore.html#method_init_hooks" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-backup-restore.php"><a href="files/admin-class-backup-restore.html"><abbr title="admin/class-backup-restore.php">class-backup-restore.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">28</span>
 
-            <a href="classes/Meilisearch-Index-Analyzer.html#source-view.28" class="phpdocumentor-element-found-in__source" data-line="28" data-modal="source-view" data-src="files/admin/class-index-analyzer.php.txt"></a>
+            <a href="classes/Meilisearch-Backup-Restore.html#source-view.28" class="phpdocumentor-element-found-in__source" data-line="28" data-modal="source-view" data-src="files/admin/class-backup-restore.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Inicializar hooks do WordPress.</p>
@@ -364,24 +450,24 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_render_analyzer_page">
-        render_analyzer_page()
-        <a href="classes/Meilisearch-Index-Analyzer.html#method_render_analyzer_page" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_render_page">
+        render_page()
+        <a href="classes/Meilisearch-Backup-Restore.html#method_render_page" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-index-analyzer.php"><a href="files/admin-class-index-analyzer.html"><abbr title="admin/class-index-analyzer.php">class-index-analyzer.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-backup-restore.php"><a href="files/admin-class-backup-restore.html"><abbr title="admin/class-backup-restore.php">class-backup-restore.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">304</span>
+    <span class="phpdocumentor-element-found-in__line">75</span>
 
-            <a href="classes/Meilisearch-Index-Analyzer.html#source-view.304" class="phpdocumentor-element-found-in__source" data-line="304" data-modal="source-view" data-src="files/admin/class-index-analyzer.php.txt"></a>
+            <a href="classes/Meilisearch-Backup-Restore.html#source-view.75" class="phpdocumentor-element-found-in__source" data-line="75" data-modal="source-view" data-src="files/admin/class-backup-restore.php.txt"></a>
     </aside>
 
-        <p class="phpdocumentor-summary">Renderizar página do analisador.</p>
+        <p class="phpdocumentor-summary">Renderizar página de backup e restore.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">render_analyzer_page</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">render_page</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -397,27 +483,27 @@
                     <article
         class="phpdocumentor-element
             -method
-            -private
+            -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_analyze_index_patterns">
-        analyze_index_patterns()
-        <a href="classes/Meilisearch-Index-Analyzer.html#method_analyze_index_patterns" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_run_scheduled_backup">
+        run_scheduled_backup()
+        <a href="classes/Meilisearch-Backup-Restore.html#method_run_scheduled_backup" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-index-analyzer.php"><a href="files/admin-class-index-analyzer.html"><abbr title="admin/class-index-analyzer.php">class-index-analyzer.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-backup-restore.php"><a href="files/admin-class-backup-restore.html"><abbr title="admin/class-backup-restore.php">class-backup-restore.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">147</span>
+    <span class="phpdocumentor-element-found-in__line">555</span>
 
-            <a href="classes/Meilisearch-Index-Analyzer.html#source-view.147" class="phpdocumentor-element-found-in__source" data-line="147" data-modal="source-view" data-src="files/admin/class-index-analyzer.php.txt"></a>
+            <a href="classes/Meilisearch-Backup-Restore.html#source-view.555" class="phpdocumentor-element-found-in__source" data-line="555" data-modal="source-view" data-src="files/admin/class-backup-restore.php.txt"></a>
     </aside>
 
-        <p class="phpdocumentor-summary">Analisar índices e agrupar por padrão de rede.</p>
+        <p class="phpdocumentor-summary">Executar backup agendado.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">analyze_index_patterns</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, array&lt;string, mixed&gt;&gt;</span></code>
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">run_scheduled_backup</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -428,36 +514,32 @@
 
     
 
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string, array&lt;string, mixed&gt;&gt;</span>
-            </section>
-
+    
 </article>
                     <article
         class="phpdocumentor-element
             -method
-            -private
+            -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_get_all_indexes">
-        get_all_indexes()
-        <a href="classes/Meilisearch-Index-Analyzer.html#method_get_all_indexes" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_update_backup_schedule">
+        update_backup_schedule()
+        <a href="classes/Meilisearch-Backup-Restore.html#method_update_backup_schedule" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-index-analyzer.php"><a href="files/admin-class-index-analyzer.html"><abbr title="admin/class-index-analyzer.php">class-index-analyzer.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-backup-restore.php"><a href="files/admin-class-backup-restore.html"><abbr title="admin/class-backup-restore.php">class-backup-restore.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">73</span>
+    <span class="phpdocumentor-element-found-in__line">509</span>
 
-            <a href="classes/Meilisearch-Index-Analyzer.html#source-view.73" class="phpdocumentor-element-found-in__source" data-line="73" data-modal="source-view" data-src="files/admin/class-index-analyzer.php.txt"></a>
+            <a href="classes/Meilisearch-Backup-Restore.html#source-view.509" class="phpdocumentor-element-found-in__source" data-line="509" data-modal="source-view" data-src="files/admin/class-backup-restore.php.txt"></a>
     </aside>
 
-        <p class="phpdocumentor-summary">Obter todos os índices do servidor Meilisearch.</p>
+        <p class="phpdocumentor-summary">Atualizar configurações de agendamento de backup.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">get_all_indexes</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;int, array&lt;string, mixed&gt;&gt;</span></code>
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">update_backup_schedule</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -468,11 +550,7 @@
 
     
 
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;int, array&lt;string, mixed&gt;&gt;</span>
-            </section>
-
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -482,15 +560,15 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_get_client">
         get_client()
-        <a href="classes/Meilisearch-Index-Analyzer.html#method_get_client" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/Meilisearch-Backup-Restore.html#method_get_client" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-index-analyzer.php"><a href="files/admin-class-index-analyzer.html"><abbr title="admin/class-index-analyzer.php">class-index-analyzer.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-backup-restore.php"><a href="files/admin-class-backup-restore.html"><abbr title="admin/class-backup-restore.php">class-backup-restore.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">53</span>
+    <span class="phpdocumentor-element-found-in__line">57</span>
 
-            <a href="classes/Meilisearch-Index-Analyzer.html#source-view.53" class="phpdocumentor-element-found-in__source" data-line="53" data-modal="source-view" data-src="files/admin/class-index-analyzer.php.txt"></a>
+            <a href="classes/Meilisearch-Backup-Restore.html#source-view.57" class="phpdocumentor-element-found-in__source" data-line="57" data-modal="source-view" data-src="files/admin/class-backup-restore.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Obter instância do cliente Meilisearch.</p>
@@ -520,24 +598,24 @@
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_get_network_url_for_pattern">
-        get_network_url_for_pattern()
-        <a href="classes/Meilisearch-Index-Analyzer.html#method_get_network_url_for_pattern" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_log_backup">
+        log_backup()
+        <a href="classes/Meilisearch-Backup-Restore.html#method_log_backup" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-index-analyzer.php"><a href="files/admin-class-index-analyzer.html"><abbr title="admin/class-index-analyzer.php">class-index-analyzer.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-backup-restore.php"><a href="files/admin-class-backup-restore.html"><abbr title="admin/class-backup-restore.php">class-backup-restore.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">196</span>
+    <span class="phpdocumentor-element-found-in__line">487</span>
 
-            <a href="classes/Meilisearch-Index-Analyzer.html#source-view.196" class="phpdocumentor-element-found-in__source" data-line="196" data-modal="source-view" data-src="files/admin/class-index-analyzer.php.txt"></a>
+            <a href="classes/Meilisearch-Backup-Restore.html#source-view.487" class="phpdocumentor-element-found-in__source" data-line="487" data-modal="source-view" data-src="files/admin/class-backup-restore.php.txt"></a>
     </aside>
 
-        <p class="phpdocumentor-summary">Obter URL da rede para um conjunto de IDs de blog e nomes de índice.</p>
+        <p class="phpdocumentor-summary">Registrar backup no log do WordPress.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">get_network_url_for_pattern</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, int&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$blog_ids</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$index_names</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|null</span></code>
+                    <span class="phpdocumentor-signature__name">log_backup</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$task_uid</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -546,132 +624,20 @@
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$blog_ids</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, int&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>IDs de blog para verificar.</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$index_names</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Nomes de índice deste padrão.</p>
-</section>
-
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string|null</span>
-                    &mdash;
-                <section class="phpdocumentor-description"><p>URL da rede ou null se não encontrado.</p>
-</section>
-
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_get_site_names_from_indexes">
-        get_site_names_from_indexes()
-        <a href="classes/Meilisearch-Index-Analyzer.html#method_get_site_names_from_indexes" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-index-analyzer.php"><a href="files/admin-class-index-analyzer.html"><abbr title="admin/class-index-analyzer.php">class-index-analyzer.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">249</span>
-
-            <a href="classes/Meilisearch-Index-Analyzer.html#source-view.249" class="phpdocumentor-element-found-in__source" data-line="249" data-modal="source-view" data-src="files/admin/class-index-analyzer.php.txt"></a>
-    </aside>
-
-        <p class="phpdocumentor-summary">Obter nomes de sites para IDs de blog usando dados do Meilisearch.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">get_site_names_from_indexes</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$index_names</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;int, string&gt;</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$index_names</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Nomes de índice deste padrão.</p>
-</section>
-
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;int, string&gt;</span>
-                    &mdash;
-                <section class="phpdocumentor-description"><p>Array de blog_id =&gt; nome_do_site.</p>
-</section>
-
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_parse_index_name">
-        parse_index_name()
-        <a href="classes/Meilisearch-Index-Analyzer.html#method_parse_index_name" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-index-analyzer.php"><a href="files/admin-class-index-analyzer.html"><abbr title="admin/class-index-analyzer.php">class-index-analyzer.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">105</span>
-
-            <a href="classes/Meilisearch-Index-Analyzer.html#source-view.105" class="phpdocumentor-element-found-in__source" data-line="105" data-modal="source-view" data-src="files/admin/class-index-analyzer.php.txt"></a>
-    </aside>
-
-        <p class="phpdocumentor-summary">Analisar nome do índice para extrair componentes do padrão.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">parse_index_name</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$index_name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, mixed&gt;</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$index_name</span>
+                <span class="phpdocumentor-signature__argument__name">$type</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Nome do índice para analisar.</p>
+                    <section class="phpdocumentor-description"><p>Tipo de backup (dump ou snapshot).</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$task_uid</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>UID da tarefa.</p>
 </section>
 
             </dd>
@@ -681,15 +647,79 @@
 
     
 
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string, mixed&gt;</span>
-                    &mdash;
-                <section class="phpdocumentor-description"><p>Componentes analisados.</p>
-</section>
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_render_recent_backup_tasks">
+        render_recent_backup_tasks()
+        <a href="classes/Meilisearch-Backup-Restore.html#method_render_recent_backup_tasks" class="headerlink"><i class="fas fa-link"></i></a>
 
-            </section>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-backup-restore.php"><a href="files/admin-class-backup-restore.html"><abbr title="admin/class-backup-restore.php">class-backup-restore.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">341</span>
 
+            <a href="classes/Meilisearch-Backup-Restore.html#source-view.341" class="phpdocumentor-element-found-in__source" data-line="341" data-modal="source-view" data-src="files/admin/class-backup-restore.php.txt"></a>
+    </aside>
+
+        <p class="phpdocumentor-summary">Renderizar tarefas recentes de backup.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">render_recent_backup_tasks</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+    
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_render_scheduled_backups_section">
+        render_scheduled_backups_section()
+        <a href="classes/Meilisearch-Backup-Restore.html#method_render_scheduled_backups_section" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-backup-restore.php"><a href="files/admin-class-backup-restore.html"><abbr title="admin/class-backup-restore.php">class-backup-restore.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">276</span>
+
+            <a href="classes/Meilisearch-Backup-Restore.html#source-view.276" class="phpdocumentor-element-found-in__source" data-line="276" data-modal="source-view" data-src="files/admin/class-backup-restore.php.txt"></a>
+    </aside>
+
+        <p class="phpdocumentor-summary">Renderizar seção de backups agendados.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">render_scheduled_backups_section</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+    
+
+    
+
+    
 </article>
             </section>
 
@@ -697,7 +727,7 @@
     <div class="phpdocumentor-modal-bg" data-exit-button></div>
     <div class="phpdocumentor-modal-container">
         <div class="phpdocumentor-modal-content">
-            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/admin/class-index-analyzer.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
+            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/admin/class-backup-restore.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
         </div>
         <button data-exit-button class="phpdocumentor-modal__close">&times;</button>
     </div>
@@ -798,30 +828,32 @@
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                                            <li><a href="classes/Meilisearch-Index-Analyzer.html#toc-properties">Properties</a></li>
-                                                            <li><a href="classes/Meilisearch-Index-Analyzer.html#toc-methods">Methods</a></li>
+                                                            <li><a href="classes/Meilisearch-Backup-Restore.html#toc-properties">Properties</a></li>
+                                                            <li><a href="classes/Meilisearch-Backup-Restore.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
             
                             <li class="phpdocumentor-on-this-page-section__title">Properties</li>
                 <li>
                     <ul class="phpdocumentor-list -clean">
-                                                    <li class=""><a href="classes/Meilisearch-Index-Analyzer.html#property_client">$client</a></li>
+                                                    <li class=""><a href="classes/Meilisearch-Backup-Restore.html#property_client">$client</a></li>
                                             </ul>
                 </li>
             
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li class=""><a href="classes/Meilisearch-Index-Analyzer.html#method_add_network_menu">add_network_menu()</a></li>
-                                            <li class=""><a href="classes/Meilisearch-Index-Analyzer.html#method_init_hooks">init_hooks()</a></li>
-                                            <li class=""><a href="classes/Meilisearch-Index-Analyzer.html#method_render_analyzer_page">render_analyzer_page()</a></li>
-                                            <li class=""><a href="classes/Meilisearch-Index-Analyzer.html#method_analyze_index_patterns">analyze_index_patterns()</a></li>
-                                            <li class=""><a href="classes/Meilisearch-Index-Analyzer.html#method_get_all_indexes">get_all_indexes()</a></li>
-                                            <li class=""><a href="classes/Meilisearch-Index-Analyzer.html#method_get_client">get_client()</a></li>
-                                            <li class=""><a href="classes/Meilisearch-Index-Analyzer.html#method_get_network_url_for_pattern">get_network_url_for_pattern()</a></li>
-                                            <li class=""><a href="classes/Meilisearch-Index-Analyzer.html#method_get_site_names_from_indexes">get_site_names_from_indexes()</a></li>
-                                            <li class=""><a href="classes/Meilisearch-Index-Analyzer.html#method_parse_index_name">parse_index_name()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Backup-Restore.html#method_add_network_menu">add_network_menu()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Backup-Restore.html#method_create_dump">create_dump()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Backup-Restore.html#method_create_snapshot">create_snapshot()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Backup-Restore.html#method_init_hooks">init_hooks()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Backup-Restore.html#method_render_page">render_page()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Backup-Restore.html#method_run_scheduled_backup">run_scheduled_backup()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Backup-Restore.html#method_update_backup_schedule">update_backup_schedule()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Backup-Restore.html#method_get_client">get_client()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Backup-Restore.html#method_log_backup">log_backup()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Backup-Restore.html#method_render_recent_backup_tasks">render_recent_backup_tasks()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Backup-Restore.html#method_render_scheduled_backups_section">render_scheduled_backups_section()</a></li>
                                     </ul>
             </li>
                     </ul>
@@ -841,7 +873,7 @@
     </section>
 </section>
         </div>
-        <a href="classes/Meilisearch-Index-Analyzer.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/Meilisearch-Backup-Restore.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 

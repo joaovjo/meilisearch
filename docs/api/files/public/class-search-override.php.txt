@@ -145,19 +145,19 @@ class Meilisearch_Search_Override
 		foreach ($posts_by_blog as $blog_id => $post_ids) {
 			// Verificar se o blog existe na rede atual.
 			$blog_exists = get_blog_details($blog_id, false);
-			
+
 			if ($blog_id !== $current_blog_id && $blog_exists) {
 				switch_to_blog($blog_id);
 			}
 
 			foreach ($post_ids as $post_id) {
 				$post = null;
-				
+
 				// Tentar obter post apenas se o blog existe na rede atual.
 				if ($blog_exists) {
 					$post = get_post($post_id);
 				}
-				
+
 				// Se post não foi encontrado (rede externa), criar um pseudo-post a partir dos dados do Meilisearch.
 				if (!$post) {
 					// Encontrar os dados do hit para este post.
@@ -168,7 +168,7 @@ class Meilisearch_Search_Override
 						}
 					}
 				}
-				
+
 				if ($post) {
 					$key = $blog_id . '_' . $post_id;
 
@@ -216,7 +216,7 @@ class Meilisearch_Search_Override
 	 * @param array $hit Dados do hit do Meilisearch.
 	 * @return WP_Post|null Objeto pseudo post ou null.
 	 */
-	private function create_pseudo_post_from_hit(array $hit): ?WP_Post
+	private function create_pseudo_post_from_hit(array $hit): null|WP_Post
 	{
 		if (!isset($hit['id']) || !isset($hit['title'])) {
 			return null;
@@ -224,30 +224,30 @@ class Meilisearch_Search_Override
 
 		// Criar um stdClass que imita a estrutura de WP_Post.
 		$post_data = [
-			'ID'                    => $hit['id'],
-			'post_author'           => $hit['author_id'] ?? 0,
-			'post_date'             => isset($hit['date']) ? date('Y-m-d H:i:s', $hit['date']) : '',
-			'post_date_gmt'         => isset($hit['date']) ? gmdate('Y-m-d H:i:s', $hit['date']) : '',
-			'post_content'          => $hit['content'] ?? '',
-			'post_title'            => $hit['title'] ?? '',
-			'post_excerpt'          => $hit['excerpt'] ?? '',
-			'post_status'           => $hit['post_status'] ?? 'publish',
-			'comment_status'        => 'closed',
-			'ping_status'           => 'closed',
-			'post_password'         => '',
-			'post_name'             => sanitize_title($hit['title'] ?? ''),
-			'to_ping'               => '',
-			'pinged'                => '',
-			'post_modified'         => isset($hit['modified']) ? date('Y-m-d H:i:s', $hit['modified']) : '',
-			'post_modified_gmt'     => isset($hit['modified']) ? gmdate('Y-m-d H:i:s', $hit['modified']) : '',
+			'ID' => $hit['id'],
+			'post_author' => $hit['author_id'] ?? 0,
+			'post_date' => isset($hit['date']) ? date('Y-m-d H:i:s', $hit['date']) : '',
+			'post_date_gmt' => isset($hit['date']) ? gmdate('Y-m-d H:i:s', $hit['date']) : '',
+			'post_content' => $hit['content'] ?? '',
+			'post_title' => $hit['title'] ?? '',
+			'post_excerpt' => $hit['excerpt'] ?? '',
+			'post_status' => $hit['post_status'] ?? 'publish',
+			'comment_status' => 'closed',
+			'ping_status' => 'closed',
+			'post_password' => '',
+			'post_name' => sanitize_title($hit['title'] ?? ''),
+			'to_ping' => '',
+			'pinged' => '',
+			'post_modified' => isset($hit['modified']) ? date('Y-m-d H:i:s', $hit['modified']) : '',
+			'post_modified_gmt' => isset($hit['modified']) ? gmdate('Y-m-d H:i:s', $hit['modified']) : '',
 			'post_content_filtered' => '',
-			'post_parent'           => 0,
-			'guid'                  => $hit['permalink'] ?? '',
-			'menu_order'            => 0,
-			'post_type'             => $hit['post_type'] ?? 'post',
-			'post_mime_type'        => '',
-			'comment_count'         => 0,
-			'filter'                => 'raw',
+			'post_parent' => 0,
+			'guid' => $hit['permalink'] ?? '',
+			'menu_order' => 0,
+			'post_type' => $hit['post_type'] ?? 'post',
+			'post_mime_type' => '',
+			'comment_count' => 0,
+			'filter' => 'raw',
 		];
 
 		return new WP_Post((object) $post_data);

@@ -1,6 +1,71 @@
 Search.appendIndex(
     [
                 {
+            "fqsen": "\\Meilisearch_Backup_Restore",
+            "name": "Meilisearch_Backup_Restore",
+            "summary": "Classe\u0020Meilisearch_Backup_Restore",
+            "url": "classes/Meilisearch-Backup-Restore.html"
+        },                {
+            "fqsen": "\\Meilisearch_Backup_Restore\u003A\u003Ainit_hooks\u0028\u0029",
+            "name": "init_hooks",
+            "summary": "Inicializar\u0020hooks\u0020do\u0020WordPress.",
+            "url": "classes/Meilisearch-Backup-Restore.html#method_init_hooks"
+        },                {
+            "fqsen": "\\Meilisearch_Backup_Restore\u003A\u003Aadd_network_menu\u0028\u0029",
+            "name": "add_network_menu",
+            "summary": "Adicionar\u0020item\u0020de\u0020menu\u0020da\u0020administra\u00E7\u00E3o\u0020de\u0020rede.",
+            "url": "classes/Meilisearch-Backup-Restore.html#method_add_network_menu"
+        },                {
+            "fqsen": "\\Meilisearch_Backup_Restore\u003A\u003Aget_client\u0028\u0029",
+            "name": "get_client",
+            "summary": "Obter\u0020inst\u00E2ncia\u0020do\u0020cliente\u0020Meilisearch.",
+            "url": "classes/Meilisearch-Backup-Restore.html#method_get_client"
+        },                {
+            "fqsen": "\\Meilisearch_Backup_Restore\u003A\u003Arender_page\u0028\u0029",
+            "name": "render_page",
+            "summary": "Renderizar\u0020p\u00E1gina\u0020de\u0020backup\u0020e\u0020restore.",
+            "url": "classes/Meilisearch-Backup-Restore.html#method_render_page"
+        },                {
+            "fqsen": "\\Meilisearch_Backup_Restore\u003A\u003Arender_scheduled_backups_section\u0028\u0029",
+            "name": "render_scheduled_backups_section",
+            "summary": "Renderizar\u0020se\u00E7\u00E3o\u0020de\u0020backups\u0020agendados.",
+            "url": "classes/Meilisearch-Backup-Restore.html#method_render_scheduled_backups_section"
+        },                {
+            "fqsen": "\\Meilisearch_Backup_Restore\u003A\u003Arender_recent_backup_tasks\u0028\u0029",
+            "name": "render_recent_backup_tasks",
+            "summary": "Renderizar\u0020tarefas\u0020recentes\u0020de\u0020backup.",
+            "url": "classes/Meilisearch-Backup-Restore.html#method_render_recent_backup_tasks"
+        },                {
+            "fqsen": "\\Meilisearch_Backup_Restore\u003A\u003Acreate_dump\u0028\u0029",
+            "name": "create_dump",
+            "summary": "Criar\u0020dump.",
+            "url": "classes/Meilisearch-Backup-Restore.html#method_create_dump"
+        },                {
+            "fqsen": "\\Meilisearch_Backup_Restore\u003A\u003Acreate_snapshot\u0028\u0029",
+            "name": "create_snapshot",
+            "summary": "Criar\u0020snapshot.",
+            "url": "classes/Meilisearch-Backup-Restore.html#method_create_snapshot"
+        },                {
+            "fqsen": "\\Meilisearch_Backup_Restore\u003A\u003Alog_backup\u0028\u0029",
+            "name": "log_backup",
+            "summary": "Registrar\u0020backup\u0020no\u0020log\u0020do\u0020WordPress.",
+            "url": "classes/Meilisearch-Backup-Restore.html#method_log_backup"
+        },                {
+            "fqsen": "\\Meilisearch_Backup_Restore\u003A\u003Aupdate_backup_schedule\u0028\u0029",
+            "name": "update_backup_schedule",
+            "summary": "Atualizar\u0020configura\u00E7\u00F5es\u0020de\u0020agendamento\u0020de\u0020backup.",
+            "url": "classes/Meilisearch-Backup-Restore.html#method_update_backup_schedule"
+        },                {
+            "fqsen": "\\Meilisearch_Backup_Restore\u003A\u003Arun_scheduled_backup\u0028\u0029",
+            "name": "run_scheduled_backup",
+            "summary": "Executar\u0020backup\u0020agendado.",
+            "url": "classes/Meilisearch-Backup-Restore.html#method_run_scheduled_backup"
+        },                {
+            "fqsen": "\\Meilisearch_Backup_Restore\u003A\u003A\u0024client",
+            "name": "client",
+            "summary": "Inst\u00E2ncia\u0020do\u0020cliente\u0020Meilisearch.",
+            "url": "classes/Meilisearch-Backup-Restore.html#property_client"
+        },                {
             "fqsen": "\\Meilisearch_Dashboard",
             "name": "Meilisearch_Dashboard",
             "summary": "Classe\u0020Meilisearch_Dashboard",
@@ -51,60 +116,65 @@ Search.appendIndex(
             "summary": "Inst\u00E2ncia\u0020do\u0020cliente\u0020Meilisearch.",
             "url": "classes/Meilisearch-Dashboard.html#property_client"
         },                {
-            "fqsen": "\\Meilisearch_Experimental_Features",
-            "name": "Meilisearch_Experimental_Features",
-            "summary": "Classe\u0020Meilisearch_Experimental_Features",
-            "url": "classes/Meilisearch-Experimental-Features.html"
+            "fqsen": "\\Meilisearch_Federated_Search",
+            "name": "Meilisearch_Federated_Search",
+            "summary": "Classe\u0020Meilisearch_Federated_Search",
+            "url": "classes/Meilisearch-Federated-Search.html"
         },                {
-            "fqsen": "\\Meilisearch_Experimental_Features\u003A\u003Aget_available_features\u0028\u0029",
-            "name": "get_available_features",
-            "summary": "Obter\u0020funcionalidades\u0020experimentais\u0020dispon\u00EDveis\u0020\u0028com\u0020lazy\u0020loading\u0020das\u0020tradu\u00E7\u00F5es\u0029.",
-            "url": "classes/Meilisearch-Experimental-Features.html#method_get_available_features"
-        },                {
-            "fqsen": "\\Meilisearch_Experimental_Features\u003A\u003Ainit_hooks\u0028\u0029",
+            "fqsen": "\\Meilisearch_Federated_Search\u003A\u003Ainit_hooks\u0028\u0029",
             "name": "init_hooks",
             "summary": "Inicializar\u0020hooks\u0020do\u0020WordPress.",
-            "url": "classes/Meilisearch-Experimental-Features.html#method_init_hooks"
+            "url": "classes/Meilisearch-Federated-Search.html#method_init_hooks"
         },                {
-            "fqsen": "\\Meilisearch_Experimental_Features\u003A\u003Aadd_network_menu\u0028\u0029",
+            "fqsen": "\\Meilisearch_Federated_Search\u003A\u003Aadd_network_menu\u0028\u0029",
             "name": "add_network_menu",
             "summary": "Adicionar\u0020item\u0020de\u0020menu\u0020da\u0020administra\u00E7\u00E3o\u0020de\u0020rede.",
-            "url": "classes/Meilisearch-Experimental-Features.html#method_add_network_menu"
+            "url": "classes/Meilisearch-Federated-Search.html#method_add_network_menu"
         },                {
-            "fqsen": "\\Meilisearch_Experimental_Features\u003A\u003Aget_client\u0028\u0029",
+            "fqsen": "\\Meilisearch_Federated_Search\u003A\u003Aenqueue_scripts\u0028\u0029",
+            "name": "enqueue_scripts",
+            "summary": "Enfileirar\u0020scripts\u0020e\u0020estilos.",
+            "url": "classes/Meilisearch-Federated-Search.html#method_enqueue_scripts"
+        },                {
+            "fqsen": "\\Meilisearch_Federated_Search\u003A\u003Aget_client\u0028\u0029",
             "name": "get_client",
             "summary": "Obter\u0020inst\u00E2ncia\u0020do\u0020cliente\u0020Meilisearch.",
-            "url": "classes/Meilisearch-Experimental-Features.html#method_get_client"
+            "url": "classes/Meilisearch-Federated-Search.html#method_get_client"
         },                {
-            "fqsen": "\\Meilisearch_Experimental_Features\u003A\u003Aget_current_features\u0028\u0029",
-            "name": "get_current_features",
-            "summary": "Obter\u0020funcionalidades\u0020experimentais\u0020atuais\u0020do\u0020Meilisearch.",
-            "url": "classes/Meilisearch-Experimental-Features.html#method_get_current_features"
+            "fqsen": "\\Meilisearch_Federated_Search\u003A\u003Aget_available_indexes\u0028\u0029",
+            "name": "get_available_indexes",
+            "summary": "Obter\u0020lista\u0020de\u0020\u00EDndices\u0020dispon\u00EDveis.",
+            "url": "classes/Meilisearch-Federated-Search.html#method_get_available_indexes"
         },                {
-            "fqsen": "\\Meilisearch_Experimental_Features\u003A\u003Aupdate_features\u0028\u0029",
-            "name": "update_features",
-            "summary": "Atualizar\u0020funcionalidades\u0020experimentais\u0020no\u0020Meilisearch.",
-            "url": "classes/Meilisearch-Experimental-Features.html#method_update_features"
+            "fqsen": "\\Meilisearch_Federated_Search\u003A\u003Arender_page\u0028\u0029",
+            "name": "render_page",
+            "summary": "Renderizar\u0020p\u00E1gina\u0020de\u0020busca\u0020federada.",
+            "url": "classes/Meilisearch-Federated-Search.html#method_render_page"
         },                {
-            "fqsen": "\\Meilisearch_Experimental_Features\u003A\u003Arender_experimental_page\u0028\u0029",
-            "name": "render_experimental_page",
-            "summary": "Renderizar\u0020p\u00E1gina\u0020de\u0020funcionalidades\u0020experimentais.",
-            "url": "classes/Meilisearch-Experimental-Features.html#method_render_experimental_page"
+            "fqsen": "\\Meilisearch_Federated_Search\u003A\u003Arender_saved_queries\u0028\u0029",
+            "name": "render_saved_queries",
+            "summary": "Renderizar\u0020queries\u0020salvos.",
+            "url": "classes/Meilisearch-Federated-Search.html#method_render_saved_queries"
         },                {
-            "fqsen": "\\Meilisearch_Experimental_Features\u003A\u003Asave_experimental_features\u0028\u0029",
-            "name": "save_experimental_features",
-            "summary": "Salvar\u0020funcionalidades\u0020experimentais.",
-            "url": "classes/Meilisearch-Experimental-Features.html#method_save_experimental_features"
+            "fqsen": "\\Meilisearch_Federated_Search\u003A\u003Aajax_federated_search\u0028\u0029",
+            "name": "ajax_federated_search",
+            "summary": "Handler\u0020AJAX\u0020para\u0020busca\u0020federada.",
+            "url": "classes/Meilisearch-Federated-Search.html#method_ajax_federated_search"
         },                {
-            "fqsen": "\\Meilisearch_Experimental_Features\u003A\u003A\u0024client",
+            "fqsen": "\\Meilisearch_Federated_Search\u003A\u003Aperform_federated_search\u0028\u0029",
+            "name": "perform_federated_search",
+            "summary": "Executar\u0020busca\u0020federada.",
+            "url": "classes/Meilisearch-Federated-Search.html#method_perform_federated_search"
+        },                {
+            "fqsen": "\\Meilisearch_Federated_Search\u003A\u003Arender_search_shortcode\u0028\u0029",
+            "name": "render_search_shortcode",
+            "summary": "Renderizar\u0020shortcode\u0020de\u0020busca\u0020federada.",
+            "url": "classes/Meilisearch-Federated-Search.html#method_render_search_shortcode"
+        },                {
+            "fqsen": "\\Meilisearch_Federated_Search\u003A\u003A\u0024client",
             "name": "client",
             "summary": "Inst\u00E2ncia\u0020do\u0020cliente\u0020Meilisearch.",
-            "url": "classes/Meilisearch-Experimental-Features.html#property_client"
-        },                {
-            "fqsen": "\\Meilisearch_Experimental_Features\u003A\u003A\u0024available_features",
-            "name": "available_features",
-            "summary": "Funcionalidades\u0020experimentais\u0020dispon\u00EDveis.",
-            "url": "classes/Meilisearch-Experimental-Features.html#property_available_features"
+            "url": "classes/Meilisearch-Federated-Search.html#property_client"
         },                {
             "fqsen": "\\Meilisearch_Index_Analyzer",
             "name": "Meilisearch_Index_Analyzer",
@@ -401,6 +471,36 @@ Search.appendIndex(
             "summary": "Atributos\u0020dispon\u00EDveis\u0020no\u0020\u00EDndice.",
             "url": "classes/Meilisearch-Search-Settings.html#property_available_attributes"
         },                {
+            "fqsen": "\\Meilisearch_Tasks_Monitor",
+            "name": "Meilisearch_Tasks_Monitor",
+            "summary": "Classe\u0020Meilisearch_Tasks_Monitor",
+            "url": "classes/Meilisearch-Tasks-Monitor.html"
+        },                {
+            "fqsen": "\\Meilisearch_Tasks_Monitor\u003A\u003Ainit_hooks\u0028\u0029",
+            "name": "init_hooks",
+            "summary": "Inicializar\u0020hooks.",
+            "url": "classes/Meilisearch-Tasks-Monitor.html#method_init_hooks"
+        },                {
+            "fqsen": "\\Meilisearch_Tasks_Monitor\u003A\u003Aadd_menu\u0028\u0029",
+            "name": "add_menu",
+            "summary": "Adicionar\u0020item\u0020de\u0020menu\u0020da\u0020administra\u00E7\u00E3o\u0020de\u0020rede.",
+            "url": "classes/Meilisearch-Tasks-Monitor.html#method_add_menu"
+        },                {
+            "fqsen": "\\Meilisearch_Tasks_Monitor\u003A\u003Aget_client\u0028\u0029",
+            "name": "get_client",
+            "summary": "Obter\u0020inst\u00E2ncia\u0020do\u0020cliente\u0020Meilisearch.",
+            "url": "classes/Meilisearch-Tasks-Monitor.html#method_get_client"
+        },                {
+            "fqsen": "\\Meilisearch_Tasks_Monitor\u003A\u003Arender_page\u0028\u0029",
+            "name": "render_page",
+            "summary": "Renderizar\u0020p\u00E1gina\u0020de\u0020monitoramento\u0020de\u0020tarefas.",
+            "url": "classes/Meilisearch-Tasks-Monitor.html#method_render_page"
+        },                {
+            "fqsen": "\\Meilisearch_Tasks_Monitor\u003A\u003A\u0024client",
+            "name": "client",
+            "summary": "Inst\u00E2ncia\u0020do\u0020cliente\u0020Meilisearch.",
+            "url": "classes/Meilisearch-Tasks-Monitor.html#property_client"
+        },                {
             "fqsen": "\\Meilisearch_Autocomplete",
             "name": "Meilisearch_Autocomplete",
             "summary": "Classe\u0020Meilisearch_Autocomplete",
@@ -546,6 +646,36 @@ Search.appendIndex(
             "summary": "Atualizar\u0020funcionalidades\u0020experimentais\u0020no\u0020Meilisearch.",
             "url": "classes/Meilisearch-Client.html#method_update_experimental_features"
         },                {
+            "fqsen": "\\Meilisearch_Client\u003A\u003Aget_version\u0028\u0029",
+            "name": "get_version",
+            "summary": "Obter\u0020vers\u00E3o\u0020do\u0020Meilisearch.",
+            "url": "classes/Meilisearch-Client.html#method_get_version"
+        },                {
+            "fqsen": "\\Meilisearch_Client\u003A\u003Aget_index_stats\u0028\u0029",
+            "name": "get_index_stats",
+            "summary": "Obter\u0020estat\u00EDsticas\u0020de\u0020um\u0020\u00EDndice.",
+            "url": "classes/Meilisearch-Client.html#method_get_index_stats"
+        },                {
+            "fqsen": "\\Meilisearch_Client\u003A\u003Aget_recent_tasks\u0028\u0029",
+            "name": "get_recent_tasks",
+            "summary": "Obter\u0020tarefas\u0020recentes.",
+            "url": "classes/Meilisearch-Client.html#method_get_recent_tasks"
+        },                {
+            "fqsen": "\\Meilisearch_Client\u003A\u003Aget_task_status\u0028\u0029",
+            "name": "get_task_status",
+            "summary": "Obter\u0020status\u0020de\u0020uma\u0020tarefa\u0020espec\u00EDfica.",
+            "url": "classes/Meilisearch-Client.html#method_get_task_status"
+        },                {
+            "fqsen": "\\Meilisearch_Client\u003A\u003Await_for_task\u0028\u0029",
+            "name": "wait_for_task",
+            "summary": "Aguardar\u0020conclus\u00E3o\u0020de\u0020uma\u0020tarefa.",
+            "url": "classes/Meilisearch-Client.html#method_wait_for_task"
+        },                {
+            "fqsen": "\\Meilisearch_Client\u003A\u003Aexecute_with_retry\u0028\u0029",
+            "name": "execute_with_retry",
+            "summary": "Executar\u0020opera\u00E7\u00E3o\u0020com\u0020retry\u0020autom\u00E1tico\u0020em\u0020caso\u0020de\u0020rate\u0020limiting.",
+            "url": "classes/Meilisearch-Client.html#method_execute_with_retry"
+        },                {
             "fqsen": "\\Meilisearch_Client\u003A\u003A\u0024client",
             "name": "client",
             "summary": "Inst\u00E2ncia\u0020do\u0020cliente\u0020Meilisearch.",
@@ -580,6 +710,16 @@ Search.appendIndex(
             "name": "index_post",
             "summary": "Indexar\u0020um\u0020\u00FAnico\u0020post.",
             "url": "classes/Meilisearch-Indexer.html#method_index_post"
+        },                {
+            "fqsen": "\\Meilisearch_Indexer\u003A\u003Abulk_index_posts\u0028\u0029",
+            "name": "bulk_index_posts",
+            "summary": "Indexar\u0020m\u00FAltiplos\u0020posts\u0020em\u0020lote.",
+            "url": "classes/Meilisearch-Indexer.html#method_bulk_index_posts"
+        },                {
+            "fqsen": "\\Meilisearch_Indexer\u003A\u003Asend_batch\u0028\u0029",
+            "name": "send_batch",
+            "summary": "Enviar\u0020lote\u0020de\u0020documentos\u0020para\u0020o\u0020Meilisearch.",
+            "url": "classes/Meilisearch-Indexer.html#method_send_batch"
         },                {
             "fqsen": "\\Meilisearch_Indexer\u003A\u003Adelete_post\u0028\u0029",
             "name": "delete_post",

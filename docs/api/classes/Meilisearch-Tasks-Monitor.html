@@ -89,7 +89,7 @@
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    Meilisearch_Search_API
+    Meilisearch_Tasks_Monitor
 
     
             <div class="phpdocumentor-element__package">
@@ -108,17 +108,17 @@
 </div>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="includes/class-search-api.php"><a href="files/includes-class-search-api.html"><abbr title="includes/class-search-api.php">class-search-api.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-tasks-monitor.php"><a href="files/admin-class-tasks-monitor.html"><abbr title="admin/class-tasks-monitor.php">class-tasks-monitor.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">16</span>
 
-            <a href="classes/Meilisearch-Search-API.html#source-view.16" class="phpdocumentor-element-found-in__source" data-line="16" data-modal="source-view" data-src="files/includes/class-search-api.php.txt"></a>
+            <a href="classes/Meilisearch-Tasks-Monitor.html#source-view.16" class="phpdocumentor-element-found-in__source" data-line="16" data-modal="source-view" data-src="files/admin/class-tasks-monitor.php.txt"></a>
     </aside>
 
-            <p class="phpdocumentor-summary">Classe Meilisearch_Search_API</p>
+            <p class="phpdocumentor-summary">Classe Meilisearch_Tasks_Monitor</p>
 
 
-    <section class="phpdocumentor-description"><p>Gerencia endpoints REST API para funcionalidade de busca.</p>
+    <section class="phpdocumentor-description"><p>Gerencia página de monitoramento de tarefas do Meilisearch.</p>
 </section>
 
 
@@ -129,7 +129,7 @@
 
 <h3 id="toc">
     Table of Contents
-    <a href="classes/Meilisearch-Search-API.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/Meilisearch-Tasks-Monitor.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h3>
 
@@ -143,14 +143,14 @@
 
 <h4 id="toc-properties">
     Properties
-    <a href="classes/Meilisearch-Search-API.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/Meilisearch-Tasks-Monitor.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a class="" href="classes/Meilisearch-Search-API.html#property_client">$client</a>
+    <a class="" href="classes/Meilisearch-Tasks-Monitor.html#property_client">$client</a>
     <span>
-                        &nbsp;: <a href="classes/Meilisearch-Client.html"><abbr title="\Meilisearch_Client">Meilisearch_Client</abbr></a>            </span>
+                        &nbsp;: <a href="classes/Meilisearch-Client.html"><abbr title="\Meilisearch_Client">Meilisearch_Client</abbr></a>|null            </span>
 </dt>
 <dd>Instância do cliente Meilisearch.</dd>
 
@@ -158,44 +158,37 @@
 
 <h4 id="toc-methods">
     Methods
-    <a href="classes/Meilisearch-Search-API.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/Meilisearch-Tasks-Monitor.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Meilisearch-Search-API.html#method___construct">__construct()</a>
-    <span>
-                                &nbsp;: mixed    </span>
-</dt>
-<dd>Construtor.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Meilisearch-Search-API.html#method_handle_search_request">handle_search_request()</a>
-    <span>
-                                &nbsp;: <abbr title="\WP_REST_Response">WP_REST_Response</abbr>    </span>
-</dt>
-<dd>Gerenciar requisição REST API de busca.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Meilisearch-Search-API.html#method_init_hooks">init_hooks()</a>
+    <a class="" href="classes/Meilisearch-Tasks-Monitor.html#method_add_menu">add_menu()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Inicializar hooks do WordPress.</dd>
+<dd>Adicionar item de menu da administração de rede.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Meilisearch-Search-API.html#method_register_rest_routes">register_rest_routes()</a>
+    <a class="" href="classes/Meilisearch-Tasks-Monitor.html#method_init_hooks">init_hooks()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Registrar endpoints REST API.</dd>
+<dd>Inicializar hooks.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Meilisearch-Tasks-Monitor.html#method_render_page">render_page()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Renderizar página de monitoramento de tarefas.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a class="" href="classes/Meilisearch-Search-API.html#method_format_search_results">format_search_results()</a>
+    <a class="" href="classes/Meilisearch-Tasks-Monitor.html#method_get_client">get_client()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: <a href="classes/Meilisearch-Client.html"><abbr title="\Meilisearch_Client">Meilisearch_Client</abbr></a>|null    </span>
 </dt>
-<dd>Formatar resultados de busca para resposta da API.</dd>
+<dd>Obter instância do cliente Meilisearch.</dd>
 
     </dl>
 
@@ -207,7 +200,7 @@
     <section class="phpdocumentor-properties">
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
-            <a href="classes/Meilisearch-Search-API.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/Meilisearch-Tasks-Monitor.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
@@ -219,17 +212,17 @@
 >
     <h4 class="phpdocumentor-element__name" id="property_client">
         $client
-        <a href="classes/Meilisearch-Search-API.html#property_client" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/Meilisearch-Tasks-Monitor.html#property_client" class="headerlink"><i class="fas fa-link"></i></a>
 
         <span class="phpdocumentor-element__modifiers">
                                             </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="includes/class-search-api.php"><a href="files/includes-class-search-api.html"><abbr title="includes/class-search-api.php">class-search-api.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-tasks-monitor.php"><a href="files/admin-class-tasks-monitor.html"><abbr title="admin/class-tasks-monitor.php">class-tasks-monitor.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">23</span>
 
-            <a href="classes/Meilisearch-Search-API.html#source-view.23" class="phpdocumentor-element-found-in__source" data-line="23" data-modal="source-view" data-src="files/includes/class-search-api.php.txt"></a>
+            <a href="classes/Meilisearch-Tasks-Monitor.html#source-view.23" class="phpdocumentor-element-found-in__source" data-line="23" data-modal="source-view" data-src="files/admin/class-tasks-monitor.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Instância do cliente Meilisearch.</p>
@@ -237,9 +230,9 @@
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
         <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__type"><a href="classes/Meilisearch-Client.html"><abbr title="\Meilisearch_Client">Meilisearch_Client</abbr></a></span>
+            <span class="phpdocumentor-signature__type"><a href="classes/Meilisearch-Client.html"><abbr title="\Meilisearch_Client">Meilisearch_Client</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$client</span>
-    </code>
+     = <span class="phpdocumentor-signature__default-value">\null</span></code>
 
     
     
@@ -255,7 +248,7 @@
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a href="classes/Meilisearch-Search-API.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/Meilisearch-Tasks-Monitor.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
@@ -264,103 +257,35 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method___construct">
-        __construct()
-        <a href="classes/Meilisearch-Search-API.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_add_menu">
+        add_menu()
+        <a href="classes/Meilisearch-Tasks-Monitor.html#method_add_menu" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="includes/class-search-api.php"><a href="files/includes-class-search-api.html"><abbr title="includes/class-search-api.php">class-search-api.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-tasks-monitor.php"><a href="files/admin-class-tasks-monitor.html"><abbr title="admin/class-tasks-monitor.php">class-tasks-monitor.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">30</span>
+    <span class="phpdocumentor-element-found-in__line">36</span>
 
-            <a href="classes/Meilisearch-Search-API.html#source-view.30" class="phpdocumentor-element-found-in__source" data-line="30" data-modal="source-view" data-src="files/includes/class-search-api.php.txt"></a>
+            <a href="classes/Meilisearch-Tasks-Monitor.html#source-view.36" class="phpdocumentor-element-found-in__source" data-line="36" data-modal="source-view" data-src="files/admin/class-tasks-monitor.php.txt"></a>
     </aside>
 
-        <p class="phpdocumentor-summary">Construtor.</p>
+        <p class="phpdocumentor-summary">Adicionar item de menu da administração de rede.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Meilisearch-Client.html"><abbr title="\Meilisearch_Client">Meilisearch_Client</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$client</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">add_menu</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
     
     
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$client</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Meilisearch-Client.html"><abbr title="\Meilisearch_Client">Meilisearch_Client</abbr></a></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Instância do cliente Meilisearch.</p>
-</section>
-
-            </dd>
-            </dl>
-
+    
     
 
     
 
     
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_handle_search_request">
-        handle_search_request()
-        <a href="classes/Meilisearch-Search-API.html#method_handle_search_request" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="includes/class-search-api.php"><a href="files/includes-class-search-api.html"><abbr title="includes/class-search-api.php">class-search-api.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">89</span>
-
-            <a href="classes/Meilisearch-Search-API.html#source-view.89" class="phpdocumentor-element-found-in__source" data-line="89" data-modal="source-view" data-src="files/includes/class-search-api.php.txt"></a>
-    </aside>
-
-        <p class="phpdocumentor-summary">Gerenciar requisição REST API de busca.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">handle_search_request</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\WP_REST_Request">WP_REST_Request</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$request</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\WP_REST_Response">WP_REST_Response</abbr></span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$request</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\WP_REST_Request">WP_REST_Request</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Objeto de requisição.</p>
-</section>
-
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><abbr title="\WP_REST_Response">WP_REST_Response</abbr></span>
-                    &mdash;
-                <section class="phpdocumentor-description"><p>Objeto de resposta.</p>
-</section>
-
-            </section>
-
 </article>
                     <article
         class="phpdocumentor-element
@@ -370,18 +295,18 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_init_hooks">
         init_hooks()
-        <a href="classes/Meilisearch-Search-API.html#method_init_hooks" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/Meilisearch-Tasks-Monitor.html#method_init_hooks" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="includes/class-search-api.php"><a href="files/includes-class-search-api.html"><abbr title="includes/class-search-api.php">class-search-api.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-tasks-monitor.php"><a href="files/admin-class-tasks-monitor.html"><abbr title="admin/class-tasks-monitor.php">class-tasks-monitor.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">38</span>
+    <span class="phpdocumentor-element-found-in__line">28</span>
 
-            <a href="classes/Meilisearch-Search-API.html#source-view.38" class="phpdocumentor-element-found-in__source" data-line="38" data-modal="source-view" data-src="files/includes/class-search-api.php.txt"></a>
+            <a href="classes/Meilisearch-Tasks-Monitor.html#source-view.28" class="phpdocumentor-element-found-in__source" data-line="28" data-modal="source-view" data-src="files/admin/class-tasks-monitor.php.txt"></a>
     </aside>
 
-        <p class="phpdocumentor-summary">Inicializar hooks do WordPress.</p>
+        <p class="phpdocumentor-summary">Inicializar hooks.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -404,24 +329,24 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_register_rest_routes">
-        register_rest_routes()
-        <a href="classes/Meilisearch-Search-API.html#method_register_rest_routes" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_render_page">
+        render_page()
+        <a href="classes/Meilisearch-Tasks-Monitor.html#method_render_page" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="includes/class-search-api.php"><a href="files/includes-class-search-api.html"><abbr title="includes/class-search-api.php">class-search-api.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-tasks-monitor.php"><a href="files/admin-class-tasks-monitor.html"><abbr title="admin/class-tasks-monitor.php">class-tasks-monitor.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">46</span>
+    <span class="phpdocumentor-element-found-in__line">72</span>
 
-            <a href="classes/Meilisearch-Search-API.html#source-view.46" class="phpdocumentor-element-found-in__source" data-line="46" data-modal="source-view" data-src="files/includes/class-search-api.php.txt"></a>
+            <a href="classes/Meilisearch-Tasks-Monitor.html#source-view.72" class="phpdocumentor-element-found-in__source" data-line="72" data-modal="source-view" data-src="files/admin/class-tasks-monitor.php.txt"></a>
     </aside>
 
-        <p class="phpdocumentor-summary">Registrar endpoints REST API.</p>
+        <p class="phpdocumentor-summary">Renderizar página de monitoramento de tarefas.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">register_rest_routes</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">render_page</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -440,53 +365,37 @@
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_format_search_results">
-        format_search_results()
-        <a href="classes/Meilisearch-Search-API.html#method_format_search_results" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_get_client">
+        get_client()
+        <a href="classes/Meilisearch-Tasks-Monitor.html#method_get_client" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="includes/class-search-api.php"><a href="files/includes-class-search-api.html"><abbr title="includes/class-search-api.php">class-search-api.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="admin/class-tasks-monitor.php"><a href="files/admin-class-tasks-monitor.html"><abbr title="admin/class-tasks-monitor.php">class-tasks-monitor.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">153</span>
+    <span class="phpdocumentor-element-found-in__line">53</span>
 
-            <a href="classes/Meilisearch-Search-API.html#source-view.153" class="phpdocumentor-element-found-in__source" data-line="153" data-modal="source-view" data-src="files/includes/class-search-api.php.txt"></a>
+            <a href="classes/Meilisearch-Tasks-Monitor.html#source-view.53" class="phpdocumentor-element-found-in__source" data-line="53" data-modal="source-view" data-src="files/admin/class-tasks-monitor.php.txt"></a>
     </aside>
 
-        <p class="phpdocumentor-summary">Formatar resultados de busca para resposta da API.</p>
+        <p class="phpdocumentor-summary">Obter instância do cliente Meilisearch.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">format_search_results</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$hits</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">get_client</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Meilisearch-Client.html"><abbr title="\Meilisearch_Client">Meilisearch_Client</abbr></a>|null</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
     
     
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$hits</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Hits de busca brutos.</p>
-</section>
-
-            </dd>
-            </dl>
-
+    
     
 
     
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
-                    &mdash;
-                <section class="phpdocumentor-description"><p>Resultados formatados.</p>
-</section>
-
+        <span class="phpdocumentor-signature__response_type"><a href="classes/Meilisearch-Client.html"><abbr title="\Meilisearch_Client">Meilisearch_Client</abbr></a>|null</span>
             </section>
 
 </article>
@@ -496,7 +405,7 @@
     <div class="phpdocumentor-modal-bg" data-exit-button></div>
     <div class="phpdocumentor-modal-container">
         <div class="phpdocumentor-modal-content">
-            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/includes/class-search-api.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
+            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/admin/class-tasks-monitor.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
         </div>
         <button data-exit-button class="phpdocumentor-modal__close">&times;</button>
     </div>
@@ -597,26 +506,25 @@
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                                            <li><a href="classes/Meilisearch-Search-API.html#toc-properties">Properties</a></li>
-                                                            <li><a href="classes/Meilisearch-Search-API.html#toc-methods">Methods</a></li>
+                                                            <li><a href="classes/Meilisearch-Tasks-Monitor.html#toc-properties">Properties</a></li>
+                                                            <li><a href="classes/Meilisearch-Tasks-Monitor.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
             
                             <li class="phpdocumentor-on-this-page-section__title">Properties</li>
                 <li>
                     <ul class="phpdocumentor-list -clean">
-                                                    <li class=""><a href="classes/Meilisearch-Search-API.html#property_client">$client</a></li>
+                                                    <li class=""><a href="classes/Meilisearch-Tasks-Monitor.html#property_client">$client</a></li>
                                             </ul>
                 </li>
             
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li class=""><a href="classes/Meilisearch-Search-API.html#method___construct">__construct()</a></li>
-                                            <li class=""><a href="classes/Meilisearch-Search-API.html#method_handle_search_request">handle_search_request()</a></li>
-                                            <li class=""><a href="classes/Meilisearch-Search-API.html#method_init_hooks">init_hooks()</a></li>
-                                            <li class=""><a href="classes/Meilisearch-Search-API.html#method_register_rest_routes">register_rest_routes()</a></li>
-                                            <li class=""><a href="classes/Meilisearch-Search-API.html#method_format_search_results">format_search_results()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Tasks-Monitor.html#method_add_menu">add_menu()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Tasks-Monitor.html#method_init_hooks">init_hooks()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Tasks-Monitor.html#method_render_page">render_page()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Tasks-Monitor.html#method_get_client">get_client()</a></li>
                                     </ul>
             </li>
                     </ul>
@@ -636,7 +544,7 @@
     </section>
 </section>
         </div>
-        <a href="classes/Meilisearch-Search-API.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/Meilisearch-Tasks-Monitor.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 

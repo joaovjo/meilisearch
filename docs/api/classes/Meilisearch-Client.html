@@ -110,9 +110,9 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-client.php"><a href="files/includes-class-client.html"><abbr title="includes/class-client.php">class-client.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">18</span>
+    <span class="phpdocumentor-element-found-in__line">19</span>
 
-            <a href="classes/Meilisearch-Client.html#source-view.18" class="phpdocumentor-element-found-in__source" data-line="18" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
+            <a href="classes/Meilisearch-Client.html#source-view.19" class="phpdocumentor-element-found-in__source" data-line="19" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
     </aside>
 
             <p class="phpdocumentor-summary">Classe Meilisearch_Client</p>
@@ -198,6 +198,13 @@
 <dd>Excluir índice de um site.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Meilisearch-Client.html#method_execute_with_retry">execute_with_retry()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd>Executar operação com retry automático em caso de rate limiting.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Meilisearch-Client.html#method_get_all_index_names">get_all_index_names()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
@@ -212,7 +219,7 @@
 <dd>Obter a instância do cliente Meilisearch.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Meilisearch-Client.html#method_get_experimental_features">get_experimental_features()</a>
+    <a class="-deprecated" href="classes/Meilisearch-Client.html#method_get_experimental_features">get_experimental_features()</a>
     <span>
                                 &nbsp;: array&lt;string, bool&gt;|null    </span>
 </dt>
@@ -226,6 +233,34 @@
 <dd>Obter nome do índice para um site específico.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Meilisearch-Client.html#method_get_index_stats">get_index_stats()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;|null    </span>
+</dt>
+<dd>Obter estatísticas de um índice.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Meilisearch-Client.html#method_get_recent_tasks">get_recent_tasks()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>Obter tarefas recentes.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Meilisearch-Client.html#method_get_task_status">get_task_status()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;|null    </span>
+</dt>
+<dd>Obter status de uma tarefa específica.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Meilisearch-Client.html#method_get_version">get_version()</a>
+    <span>
+                                &nbsp;: string|null    </span>
+</dt>
+<dd>Obter versão do Meilisearch.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Meilisearch-Client.html#method_test_connection">test_connection()</a>
     <span>
                                 &nbsp;: bool    </span>
@@ -233,11 +268,18 @@
 <dd>Testar conexão com o servidor Meilisearch.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Meilisearch-Client.html#method_update_experimental_features">update_experimental_features()</a>
+    <a class="-deprecated" href="classes/Meilisearch-Client.html#method_update_experimental_features">update_experimental_features()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
 <dd>Atualizar funcionalidades experimentais no Meilisearch.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Meilisearch-Client.html#method_wait_for_task">wait_for_task()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;|null    </span>
+</dt>
+<dd>Aguardar conclusão de uma tarefa.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/Meilisearch-Client.html#method_get_http_client">get_http_client()</a>
@@ -276,9 +318,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-client.php"><a href="files/includes-class-client.html"><abbr title="includes/class-client.php">class-client.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">25</span>
+    <span class="phpdocumentor-element-found-in__line">26</span>
 
-            <a href="classes/Meilisearch-Client.html#source-view.25" class="phpdocumentor-element-found-in__source" data-line="25" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
+            <a href="classes/Meilisearch-Client.html#source-view.26" class="phpdocumentor-element-found-in__source" data-line="26" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Instância do cliente Meilisearch.</p>
@@ -316,9 +358,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-client.php"><a href="files/includes-class-client.html"><abbr title="includes/class-client.php">class-client.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">32</span>
+    <span class="phpdocumentor-element-found-in__line">33</span>
 
-            <a href="classes/Meilisearch-Client.html#source-view.32" class="phpdocumentor-element-found-in__source" data-line="32" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
+            <a href="classes/Meilisearch-Client.html#source-view.33" class="phpdocumentor-element-found-in__source" data-line="33" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">URL do host Meilisearch.</p>
@@ -356,9 +398,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-client.php"><a href="files/includes-class-client.html"><abbr title="includes/class-client.php">class-client.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">39</span>
+    <span class="phpdocumentor-element-found-in__line">40</span>
 
-            <a href="classes/Meilisearch-Client.html#source-view.39" class="phpdocumentor-element-found-in__source" data-line="39" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
+            <a href="classes/Meilisearch-Client.html#source-view.40" class="phpdocumentor-element-found-in__source" data-line="40" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Chave mestra do Meilisearch.</p>
@@ -401,9 +443,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-client.php"><a href="files/includes-class-client.html"><abbr title="includes/class-client.php">class-client.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">47</span>
+    <span class="phpdocumentor-element-found-in__line">48</span>
 
-            <a href="classes/Meilisearch-Client.html#source-view.47" class="phpdocumentor-element-found-in__source" data-line="47" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
+            <a href="classes/Meilisearch-Client.html#source-view.48" class="phpdocumentor-element-found-in__source" data-line="48" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Construtor.</p>
@@ -458,9 +500,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-client.php"><a href="files/includes-class-client.html"><abbr title="includes/class-client.php">class-client.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">110</span>
+    <span class="phpdocumentor-element-found-in__line">111</span>
 
-            <a href="classes/Meilisearch-Client.html#source-view.110" class="phpdocumentor-element-found-in__source" data-line="110" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
+            <a href="classes/Meilisearch-Client.html#source-view.111" class="phpdocumentor-element-found-in__source" data-line="111" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Criar índice para um site.</p>
@@ -514,9 +556,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-client.php"><a href="files/includes-class-client.html"><abbr title="includes/class-client.php">class-client.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">160</span>
+    <span class="phpdocumentor-element-found-in__line">162</span>
 
-            <a href="classes/Meilisearch-Client.html#source-view.160" class="phpdocumentor-element-found-in__source" data-line="160" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
+            <a href="classes/Meilisearch-Client.html#source-view.162" class="phpdocumentor-element-found-in__source" data-line="162" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Excluir índice de um site.</p>
@@ -562,6 +604,88 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_execute_with_retry">
+        execute_with_retry()
+        <a href="classes/Meilisearch-Client.html#method_execute_with_retry" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="includes/class-client.php"><a href="files/includes-class-client.html"><abbr title="includes/class-client.php">class-client.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">358</span>
+
+            <a href="classes/Meilisearch-Client.html#source-view.358" class="phpdocumentor-element-found-in__source" data-line="358" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
+    </aside>
+
+        <p class="phpdocumentor-summary">Executar operação com retry automático em caso de rate limiting.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">execute_with_retry</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">callable&nbsp;</span><span class="phpdocumentor-signature__argument__name">$operation</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$max_retries</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">3</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$operation</span>
+                : <span class="phpdocumentor-signature__argument__return-type">callable</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Operação a executar.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$max_retries</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">3</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Número máximo de tentativas (padrão 3).</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Meilisearch-Client.html#method_execute_with_retry#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\Exception">Exception</abbr></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>Se todas as tentativas falharem.</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Resultado da operação.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_get_all_index_names">
         get_all_index_names()
         <a href="classes/Meilisearch-Client.html#method_get_all_index_names" class="headerlink"><i class="fas fa-link"></i></a>
@@ -570,9 +694,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-client.php"><a href="files/includes-class-client.html"><abbr title="includes/class-client.php">class-client.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">92</span>
+    <span class="phpdocumentor-element-found-in__line">93</span>
 
-            <a href="classes/Meilisearch-Client.html#source-view.92" class="phpdocumentor-element-found-in__source" data-line="92" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
+            <a href="classes/Meilisearch-Client.html#source-view.93" class="phpdocumentor-element-found-in__source" data-line="93" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Obter todos os nomes de índices da rede.</p>
@@ -614,9 +738,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-client.php"><a href="files/includes-class-client.html"><abbr title="includes/class-client.php">class-client.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">59</span>
+    <span class="phpdocumentor-element-found-in__line">60</span>
 
-            <a href="classes/Meilisearch-Client.html#source-view.59" class="phpdocumentor-element-found-in__source" data-line="59" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
+            <a href="classes/Meilisearch-Client.html#source-view.60" class="phpdocumentor-element-found-in__source" data-line="60" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Obter a instância do cliente Meilisearch.</p>
@@ -644,7 +768,7 @@
         class="phpdocumentor-element
             -method
             -public
-                                                        "
+            -deprecated                                            "
 >
     <h4 class="phpdocumentor-element__name" id="method_get_experimental_features">
         get_experimental_features()
@@ -654,18 +778,25 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-client.php"><a href="files/includes-class-client.html"><abbr title="includes/class-client.php">class-client.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">209</span>
+    <span class="phpdocumentor-element-found-in__line">212</span>
 
-            <a href="classes/Meilisearch-Client.html#source-view.209" class="phpdocumentor-element-found-in__source" data-line="209" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
+            <a href="classes/Meilisearch-Client.html#source-view.212" class="phpdocumentor-element-found-in__source" data-line="212" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Obter funcionalidades experimentais atuais do Meilisearch.</p>
 
-    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <code class="phpdocumentor-code phpdocumentor-signature -deprecated">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">get_experimental_features</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, bool&gt;|null</span></code>
 
     <div class="phpdocumentor-label-line">
+        </div>
+                <div class="phpdocumentor-admonition">
+        <svg class="phpdocumentor-admonition__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+            <article>
+                <p>Método não mais utilizado após remoção da página de Experimental Features</p>
+
+            </article>
         </div>
     
     
@@ -698,9 +829,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-client.php"><a href="files/includes-class-client.html"><abbr title="includes/class-client.php">class-client.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">70</span>
+    <span class="phpdocumentor-element-found-in__line">71</span>
 
-            <a href="classes/Meilisearch-Client.html#source-view.70" class="phpdocumentor-element-found-in__source" data-line="70" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
+            <a href="classes/Meilisearch-Client.html#source-view.71" class="phpdocumentor-element-found-in__source" data-line="71" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Obter nome do índice para um site específico.</p>
@@ -746,6 +877,218 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_get_index_stats">
+        get_index_stats()
+        <a href="classes/Meilisearch-Client.html#method_get_index_stats" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="includes/class-client.php"><a href="files/includes-class-client.html"><abbr title="includes/class-client.php">class-client.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">274</span>
+
+            <a href="classes/Meilisearch-Client.html#source-view.274" class="phpdocumentor-element-found-in__source" data-line="274" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
+    </aside>
+
+        <p class="phpdocumentor-summary">Obter estatísticas de um índice.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">get_index_stats</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$blog_id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|null</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$blog_id</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>ID do site.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|null</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Estatísticas ou null em caso de erro.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_get_recent_tasks">
+        get_recent_tasks()
+        <a href="classes/Meilisearch-Client.html#method_get_recent_tasks" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="includes/class-client.php"><a href="files/includes-class-client.html"><abbr title="includes/class-client.php">class-client.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">294</span>
+
+            <a href="classes/Meilisearch-Client.html#source-view.294" class="phpdocumentor-element-found-in__source" data-line="294" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
+    </aside>
+
+        <p class="phpdocumentor-summary">Obter tarefas recentes.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">get_recent_tasks</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$limit</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">20</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$limit</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">20</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Número máximo de tarefas.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Array de tarefas.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_get_task_status">
+        get_task_status()
+        <a href="classes/Meilisearch-Client.html#method_get_task_status" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="includes/class-client.php"><a href="files/includes-class-client.html"><abbr title="includes/class-client.php">class-client.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">315</span>
+
+            <a href="classes/Meilisearch-Client.html#source-view.315" class="phpdocumentor-element-found-in__source" data-line="315" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
+    </aside>
+
+        <p class="phpdocumentor-summary">Obter status de uma tarefa específica.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">get_task_status</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$task_uid</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|null</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$task_uid</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>UID da tarefa.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|null</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Dados da tarefa ou null em caso de erro.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_get_version">
+        get_version()
+        <a href="classes/Meilisearch-Client.html#method_get_version" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="includes/class-client.php"><a href="files/includes-class-client.html"><abbr title="includes/class-client.php">class-client.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">254</span>
+
+            <a href="classes/Meilisearch-Client.html#source-view.254" class="phpdocumentor-element-found-in__source" data-line="254" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
+    </aside>
+
+        <p class="phpdocumentor-summary">Obter versão do Meilisearch.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">get_version</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|null</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string|null</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Versão ou null em caso de erro.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_test_connection">
         test_connection()
         <a href="classes/Meilisearch-Client.html#method_test_connection" class="headerlink"><i class="fas fa-link"></i></a>
@@ -754,9 +1097,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-client.php"><a href="files/includes-class-client.html"><abbr title="includes/class-client.php">class-client.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">180</span>
+    <span class="phpdocumentor-element-found-in__line">182</span>
 
-            <a href="classes/Meilisearch-Client.html#source-view.180" class="phpdocumentor-element-found-in__source" data-line="180" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
+            <a href="classes/Meilisearch-Client.html#source-view.182" class="phpdocumentor-element-found-in__source" data-line="182" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Testar conexão com o servidor Meilisearch.</p>
@@ -788,7 +1131,7 @@
         class="phpdocumentor-element
             -method
             -public
-                                                        "
+            -deprecated                                            "
 >
     <h4 class="phpdocumentor-element__name" id="method_update_experimental_features">
         update_experimental_features()
@@ -798,18 +1141,25 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-client.php"><a href="files/includes-class-client.html"><abbr title="includes/class-client.php">class-client.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">230</span>
+    <span class="phpdocumentor-element-found-in__line">234</span>
 
-            <a href="classes/Meilisearch-Client.html#source-view.230" class="phpdocumentor-element-found-in__source" data-line="230" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
+            <a href="classes/Meilisearch-Client.html#source-view.234" class="phpdocumentor-element-found-in__source" data-line="234" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Atualizar funcionalidades experimentais no Meilisearch.</p>
 
-    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <code class="phpdocumentor-code phpdocumentor-signature -deprecated">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">update_experimental_features</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string, bool&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$features</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     <div class="phpdocumentor-label-line">
+        </div>
+                <div class="phpdocumentor-admonition">
+        <svg class="phpdocumentor-admonition__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+            <article>
+                <p>Método não mais utilizado após remoção da página de Experimental Features</p>
+
+            </article>
         </div>
     
     
@@ -843,6 +1193,80 @@
                     <article
         class="phpdocumentor-element
             -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_wait_for_task">
+        wait_for_task()
+        <a href="classes/Meilisearch-Client.html#method_wait_for_task" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="includes/class-client.php"><a href="files/includes-class-client.html"><abbr title="includes/class-client.php">class-client.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">337</span>
+
+            <a href="classes/Meilisearch-Client.html#source-view.337" class="phpdocumentor-element-found-in__source" data-line="337" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
+    </aside>
+
+        <p class="phpdocumentor-summary">Aguardar conclusão de uma tarefa.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">wait_for_task</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$task_uid</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$timeout_ms</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">5000</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$interval_ms</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">50</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|null</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$task_uid</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>UID da tarefa.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$timeout_ms</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">5000</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Timeout em milissegundos.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$interval_ms</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">50</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Intervalo entre verificações em milissegundos.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|null</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Status final da tarefa ou null em caso de timeout/erro.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
             -private
                                                         "
 >
@@ -854,9 +1278,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-client.php"><a href="files/includes-class-client.html"><abbr title="includes/class-client.php">class-client.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">199</span>
+    <span class="phpdocumentor-element-found-in__line">201</span>
 
-            <a href="classes/Meilisearch-Client.html#source-view.199" class="phpdocumentor-element-found-in__source" data-line="199" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
+            <a href="classes/Meilisearch-Client.html#source-view.201" class="phpdocumentor-element-found-in__source" data-line="201" data-modal="source-view" data-src="files/includes/class-client.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Obter cliente HTTP interno para requisições diretas.</p>
@@ -1007,12 +1431,18 @@
                                             <li class=""><a href="classes/Meilisearch-Client.html#method___construct">__construct()</a></li>
                                             <li class=""><a href="classes/Meilisearch-Client.html#method_create_index">create_index()</a></li>
                                             <li class=""><a href="classes/Meilisearch-Client.html#method_delete_index">delete_index()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Client.html#method_execute_with_retry">execute_with_retry()</a></li>
                                             <li class=""><a href="classes/Meilisearch-Client.html#method_get_all_index_names">get_all_index_names()</a></li>
                                             <li class=""><a href="classes/Meilisearch-Client.html#method_get_client">get_client()</a></li>
-                                            <li class=""><a href="classes/Meilisearch-Client.html#method_get_experimental_features">get_experimental_features()</a></li>
+                                            <li class="-deprecated"><a href="classes/Meilisearch-Client.html#method_get_experimental_features">get_experimental_features()</a></li>
                                             <li class=""><a href="classes/Meilisearch-Client.html#method_get_index_name">get_index_name()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Client.html#method_get_index_stats">get_index_stats()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Client.html#method_get_recent_tasks">get_recent_tasks()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Client.html#method_get_task_status">get_task_status()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Client.html#method_get_version">get_version()</a></li>
                                             <li class=""><a href="classes/Meilisearch-Client.html#method_test_connection">test_connection()</a></li>
-                                            <li class=""><a href="classes/Meilisearch-Client.html#method_update_experimental_features">update_experimental_features()</a></li>
+                                            <li class="-deprecated"><a href="classes/Meilisearch-Client.html#method_update_experimental_features">update_experimental_features()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Client.html#method_wait_for_task">wait_for_task()</a></li>
                                             <li class=""><a href="classes/Meilisearch-Client.html#method_get_http_client">get_http_client()</a></li>
                                     </ul>
             </li>

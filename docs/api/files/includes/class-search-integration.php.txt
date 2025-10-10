@@ -39,16 +39,17 @@ class Meilisearch_Search_Integration
 	{
 		// Interceptar query de busca
 		add_action('pre_get_posts', [$this, 'hijack_search_query'], 1);
-		
+
 		// Modificar resultados para incluir ranking score
 		add_filter('the_title', [$this, 'add_relevance_badge_to_title'], 10, 2);
-		
+
 		// Adicionar URL após o excerpt apenas se habilitado nas configurações
 		if (Meilisearch_Search_Settings::should_show_post_urls()) {
 			add_filter('the_excerpt', [$this, 'add_url_after_excerpt'], 10);
+
 			// Não usar the_content para evitar duplicação, pois alguns temas processam ambos
 		}
-		
+
 		// Enfileirar CSS nos resultados de busca
 		add_action('wp_enqueue_scripts', [$this, 'enqueue_search_styles']);
 	}
@@ -67,7 +68,7 @@ class Meilisearch_Search_Integration
 
 		// Obter termo de busca
 		$search_term = $query->get('s');
-		
+
 		if (empty($search_term)) {
 			return;
 		}
@@ -89,14 +90,14 @@ class Meilisearch_Search_Integration
 		// Armazenar resultados e ranking scores em variável global para uso posterior
 		global $meilisearch_results;
 		$meilisearch_results = [];
-		
+
 		if (!empty($results['hits'])) {
 			$post_ids = [];
-			
+
 			foreach ($results['hits'] as $hit) {
 				$post_id = $hit['id'] ?? 0;
 				$blog_id = $hit['blog_id'] ?? get_current_blog_id();
-				
+
 				if ($post_id > 0) {
 					// Armazenar ranking score por post_id
 					$key = $blog_id . '_' . $post_id;
@@ -105,9 +106,9 @@ class Meilisearch_Search_Integration
 						'blog_id' => $blog_id,
 						'post_id' => $post_id,
 					];
-					
+
 					// Adicionar apenas posts do site atual
-					if ($blog_id == get_current_blog_id()) {
+					if (get_current_blog_id() == $blog_id) {
 						$post_ids[] = $post_id;
 					}
 				}
@@ -117,6 +118,7 @@ class Meilisearch_Search_Integration
 			if (!empty($post_ids)) {
 				$query->set('post__in', $post_ids);
 				$query->set('orderby', 'post__in'); // Manter ordem do Meilisearch
+
 				// NÃO limpar 's' para que o tema possa exibir o termo de busca
 			}
 		}
@@ -142,7 +144,7 @@ class Meilisearch_Search_Integration
 		}
 
 		global $meilisearch_results;
-		
+
 		if (empty($meilisearch_results)) {
 			return $title;
 		}
@@ -156,7 +158,7 @@ class Meilisearch_Search_Integration
 
 		$ranking_score = $meilisearch_results[$key]['ranking_score'];
 		$relevance_percent = round($ranking_score * 100, 1);
-		
+
 		// Determinar classe CSS baseada na relevância
 		if ($ranking_score >= 0.8) {
 			$relevance_class = 'high';
@@ -168,13 +170,13 @@ class Meilisearch_Search_Integration
 
 		// Construir badge HTML
 		$badge = sprintf(
-			'<span class="meilisearch-relevance-badge meilisearch-relevance-%s" title="Relevância: %s%%">' .
-			'<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block;vertical-align:middle;margin-right:3px;">' .
-			'<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>' .
-			'</svg>%s%%</span>',
+			'<span class="meilisearch-relevance-badge meilisearch-relevance-%s" title="Relevância: %s%%">'
+			. '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block;vertical-align:middle;margin-right:3px;">'
+			. '<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>'
+			. '</svg>%s%%</span>',
 			esc_attr($relevance_class),
 			esc_attr($relevance_percent),
-			esc_html($relevance_percent)
+			esc_html($relevance_percent),
 		);
 
 		return $title . ' ' . $badge;
@@ -200,18 +202,21 @@ class Meilisearch_Search_Integration
 
 		// Para attachments, usar a URL direta do arquivo ao invés da página de attachment
 		$post_type = get_post_type();
-		$permalink = 'attachment' === $post_type 
-			? wp_get_attachment_url(get_the_ID()) 
-			: get_permalink();
-		
+		$permalink = 'attachment' === $post_type ? wp_get_attachment_url(get_the_ID()) : get_permalink();
+
 		// Se não conseguir obter o permalink, retornar apenas o excerpt
 		if (!$permalink || false === $permalink) {
 			return $excerpt;
 		}
-		
-		$url_display = '<div class="meilisearch-result-url" style="margin-top:0.5rem;font-size:0.85rem;color:#666;word-break:break-all;">' .
-			'<strong>URL:</strong> <a href="' . esc_url($permalink) . '" style="color:#0073aa;">' . esc_html($permalink) . '</a>' .
-			'</div>';
+
+		$url_display =
+			'<div class="meilisearch-result-url" style="margin-top:0.5rem;font-size:0.85rem;color:#666;word-break:break-all;">'
+			. '<strong>URL:</strong> <a href="'
+			. esc_url($permalink)
+			. '" style="color:#0073aa;">'
+			. esc_html($permalink)
+			. '</a>'
+			. '</div>';
 
 		return $excerpt . $url_display;
 	}
@@ -235,10 +240,15 @@ class Meilisearch_Search_Integration
 		}
 
 		$permalink = get_permalink();
-		
-		$url_display = '<div class="meilisearch-result-url" style="margin-top:0.5rem;font-size:0.85rem;color:#666;word-break:break-all;">' .
-			'<strong>URL:</strong> <a href="' . esc_url($permalink) . '" style="color:#0073aa;">' . esc_html($permalink) . '</a>' .
-			'</div>';
+
+		$url_display =
+			'<div class="meilisearch-result-url" style="margin-top:0.5rem;font-size:0.85rem;color:#666;word-break:break-all;">'
+			. '<strong>URL:</strong> <a href="'
+			. esc_url($permalink)
+			. '" style="color:#0073aa;">'
+			. esc_html($permalink)
+			. '</a>'
+			. '</div>';
 
 		return $content . $url_display;
 	}
@@ -261,7 +271,7 @@ class Meilisearch_Search_Integration
 			'meilisearch-search-results',
 			plugins_url('assets/css/search-results.css', dirname(__FILE__)),
 			[],
-			'1.0.0'
+			'1.0.0',
 		);
 	}
 }

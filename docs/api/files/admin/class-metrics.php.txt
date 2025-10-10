@@ -107,17 +107,17 @@ class Meilisearch_Metrics
 
 				try {
 					$index = $client->get_client()->index($index_name);
-					
+
 					// Buscar informações atualizadas do índice
 					$index->fetchInfo();
-					
+
 					$index_stats = $index->stats();
-					
+
 					// Obter dados do índice
 					$primary_key = $index->getPrimaryKey();
 					$created_at = $index->getCreatedAt();
 					$updated_at = $index->getUpdatedAt();
-					
+
 					$stats[] = [
 						'uid' => $index->getUid(),
 						'blog_id' => $blog_id,
@@ -219,6 +219,7 @@ class Meilisearch_Metrics
 									<?php echo esc_html($index['uid']); ?>
 									<span style="color: #666; font-weight: normal; font-size: 12px;">
 										(<?php
+
 										/* translators: %d: site/blog ID */
 										printf(esc_html__('Site ID: %d', 'meilisearch'), $index['blog_id']);
 										?>)
@@ -284,10 +285,11 @@ class Meilisearch_Metrics
 					</a>
 					<span style="margin-left: 10px; color: #666;">
 						<?php
+
 						printf(
 							/* translators: %s: current time */
 							esc_html__('Last updated: %s', 'meilisearch'),
-							esc_html(current_time('Y-m-d H:i:s'))
+							esc_html(current_time('Y-m-d H:i:s')),
 						);
 						?>
 

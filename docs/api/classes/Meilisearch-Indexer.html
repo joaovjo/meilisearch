@@ -177,6 +177,13 @@
 <dd>Indexar em massa todos os posts da rede usando Fiber.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Meilisearch-Indexer.html#method_bulk_index_posts">bulk_index_posts()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>Indexar múltiplos posts em lote.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Meilisearch-Indexer.html#method_create_site_index">create_site_index()</a>
     <span>
                                 &nbsp;: void    </span>
@@ -200,7 +207,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Meilisearch-Indexer.html#method_index_post">index_post()</a>
     <span>
-                                &nbsp;: void    </span>
+                                &nbsp;: bool    </span>
 </dt>
 <dd>Indexar um único post.</dd>
 
@@ -259,6 +266,13 @@
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
 <dd>Preparar um documento de post para indexação.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/Meilisearch-Indexer.html#method_send_batch">send_batch()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>Enviar lote de documentos para o Meilisearch.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/Meilisearch-Indexer.html#method_should_index_post_status">should_index_post_status()</a>
@@ -404,9 +418,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-indexer.php"><a href="files/includes-class-indexer.html"><abbr title="includes/class-indexer.php">class-indexer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">128</span>
+    <span class="phpdocumentor-element-found-in__line">244</span>
 
-            <a href="classes/Meilisearch-Indexer.html#source-view.128" class="phpdocumentor-element-found-in__source" data-line="128" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
+            <a href="classes/Meilisearch-Indexer.html#source-view.244" class="phpdocumentor-element-found-in__source" data-line="244" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Indexar em massa todos os posts da rede usando Fiber.</p>
@@ -452,6 +466,71 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_bulk_index_posts">
+        bulk_index_posts()
+        <a href="classes/Meilisearch-Indexer.html#method_bulk_index_posts" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="includes/class-indexer.php"><a href="files/includes-class-indexer.html"><abbr title="includes/class-indexer.php">class-indexer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">109</span>
+
+            <a href="classes/Meilisearch-Indexer.html#source-view.109" class="phpdocumentor-element-found-in__source" data-line="109" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
+    </aside>
+
+        <p class="phpdocumentor-summary">Indexar múltiplos posts em lote.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">bulk_index_posts</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$post_ids</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$batch_size</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">1000</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$post_ids</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Array de IDs de posts.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$batch_size</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">1000</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Tamanho do lote (padrão 1000).</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Resultado com estatísticas.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_create_site_index">
         create_site_index()
         <a href="classes/Meilisearch-Indexer.html#method_create_site_index" class="headerlink"><i class="fas fa-link"></i></a>
@@ -460,9 +539,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-indexer.php"><a href="files/includes-class-indexer.html"><abbr title="includes/class-indexer.php">class-indexer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">354</span>
+    <span class="phpdocumentor-element-found-in__line">468</span>
 
-            <a href="classes/Meilisearch-Indexer.html#source-view.354" class="phpdocumentor-element-found-in__source" data-line="354" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
+            <a href="classes/Meilisearch-Indexer.html#source-view.468" class="phpdocumentor-element-found-in__source" data-line="468" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Criar índice para um novo site.</p>
@@ -508,9 +587,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-indexer.php"><a href="files/includes-class-indexer.html"><abbr title="includes/class-indexer.php">class-indexer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">104</span>
+    <span class="phpdocumentor-element-found-in__line">220</span>
 
-            <a href="classes/Meilisearch-Indexer.html#source-view.104" class="phpdocumentor-element-found-in__source" data-line="104" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
+            <a href="classes/Meilisearch-Indexer.html#source-view.220" class="phpdocumentor-element-found-in__source" data-line="220" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Excluir um post do índice.</p>
@@ -565,9 +644,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-indexer.php"><a href="files/includes-class-indexer.html"><abbr title="includes/class-indexer.php">class-indexer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">364</span>
+    <span class="phpdocumentor-element-found-in__line">478</span>
 
-            <a href="classes/Meilisearch-Indexer.html#source-view.364" class="phpdocumentor-element-found-in__source" data-line="364" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
+            <a href="classes/Meilisearch-Indexer.html#source-view.478" class="phpdocumentor-element-found-in__source" data-line="478" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Excluir índice de um site excluído.</p>
@@ -613,16 +692,16 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-indexer.php"><a href="files/includes-class-indexer.html"><abbr title="includes/class-indexer.php">class-indexer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">61</span>
+    <span class="phpdocumentor-element-found-in__line">62</span>
 
-            <a href="classes/Meilisearch-Indexer.html#source-view.61" class="phpdocumentor-element-found-in__source" data-line="61" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
+            <a href="classes/Meilisearch-Indexer.html#source-view.62" class="phpdocumentor-element-found-in__source" data-line="62" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Indexar um único post.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">index_post</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$post_id</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><abbr title="\WP_Post">WP_Post</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$post</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">index_post</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$post_id</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><abbr title="\WP_Post">WP_Post</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$post</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -654,7 +733,15 @@
 
     
 
-    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True se indexado com sucesso, false caso contrário.</p>
+</section>
+
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -670,9 +757,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-indexer.php"><a href="files/includes-class-indexer.html"><abbr title="includes/class-indexer.php">class-indexer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">170</span>
+    <span class="phpdocumentor-element-found-in__line">286</span>
 
-            <a href="classes/Meilisearch-Indexer.html#source-view.170" class="phpdocumentor-element-found-in__source" data-line="170" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
+            <a href="classes/Meilisearch-Indexer.html#source-view.286" class="phpdocumentor-element-found-in__source" data-line="286" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Indexar todos os posts de um site específico.</p>
@@ -762,9 +849,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-indexer.php"><a href="files/includes-class-indexer.html"><abbr title="includes/class-indexer.php">class-indexer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">313</span>
+    <span class="phpdocumentor-element-found-in__line">427</span>
 
-            <a href="classes/Meilisearch-Indexer.html#source-view.313" class="phpdocumentor-element-found-in__source" data-line="313" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
+            <a href="classes/Meilisearch-Indexer.html#source-view.427" class="phpdocumentor-element-found-in__source" data-line="427" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Garantir que um índice existe para um blog.</p>
@@ -820,9 +907,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-indexer.php"><a href="files/includes-class-indexer.html"><abbr title="includes/class-indexer.php">class-indexer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">414</span>
+    <span class="phpdocumentor-element-found-in__line">528</span>
 
-            <a href="classes/Meilisearch-Indexer.html#source-view.414" class="phpdocumentor-element-found-in__source" data-line="414" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
+            <a href="classes/Meilisearch-Indexer.html#source-view.528" class="phpdocumentor-element-found-in__source" data-line="528" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Obter tamanho do lote para indexação em massa.</p>
@@ -864,9 +951,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-indexer.php"><a href="files/includes-class-indexer.html"><abbr title="includes/class-indexer.php">class-indexer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">394</span>
+    <span class="phpdocumentor-element-found-in__line">508</span>
 
-            <a href="classes/Meilisearch-Indexer.html#source-view.394" class="phpdocumentor-element-found-in__source" data-line="394" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
+            <a href="classes/Meilisearch-Indexer.html#source-view.508" class="phpdocumentor-element-found-in__source" data-line="508" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Obter lista de status de post que devem ser indexados.</p>
@@ -908,9 +995,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-indexer.php"><a href="files/includes-class-indexer.html"><abbr title="includes/class-indexer.php">class-indexer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">374</span>
+    <span class="phpdocumentor-element-found-in__line">488</span>
 
-            <a href="classes/Meilisearch-Indexer.html#source-view.374" class="phpdocumentor-element-found-in__source" data-line="374" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
+            <a href="classes/Meilisearch-Indexer.html#source-view.488" class="phpdocumentor-element-found-in__source" data-line="488" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Obter lista de tipos de post que devem ser indexados.</p>
@@ -952,9 +1039,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-indexer.php"><a href="files/includes-class-indexer.html"><abbr title="includes/class-indexer.php">class-indexer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">295</span>
+    <span class="phpdocumentor-element-found-in__line">409</span>
 
-            <a href="classes/Meilisearch-Indexer.html#source-view.295" class="phpdocumentor-element-found-in__source" data-line="295" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
+            <a href="classes/Meilisearch-Indexer.html#source-view.409" class="phpdocumentor-element-found-in__source" data-line="409" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Obter termos do post como array de nomes.</p>
@@ -1017,9 +1104,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-indexer.php"><a href="files/includes-class-indexer.html"><abbr title="includes/class-indexer.php">class-indexer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">256</span>
+    <span class="phpdocumentor-element-found-in__line">372</span>
 
-            <a href="classes/Meilisearch-Indexer.html#source-view.256" class="phpdocumentor-element-found-in__source" data-line="256" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
+            <a href="classes/Meilisearch-Indexer.html#source-view.372" class="phpdocumentor-element-found-in__source" data-line="372" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Preparar um documento de post para indexação.</p>
@@ -1065,6 +1152,71 @@
             -private
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_send_batch">
+        send_batch()
+        <a href="classes/Meilisearch-Indexer.html#method_send_batch" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="includes/class-indexer.php"><a href="files/includes-class-indexer.html"><abbr title="includes/class-indexer.php">class-indexer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">187</span>
+
+            <a href="classes/Meilisearch-Indexer.html#source-view.187" class="phpdocumentor-element-found-in__source" data-line="187" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
+    </aside>
+
+        <p class="phpdocumentor-summary">Enviar lote de documentos para o Meilisearch.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">send_batch</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$documents</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$blog_id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$documents</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Array de documentos.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$blog_id</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>ID do blog.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Resultado com sucesso/erro e task_uid.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_should_index_post_status">
         should_index_post_status()
         <a href="classes/Meilisearch-Indexer.html#method_should_index_post_status" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1073,9 +1225,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-indexer.php"><a href="files/includes-class-indexer.html"><abbr title="includes/class-indexer.php">class-indexer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">441</span>
+    <span class="phpdocumentor-element-found-in__line">555</span>
 
-            <a href="classes/Meilisearch-Indexer.html#source-view.441" class="phpdocumentor-element-found-in__source" data-line="441" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
+            <a href="classes/Meilisearch-Indexer.html#source-view.555" class="phpdocumentor-element-found-in__source" data-line="555" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Verificar se um status de post deve ser indexado.</p>
@@ -1129,9 +1281,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-indexer.php"><a href="files/includes-class-indexer.html"><abbr title="includes/class-indexer.php">class-indexer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">429</span>
+    <span class="phpdocumentor-element-found-in__line">543</span>
 
-            <a href="classes/Meilisearch-Indexer.html#source-view.429" class="phpdocumentor-element-found-in__source" data-line="429" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
+            <a href="classes/Meilisearch-Indexer.html#source-view.543" class="phpdocumentor-element-found-in__source" data-line="543" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Verificar se um tipo de post deve ser indexado.</p>
@@ -1185,9 +1337,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/class-indexer.php"><a href="files/includes-class-indexer.html"><abbr title="includes/class-indexer.php">class-indexer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">453</span>
+    <span class="phpdocumentor-element-found-in__line">567</span>
 
-            <a href="classes/Meilisearch-Indexer.html#source-view.453" class="phpdocumentor-element-found-in__source" data-line="453" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
+            <a href="classes/Meilisearch-Indexer.html#source-view.567" class="phpdocumentor-element-found-in__source" data-line="567" data-modal="source-view" data-src="files/includes/class-indexer.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Atualizar configurações do índice (atributos filtráveis e ordenáveis).</p>
@@ -1351,6 +1503,7 @@
                 <ul class="phpdocumentor-list -clean">
                                             <li class=""><a href="classes/Meilisearch-Indexer.html#method___construct">__construct()</a></li>
                                             <li class=""><a href="classes/Meilisearch-Indexer.html#method_bulk_index_network">bulk_index_network()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Indexer.html#method_bulk_index_posts">bulk_index_posts()</a></li>
                                             <li class=""><a href="classes/Meilisearch-Indexer.html#method_create_site_index">create_site_index()</a></li>
                                             <li class=""><a href="classes/Meilisearch-Indexer.html#method_delete_post">delete_post()</a></li>
                                             <li class=""><a href="classes/Meilisearch-Indexer.html#method_delete_site_index">delete_site_index()</a></li>
@@ -1363,6 +1516,7 @@
                                             <li class=""><a href="classes/Meilisearch-Indexer.html#method_get_indexable_post_types">get_indexable_post_types()</a></li>
                                             <li class=""><a href="classes/Meilisearch-Indexer.html#method_get_post_terms">get_post_terms()</a></li>
                                             <li class=""><a href="classes/Meilisearch-Indexer.html#method_prepare_document">prepare_document()</a></li>
+                                            <li class=""><a href="classes/Meilisearch-Indexer.html#method_send_batch">send_batch()</a></li>
                                             <li class=""><a href="classes/Meilisearch-Indexer.html#method_should_index_post_status">should_index_post_status()</a></li>
                                             <li class=""><a href="classes/Meilisearch-Indexer.html#method_should_index_post_type">should_index_post_type()</a></li>
                                             <li class=""><a href="classes/Meilisearch-Indexer.html#method_update_index_settings">update_index_settings()</a></li>

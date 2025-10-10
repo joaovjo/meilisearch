@@ -63,7 +63,7 @@ class Meilisearch_Search_Settings
 	public function enqueue_admin_scripts(string $hook_suffix): void
 	{
 		// Apenas carregar na página de configurações de pesquisa
-		if ($hook_suffix !== 'meilisearch_page_meilisearch-search-settings') {
+		if ('meilisearch_page_meilisearch-search-settings' !== $hook_suffix) {
 			return;
 		}
 
@@ -103,15 +103,22 @@ class Meilisearch_Search_Settings
 			<h1><?php esc_html_e('Meilisearch Search Configuration', 'meilisearch'); ?></h1>
 
 			<?php
+
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Exibição somente leitura da mensagem de sucesso.
 			if (isset($_GET['updated'])): ?>
 				<div class="notice notice-success is-dismissible">
-					<p><?php esc_html_e('Search settings saved successfully. Remember to reindex your content for changes to take effect.', 'meilisearch'); ?></p>
+					<p><?php esc_html_e(
+						'Search settings saved successfully. Remember to reindex your content for changes to take effect.',
+						'meilisearch',
+					); ?></p>
 				</div>
 			<?php endif; ?>
 
 			<p class="description">
-				<?php esc_html_e('Configure which attributes can be used for filtering and sorting search results. These settings apply to all sites in the network.', 'meilisearch'); ?>
+				<?php esc_html_e(
+					'Configure which attributes can be used for filtering and sorting search results. These settings apply to all sites in the network.',
+					'meilisearch',
+				); ?>
 			</p>
 
 			<form method="post" action="<?php echo esc_url(network_admin_url('edit.php?action=meilisearch_search_settings')); ?>">
@@ -119,7 +126,10 @@ class Meilisearch_Search_Settings
 
 				<h2><?php esc_html_e('Sortable Attributes', 'meilisearch'); ?></h2>
 				<p class="description">
-					<?php esc_html_e('Select which attributes can be used to sort search results. For example, you can sort by publication date (descending) to show newest content first.', 'meilisearch'); ?>
+					<?php esc_html_e(
+						'Select which attributes can be used to sort search results. For example, you can sort by publication date (descending) to show newest content first.',
+						'meilisearch',
+					); ?>
 				</p>
 
 				<table class="widefat">
@@ -153,7 +163,10 @@ class Meilisearch_Search_Settings
 
 				<h2><?php esc_html_e('Filterable Attributes', 'meilisearch'); ?></h2>
 				<p class="description">
-					<?php esc_html_e('Select which attributes can be used to filter search results. For example, you can filter by post type, author, categories, or tags.', 'meilisearch'); ?>
+					<?php esc_html_e(
+						'Select which attributes can be used to filter search results. For example, you can filter by post type, author, categories, or tags.',
+						'meilisearch',
+					); ?>
 				</p>
 
 				<table class="widefat">
@@ -200,7 +213,10 @@ class Meilisearch_Search_Settings
 								<?php esc_html_e('Show relevance score badges in search results', 'meilisearch'); ?>
 							</label>
 							<p class="description">
-								<?php esc_html_e('Display colored badges showing the relevance percentage next to search result titles. You can customize the badge styles in your theme CSS.', 'meilisearch'); ?>
+								<?php esc_html_e(
+									'Display colored badges showing the relevance percentage next to search result titles. You can customize the badge styles in your theme CSS.',
+									'meilisearch',
+								); ?>
 							</p>
 						</td>
 					</tr>
@@ -217,7 +233,10 @@ class Meilisearch_Search_Settings
 								<?php esc_html_e('Show post URLs after search results', 'meilisearch'); ?>
 							</label>
 							<p class="description">
-								<?php esc_html_e('Display the full permalink URL after each search result content. You can customize the URL display styles in your theme CSS.', 'meilisearch'); ?>
+								<?php esc_html_e(
+									'Display the full permalink URL after each search result content. You can customize the URL display styles in your theme CSS.',
+									'meilisearch',
+								); ?>
 							</p>
 						</td>
 					</tr>
@@ -228,23 +247,35 @@ class Meilisearch_Search_Settings
 				<h2><?php esc_html_e('Ranking Rules', 'meilisearch'); ?></h2>
 				<p class="description">
 					<?php
+
 					printf(
 						/* translators: 1: link to Meilisearch ranking rules documentation, 2: link to custom ranking rules documentation */
-						esc_html__('Configure the order and priority of ranking rules that determine search results relevancy. Learn more about %1$s and %2$s.', 'meilisearch'),
-						'<a href="https://www.meilisearch.com/docs/learn/relevancy/ranking_rules" target="_blank">' . esc_html__('ranking rules', 'meilisearch') . '</a>',
-						'<a href="https://www.meilisearch.com/docs/learn/relevancy/custom_ranking_rules" target="_blank">' . esc_html__('custom ranking rules', 'meilisearch') . '</a>'
+						esc_html__(
+							'Configure the order and priority of ranking rules that determine search results relevancy. Learn more about %1$s and %2$s.',
+							'meilisearch',
+						),
+						'<a href="https://www.meilisearch.com/docs/learn/relevancy/ranking_rules" target="_blank">'
+						. esc_html__('ranking rules', 'meilisearch')
+						. '</a>',
+						'<a href="https://www.meilisearch.com/docs/learn/relevancy/custom_ranking_rules" target="_blank">'
+						. esc_html__('custom ranking rules', 'meilisearch')
+						. '</a>',
 					);
 					?>
 				</p>
 
 				<h3><?php esc_html_e('Built-in Ranking Rules', 'meilisearch'); ?></h3>
 				<p class="description">
-					<?php esc_html_e('Drag and drop to reorder the built-in ranking rules. Higher rules have more priority in determining search relevancy.', 'meilisearch'); ?>
+					<?php esc_html_e(
+						'Drag and drop to reorder the built-in ranking rules. Higher rules have more priority in determining search relevancy.',
+						'meilisearch',
+					); ?>
 				</p>
 
 				<div class="ranking-rules-container">
 					<ul id="ranking-rules-list" class="ranking-rules-list">
 						<?php
+
 						$built_in_rules = [
 							'words' => __('Words - Match query terms count', 'meilisearch'),
 							'typo' => __('Typo - Typo tolerance (fewer typos first)', 'meilisearch'),
@@ -256,8 +287,7 @@ class Meilisearch_Search_Settings
 
 						$current_rules = $settings['ranking_rules'];
 						foreach ($current_rules as $index => $rule):
-							if (isset($built_in_rules[$rule])):
-						?>
+							if (isset($built_in_rules[$rule])): ?>
 							<li class="ranking-rule-item" data-rule="<?php echo esc_attr($rule); ?>">
 								<span class="dashicons dashicons-menu drag-handle"></span>
 								<span class="rule-order"><?php echo esc_html($index + 1); ?>.</span>
@@ -265,8 +295,7 @@ class Meilisearch_Search_Settings
 								<span class="rule-description"> - <?php echo esc_html($built_in_rules[$rule]); ?></span>
 								<input type="hidden" name="meilisearch_search_settings[ranking_rules][]" value="<?php echo esc_attr($rule); ?>" />
 							</li>
-						<?php
-							endif;
+						<?php endif;
 						endforeach;
 						?>
 					</ul>
@@ -279,7 +308,10 @@ class Meilisearch_Search_Settings
 
 				<h3><?php esc_html_e('Custom Ranking Rules', 'meilisearch'); ?></h3>
 				<p class="description">
-					<?php esc_html_e('Add custom ranking rules to promote certain documents. Format: attribute_name:asc or attribute_name:desc', 'meilisearch'); ?>
+					<?php esc_html_e(
+						'Add custom ranking rules to promote certain documents. Format: attribute_name:asc or attribute_name:desc',
+						'meilisearch',
+					); ?>
 				</p>
 
 				<div class="custom-ranking-rules">
@@ -301,21 +333,22 @@ class Meilisearch_Search_Settings
 
 					<ul id="custom-rules-list" class="custom-rules-list">
 						<?php
+
 						$custom_rules = $settings['custom_ranking_rules'];
 						if (!empty($custom_rules)):
 							foreach ($custom_rules as $custom_rule):
 								$parts = explode(':', $custom_rule);
-								if (count($parts) === 2):
-						?>
+								if (count($parts) === 2): ?>
 							<li class="custom-rule-item" data-rule="<?php echo esc_attr($custom_rule); ?>">
 								<span class="rule-badge"><?php echo esc_html($custom_rule); ?></span>
 								<button type="button" class="button-link remove-custom-rule" data-rule="<?php echo esc_attr($custom_rule); ?>">
 									<span class="dashicons dashicons-no-alt"></span>
 								</button>
-								<input type="hidden" name="meilisearch_search_settings[custom_ranking_rules][]" value="<?php echo esc_attr($custom_rule); ?>" />
+								<input type="hidden" name="meilisearch_search_settings[custom_ranking_rules][]" value="<?php echo
+									esc_attr($custom_rule)
+								; ?>" />
 							</li>
-						<?php
-								endif;
+						<?php endif;
 							endforeach;
 						endif;
 						?>
@@ -362,7 +395,10 @@ class Meilisearch_Search_Settings
 								</option>
 							</select>
 							<p class="description">
-								<?php esc_html_e('For date fields like "date" or "modified", descending order shows newest content first.', 'meilisearch'); ?>
+								<?php esc_html_e(
+									'For date fields like "date" or "modified", descending order shows newest content first.',
+									'meilisearch',
+								); ?>
 							</p>
 						</td>
 					</tr>
@@ -371,7 +407,10 @@ class Meilisearch_Search_Settings
 				<div class="notice notice-info inline">
 					<p>
 						<strong><?php esc_html_e('Important:', 'meilisearch'); ?></strong>
-						<?php esc_html_e('After changing these settings, you need to reindex your content for the changes to take effect. Use WP-CLI:', 'meilisearch'); ?>
+						<?php esc_html_e(
+							'After changing these settings, you need to reindex your content for the changes to take effect. Use WP-CLI:',
+							'meilisearch',
+						); ?>
 						<code>wp meilisearch index --network</code>
 					</p>
 				</div>
@@ -689,13 +728,16 @@ class Meilisearch_Search_Settings
 			: ['words', 'typo', 'proximity', 'attribute', 'sort', 'exactness'];
 
 		$custom_ranking_rules = isset($settings['custom_ranking_rules']) && is_array($settings['custom_ranking_rules'])
-			? array_filter(array_map(function($rule) {
-				// Validar formato: attribute:asc ou attribute:desc
-				if (preg_match('/^[a-z_]+:(asc|desc)$/i', $rule)) {
-					return sanitize_text_field($rule);
-				}
-				return null;
-			}, $settings['custom_ranking_rules']))
+			? array_filter(array_map(
+				function ($rule) {
+					// Validar formato: attribute:asc ou attribute:desc
+					if (preg_match('/^[a-z_]+:(asc|desc)$/i', $rule)) {
+						return sanitize_text_field($rule);
+					}
+					return null;
+				},
+				$settings['custom_ranking_rules'],
+			))
 			: [];
 
 		$sanitized = [
@@ -705,8 +747,8 @@ class Meilisearch_Search_Settings
 			'default_sort_direction' => in_array($settings['default_sort_direction'] ?? 'desc', ['asc', 'desc'], true)
 				? $settings['default_sort_direction']
 				: 'desc',
-			'show_relevance_badges' => isset($settings['show_relevance_badges']) && $settings['show_relevance_badges'] === '1',
-			'show_post_urls' => isset($settings['show_post_urls']) && $settings['show_post_urls'] === '1',
+			'show_relevance_badges' => isset($settings['show_relevance_badges']) && '1' === $settings['show_relevance_badges'],
+			'show_post_urls' => isset($settings['show_post_urls']) && '1' === $settings['show_post_urls'],
 			'ranking_rules' => $ranking_rules,
 			'custom_ranking_rules' => array_values($custom_ranking_rules),
 		];

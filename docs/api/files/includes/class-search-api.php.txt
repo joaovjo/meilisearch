@@ -79,12 +79,13 @@ class Meilisearch_Search_API
 				],
 			],
 		]);
-	}	/**
+	} /**
 	 * Gerenciar requisição REST API de busca.
 	 *
 	 * @param WP_REST_Request $request Objeto de requisição.
 	 * @return WP_REST_Response Objeto de resposta.
 	 */
+
 	public function handle_search_request(WP_REST_Request $request): WP_REST_Response
 	{
 		$query = $request->get_param('q');
@@ -111,18 +112,18 @@ class Meilisearch_Search_API
 		}
 
 		$searcher = new Meilisearch_Searcher($this->client);
-		
+
 		// Preparar argumentos de busca
 		$search_args = [
 			'limit' => $limit,
 			'offset' => $offset,
 		];
-		
+
 		// Adicionar ordenação se fornecida
 		if (!empty($sort)) {
 			$search_args['sort'] = $sort;
 		}
-		
+
 		$results = $searcher->search_network($query, $search_args);
 
 		// Formatar resultados com detalhes completos.

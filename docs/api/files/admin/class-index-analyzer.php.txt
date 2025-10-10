@@ -176,7 +176,7 @@ class Meilisearch_Index_Analyzer
 			if (!empty($data['indexes'])) {
 				$network_url = $this->get_network_url_for_pattern($data['blog_ids'], $data['indexes']);
 				$data['network_url'] = $network_url;
-				
+
 				// Obter nomes de sites a partir de dados do Meilisearch
 				$site_names = $this->get_site_names_from_indexes($data['indexes']);
 				$data['site_names'] = $site_names;
@@ -208,27 +208,25 @@ class Meilisearch_Index_Analyzer
 		foreach ($index_names as $index_name) {
 			try {
 				// Obter um documento de amostra do índice para extrair o permalink
-				$results = $client->get_client()
-					->index($index_name)
-					->search('', ['limit' => 1]);
-				
+				$results = $client->get_client()->index($index_name)->search('', ['limit' => 1]);
+
 				// Obter hits do objeto SearchResult
 				$hits = $results->getHits();
-				
+
 				if (!empty($hits)) {
 					$document = $hits[0];
-					
+
 					// Extrair URL do campo permalink
 					if (isset($document['permalink'])) {
 						$parsed = parse_url($document['permalink']);
 						if ($parsed && isset($parsed['scheme'], $parsed['host'])) {
 							$url = $parsed['scheme'] . '://' . $parsed['host'];
-							
+
 							// Incluir porta se presente
 							if (isset($parsed['port'])) {
 								$url .= ':' . $parsed['port'];
 							}
-							
+
 							return $url;
 						}
 					}
@@ -261,33 +259,31 @@ class Meilisearch_Index_Analyzer
 		foreach ($index_names as $index_name) {
 			try {
 				// Obter um documento de exemplo do índice
-				$results = $client->get_client()
-					->index($index_name)
-					->search('', ['limit' => 1]);
-				
+				$results = $client->get_client()->index($index_name)->search('', ['limit' => 1]);
+
 				$hits = $results->getHits();
-				
+
 				if (!empty($hits)) {
 					$document = $hits[0];
-					
+
 					// Extrair blog_id e nome do site do documento
 					if (isset($document['blog_id'])) {
 						$blog_id = (int) $document['blog_id'];
-						
+
 						// Tentar obter nome do site a partir do permalink
 						if (isset($document['permalink'])) {
 							$parsed = parse_url($document['permalink']);
 							if ($parsed && isset($parsed['host'])) {
 								$site_name = $parsed['host'];
-								
+
 								// Adicionar caminho se for um site de subdiretório
-								if (isset($parsed['path']) && $parsed['path'] !== '/') {
+								if (isset($parsed['path']) && '/' !== $parsed['path']) {
 									$path_parts = explode('/', trim($parsed['path'], '/'));
 									if (!empty($path_parts[0])) {
 										$site_name .= '/' . $path_parts[0];
 									}
 								}
-								
+
 								$site_names[$blog_id] = $site_name;
 							}
 						}
@@ -324,19 +320,20 @@ class Meilisearch_Index_Analyzer
 				</div>
 			</div>
 			<?php
+
 			return;
 		}
 
 		$patterns = $this->analyze_index_patterns();
-		
+
 		// Obter URL da rede atual para comparação
 		$current_network_url = untrailingslashit(network_site_url());
-		
+
 		// Ordenar padrões para colocar a rede atual primeiro
-		uasort($patterns, function($a, $b) use ($current_network_url) {
-			$a_is_current = ($a['network_url'] && $a['network_url'] === $current_network_url);
-			$b_is_current = ($b['network_url'] && $b['network_url'] === $current_network_url);
-			
+		uasort($patterns, function ($a, $b) use ($current_network_url) {
+			$a_is_current = $a['network_url'] && $a['network_url'] === $current_network_url;
+			$b_is_current = $b['network_url'] && $b['network_url'] === $current_network_url;
+
 			// Current network comes first
 			if ($a_is_current && !$b_is_current) {
 				return -1;
@@ -344,7 +341,7 @@ class Meilisearch_Index_Analyzer
 			if (!$a_is_current && $b_is_current) {
 				return 1;
 			}
-			
+
 			// Otherwise sort alphabetically by pattern
 			return strcmp($a['pattern'], $b['pattern']);
 		});
@@ -352,7 +349,10 @@ class Meilisearch_Index_Analyzer
 		?>
 		<div class="wrap">
 			<h1><?php esc_html_e('Meilisearch Index Analyzer', 'meilisearch'); ?></h1>
-			<p><?php esc_html_e('Analysis of all indexes in Meilisearch server to identify WordPress networks and their naming patterns (not cached)', 'meilisearch'); ?></p>
+			<p><?php esc_html_e(
+				'Analysis of all indexes in Meilisearch server to identify WordPress networks and their naming patterns (not cached)',
+				'meilisearch',
+			); ?></p>
 
 			<?php if (empty($patterns)): ?>
 				<div class="notice notice-warning">
@@ -372,8 +372,9 @@ class Meilisearch_Index_Analyzer
 					</thead>
 					<tbody>
 						<?php foreach ($patterns as $pattern_data): ?>
-							<?php 
-							$is_current_network = ($pattern_data['network_url'] && $pattern_data['network_url'] === $current_network_url);
+							<?php
+
+							$is_current_network = $pattern_data['network_url'] && $pattern_data['network_url'] === $current_network_url;
 							$row_class = $is_current_network ? 'current-network-row' : '';
 							?>
 							<tr class="<?php echo esc_attr($row_class); ?>">
@@ -410,8 +411,9 @@ class Meilisearch_Index_Analyzer
 				<h2 style="margin-top: 30px;"><?php esc_html_e('Index Details by Pattern', 'meilisearch'); ?></h2>
 				
 				<?php foreach ($patterns as $pattern_data): ?>
-					<?php 
-					$is_current_network = ($pattern_data['network_url'] && $pattern_data['network_url'] === $current_network_url);
+					<?php
+
+					$is_current_network = $pattern_data['network_url'] && $pattern_data['network_url'] === $current_network_url;
 					$postbox_class = $is_current_network ? 'postbox current-network-postbox' : 'postbox';
 					?>
 					<div class="<?php echo esc_attr($postbox_class); ?>" style="margin-bottom: 20px;">
@@ -420,12 +422,16 @@ class Meilisearch_Index_Analyzer
 								<code><?php echo esc_html($pattern_data['pattern']); ?></code>
 								<span style="color: #666; font-weight: normal; font-size: 12px; margin-left: 10px;">
 									(<?php
+
 									/* translators: %d: number of indexes */
 									printf(esc_html__('%d indexes', 'meilisearch'), $pattern_data['count']);
 									?>)
 								</span>
 								<?php if ($is_current_network): ?>
-									<span class="current-network-badge" style="margin-left: 10px;"><?php esc_html_e('Current Network', 'meilisearch'); ?></span>
+									<span class="current-network-badge" style="margin-left: 10px;"><?php esc_html_e(
+										'Current Network',
+										'meilisearch',
+									); ?></span>
 								<?php endif; ?>
 							</h3>
 						</div>
@@ -462,6 +468,7 @@ class Meilisearch_Index_Analyzer
 										<details>
 											<summary style="cursor: pointer;">
 												<?php
+
 												/* translators: %d: number of sites */
 												printf(esc_html__('View %d sites', 'meilisearch'), count($pattern_data['site_names']));
 												?>
@@ -517,6 +524,7 @@ class Meilisearch_Index_Analyzer
 								<td><strong><?php esc_html_e('Current WordPress Network', 'meilisearch'); ?></strong></td>
 								<td>
 									<?php
+
 									$current_network = network_site_url();
 									echo esc_html($current_network);
 									?>
@@ -534,6 +542,7 @@ class Meilisearch_Index_Analyzer
 						</a>
 						<span style="margin-left: 10px; color: #666;">
 							<?php
+
 							printf(
 								/* translators: %s: current time */
 								esc_html__('Last analyzed: %s', 'meilisearch'),
