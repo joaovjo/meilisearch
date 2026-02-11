@@ -14,3 +14,5 @@ composer.lock
 
 analyzer-baseline.toml
 linter-baseline.toml
+
+.vscode/
