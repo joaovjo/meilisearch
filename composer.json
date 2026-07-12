@@ -1,7 +1,7 @@
 {
   "require": {
     "php": ">=8.1",
-    "meilisearch/meilisearch-php": "^1.16",
+    "meilisearch/meilisearch-php": "^1.16.1",
     "guzzlehttp/guzzle": "^7.10",
     "http-interop/http-factory-guzzle": "^1.0",
     "react/event-loop": "^1.5",
@@ -10,10 +10,12 @@
   },
   "require-dev": {
     "wp-cli/i18n-command": "^2",
-    "10up/wp_mock": "^1.1",
+    "pestphp/pest": "^4.0",
     "carthage-software/mago": "^1.0.0-beta.25"
   },
   "scripts": {
+    "test": "vendor/bin/pest",
+    "test:coverage": "vendor/bin/pest --coverage",
     "makepot": "wp --allow-root i18n make-pot .",
     "docs": "phpdoc",
     "docs:phar": "php tools/phpDocumentor.phar",
@@ -41,7 +43,8 @@
   "config": {
     "allow-plugins": {
       "php-http/discovery": true,
-      "carthage-software/mago": true
+      "carthage-software/mago": true,
+      "pestphp/pest-plugin": true
     }
   }
 }

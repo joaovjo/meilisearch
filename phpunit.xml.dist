@@ -1,17 +1,20 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <phpunit
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
 	bootstrap="tests/bootstrap.php"
-	backupGlobals="false"
 	colors="true"
-	convertErrorsToExceptions="true"
-	convertWarningsToExceptions="true"
-	convertNoticesToExceptions="true"
-	convertDeprecationsToExceptions="true"
 	>
 	<testsuites>
-		<testsuite name="testing">
-			<directory prefix="test-" suffix=".php">./tests/</directory>
-			<exclude>./tests/test-sample.php</exclude>
+		<testsuite name="Unit">
+			<directory>tests</directory>
 		</testsuite>
 	</testsuites>
+	<source>
+		<include>
+			<directory>includes</directory>
+			<directory>admin</directory>
+			<directory>public</directory>
+		</include>
+	</source>
 </phpunit>
