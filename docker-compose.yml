@@ -1,0 +1,91 @@
+services:
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${WORDPRESS_DB_NAME:-wordpress}
+      MYSQL_USER: ${WORDPRESS_DB_USER:-wordpress}
+      MYSQL_PASSWORD: ${WORDPRESS_DB_PASSWORD:-wordpress}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p$$MYSQL_ROOT_PASSWORD || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks:
+      - meilisearch_network
+
+  meilisearch:
+    image: getmeili/meilisearch:latest
+    restart: unless-stopped
+    ports:
+      - "${MEILI_PORT:-7700}:7700"
+    environment:
+      MEILI_MASTER_KEY: ${MEILI_MASTER_KEY:-dev-master-key-change-me}
+      MEILI_ENV: ${MEILI_ENV:-development}
+      MEILI_NO_ANALYTICS: ${MEILI_NO_ANALYTICS:-true}
+    volumes:
+      - meili_data:/meili_data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7700/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - meilisearch_network
+
+  wordpress:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      meilisearch:
+        condition: service_healthy
+    ports:
+      - "${WORDPRESS_PORT:-8080}:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME:-wordpress}
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER:-wordpress}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD:-wordpress}
+      WORDPRESS_TABLE_PREFIX: ${WORDPRESS_TABLE_PREFIX:-wp_}
+      WORDPRESS_DEBUG: ${WORDPRESS_DEBUG:-1}
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_ALLOW_MULTISITE', true);
+        define('MULTISITE', true);
+        define('SUBDOMAIN_INSTALL', false);
+        define('DOMAIN_CURRENT_SITE', '${WORDPRESS_DOMAIN:-localhost}');
+        define('PATH_CURRENT_SITE', '/');
+        define('SITE_ID_CURRENT_SITE', 1);
+        define('BLOG_ID_CURRENT_SITE', 1);
+        define('WP_HOME', '${WORDPRESS_URL:-http://localhost:8080}');
+        define('WP_SITEURL', '${WORDPRESS_URL:-http://localhost:8080}');
+        if (getenv('MEILISEARCH_HOST')) {
+          define('MEILISEARCH_HOST', getenv('MEILISEARCH_HOST'));
+        }
+        if (getenv('MEILISEARCH_MASTER_KEY')) {
+          define('MEILISEARCH_MASTER_KEY', getenv('MEILISEARCH_MASTER_KEY'));
+        }
+      MEILISEARCH_HOST: ${MEILISEARCH_HOST:-http://meilisearch:7700}
+      MEILISEARCH_MASTER_KEY: ${MEILISEARCH_MASTER_KEY:-dev-master-key-change-me}
+    volumes:
+      - wordpress_data:/var/www/html
+      - .:/var/www/html/wp-content/plugins/meilisearch
+    networks:
+      - meilisearch_network
+
+volumes:
+  db_data:
+  meili_data:
+  wordpress_data:
+
+networks:
+  meilisearch_network:
+    driver: bridge

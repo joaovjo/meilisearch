@@ -1,3 +1,5 @@
+.env
+
 .DS_Store
 phpcs.xml
 phpunit.xml

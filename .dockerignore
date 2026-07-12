@@ -1,0 +1,17 @@
+.git
+.github
+.gitignore
+.distignore
+.env
+.env.*
+!.env.example
+node_modules
+vendor
+*.md
+docs
+tests
+.phpdoc
+composer.lock
+*.sql
+*.tar.gz
+*.zip
