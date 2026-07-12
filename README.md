@@ -193,10 +193,10 @@ vendor/bin/pest
 composer test:coverage
 
 # Check code standards
-vendor/bin/phpcs
+/home/ubuntu/.config/composer/vendor/bin/phpcs
 
 # Auto-fix code standards
-vendor/bin/phpcbf
+/home/ubuntu/.config/composer/vendor/bin/phpcbf
 
 # Lint / static analysis (mago)
 composer mago:lint
