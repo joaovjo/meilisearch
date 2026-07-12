@@ -181,26 +181,39 @@ The plugin indexes:
 ### Setup
 
 ```bash
-# Install dependencies
+# Install dependencies (Pest 4.x requires PHP 8.3+)
 composer install
 
-# Setup WordPress test environment
-bash bin/install-wp-tests.sh wordpress_tests root mysql localhost latest
+# Run tests (Pest)
+composer test
+# or
+vendor/bin/pest
 
-# Run tests
-vendor/bin/phpunit
+# Run tests with coverage
+composer test:coverage
 
-# Check code standards
-vendor/bin/phpcs
+# Check code standards (phpcs is installed globally via Composer:
+# composer global require squizlabs/php_codesniffer wp-coding-standards/wpcs phpcompatibility/phpcompatibility-wp
+# ensure the Composer global bin dir is on your PATH, e.g. $(composer global config bin-dir --absolute))
+phpcs
 
 # Auto-fix code standards
-vendor/bin/phpcbf
+phpcbf
+
+# Lint / static analysis (mago)
+composer mago:lint
+composer mago:analyze
 
 # Generate API documentation
 bash bin/generate-docs.sh
 # Or with composer
 composer docs
 ```
+
+> **Testing:** unit tests use [Pest 4.x](https://pestphp.com/) and run in isolation
+> with lightweight stubs for the WordPress functions they touch — no WordPress
+> install or database is required. Because Pest 4 requires PHP 8.3+, the test suite
+> runs on PHP 8.3 even though the plugin itself supports PHP 8.1+.
 
 ### File Structure
 

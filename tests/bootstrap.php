@@ -1,40 +1,92 @@
 <?php
 
+declare(strict_types=1);
+
 /**
- * Arquivo bootstrap do PHPUnit.
+ * Bootstrap dos testes unitários (Pest).
+ *
+ * Os testes exercitam as classes do plugin de forma isolada, usando stubs
+ * leves das funções do WordPress consumidas pelo código sob teste. Não é
+ * necessário instalar o WordPress nem um banco de dados.
  *
  * @package Meilisearch
  */
 
-$_tests_dir = getenv('WP_TESTS_DIR');
+require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-if (!$_tests_dir) {
-	$_tests_dir = rtrim(sys_get_temp_dir(), '/\\') . '/wordpress-tests-lib';
+// Objeto $wpdb mínimo para simular o prefixo de tabela por site da rede.
+if (!isset($GLOBALS['wpdb'])) {
+	$GLOBALS['wpdb'] = new class {
+		/**
+		 * Prefixo base da rede.
+		 *
+		 * @var string
+		 */
+		public string $base_prefix = 'wp_';
+
+		/**
+		 * Prefixo do site atual.
+		 *
+		 * @var string
+		 */
+		public string $prefix = 'wp_';
+	};
 }
 
-// Encaminhar configuração personalizada de Polyfills do PHPUnit para o arquivo bootstrap do PHPUnit.
-$_phpunit_polyfills_path = getenv('WP_TESTS_PHPUNIT_POLYFILLS_PATH');
-if (false !== $_phpunit_polyfills_path) {
-	define('WP_TESTS_PHPUNIT_POLYFILLS_PATH', $_phpunit_polyfills_path);
+if (!function_exists('get_site_option')) {
+	/**
+	 * Stub de get_site_option() baseado em valores definidos pelo teste.
+	 *
+	 * @param string $option  Nome da opção de rede.
+	 * @param mixed  $default Valor padrão.
+	 * @return mixed
+	 */
+	function get_site_option(string $option, mixed $default = false): mixed
+	{
+		return $GLOBALS['meilisearch_test_site_options'][$option] ?? $default;
+	}
 }
 
-if (!file_exists("{$_tests_dir}/includes/functions.php")) {
-	echo "Could not find {$_tests_dir}/includes/functions.php, have you run bin/install-wp-tests.sh ?" . PHP_EOL; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-	exit(1);
+if (!function_exists('switch_to_blog')) {
+	/**
+	 * Stub de switch_to_blog() que replica o prefixo de tabela do WordPress.
+	 *
+	 * @param int $blog_id ID do site.
+	 * @return bool
+	 */
+	function switch_to_blog(int $blog_id): bool
+	{
+		$wpdb = $GLOBALS['wpdb'];
+		$wpdb->prefix = $blog_id > 1 ? $wpdb->base_prefix . $blog_id . '_' : $wpdb->base_prefix;
+		return true;
+	}
 }
 
-// Dar acesso à função tests_add_filter().
-require_once "{$_tests_dir}/includes/functions.php";
-
-/**
- * Carregar manualmente o plugin sendo testado.
- */
-function _manually_load_plugin()
-{
-	require dirname(dirname(__FILE__)) . '/meilisearch.php';
+if (!function_exists('restore_current_blog')) {
+	/**
+	 * Stub de restore_current_blog().
+	 *
+	 * @return bool
+	 */
+	function restore_current_blog(): bool
+	{
+		$GLOBALS['wpdb']->prefix = $GLOBALS['wpdb']->base_prefix;
+		return true;
+	}
 }
 
-tests_add_filter('muplugins_loaded', '_manually_load_plugin');
+if (!function_exists('get_sites')) {
+	/**
+	 * Stub de get_sites() baseado nos sites definidos pelo teste.
+	 *
+	 * @param array $args Argumentos (ignorados).
+	 * @return array
+	 */
+	function get_sites(array $args = []): array
+	{
+		return $GLOBALS['meilisearch_test_sites'] ?? [];
+	}
+}
 
-// Iniciar o ambiente de testes do WP.
-require "{$_tests_dir}/includes/bootstrap.php";
+// Carregar apenas a classe sob teste (sem o plugin completo, que exige ABSPATH).
+require_once dirname(__DIR__) . '/includes/class-client.php';

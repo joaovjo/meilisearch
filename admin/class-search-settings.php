@@ -688,7 +688,7 @@ class Meilisearch_Search_Settings
 		$settings = get_site_option($this->option_name, []);
 		$defaults = [
 			'sortable_attributes' => ['date', 'modified', 'title'],
-			'filterable_attributes' => ['post_type', 'blog_id', 'author_id', 'categories', 'tags'],
+			'filterable_attributes' => ['post_type', 'post_status', 'blog_id', 'author_id', 'categories', 'tags'],
 			'default_sort_attribute' => 'date',
 			'default_sort_direction' => 'desc',
 			'show_relevance_badges' => false,
@@ -785,7 +785,7 @@ class Meilisearch_Search_Settings
 		$settings = get_site_option('meilisearch_search_settings', []);
 		return isset($settings['filterable_attributes']) && is_array($settings['filterable_attributes'])
 			? $settings['filterable_attributes']
-			: ['post_type', 'blog_id', 'author_id', 'categories', 'tags'];
+			: ['post_type', 'post_status', 'blog_id', 'author_id', 'categories', 'tags'];
 	}
 
 	/**
