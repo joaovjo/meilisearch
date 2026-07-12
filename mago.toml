@@ -7,7 +7,6 @@
 # ==============================================================================
 php-version = "8.1"
 threads = 4
-use-pager = false
 
 # ==============================================================================
 # Source Configuration
@@ -136,27 +135,6 @@ excludes = [
     "tools/**",
     "tests/**"
 ]
-
-# Issue categories (all enabled by default)
-mixed-issues = true
-falsable-issues = true
-nullable-issues = true
-redundancy-issues = true
-reference-issues = true
-unreachable-issues = true
-deprecation-issues = true
-impossibility-issues = true
-ambiguity-issues = true
-existence-issues = true
-template-issues = true
-argument-issues = true
-operand-issues = true
-property-issues = true
-generator-issues = true
-array-issues = true
-return-issues = true
-method-issues = true
-iterator-issues = true
 
 # Feature flags
 find-unused-expressions = false
