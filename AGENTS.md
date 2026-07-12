@@ -39,21 +39,19 @@ quickest end-to-end check.
 
 ### Tests and lint
 
-- **PHPUnit** requires the WP test suite and env vars. The suite lives at `/tmp/wordpress-tests-lib`
-  (recreate if `/tmp` was cleared: `bash bin/install-wp-tests.sh wordpress_tests root mysql 127.0.0.1 latest true`
-  — the script has CRLF line endings, so run a normalized copy: `tr -d '\r' < bin/install-wp-tests.sh > /tmp/iwt.sh && bash /tmp/iwt.sh ...`).
-  Run as **multisite** (this is a multisite plugin) with polyfills path set:
-  `WP_TESTS_DIR=/tmp/wordpress-tests-lib WP_TESTS_PHPUNIT_POLYFILLS_PATH=/home/ubuntu/.config/composer/vendor/yoast/phpunit-polyfills WP_MULTISITE=1 vendor/bin/phpunit`.
-- **Lint**: the CI-canonical linter is `phpcs` (WordPress Coding Standards), installed globally:
+- **Tests use [Pest 4.x](https://pestphp.com/)** — pure unit tests with lightweight WP function
+  stubs (see `tests/bootstrap.php`); no WordPress install, DB, or WP test suite is needed.
+  Run with `composer test` or `vendor/bin/pest`. Pest 4 requires **PHP 8.3+** even though the
+  plugin supports PHP 8.1+, and it pulls PHPUnit 12; `10up/wp_mock` was removed because it
+  conflicts with PHPUnit 12. (The old `bin/install-wp-tests.sh` WP integration flow is no longer used.)
+- **Lint**: `phpcs` (WordPress Coding Standards) is the CI-canonical linter, installed globally —
   run `/home/ubuntu/.config/composer/vendor/bin/phpcs` from the repo root (uses `.phpcs.xml.dist`).
+  `mago` (`composer mago:lint` / `mago:analyze` / `mago:fmt:check`) also works. `mago` uses baseline
+  files (`linter-baseline.toml`, `analyzer-baseline.toml`) that are **gitignored**; if they are missing,
+  regenerate them with `composer mago:lint:baseline` and `composer mago:analyze:baseline` so the
+  pre-existing findings stay filtered.
 
-### Known pre-existing issues (not environment problems)
+### Meilisearch versions
 
-- `tests/test-client.php::test_get_index_name` asserts `wp_1_posts` but the WP test suite's table
-  prefix is `wptests_`, so it yields `wptests_posts` and this one assertion fails. The other tests pass.
-- `mago` (composer dev tool, `composer mago:*` scripts) does **not** run: `mago.toml`'s `[analyzer]`
-  section uses field names the pinned mago 1.43.0 binary rejects (config drift). Use `phpcs` for linting.
-- The search filters on `post_status`, but the indexer does not register `post_status` as a Meilisearch
-  filterable attribute, so `wp meilisearch search` / frontend search return no hits after a fresh reindex.
-  Workaround (data layer, no code change): add it after reindexing —
-  `curl -H "Authorization: Bearer masterKey123" -H "Content-Type: application/json" -X PUT http://127.0.0.1:7700/indexes/wp_posts/settings/filterable-attributes -d '["post_type","blog_id","author_id","categories","tags","post_status"]'`.
+Both the server (1.49.0) and the PHP SDK `meilisearch/meilisearch-php` (v1.16.1, pinned `^1.16.1`) are
+the latest **stable** releases. SDK v2 is beta-only and intentionally not adopted.
