@@ -192,11 +192,13 @@ vendor/bin/pest
 # Run tests with coverage
 composer test:coverage
 
-# Check code standards
-/home/ubuntu/.config/composer/vendor/bin/phpcs
+# Check code standards (phpcs is installed globally via Composer:
+# composer global require squizlabs/php_codesniffer wp-coding-standards/wpcs phpcompatibility/phpcompatibility-wp
+# ensure the Composer global bin dir is on your PATH, e.g. $(composer global config bin-dir --absolute))
+phpcs
 
 # Auto-fix code standards
-/home/ubuntu/.config/composer/vendor/bin/phpcbf
+phpcbf
 
 # Lint / static analysis (mago)
 composer mago:lint
