@@ -74,7 +74,7 @@ services:
           define('MEILISEARCH_MASTER_KEY', getenv('MEILISEARCH_MASTER_KEY'));
         }
       MEILISEARCH_HOST: ${MEILISEARCH_HOST:-http://meilisearch:7700}
-      MEILISEARCH_MASTER_KEY: ${MEILI_MASTER_KEY:-dev-master-key-change-me}
+      MEILISEARCH_MASTER_KEY: ${MEILISEARCH_MASTER_KEY:-dev-master-key-change-me}
     volumes:
       - wordpress_data:/var/www/html
       - .:/var/www/html/wp-content/plugins/meilisearch
